@@ -170,5 +170,7 @@ Add `gazing_info: Optional[dict] = None` to the forward methods of both the embe
 
 # Integrating AutoGaze into MLLMs
 
-TBD
+After adding AutoGaze to a ViT, it's conceptually trivial to use it in an MLLM--all you need is to send the ViT features of gazed patches into the LLM.
+
+As an example, we open-sourced NVILA-HD-Video, an MLLM with AutoGaze. See [instructions](https://github.com/NVlabs/VILA/tree/main/vila_hd/nvila_hd_video) in the VILA repo for using NVILA-HD-Video.
 

@@ -49,9 +49,9 @@ The collection of all open-sourced models, data, benchmark can be found in [Auto
 
 | Name | Type | Description | HuggingFace Link |
 |------------|-------------|---------------|---------------|
-| **AutoGaze** | Model | Official pre-trained AutoGaze model. | [bfshi/AutoGaze](https://huggingface.co/bfshi/AutoGaze) |
+| **AutoGaze** | Model | Official pre-trained AutoGaze model. | [nvidia/AutoGaze](https://huggingface.co/nvidia/AutoGaze) |
+| **NVILA-HD-Video** | Model | A video MLLM scaled to 1K frames, 4K resolution with AutoGaze | [nvidia/NVILA-8B-HD-Video](https://huggingface.co/nvidia/NVILA-8B-HD-Video) |
 | **VideoMAE_AutoGaze** | Model | VideoMAE used to train AutoGaze. | [bfshi/VideoMAE_AutoGaze](https://huggingface.co/bfshi/VideoMAE_AutoGaze) |
-| **NVILA-HD-Video** | Model | A video MLLM scaled to 1K frames, 4K resolution with AutoGaze | To be released |
 | **AutoGaze-Training-Data** | Data | Training data for AutoGaze | [bfshi/AutoGaze-Training-Data](https://huggingface.co/datasets/bfshi/AutoGaze-Training-Data) |
 | **HLVid** | Benchmark | A high-resolution, long-form video QA benchmark. | [bfshi/HLVid](https://huggingface.co/datasets/bfshi/HLVid) |
 
@@ -62,7 +62,7 @@ See [TRAIN.md](https://github.com/NVlabs/AutoGaze/blob/main/TRAIN.md) for how to
 
 ## 🧩 Integrating AutoGaze into ViTs and MLLMs
 
-See [INTEGRATION.md](https://github.com/NVlabs/AutoGaze/blob/main/INTEGRATION.md) for guidelines.
+We introduce [NVILA-HD-Video](https://github.com/NVlabs/VILA/tree/main/vila_hd/nvila_hd_video), an efficient MLLM using AutoGaze. NVILA-HD-8B uses AutoGaze to remove redundant patches before its vision encoder (SigLIP) and LLM, enabling efficient understanding of up to 4K-resolution, 1K-frame videos. This provides an example of how to integrate AutoGaze into ViTs and MLLMs. See [INTEGRATION.md](https://github.com/NVlabs/AutoGaze/blob/main/INTEGRATION.md) for detailed guidelines on how to integrate AutoGaze into SigLIP and NVILA-HD-Video.
 
 ## 🌲 Code Structure
 
