@@ -16,7 +16,7 @@ AutoGaze (Autoregressive Gazing) is a model that automatically selects informati
 
 See the video below for a quick peek of what AutoGaze is capable of! Meanwhile you can also try out the [demo](https://huggingface.co/spaces/bfshi/AutoGaze) on your own video!
 
-https://github.com/user-attachments/assets/ee2917e6-2df9-40b1-afac-5f5aef607c7f
+https://github.com/user-attachments/assets/ffc4cc72-e519-4ebe-aaa0-8d3ac3094160
 
 ## 📦 Installation
 
