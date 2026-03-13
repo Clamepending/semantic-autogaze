@@ -3,7 +3,7 @@
 # AutoGaze
 
 [![Website](https://img.shields.io/badge/Website-76b900?style=for-the-badge&logo=safari&labelColor=555555)](https://autogaze.github.io/)
-[![Arxiv](https://img.shields.io/badge/Arxiv-b31b1b?style=for-the-badge&logo=arxiv&labelColor=555555)](https://arxiv.org/abs/ARXIV_ID)
+[![Arxiv](https://img.shields.io/badge/Arxiv-b31b1b?style=for-the-badge&logo=arxiv&labelColor=555555)](https://arxiv.org/abs/2603.12254)
 [![Models & Data & Benchmark](https://img.shields.io/badge/Models%20%26%20Data%20%26%20Benchmark-ffd21e?style=for-the-badge&logo=huggingface&labelColor=555555)](https://huggingface.co/collections/bfshi/autogaze)
 [![Demo](https://img.shields.io/badge/Demo-ff6e00?style=for-the-badge&logo=huggingface&labelColor=555555)](https://huggingface.co/spaces/bfshi/AutoGaze)
 
