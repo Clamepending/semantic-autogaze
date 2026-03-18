@@ -62,7 +62,7 @@ See [TRAIN.md](https://github.com/NVlabs/AutoGaze/blob/main/TRAIN.md) for how to
 
 ## 🧩 Integrating AutoGaze into ViTs and MLLMs
 
-We introduce [NVILA-HD-Video](https://github.com/NVlabs/VILA/tree/main/vila_hd/nvila_hd_video), an efficient MLLM using AutoGaze. NVILA-HD-8B uses AutoGaze to remove redundant patches before its vision encoder (SigLIP) and LLM, enabling efficient understanding of up to 4K-resolution, 1K-frame videos. This provides an example of how to integrate AutoGaze into ViTs and MLLMs. See [INTEGRATION.md](https://github.com/NVlabs/AutoGaze/blob/main/INTEGRATION.md) for detailed guidelines on how to integrate AutoGaze into SigLIP and NVILA-HD-Video.
+We introduce [NVILA-8B-HD-Video](https://huggingface.co/nvidia/NVILA-8B-HD-Video), an efficient MLLM using AutoGaze. NVILA-8B-HD-Video uses AutoGaze to remove redundant patches before its vision encoder (SigLIP) and LLM, enabling efficient understanding of up to 4K-resolution, 1K-frame videos. This provides an example of how to integrate AutoGaze into ViTs and MLLMs. See the [VILA repo](https://github.com/NVlabs/VILA/tree/main/vila_hd/nvila_hd_video) for instructions on how to use NVILA-8B-HD-Video. See [INTEGRATION.md](https://github.com/NVlabs/AutoGaze/blob/main/INTEGRATION.md) for detailed guidelines on how to integrate AutoGaze into SigLIP and NVILA-HD-Video.
 
 ## 🌲 Code Structure
 
