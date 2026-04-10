@@ -1,5 +1,8 @@
 exps/
 outputs/
+results/training_clips/
+*.pt
+*.safetensors
 .idea/
 __pycache__/
 **/**/__pycache__/
