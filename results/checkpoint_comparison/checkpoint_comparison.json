@@ -1,0 +1,190 @@
+{
+  "BigHead Distill (baseline)": {
+    "params_k": 3438.21,
+    "results": [
+      {
+        "budget_frac": 0.02,
+        "budget": 62,
+        "score_retention": 0.10027380287647247,
+        "recall": 0.8220736442996927,
+        "gt_overlap": 0.171760752688172
+      },
+      {
+        "budget_frac": 0.05,
+        "budget": 156,
+        "score_retention": 0.19731488823890686,
+        "recall": 0.8636564576657986,
+        "gt_overlap": 0.26318198005698007
+      },
+      {
+        "budget_frac": 0.1,
+        "budget": 313,
+        "score_retention": 0.31529513001441956,
+        "recall": 0.901566627433216,
+        "gt_overlap": 0.35428824991125313
+      },
+      {
+        "budget_frac": 0.2,
+        "budget": 627,
+        "score_retention": 0.47978708148002625,
+        "recall": 0.9381543939139111,
+        "gt_overlap": 0.4685623781676413
+      },
+      {
+        "budget_frac": 0.3,
+        "budget": 940,
+        "score_retention": 0.5988379716873169,
+        "recall": 0.9593760655041087,
+        "gt_overlap": 0.551193853427896
+      },
+      {
+        "budget_frac": 0.5,
+        "budget": 1568,
+        "score_retention": 0.770415186882019,
+        "recall": 0.9839599042903526,
+        "gt_overlap": 0.6841803075396826
+      }
+    ]
+  },
+  "Temporal BigHead": {
+    "params_k": 4923.906,
+    "results": [
+      {
+        "budget_frac": 0.02,
+        "budget": 62,
+        "score_retention": 0.0631670355796814,
+        "recall": 0.7874134485306803,
+        "gt_overlap": 0.09987007168458781
+      },
+      {
+        "budget_frac": 0.05,
+        "budget": 156,
+        "score_retention": 0.13583603501319885,
+        "recall": 0.8153760483399499,
+        "gt_overlap": 0.17599002849002848
+      },
+      {
+        "budget_frac": 0.1,
+        "budget": 313,
+        "score_retention": 0.23560692369937897,
+        "recall": 0.8491616450969248,
+        "gt_overlap": 0.26661696840610577
+      },
+      {
+        "budget_frac": 0.2,
+        "budget": 627,
+        "score_retention": 0.39481112360954285,
+        "recall": 0.8930886668880261,
+        "gt_overlap": 0.3919790005316321
+      },
+      {
+        "budget_frac": 0.3,
+        "budget": 940,
+        "score_retention": 0.522606611251831,
+        "recall": 0.925268910651849,
+        "gt_overlap": 0.4883501773049645
+      },
+      {
+        "budget_frac": 0.5,
+        "budget": 1568,
+        "score_retention": 0.7188461422920227,
+        "recall": 0.9662204935584842,
+        "gt_overlap": 0.6449633290816327
+      }
+    ]
+  },
+  "Ranking BigHead": {
+    "params_k": 3438.21,
+    "results": [
+      {
+        "budget_frac": 0.02,
+        "budget": 62,
+        "score_retention": 0.052039481699466705,
+        "recall": 0.7868081688706422,
+        "gt_overlap": 0.07554659498207884
+      },
+      {
+        "budget_frac": 0.05,
+        "budget": 156,
+        "score_retention": 0.11519425362348557,
+        "recall": 0.8099291959351733,
+        "gt_overlap": 0.13922364672364673
+      },
+      {
+        "budget_frac": 0.1,
+        "budget": 313,
+        "score_retention": 0.20549680292606354,
+        "recall": 0.8412959909747181,
+        "gt_overlap": 0.22096556620518282
+      },
+      {
+        "budget_frac": 0.2,
+        "budget": 627,
+        "score_retention": 0.3568515479564667,
+        "recall": 0.8852777848016951,
+        "gt_overlap": 0.3464234449760765
+      },
+      {
+        "budget_frac": 0.3,
+        "budget": 940,
+        "score_retention": 0.4829903244972229,
+        "recall": 0.9163561379780383,
+        "gt_overlap": 0.447440011820331
+      },
+      {
+        "budget_frac": 0.5,
+        "budget": 1568,
+        "score_retention": 0.6866111159324646,
+        "recall": 0.9606017672670975,
+        "gt_overlap": 0.6155380172902494
+      }
+    ]
+  },
+  "Temporal+Ranking": {
+    "params_k": 4923.906,
+    "results": [
+      {
+        "budget_frac": 0.02,
+        "budget": 62,
+        "score_retention": 0.0532485768198967,
+        "recall": 0.7870195251478822,
+        "gt_overlap": 0.07760304659498209
+      },
+      {
+        "budget_frac": 0.05,
+        "budget": 156,
+        "score_retention": 0.11625774949789047,
+        "recall": 0.8119222503848651,
+        "gt_overlap": 0.1414618945868946
+      },
+      {
+        "budget_frac": 0.1,
+        "budget": 313,
+        "score_retention": 0.206050306558609,
+        "recall": 0.8413381654387716,
+        "gt_overlap": 0.22159921902733407
+      },
+      {
+        "budget_frac": 0.2,
+        "budget": 627,
+        "score_retention": 0.3561789393424988,
+        "recall": 0.8854973484900098,
+        "gt_overlap": 0.34519936204146734
+      },
+      {
+        "budget_frac": 0.3,
+        "budget": 940,
+        "score_retention": 0.4816135764122009,
+        "recall": 0.9159758098554402,
+        "gt_overlap": 0.44489627659574466
+      },
+      {
+        "budget_frac": 0.5,
+        "budget": 1568,
+        "score_retention": 0.6835716366767883,
+        "recall": 0.9582506928356473,
+        "gt_overlap": 0.6126378259637189
+      }
+    ]
+  }
+}

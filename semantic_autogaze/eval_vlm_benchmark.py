@@ -62,6 +62,12 @@ def patch_processor_with_semantic_filter(
         if gazing_info is None or mode == "gaze_only":
             return gazing_info
 
+        # Clone all tensors to avoid inference_mode in-place errors
+        gazing_info = {
+            k: [t.clone() for t in v] if isinstance(v, list) else v.clone()
+            for k, v in gazing_info.items()
+        }
+
         # Get the AutoGaze-preprocessed video tiles for semantic scoring
         tiles_autogaze = videos_inputs.get("pixel_values_videos_tiles_autogaze")
         if tiles_autogaze is None:
@@ -80,14 +86,14 @@ def patch_processor_with_semantic_filter(
                 tile_video = video_tiles[tile_idx:tile_idx+1].to(device)  # (1, T, C, H, W)
 
                 # Get semantic scores from wrapper
-                hidden_states = wrapper.extract_hidden_states(tile_video)
-                scores = wrapper.semantic_filter.get_scores(hidden_states, query_emb)
+                with torch.inference_mode():
+                    hidden_states = wrapper.extract_hidden_states(tile_video)
+                    scores = wrapper.semantic_filter.get_scores(hidden_states, query_emb)
                 # scores: (1, T*196) for 14x14 patches, 196 per frame
 
                 # Get current gazing info for this tile
-                tile_gazing_pos = gazing_info["gazing_pos_tiles"][vid_idx][tile_idx]
                 tile_if_padded = gazing_info["if_padded_gazing_tiles"][vid_idx][tile_idx]
-                tile_num_gazing = gazing_info["num_gazing_each_frame_tiles"][vid_idx][tile_idx]
+                tile_gazing_pos = gazing_info["gazing_pos_tiles"][vid_idx][tile_idx]
 
                 # Apply semantic scoring to non-padded positions
                 non_padded_mask = ~tile_if_padded
@@ -109,12 +115,11 @@ def patch_processor_with_semantic_filter(
 
                 # Update if_padded: mark removed positions as padded
                 non_padded_indices = torch.where(non_padded_mask)[0]
+                new_if_padded = tile_if_padded.clone()
                 for j, idx in enumerate(non_padded_indices):
                     if not keep_mask[j]:
-                        tile_if_padded[idx] = True
-
-                # Update gazing info in place
-                gazing_info["if_padded_gazing_tiles"][vid_idx][tile_idx] = tile_if_padded
+                        new_if_padded[idx] = True
+                gazing_info["if_padded_gazing_tiles"][vid_idx][tile_idx] = new_if_padded
 
         return gazing_info
 

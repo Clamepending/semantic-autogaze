@@ -1,0 +1,46 @@
+{
+  "AutoGaze only": {
+    "accuracy": 0.4,
+    "correct": 8,
+    "total": 20,
+    "avg_latency_s": 3.9958967053331436,
+    "config": {
+      "name": "AutoGaze only",
+      "mode": "gaze_only",
+      "keep_ratio": 1.0
+    }
+  },
+  "Intersect (50%)": {
+    "accuracy": 0.45,
+    "correct": 9,
+    "total": 20,
+    "avg_latency_s": 4.387768598645925,
+    "config": {
+      "name": "Intersect (50%)",
+      "mode": "intersect",
+      "keep_ratio": 0.5
+    }
+  },
+  "Intersect (30%)": {
+    "accuracy": 0.45,
+    "correct": 9,
+    "total": 20,
+    "avg_latency_s": 4.2832362248562275,
+    "config": {
+      "name": "Intersect (30%)",
+      "mode": "intersect",
+      "keep_ratio": 0.3
+    }
+  },
+  "Semantic only (30%)": {
+    "accuracy": 0.45,
+    "correct": 9,
+    "total": 20,
+    "avg_latency_s": 4.364831681270152,
+    "config": {
+      "name": "Semantic only (30%)",
+      "mode": "semantic_only",
+      "keep_ratio": 0.3
+    }
+  }
+}
