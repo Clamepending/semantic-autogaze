@@ -16,29 +16,116 @@ from autogaze.models.autogaze.modeling_autogaze import AutoGazeModel
 
 
 class SimilarityHead(nn.Module):
-    """Predicts per-patch similarity to a query embedding."""
+    """Predicts per-patch similarity to a query embedding with spatial refinement."""
 
-    def __init__(self, hidden_dim: int, embedding_dim: int):
+    def __init__(self, hidden_dim: int, embedding_dim: int, grid_size: int = 14,
+                 num_frames: int = 16, use_spatial: bool = True):
         super().__init__()
+        self.grid_size = grid_size
+        self.num_frames = num_frames
+        self.use_spatial = use_spatial
+
         self.query_proj = nn.Linear(embedding_dim, hidden_dim)
-        self.head = nn.Sequential(
+        # Deeper per-patch MLP
+        self.patch_mlp = nn.Sequential(
             nn.Linear(hidden_dim * 2, hidden_dim),
             nn.GELU(),
-            nn.Linear(hidden_dim, 1),
+            nn.Linear(hidden_dim, hidden_dim // 2),
+            nn.GELU(),
+            nn.Linear(hidden_dim // 2, 1),
         )
+
+        if use_spatial:
+            # Spatial conv refinement over the grid
+            self.spatial_refine = nn.Sequential(
+                nn.Conv2d(1, 32, kernel_size=3, padding=1),
+                nn.GELU(),
+                nn.Conv2d(32, 32, kernel_size=3, padding=1),
+                nn.GELU(),
+                nn.Conv2d(32, 1, kernel_size=3, padding=1),
+            )
 
     def forward(self, patch_hidden_states: torch.Tensor, query_embedding: torch.Tensor):
         """
         Args:
-            patch_hidden_states: (B, N_patches, hidden_dim) from AutoGaze decoder
-            query_embedding: (B, embedding_dim) SigLIP embedding of query
+            patch_hidden_states: (B, T*N_patches, hidden_dim) from AutoGaze decoder
+            query_embedding: (B, embedding_dim) query embedding
         Returns:
-            similarity_scores: (B, N_patches) predicted similarity to query
+            similarity_scores: (B, T*N_patches) predicted similarity to query
         """
         query_proj = self.query_proj(query_embedding)  # (B, hidden_dim)
         query_expanded = query_proj.unsqueeze(1).expand_as(patch_hidden_states)  # (B, N, hidden_dim)
         combined = torch.cat([patch_hidden_states, query_expanded], dim=-1)  # (B, N, hidden_dim*2)
-        scores = self.head(combined).squeeze(-1)  # (B, N)
+        scores = self.patch_mlp(combined).squeeze(-1)  # (B, T*G*G)
+
+        if self.use_spatial:
+            B = scores.shape[0]
+            T = scores.shape[1] // (self.grid_size * self.grid_size)
+            G = self.grid_size
+            # Reshape to per-frame grids: (B*T, 1, G, G)
+            grids = scores.reshape(B * T, 1, G, G)
+            refined = grids + self.spatial_refine(grids)  # residual connection
+            scores = refined.reshape(B, T * G * G)
+
+        return scores
+
+
+class TeacherHead(nn.Module):
+    """Teacher head that uses both AutoGaze hidden states AND CLIP visual features.
+
+    During training, this head has access to rich CLIP visual patch features (768-dim)
+    concatenated with AutoGaze hidden states (192-dim), giving it 960-dim input per patch.
+    This allows it to learn a much better mapping than AutoGaze alone.
+
+    The student head (SimilarityHead) then distills from this teacher, using only
+    AutoGaze features at inference time.
+    """
+
+    def __init__(self, autogaze_dim: int, clip_visual_dim: int, text_dim: int,
+                 grid_size: int = 14, num_frames: int = 16):
+        super().__init__()
+        self.grid_size = grid_size
+        self.num_frames = num_frames
+        combined_dim = autogaze_dim + clip_visual_dim  # 192 + 768 = 960
+
+        self.query_proj = nn.Linear(text_dim, combined_dim)
+        self.patch_mlp = nn.Sequential(
+            nn.Linear(combined_dim * 2, combined_dim),
+            nn.GELU(),
+            nn.Linear(combined_dim, combined_dim // 2),
+            nn.GELU(),
+            nn.Linear(combined_dim // 2, 1),
+        )
+        self.spatial_refine = nn.Sequential(
+            nn.Conv2d(1, 32, kernel_size=3, padding=1),
+            nn.GELU(),
+            nn.Conv2d(32, 32, kernel_size=3, padding=1),
+            nn.GELU(),
+            nn.Conv2d(32, 1, kernel_size=3, padding=1),
+        )
+
+    def forward(self, autogaze_hidden: torch.Tensor, clip_visual: torch.Tensor,
+                query_embedding: torch.Tensor):
+        """
+        Args:
+            autogaze_hidden: (B, T*196, 192) AutoGaze decoder hidden states
+            clip_visual: (B, T*196, 768) CLIP ViT-B/16 patch tokens
+            query_embedding: (B, 512) CLIP text embedding
+        Returns:
+            scores: (B, T*196) logits
+        """
+        combined = torch.cat([autogaze_hidden, clip_visual], dim=-1)  # (B, N, 960)
+        query_proj = self.query_proj(query_embedding)  # (B, 960)
+        query_expanded = query_proj.unsqueeze(1).expand_as(combined)
+        x = torch.cat([combined, query_expanded], dim=-1)  # (B, N, 1920)
+        scores = self.patch_mlp(x).squeeze(-1)  # (B, T*196)
+
+        B = scores.shape[0]
+        T = scores.shape[1] // (self.grid_size * self.grid_size)
+        G = self.grid_size
+        grids = scores.reshape(B * T, 1, G, G)
+        refined = grids + self.spatial_refine(grids)
+        scores = refined.reshape(B, T * G * G)
         return scores
 
 
