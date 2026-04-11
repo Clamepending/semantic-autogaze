@@ -405,6 +405,68 @@ def plot_latency_breakdown(output_dir):
     print(f"  Saved: {output_dir}/latency_breakdown.png")
 
 
+def plot_nvila_pipeline(output_dir):
+    """Pipeline token reduction diagram: showing the cascade of filtering stages."""
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+    # Left: Token count at each pipeline stage
+    ax = axes[0]
+    stages = [
+        "All Patches\n(16 frames)",
+        "After AutoGaze\n(ratio=0.75)",
+        "After Semantic\n(keep=0.5)",
+    ]
+    tokens = [3136, 213, 106]
+    pcts = [100, 6.8, 3.4]
+    colors = ["#BDBDBD", "#42A5F5", "#4CAF50"]
+
+    bars = ax.bar(range(len(stages)), tokens, color=colors, edgecolor="white",
+                  linewidth=2, width=0.6)
+    for bar, tok, pct in zip(bars, tokens, pcts):
+        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 50,
+                f"{tok}\n({pct}%)", ha="center", va="bottom", fontsize=11,
+                fontweight="bold")
+
+    ax.set_xticks(range(len(stages)))
+    ax.set_xticklabels(stages, fontsize=10)
+    ax.set_ylabel("Number of Visual Tokens")
+    ax.set_title("NVILA Pipeline: Cascaded Token Reduction")
+    ax.set_ylim([0, 3800])
+    ax.grid(True, alpha=0.2, axis="y")
+
+    # Add arrows
+    for i in range(len(stages) - 1):
+        reduction = (1 - tokens[i + 1] / tokens[i]) * 100
+        ax.annotate(f"-{reduction:.0f}%", xy=(i + 0.5, (tokens[i] + tokens[i + 1]) / 2),
+                    fontsize=10, ha="center", color="#D32F2F", fontweight="bold")
+
+    # Right: Keep ratio sweep (intersect mode)
+    ax = axes[1]
+    keep_ratios = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    intersect_tokens = [21, 42, 63, 85, 106, 127, 146, 167, 188, 210]
+    semantic_only_tokens = [304, 624, 928, 1248, 1568, 1872, 2192, 2496, 2816, 3136]
+
+    ax.plot(keep_ratios, intersect_tokens, 'o-', color="#4CAF50", lw=2,
+            markersize=6, label="Intersect (Gaze + Semantic)")
+    ax.plot(keep_ratios, semantic_only_tokens, 's--', color="#FF9800", lw=2,
+            markersize=5, label="Semantic only")
+    ax.axhline(y=213, color="#42A5F5", linestyle=":", lw=1.5,
+               label="Gaze only (213)")
+
+    ax.fill_between(keep_ratios, intersect_tokens, alpha=0.1, color="#4CAF50")
+
+    ax.set_xlabel("Semantic Keep Ratio")
+    ax.set_ylabel("Tokens Kept")
+    ax.set_title("Token Budget vs Keep Ratio")
+    ax.legend(fontsize=9, loc="upper left")
+    ax.grid(True, alpha=0.3)
+
+    fig.tight_layout()
+    fig.savefig(os.path.join(output_dir, "nvila_pipeline.png"))
+    plt.close(fig)
+    print(f"  Saved: {output_dir}/nvila_pipeline.png")
+
+
 def main(args):
     os.makedirs(args.output_dir, exist_ok=True)
 
@@ -438,6 +500,9 @@ def main(args):
 
     print("7. Latency breakdown")
     plot_latency_breakdown(args.output_dir)
+
+    print("8. NVILA pipeline")
+    plot_nvila_pipeline(args.output_dir)
 
     print(f"\nAll figures saved to {args.output_dir}/")
 
