@@ -98,18 +98,23 @@ class SemanticFilter:
     def scores_to_gazing_info(self, scores: torch.Tensor,
                               keep_ratio: float = 0.2,
                               threshold: Optional[float] = None,
+                              adaptive: bool = False,
+                              min_per_frame: int = 1,
                               num_frames: Optional[int] = None) -> dict:
         """
         Convert semantic scores to gazing_info dict.
 
-        Either keep_ratio or threshold must control selection:
-          - keep_ratio: keep top k% of patches (deterministic budget)
+        Selection modes (priority order):
           - threshold: keep all patches with score > threshold (variable budget)
+          - adaptive: allocate per-frame budget proportional to frame relevance
+          - keep_ratio: keep top k% of patches per frame (fixed budget)
 
         Args:
             scores: (B, T*N) semantic relevance scores
             keep_ratio: fraction of patches to keep (0.0-1.0)
-            threshold: absolute score threshold (overrides keep_ratio if set)
+            threshold: absolute score threshold (overrides other modes)
+            adaptive: if True, allocate budget per-frame proportional to relevance
+            min_per_frame: minimum patches per frame when adaptive
             num_frames: number of frames (auto-detected if None)
 
         Returns:
@@ -131,6 +136,53 @@ class SemanticFilter:
                     if mask_per_frame[b, t].sum() == 0:
                         best_idx = scores_per_frame[b, t].argmax()
                         mask[b, t * N + best_idx] = 1
+        elif adaptive:
+            # Adaptive budget: distribute total token budget proportionally
+            # to each frame's max semantic score
+            total_budget = max(T, int(keep_ratio * T * N))
+            scores_per_frame = scores.reshape(B, T, N)
+            mask = torch.zeros_like(scores, dtype=torch.long)
+
+            for b in range(B):
+                # Frame importance = max score in frame
+                frame_importance = scores_per_frame[b].max(dim=-1).values  # (T,)
+                # Ensure minimum allocation
+                base_budget = min_per_frame * T
+                remaining = total_budget - base_budget
+                if remaining <= 0:
+                    # Budget too small, just use minimum per frame
+                    for t in range(T):
+                        _, topk_idx = scores_per_frame[b, t].topk(
+                            min(min_per_frame, N))
+                        global_idx = t * N + topk_idx
+                        mask[b, global_idx] = 1
+                else:
+                    # Distribute remaining budget proportionally
+                    importance_sum = frame_importance.sum()
+                    if importance_sum > 0:
+                        frame_budgets = (frame_importance / importance_sum
+                                         * remaining).long()
+                    else:
+                        frame_budgets = torch.zeros(T, dtype=torch.long,
+                                                    device=scores.device)
+                    frame_budgets += min_per_frame
+                    frame_budgets = frame_budgets.clamp(max=N)
+
+                    # Adjust to match total budget exactly
+                    while frame_budgets.sum() > total_budget:
+                        # Reduce from least important frame
+                        idx = frame_importance.argmin()
+                        if frame_budgets[idx] > min_per_frame:
+                            frame_budgets[idx] -= 1
+                        else:
+                            break
+
+                    for t in range(T):
+                        k_t = frame_budgets[t].item()
+                        _, topk_idx = scores_per_frame[b, t].topk(
+                            min(k_t, N))
+                        global_idx = t * N + topk_idx
+                        mask[b, global_idx] = 1
         else:
             # Fixed budget: keep top-k per frame
             k = max(1, int(keep_ratio * N))
