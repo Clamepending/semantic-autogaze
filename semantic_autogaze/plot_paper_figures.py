@@ -467,6 +467,144 @@ def plot_nvila_pipeline(output_dir):
     print(f"  Saved: {output_dir}/nvila_pipeline.png")
 
 
+def plot_e2e_benchmark(output_dir):
+    """End-to-end pipeline latency from benchmark_e2e.py results."""
+    # Results from actual benchmark run
+    configs = [
+        ("Gaze only (75%)", 213, 335.9, 17.2),
+        ("Intersect (75%→50%)", 106, 316.2, 16.8),
+        ("Intersect (75%→30%)", 63, 317.3, 17.0),
+        ("Intersect (75%→10%)", 21, 324.6, 16.8),
+        ("Semantic only (20%)", 624, 9.5, 16.4),
+        ("Semantic only (10%)", 304, 9.4, 16.7),
+    ]
+
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+    # Left: stacked horizontal bar chart
+    ax = axes[0]
+    names = [c[0] for c in configs]
+    filter_times = [c[2] for c in configs]
+    siglip_times = [c[3] for c in configs]
+    totals = [c[2] + c[3] for c in configs]
+
+    y = range(len(configs))
+    ax.barh(y, filter_times, color="#42A5F5", label="AutoGaze + Semantic Filter")
+    ax.barh(y, siglip_times, left=filter_times, color="#66BB6A", label="SigLIP Encoding")
+
+    for i, total in enumerate(totals):
+        ax.text(total + 5, i, f"{total:.0f}ms", va="center", fontsize=9, fontweight="bold")
+
+    ax.set_yticks(y)
+    ax.set_yticklabels(names, fontsize=9)
+    ax.set_xlabel("Latency (ms)")
+    ax.set_title("End-to-End Pipeline Latency")
+    ax.legend(fontsize=9, loc="lower right")
+    ax.invert_yaxis()
+    ax.grid(True, alpha=0.2, axis="x")
+
+    # Right: latency vs tokens scatter
+    ax = axes[1]
+    for name, tokens, filt, sig in configs:
+        total = filt + sig
+        if "Gaze only" in name:
+            color, marker = "#2196F3", "o"
+        elif "Intersect" in name:
+            color, marker = "#4CAF50", "s"
+        else:
+            color, marker = "#FF9800", "^"
+        ax.scatter(tokens, total, s=120, color=color, marker=marker,
+                   edgecolors="black", linewidth=0.8, zorder=5)
+        label = name.split("(")[0].strip()
+        ax.annotate(label, (tokens, total), textcoords="offset points",
+                    xytext=(5, 8), fontsize=8)
+
+    ax.set_xlabel("Tokens Kept")
+    ax.set_ylabel("Total Latency (ms)")
+    ax.set_title("Latency vs Token Count")
+    ax.grid(True, alpha=0.3)
+
+    # Legend
+    from matplotlib.lines import Line2D
+    legend_elements = [
+        Line2D([0], [0], marker='o', color='w', markerfacecolor='#2196F3',
+               markersize=8, label='Gaze only'),
+        Line2D([0], [0], marker='s', color='w', markerfacecolor='#4CAF50',
+               markersize=8, label='Intersect'),
+        Line2D([0], [0], marker='^', color='w', markerfacecolor='#FF9800',
+               markersize=8, label='Semantic only'),
+    ]
+    ax.legend(handles=legend_elements, fontsize=9)
+
+    fig.suptitle("Key Finding: AutoGaze Decode Dominates Latency", fontsize=13,
+                 fontweight="bold")
+    fig.tight_layout()
+    fig.savefig(os.path.join(output_dir, "e2e_benchmark.png"))
+    plt.close(fig)
+    print(f"  Saved: {output_dir}/e2e_benchmark.png")
+
+
+def plot_strategy_comparison(output_dir):
+    """Selection strategy recall comparison from eval_semantic_vs_intersect.py."""
+    strategy_file = "results/strategy_comparison/strategy_results.json"
+    if not os.path.exists(strategy_file):
+        print(f"  Skipping strategy comparison — {strategy_file} not found")
+        return
+
+    with open(strategy_file) as f:
+        data = json.load(f)
+
+    strategy_labels = {
+        "semantic_topk": "Semantic (global top-k)",
+        "semantic_per_frame": "Semantic (per-frame)",
+        "adaptive_per_frame": "Semantic (adaptive)",
+        "random": "Random baseline",
+        "oracle": "Oracle (GT top-k)",
+    }
+    strategy_colors = {
+        "semantic_topk": "#2196F3",
+        "semantic_per_frame": "#4CAF50",
+        "adaptive_per_frame": "#FF9800",
+        "random": "#9E9E9E",
+        "oracle": "#E91E63",
+    }
+    strategy_markers = {
+        "semantic_topk": "o",
+        "semantic_per_frame": "s",
+        "adaptive_per_frame": "^",
+        "random": "x",
+        "oracle": "D",
+    }
+
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+    for ax, metric, title in [
+        (axes[0], "recall", "Recall vs Token Budget"),
+        (axes[1], "f1", "F1 Score vs Token Budget"),
+    ]:
+        for s in ["oracle", "semantic_topk", "adaptive_per_frame",
+                   "semantic_per_frame", "random"]:
+            if s not in data:
+                continue
+            x = [r["tokens"] for r in data[s]]
+            y = [r[metric] for r in data[s]]
+            ax.plot(x, y, f'{strategy_markers[s]}-', color=strategy_colors[s],
+                    lw=2, markersize=6, label=strategy_labels[s])
+
+        ax.set_xlabel("Total Tokens (of 3136)")
+        ax.set_ylabel(metric.capitalize())
+        ax.set_title(title)
+        ax.legend(fontsize=8, loc="lower right")
+        ax.grid(True, alpha=0.3)
+
+    fig.suptitle("Patch Selection Strategy Comparison (Semantic Head Quality)",
+                 fontsize=13, fontweight="bold")
+    fig.tight_layout()
+    fig.savefig(os.path.join(output_dir, "strategy_comparison.png"))
+    plt.close(fig)
+    print(f"  Saved: {output_dir}/strategy_comparison.png")
+
+
 def main(args):
     os.makedirs(args.output_dir, exist_ok=True)
 
@@ -503,6 +641,12 @@ def main(args):
 
     print("8. NVILA pipeline")
     plot_nvila_pipeline(args.output_dir)
+
+    print("9. E2E benchmark")
+    plot_e2e_benchmark(args.output_dir)
+
+    print("10. Strategy comparison")
+    plot_strategy_comparison(args.output_dir)
 
     print(f"\nAll figures saved to {args.output_dir}/")
 
