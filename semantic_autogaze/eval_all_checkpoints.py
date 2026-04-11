@@ -154,6 +154,13 @@ def main(args):
             "color": "#E91E63",
             "marker": "D",
         },
+        {
+            "name": "Temporal+Ranking",
+            "path": "results/temporal_ranking/best_temporal_ranking.pt",
+            "class": None,  # Will import TemporalBigSimilarityHead
+            "color": "#9C27B0",
+            "marker": "P",
+        },
     ]
 
     all_results = {}

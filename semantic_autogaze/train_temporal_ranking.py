@@ -1,18 +1,12 @@
 """
-Train BigHead with combined ranking + distillation loss.
+Train TemporalBigHead with combined distillation + ranking loss.
 
-The error analysis showed the semantic head makes soft ranking errors:
-it assigns GT-positive patches scores that are above random but below
-the selection threshold. A ranking loss directly optimizes for
-correct relative ordering of patches.
-
-Losses:
-  1. Distillation BCE (from teacher soft targets)
-  2. Hard target BCE (from CLIPSeg GT)
-  3. Ranking loss: listwise ranking between positive and negative patches
+Combines the two most promising extensions:
+  1. Temporal cross-attention (inter-frame context)
+  2. Pairwise ranking loss (correct relative patch ordering)
 
 Usage:
-  CUDA_VISIBLE_DEVICES=3 python3 -m semantic_autogaze.train_ranking_bighead \
+  CUDA_VISIBLE_DEVICES=1 python3 -m semantic_autogaze.train_temporal_ranking \
     --hidden_dir results/distill/hidden_cache \
     --clip_visual_dir results/distill/clip_visual_cache \
     --clipseg_dir results/distill/clipseg_cache \
@@ -29,25 +23,18 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import wandb
-import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from semantic_autogaze.train_bighead import BigSimilarityHead
+from semantic_autogaze.train_temporal_bighead import TemporalBigSimilarityHead
 from semantic_autogaze.train_distill import DistillDataset
 from semantic_autogaze.model import TeacherHead
 
 
-def pairwise_ranking_loss(pred_logits, targets, margin=0.1, n_pairs=50):
-    """
-    Pairwise ranking loss: score(positive) > score(negative) + margin.
-
-    Samples random pairs of (positive, negative) patches within each sample
-    and penalizes violations of the ranking constraint.
-    """
+def pairwise_ranking_loss(pred_logits, targets, margin=0.2, n_pairs=50):
+    """Pairwise ranking loss: score(positive) > score(negative) + margin."""
     B, N = pred_logits.shape
     gt_binary = (targets > 0.5).float()
-
     losses = []
 
     for b in range(B):
@@ -57,7 +44,6 @@ def pairwise_ranking_loss(pred_logits, targets, margin=0.1, n_pairs=50):
         if len(pos_idx) == 0 or len(neg_idx) == 0:
             continue
 
-        # Sample pairs
         n = min(n_pairs, len(pos_idx), len(neg_idx))
         pos_sample = pos_idx[torch.randint(len(pos_idx), (n,))]
         neg_sample = neg_idx[torch.randint(len(neg_idx), (n,))]
@@ -65,31 +51,12 @@ def pairwise_ranking_loss(pred_logits, targets, margin=0.1, n_pairs=50):
         pos_scores = pred_logits[b, pos_sample]
         neg_scores = pred_logits[b, neg_sample]
 
-        # Hinge loss: want pos_score > neg_score + margin
         loss = F.relu(margin - (pos_scores - neg_scores)).mean()
         losses.append(loss)
 
     if losses:
         return torch.stack(losses).mean()
     return pred_logits.sum() * 0.0
-
-
-def listwise_ranking_loss(pred_logits, targets, temperature=1.0):
-    """
-    Listwise ranking loss using cross-entropy over permutations.
-
-    Approximation: softmax over predicted scores should match
-    softmax over GT scores (KL divergence).
-    """
-    # Normalize targets to form a probability distribution
-    gt_probs = torch.sigmoid(targets)
-    gt_dist = gt_probs / gt_probs.sum(dim=-1, keepdim=True).clamp(min=1e-8)
-
-    pred_dist = F.softmax(pred_logits / temperature, dim=-1)
-
-    # KL divergence: gt_dist * log(gt_dist / pred_dist)
-    kl = F.kl_div(pred_dist.log(), gt_dist, reduction="batchmean")
-    return kl
 
 
 def train(args):
@@ -101,7 +68,7 @@ def train(args):
         entity, project = args.wandb_project.split("/", 1)
     else:
         entity, project = None, args.wandb_project
-    wandb.init(entity=entity, project=project, name="ranking-bighead-distill",
+    wandb.init(entity=entity, project=project, name="temporal-ranking-bighead",
                config=vars(args))
 
     device = torch.device(args.device)
@@ -127,14 +94,14 @@ def train(args):
     teacher.eval()
     print("Loaded teacher")
 
-    # Student: standard BigHead
-    student = BigSimilarityHead(
+    # Student: temporal bighead
+    student = TemporalBigSimilarityHead(
         hidden_dim=192, embedding_dim=512, expanded_dim=args.expanded_dim,
-        n_attn_heads=args.n_attn_heads, n_attn_layers=args.n_attn_layers,
-        grid_size=14,
+        n_attn_heads=args.n_attn_heads, n_spatial_layers=args.n_spatial_layers,
+        n_temporal_layers=args.n_temporal_layers, grid_size=14, num_frames=16,
     ).to(device)
     n_params = sum(p.numel() for p in student.parameters())
-    print(f"BigHead: {n_params/1e3:.1f}K params")
+    print(f"Temporal+Ranking BigHead: {n_params/1e3:.1f}K params")
 
     optimizer = torch.optim.AdamW(student.parameters(), lr=args.lr, weight_decay=0.01)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.num_epochs)
@@ -216,7 +183,7 @@ def train(args):
         if vb < best_val:
             best_val = vb
             torch.save(student.state_dict(),
-                       os.path.join(args.output_dir, "best_ranking_bighead.pt"))
+                       os.path.join(args.output_dir, "best_temporal_ranking.pt"))
             wandb.log({"val/best_bce": best_val})
             print(f"    New best: {best_val:.4f}")
 
@@ -230,13 +197,14 @@ if __name__ == "__main__":
     parser.add_argument("--clip_visual_dir", default="results/distill/clip_visual_cache")
     parser.add_argument("--clipseg_dir", default="results/distill/clipseg_cache")
     parser.add_argument("--teacher_ckpt", default="results/distill/best_teacher.pt")
-    parser.add_argument("--output_dir", default="results/ranking_bighead")
+    parser.add_argument("--output_dir", default="results/temporal_ranking")
     parser.add_argument("--batch_size", type=int, default=32)
     parser.add_argument("--num_epochs", type=int, default=60)
     parser.add_argument("--lr", type=float, default=2e-4)
     parser.add_argument("--expanded_dim", type=int, default=384)
     parser.add_argument("--n_attn_heads", type=int, default=6)
-    parser.add_argument("--n_attn_layers", type=int, default=2)
+    parser.add_argument("--n_spatial_layers", type=int, default=2)
+    parser.add_argument("--n_temporal_layers", type=int, default=1)
     parser.add_argument("--distill_alpha", type=float, default=0.4)
     parser.add_argument("--hard_alpha", type=float, default=0.3)
     parser.add_argument("--rank_alpha", type=float, default=0.3)
