@@ -243,6 +243,10 @@ def train(args):
     n_params = sum(p.numel() for p in student.parameters())
     print(f"TemporalBigHead: {n_params/1e3:.1f}K params")
 
+    if getattr(args, "resume_ckpt", None):
+        print(f"Loading checkpoint: {args.resume_ckpt}")
+        student.load_state_dict(torch.load(args.resume_ckpt, map_location=device))
+
     optimizer = torch.optim.AdamW(student.parameters(), lr=args.lr, weight_decay=0.01)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.num_epochs)
     best_val = float("inf")
@@ -333,5 +337,6 @@ if __name__ == "__main__":
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--wandb_project", default="semantic-autogaze")
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--resume_ckpt", default=None, help="Path to checkpoint for warm restart")
     args = parser.parse_args()
     train(args)
