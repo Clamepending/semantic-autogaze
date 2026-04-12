@@ -10,8 +10,19 @@ reduction for video language models.
 ### Best Configuration: BigHead Distill + Warm Restart
 - **Architecture**: 3,438K params (expansion + 2-layer self-attention + query cross-attention + spatial conv)
 - **Training**: Teacher (AutoGaze 192 + CLIP 768 → targets) → Student (AutoGaze 192 only) → warm restart at lr=5e-5
-- **Val BCE**: **0.0666** (baseline 0.0668 + warm restart on 22 more epochs)
-- **Score Retention at 10% budget**: 31.5% (3x random selection)
+- **Val BCE**: **0.0665** (baseline 0.0668 + warm restart for 50 epochs)
+- **Score Retention at 10% budget**: 31.8% (3x random selection)
+
+### Ablation Study (all models trained 50 epochs with same data)
+| Ablation | Val BCE | vs Full |
+|----------|---------|---------|
+| A1 Full BigHead Distill | 0.0668 | baseline |
+| A4 BigHead, no spatial conv | 0.0695 | +4.0% |
+| A3 BigHead, no distillation | 0.0743 | +11.2% |
+| A5 MLP only (no attn, no conv) | 0.0762 | +14.1% |
+| A2 Small head (201K) + distill | 0.0791 | +18.4% |
+
+**Component contribution ranking (largest first)**: distillation (11.2%) > expanded_dim/capacity (~7%) > self-attention (~7%) > spatial conv (~4%).
 
 ## Results Overview
 
