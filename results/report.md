@@ -17,14 +17,14 @@ reduction for video language models.
 
 ### 1. Score Retention (CLIPSeg GT Mass Captured)
 
-| Budget | BigHead Distill (baseline) | Temporal BigHead (ep21) | Ranking BigHead (ep13) | Temporal+Ranking (ep14) |
-|--------|-------|-------|-------|-------|
-| 2% | 0.100 | 0.063 | 0.052 | 0.053 |
-| 5% | 0.197 | 0.136 | 0.115 | 0.116 |
-| 10% | 0.315 | 0.236 | 0.205 | 0.206 |
-| 20% | 0.480 | 0.395 | 0.357 | 0.356 |
-| 30% | 0.599 | 0.523 | 0.483 | 0.482 |
-| 50% | 0.770 | 0.719 | 0.687 | 0.684 |
+| Budget | BigHead Distill (baseline) | **Warm Restart** | Temporal BigHead (ep46) | Ranking BigHead (ep13) | Temporal+Ranking (ep14) |
+|--------|-------|-------|-------|-------|-------|
+| 2% | 0.100 | **0.102** | 0.080 | 0.052 | 0.055 |
+| 5% | 0.197 | **0.200** | 0.165 | 0.115 | 0.120 |
+| 10% | 0.315 | **0.318** | 0.275 | 0.205 | 0.211 |
+| 20% | 0.480 | **0.483** | 0.439 | 0.357 | 0.361 |
+| 30% | 0.599 | **0.601** | 0.563 | 0.483 | 0.487 |
+| 50% | 0.770 | **0.772** | 0.749 | 0.687 | 0.688 |
 
 ### 2. Feature Retrieval Proxy (100 videos)
 

@@ -132,6 +132,15 @@ def main(args):
             "marker": "o",
         },
         {
+            "name": "BigHead Warm Restart",
+            "path": "results/bighead_warmrestart/best_bighead_student.pt",
+            "class": BigSimilarityHead,
+            "kwargs": {"hidden_dim": 192, "embedding_dim": 512, "expanded_dim": 384,
+                       "n_attn_heads": 6, "n_attn_layers": 2, "grid_size": 14},
+            "color": "#D32F2F",
+            "marker": "*",
+        },
+        {
             "name": "Temporal BigHead",
             "path": "results/temporal_bighead/best_temporal_bighead.pt",
             "class": None,  # Will import if available
