@@ -15,6 +15,7 @@ RUNS = [
     # (run_id, label, color, linestyle)
     ("w7ly4c8w", "BigHead Distill (baseline, 0.0668)", "tab:blue",   "-"),
     ("lkrzsjm4", "Warm Restart (0.0666)",             "tab:red",    "-"),
+    ("nkmyibxc", "XL BigHead (e512, L3, 8M, 0.0683)", "tab:brown",  "-"),
     ("evn4q4am", "Temporal BigHead (0.0700)",         "tab:green",  "-"),
     ("6kslwkls", "Deep Temporal (2T+3S)",             "tab:purple", "--"),
     ("36huj7kn", "Pre-decoder Student",               "tab:orange", "--"),

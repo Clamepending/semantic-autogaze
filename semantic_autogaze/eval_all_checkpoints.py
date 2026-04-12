@@ -141,6 +141,15 @@ def main(args):
             "marker": "*",
         },
         {
+            "name": "XL BigHead (e512, L3)",
+            "path": "results/distill_bighead_xl/best_bighead_student.pt",
+            "class": BigSimilarityHead,
+            "kwargs": {"hidden_dim": 192, "embedding_dim": 512, "expanded_dim": 512,
+                       "n_attn_heads": 8, "n_attn_layers": 3, "grid_size": 14},
+            "color": "#795548",
+            "marker": "X",
+        },
+        {
             "name": "Temporal BigHead",
             "path": "results/temporal_bighead/best_temporal_bighead.pt",
             "class": None,  # Will import if available

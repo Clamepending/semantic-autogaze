@@ -24,6 +24,14 @@ reduction for video language models.
 
 **Component contribution ranking (largest first)**: distillation (11.2%) > expanded_dim/capacity (~7%) > self-attention (~7%) > spatial conv (~4%).
 
+### Capacity Scaling (XL BigHead)
+| Variant | Params | Val BCE |
+|---------|--------|---------|
+| BigHead (baseline, e384, L2) | 3,438K | 0.0668 |
+| XL BigHead (e512, L3, H8) | **8,012K** | **0.0683 (+2.2%)** |
+
+XL BigHead has 2.3x the parameters and finishes *worse*. Plateaus at ep43 with val=0.0683 and stays there for 7 more epochs. The BigHead architecture hits its ceiling near 0.0666, and additional capacity overfits or becomes harder to optimize with the same data budget.
+
 ## Results Overview
 
 ### 1. Score Retention (CLIPSeg GT Mass Captured)
@@ -79,13 +87,14 @@ reduction for video language models.
 
 | Model | Current Epoch | Best Val BCE | Best Epoch | Status |
 |-------|--------------|-------------|------------|--------|
-| **BigHead Distill (warm restart)** | 22/50 | **0.0666** | 11 | Running (NEW BEST) |
+| **BigHead Warm Restart** | 50/50 | **0.0665** | 11 | Done (BEST) |
 | BigHead Distill (baseline) | 100/100 | 0.0668 | 50 | Done |
-| Temporal BigHead | 46/60 | 0.0700 | 46 | Running (hit 0.07 target) |
-| Deep Temporal (2T+3S) | 21/60 | 0.0760 | 21 | Running |
-| Pre-decoder Student | 21/100 | 0.0753 | 21 | Running |
-| Pre-decoder Teacher | 50/50 | 0.0688 | 45 | Done |
-| A3 BigHead no-distill (ablation) | 43/50 | 0.0743 | 43 | Running |
+| XL BigHead (e512, L3, 8M) | 50/50 | 0.0683 | 43 | Done |
+| Temporal Warm Restart | 50/50 | 0.0692 | — | Done |
+| Temporal BigHead | 60/60 | 0.0697 | — | Done |
+| Pre-decoder Student | 100/100 | 0.0714 | — | Done |
+| Deep Temporal (2T+3S) | 60/60 | 0.0737 | — | Done |
+| A3 BigHead no-distill (ablation) | 50/50 | 0.0743 | 43 | Done |
 | Ranking BigHead | 13/60 | 0.0801 | 13 | Killed (plateaued) |
 | Temporal+Ranking | 17/60 | 0.0791 | 14 | Killed |
 
@@ -125,6 +134,11 @@ reduction for video language models.
 10. **Pre-decoder features are ~13% harder**: Distilling onto CNN+connector features
     (before the 4-layer LLaMA decoder) plateaus at val≈0.0753 vs 0.0668 post-decoder,
     confirming the decoder's cross-patch attention carries load-bearing semantic signal.
+
+11. **Capacity alone plateaus**: XL BigHead (2.3x params: e512, L3, H8, 8M params)
+    reaches only val=0.0683 vs 0.0665 for the 3.4M-param warm-restart model. The
+    BigHead architecture appears to hit its data-limited ceiling near 0.0666;
+    pushing capacity without more labels or a better teacher makes things worse.
 
 ## Figures
 
