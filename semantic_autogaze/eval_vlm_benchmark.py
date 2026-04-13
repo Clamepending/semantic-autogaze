@@ -38,6 +38,159 @@ def get_clip_text_embedding(text: str, clip_model, clip_tokenizer, device):
     return features
 
 
+def _pick_kept(non_padded_scores, semantic_keep_ratio, score_threshold):
+    """Return a bool keep_mask over non_padded_scores. Always keep ≥1."""
+    n = non_padded_scores.shape[0]
+    if score_threshold is not None:
+        keep_mask = non_padded_scores > score_threshold
+        if keep_mask.sum() == 0:
+            keep_mask = torch.zeros_like(non_padded_scores, dtype=torch.bool)
+            keep_mask[non_padded_scores.argmax()] = True
+    else:
+        n_keep = max(1, int(semantic_keep_ratio * n))
+        if n_keep >= n:
+            keep_mask = torch.ones_like(non_padded_scores, dtype=torch.bool)
+        else:
+            _, topk_idx = torch.topk(non_padded_scores, n_keep)
+            keep_mask = torch.zeros_like(non_padded_scores, dtype=torch.bool)
+            keep_mask[topk_idx] = True
+    return keep_mask
+
+
+def _repad_to_shared_budget(gazing_pos, if_padded, kt_local, kt_shared):
+    """Re-pad a (B, K_local) gazing tensor up to a shared per-frame budget kt_shared.
+
+    Within each frame slot, kept entries (if_padded=False) come first, then padded
+    dummy entries (if_padded=True). This matches the layout produced by
+    `_shrink_unit_batch`. New padding slots are filled with position 0 dummies and
+    if_padded=True so the connector drops them.
+    """
+    if torch.equal(kt_local, kt_shared):
+        return gazing_pos, if_padded
+    B = gazing_pos.shape[0]
+    T = kt_shared.shape[0]
+    new_K = int(kt_shared.sum().item())
+    out_pos = torch.zeros(B, new_K, dtype=gazing_pos.dtype, device=gazing_pos.device)
+    out_pad = torch.ones(B, new_K, dtype=torch.bool, device=if_padded.device)
+    src_off = 0
+    dst_off = 0
+    for t in range(T):
+        kt_l = int(kt_local[t].item())
+        kt_s = int(kt_shared[t].item())
+        if kt_l > 0:
+            out_pos[:, dst_off:dst_off + kt_l] = gazing_pos[:, src_off:src_off + kt_l]
+            out_pad[:, dst_off:dst_off + kt_l] = if_padded[:, src_off:src_off + kt_l]
+        # remaining (kt_s - kt_l) slots stay as position-0 dummies, if_padded=True
+        src_off += kt_l
+        dst_off += kt_s
+    return out_pos, out_pad
+
+
+def _shrink_unit_batch(
+    unit_videos,
+    if_padded_orig,
+    gazing_pos_orig,
+    num_gaze_per_frame,
+    wrapper,
+    query_emb,
+    device,
+    semantic_keep_ratio,
+    score_threshold,
+    score_log=None,
+):
+    """Physically shrink K (the gazing-position dimension) for a batch of items
+    that share the same per-frame budget.
+
+    Items = tiles for one video, OR thumbnails for one video. The NVILA SigLIP
+    wrapper requires `num_gazing_each_frame` to be identical across the batch,
+    so we compute a *single* new per-frame budget = max kept count across items,
+    and pad each item up to that budget within each frame slot. Padding entries
+    are marked True in the new if_padded so they're dropped at the connector,
+    but the SigLIP transformer only sees K_new positions per item.
+
+    Args:
+      unit_videos: (B, T, C, H, W) AutoGaze-preprocessed video tensors
+      if_padded_orig: (B, K_orig) bool
+      gazing_pos_orig: (B, K_orig) long  — patch indices into the full (T*N) grid
+      num_gaze_per_frame: (T,) long  — per-frame budget shared across items
+      query_emb: (1, embed_dim) CLIP text embedding
+
+    Returns:
+      new_gazing_pos: (B, K_new) long
+      new_if_padded:  (B, K_new) bool
+      new_kt:         (T,)       long  — new per-frame budget
+    """
+    B = unit_videos.shape[0]
+    T = unit_videos.shape[1]
+    orig_device = if_padded_orig.device
+
+    # ---- Score all items in one wrapper batch ----
+    unit_videos_dev = unit_videos.to(device)
+    with torch.inference_mode():
+        hidden = wrapper.extract_hidden_states(unit_videos_dev)  # (B, T*N_full, C)
+        # Broadcast query_emb to batch
+        query_emb_b = query_emb.expand(B, -1)
+        scores = wrapper.semantic_filter.get_scores(hidden, query_emb_b)  # (B, T*N_full)
+    score_dev = scores.device
+
+    # ---- Per-frame: figure out kept *original-grid* indices for each item ----
+    frame_offsets = torch.zeros(T + 1, dtype=torch.long)
+    frame_offsets[1:] = num_gaze_per_frame.cumsum(0)
+
+    if_padded_dev = if_padded_orig.to(score_dev)
+    gazing_pos_dev = gazing_pos_orig.to(score_dev)
+
+    kept_per_frame = [[None] * B for _ in range(T)]  # kept_per_frame[t][i] = (kept_pos,)
+    new_kt = torch.zeros(T, dtype=torch.long)
+
+    for t in range(T):
+        s, e = int(frame_offsets[t].item()), int(frame_offsets[t + 1].item())
+        frame_max = 0
+        for i in range(B):
+            item_pad = if_padded_dev[i, s:e]               # (k_orig_t,)
+            item_pos = gazing_pos_dev[i, s:e]              # (k_orig_t,)
+            non_padded_mask = ~item_pad
+            n_non_padded = int(non_padded_mask.sum().item())
+            if n_non_padded == 0:
+                kept_per_frame[t][i] = torch.empty(0, dtype=torch.long, device=score_dev)
+                continue
+            np_pos = item_pos[non_padded_mask]
+            np_scores = scores[i, np_pos % scores.shape[1]]
+            if score_log is not None:
+                score_log.append(np_scores.detach().float().cpu())
+            keep_mask = _pick_kept(np_scores, semantic_keep_ratio, score_threshold)
+            kept_pos = np_pos[keep_mask]
+            kept_per_frame[t][i] = kept_pos
+            if kept_pos.shape[0] > frame_max:
+                frame_max = kept_pos.shape[0]
+        new_kt[t] = max(frame_max, 1)  # need ≥1 per frame for batch alignment
+
+    # ---- Build new gazing_pos / if_padded with shrunk K ----
+    new_K = int(new_kt.sum().item())
+    new_gazing_pos = torch.zeros(B, new_K, dtype=gazing_pos_orig.dtype, device=orig_device)
+    new_if_padded = torch.ones(B, new_K, dtype=torch.bool, device=orig_device)
+
+    write_off = 0
+    for t in range(T):
+        kt = int(new_kt[t].item())
+        for i in range(B):
+            kept = kept_per_frame[t][i].to(orig_device)
+            n = int(kept.shape[0])
+            if n > 0:
+                new_gazing_pos[i, write_off:write_off + n] = kept
+                new_if_padded[i, write_off:write_off + n] = False
+                if n < kt:
+                    # Pad remaining slots with first kept (dummy fill); if_padded stays True
+                    new_gazing_pos[i, write_off + n:write_off + kt] = kept[0]
+            else:
+                # No kept positions for this (item, frame): use position 0 dummy
+                # (if_padded already True for all kt entries here)
+                new_gazing_pos[i, write_off:write_off + kt] = 0
+        write_off += kt
+
+    return new_gazing_pos, new_if_padded, new_kt
+
+
 def patch_processor_with_semantic_filter(
     processor,
     wrapper: SemanticAutoGazeWrapper,
@@ -47,79 +200,137 @@ def patch_processor_with_semantic_filter(
     semantic_keep_ratio: float = 0.5,
     query_text: Optional[str] = None,
     device: str = "cuda",
+    score_threshold: Optional[float] = None,
+    filter_thumbnails: bool = True,
+    log_score_dist: bool = False,
 ):
     """
     Monkey-patch the NVILA processor to inject semantic filtering after AutoGaze.
 
-    Instead of modifying the processor's internal methods (which is fragile),
-    we wrap the entire __call__ to post-process gazing_info.
+    Filters BOTH tiles and thumbnails. With score_threshold set, uses an absolute
+    sigmoid-score cutoff (variable per-frame budget); otherwise uses top-k by
+    semantic_keep_ratio (fixed per-unit budget).
+
+    Note: thumbnails are only filterable if AutoGaze actually ran on them, which
+    requires gazing_ratio_thumbnail < 1.0 (or task_loss_requirement_thumbnail set).
+    Otherwise the processor short-circuits and pixel_values_videos_thumbnails_autogaze
+    isn't even built.
     """
     original_get_gazing = processor._get_gazing_info_from_videos
 
     def patched_get_gazing_info(videos_inputs):
-        # Get standard AutoGaze gazing info
         gazing_info = original_get_gazing(videos_inputs)
         if gazing_info is None or mode == "gaze_only":
             return gazing_info
 
-        # Clone all tensors to avoid inference_mode in-place errors
         gazing_info = {
             k: [t.clone() for t in v] if isinstance(v, list) else v.clone()
             for k, v in gazing_info.items()
         }
 
-        # Get the AutoGaze-preprocessed video tiles for semantic scoring
         tiles_autogaze = videos_inputs.get("pixel_values_videos_tiles_autogaze")
+        thumbs_autogaze = videos_inputs.get("pixel_values_videos_thumbnails_autogaze")
         if tiles_autogaze is None:
             return gazing_info
 
-        # Determine query text for semantic filtering
         nonlocal query_text
         q = query_text or "important content"
         query_emb = get_clip_text_embedding(q, clip_model, clip_tokenizer, device)
 
-        # Process each video's tiles through semantic filter
+        score_log = [] if log_score_dist else None
+
+        # Cross-video per-frame max trackers (NVILA asserts num_gazing_each_frame
+        # is identical across all videos for tiles and for thumbnails). We compute
+        # per-video shrunk gazing_pos/if_padded first, then pad them up to a
+        # cross-video shared per-frame budget at the end.
+        per_video_tile_results = []   # list of (new_pos, new_pad, new_kt) per video
+        per_video_thumb_results = []  # list of (new_pos, new_pad, new_kt) or None
+
         for vid_idx in range(len(tiles_autogaze)):
-            video_tiles = tiles_autogaze[vid_idx]  # (num_tiles, T, C, H, W)
+            # ---- Tiles: batch all tiles of this video together ----
+            video_tiles = tiles_autogaze[vid_idx]  # (num_tiles, T_tile, C, H, W)
+            tile_pos = gazing_info["gazing_pos_tiles"][vid_idx]                  # (num_tiles, K)
+            tile_pad = gazing_info["if_padded_gazing_tiles"][vid_idx]            # (num_tiles, K)
+            tile_nge = gazing_info["num_gazing_each_frame_tiles"][vid_idx][0]    # (T_tile,)
 
-            for tile_idx in range(video_tiles.shape[0]):
-                tile_video = video_tiles[tile_idx:tile_idx+1].to(device)  # (1, T, C, H, W)
+            new_pos_t, new_pad_t, new_kt_t = _shrink_unit_batch(
+                unit_videos=video_tiles,
+                if_padded_orig=tile_pad,
+                gazing_pos_orig=tile_pos,
+                num_gaze_per_frame=tile_nge,
+                wrapper=wrapper, query_emb=query_emb, device=device,
+                semantic_keep_ratio=semantic_keep_ratio,
+                score_threshold=score_threshold,
+                score_log=score_log,
+            )
+            per_video_tile_results.append((new_pos_t, new_pad_t, new_kt_t))
 
-                # Get semantic scores from wrapper
-                with torch.inference_mode():
-                    hidden_states = wrapper.extract_hidden_states(tile_video)
-                    scores = wrapper.semantic_filter.get_scores(hidden_states, query_emb)
-                # scores: (1, T*196) for 14x14 patches, 196 per frame
+            # ---- Thumbnails: batch all thumbnail items of this video ----
+            do_thumbs = (
+                filter_thumbnails
+                and thumbs_autogaze is not None
+                and vid_idx < len(thumbs_autogaze)
+                and "if_padded_gazing_thumbnails" in gazing_info
+            )
+            if do_thumbs:
+                video_thumbs = thumbs_autogaze[vid_idx]  # (T_thumb, 1, C, H, W)
+                th_pos = gazing_info["gazing_pos_thumbnails"][vid_idx]               # (T_thumb, K')
+                th_pad = gazing_info["if_padded_gazing_thumbnails"][vid_idx]         # (T_thumb, K')
+                th_nge = gazing_info["num_gazing_each_frame_thumbnails"][vid_idx][0] # (1,)
+                new_pos_th, new_pad_th, new_kt_th = _shrink_unit_batch(
+                    unit_videos=video_thumbs,
+                    if_padded_orig=th_pad,
+                    gazing_pos_orig=th_pos,
+                    num_gaze_per_frame=th_nge,
+                    wrapper=wrapper, query_emb=query_emb, device=device,
+                    semantic_keep_ratio=semantic_keep_ratio,
+                    score_threshold=score_threshold,
+                    score_log=score_log,
+                )
+                per_video_thumb_results.append((new_pos_th, new_pad_th, new_kt_th))
+            else:
+                per_video_thumb_results.append(None)
 
-                # Get current gazing info for this tile
-                tile_if_padded = gazing_info["if_padded_gazing_tiles"][vid_idx][tile_idx]
-                tile_gazing_pos = gazing_info["gazing_pos_tiles"][vid_idx][tile_idx]
+        # ---- Reconcile per-frame budgets ACROSS videos (NVILA assertion) ----
+        # Tiles: take elementwise max of new_kt across videos, then pad each
+        # video's K up to that shared budget with dummies (if_padded=True).
+        if per_video_tile_results:
+            shared_kt_tiles = per_video_tile_results[0][2].clone()
+            for _, _, kt in per_video_tile_results[1:]:
+                shared_kt_tiles = torch.maximum(shared_kt_tiles, kt)
+            for vid_idx, (pos, pad, kt) in enumerate(per_video_tile_results):
+                pos2, pad2 = _repad_to_shared_budget(pos, pad, kt, shared_kt_tiles)
+                gazing_info["gazing_pos_tiles"][vid_idx] = pos2
+                gazing_info["if_padded_gazing_tiles"][vid_idx] = pad2
+                num_tiles = pos2.shape[0]
+                gazing_info["num_gazing_each_frame_tiles"][vid_idx] = (
+                    shared_kt_tiles.unsqueeze(0).expand(num_tiles, -1).clone()
+                )
 
-                # Apply semantic scoring to non-padded positions
-                non_padded_mask = ~tile_if_padded
-                if non_padded_mask.sum() == 0:
+        if any(r is not None for r in per_video_thumb_results):
+            shared_kt_th = None
+            for r in per_video_thumb_results:
+                if r is None:
                     continue
-
-                # Get positions of non-padded entries
-                non_padded_positions = tile_gazing_pos[non_padded_mask]
-                non_padded_scores = scores[0, non_padded_positions % scores.shape[1]]
-
-                # Keep top-k by semantic score
-                n_keep = max(1, int(semantic_keep_ratio * non_padded_mask.sum().item()))
-                if n_keep >= non_padded_mask.sum().item():
+                shared_kt_th = r[2].clone() if shared_kt_th is None else torch.maximum(shared_kt_th, r[2])
+            for vid_idx, r in enumerate(per_video_thumb_results):
+                if r is None:
                     continue
+                pos, pad, kt = r
+                pos2, pad2 = _repad_to_shared_budget(pos, pad, kt, shared_kt_th)
+                gazing_info["gazing_pos_thumbnails"][vid_idx] = pos2
+                gazing_info["if_padded_gazing_thumbnails"][vid_idx] = pad2
+                n_thumb = pos2.shape[0]
+                gazing_info["num_gazing_each_frame_thumbnails"][vid_idx] = (
+                    shared_kt_th.unsqueeze(0).expand(n_thumb, -1).clone()
+                )
 
-                _, topk_indices = torch.topk(non_padded_scores, n_keep)
-                keep_mask = torch.zeros_like(non_padded_scores, dtype=torch.bool)
-                keep_mask[topk_indices] = True
-
-                # Update if_padded: mark removed positions as padded
-                non_padded_indices = torch.where(non_padded_mask)[0]
-                new_if_padded = tile_if_padded.clone()
-                for j, idx in enumerate(non_padded_indices):
-                    if not keep_mask[j]:
-                        new_if_padded[idx] = True
-                gazing_info["if_padded_gazing_tiles"][vid_idx][tile_idx] = new_if_padded
+        if log_score_dist and score_log:
+            allscores = torch.cat(score_log)
+            qs = torch.quantile(allscores, torch.tensor([0.10, 0.50, 0.90, 0.99]))
+            print(f"  [score-dist] n={len(allscores)} "
+                  f"p10={qs[0]:.3f} p50={qs[1]:.3f} p90={qs[2]:.3f} p99={qs[3]:.3f} "
+                  f"max={allscores.max():.3f}")
 
         return gazing_info
 
