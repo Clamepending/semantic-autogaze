@@ -611,6 +611,7 @@ def main():
     p.add_argument("--expanded_dim", type=int, default=512)
     p.add_argument("--n_attn_heads", type=int, default=8)
     p.add_argument("--n_attn_layers", type=int, default=3)
+    p.add_argument("--dropout", type=float, default=0.0)
     p.add_argument("--batch_size", type=int, default=32)
     p.add_argument("--num_epochs", type=int, default=30)
     p.add_argument("--lr", type=float, default=2e-4)
@@ -707,6 +708,7 @@ def main():
         expanded_dim=args.expanded_dim,
         n_attn_heads=args.n_attn_heads,
         n_attn_layers=args.n_attn_layers,
+        dropout=args.dropout,
     ).to(device)
     param_count = sum(p.numel() for p in head.parameters()) / 1e3
     print(f"[model] BigHead: {param_count:.1f}K params "
