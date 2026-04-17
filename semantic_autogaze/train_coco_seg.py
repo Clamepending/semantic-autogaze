@@ -37,7 +37,7 @@ from pycocotools.coco import COCO
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 
-from semantic_autogaze.bighead import BigHead
+from semantic_autogaze.bighead import BigHead, BigHeadDecoder
 
 PATCH_GRID = 14
 NUM_PATCHES = PATCH_GRID * PATCH_GRID  # 196
@@ -78,6 +78,44 @@ def download_coco_val(data_dir: str):
         img_zip = os.path.join(data_dir, "val2017.zip")
         if not os.path.isfile(img_zip):
             print(f"[data] Downloading COCO val2017 images (~800MB)...")
+            urllib.request.urlretrieve(img_url, img_zip)
+        print(f"[data] Extracting images...")
+        with zipfile.ZipFile(img_zip) as zf:
+            zf.extractall(data_dir)
+        os.remove(img_zip)
+
+    return img_dir, ann_file
+
+
+def download_coco_train(data_dir: str):
+    """Download COCO train2017 images + instance annotations if missing."""
+    import urllib.request
+
+    img_dir = os.path.join(data_dir, "train2017")
+    ann_file = os.path.join(data_dir, "annotations", "instances_train2017.json")
+
+    if os.path.isdir(img_dir) and os.path.isfile(ann_file):
+        print(f"[data] COCO train2017 already present at {data_dir}")
+        return img_dir, ann_file
+
+    os.makedirs(data_dir, exist_ok=True)
+
+    if not os.path.isfile(ann_file):
+        ann_url = "http://images.cocodataset.org/annotations/annotations_trainval2017.zip"
+        ann_zip = os.path.join(data_dir, "annotations_trainval2017.zip")
+        if not os.path.isfile(ann_zip):
+            print(f"[data] Downloading COCO annotations...")
+            urllib.request.urlretrieve(ann_url, ann_zip)
+        print(f"[data] Extracting annotations...")
+        with zipfile.ZipFile(ann_zip) as zf:
+            zf.extract("annotations/instances_train2017.json", data_dir)
+        os.remove(ann_zip)
+
+    if not os.path.isdir(img_dir):
+        img_url = "http://images.cocodataset.org/zips/train2017.zip"
+        img_zip = os.path.join(data_dir, "train2017.zip")
+        if not os.path.isfile(img_zip):
+            print(f"[data] Downloading COCO train2017 images (~18GB)...")
             urllib.request.urlretrieve(img_url, img_zip)
         print(f"[data] Extracting images...")
         with zipfile.ZipFile(img_zip) as zf:
@@ -189,6 +227,106 @@ def cache_autogaze_hidden_states(
 
 
 @torch.inference_mode()
+def cache_clip_vision_features(
+    img_dir: str,
+    coco: COCO,
+    cache_dir: str,
+    device: torch.device,
+    max_images: Optional[int] = None,
+):
+    """Cache CLIP ViT-B/16 per-patch vision features (196×768) for each COCO image."""
+    import open_clip
+
+    os.makedirs(cache_dir, exist_ok=True)
+    img_ids = sorted(coco.getImgIds())
+    if max_images:
+        img_ids = img_ids[:max_images]
+
+    already = sum(1 for i in img_ids if os.path.exists(os.path.join(cache_dir, f"{i}.pt")))
+    if already == len(img_ids):
+        print(f"[cache] All {already} CLIP vision features already cached")
+        return
+
+    print(f"[cache] Loading CLIP ViT-B/16 for vision feature caching...")
+    model, _, preprocess = open_clip.create_model_and_transforms("ViT-B-16", pretrained="openai")
+    vision = model.visual.to(device).eval()
+
+    for img_id in tqdm(img_ids, desc="Caching CLIP vision features"):
+        out_path = os.path.join(cache_dir, f"{img_id}.pt")
+        if os.path.exists(out_path):
+            continue
+
+        img_info = coco.imgs[img_id]
+        img_path = os.path.join(img_dir, img_info["file_name"])
+        img = Image.open(img_path).convert("RGB")
+        img_t = preprocess(img).unsqueeze(0).to(device)  # (1, 3, 224, 224)
+
+        # Extract patch features before pooling
+        x = vision.conv1(img_t)  # (1, 768, 14, 14)
+        x = x.reshape(x.shape[0], x.shape[1], -1).permute(0, 2, 1)  # (1, 196, 768)
+        # Add class token
+        cls = vision.class_embedding.unsqueeze(0).unsqueeze(0).expand(x.shape[0], -1, -1)
+        x = torch.cat([cls, x], dim=1)  # (1, 197, 768)
+        x = x + vision.positional_embedding.unsqueeze(0)
+        x = vision.patch_dropout(x) if hasattr(vision, 'patch_dropout') else x
+        x = vision.ln_pre(x)
+        x = vision.transformer(x)  # (1, 197, 768)
+        patch_features = x[:, 1:, :]  # (1, 196, 768) — exclude class token
+
+        torch.save(patch_features[0].cpu().to(torch.float16), out_path)
+
+        if device.type == "mps" and img_id % 50 == 0:
+            torch.mps.synchronize()
+
+    del vision, model
+    if device.type == "mps":
+        torch.mps.synchronize()
+        torch.mps.empty_cache()
+    print(f"[cache] Done caching CLIP vision features")
+
+
+class CLIPVisionOnline:
+    """Holds a frozen CLIP ViT-B/16 vision encoder for on-the-fly patch feature extraction.
+
+    Computes 196×768 patch features per image without caching to disk.
+    Designed for training on large datasets (e.g. train2017) where disk-cached
+    CLIP vision features would be ~35GB.
+    """
+
+    def __init__(self, device: torch.device):
+        import open_clip
+        print("[clip_online] Loading CLIP ViT-B/16 for on-the-fly vision features...")
+        model, _, self.preprocess = open_clip.create_model_and_transforms("ViT-B-16", pretrained="openai")
+        self.vision = model.visual.to(device).eval()
+        self.device = device
+        # Freeze all parameters
+        for p in self.vision.parameters():
+            p.requires_grad = False
+        del model
+        print("[clip_online] CLIP vision encoder loaded (frozen)")
+
+    @torch.inference_mode()
+    def extract_batch(self, images: torch.Tensor) -> torch.Tensor:
+        """Extract patch features for a batch of preprocessed images.
+
+        Args:
+            images: (B, 3, 224, 224) preprocessed CLIP input tensors.
+
+        Returns:
+            (B, 196, 768) patch features (float32).
+        """
+        x = self.vision.conv1(images)  # (B, 768, 14, 14)
+        x = x.reshape(x.shape[0], x.shape[1], -1).permute(0, 2, 1)  # (B, 196, 768)
+        cls = self.vision.class_embedding.unsqueeze(0).unsqueeze(0).expand(x.shape[0], -1, -1)
+        x = torch.cat([cls, x], dim=1)  # (B, 197, 768)
+        x = x + self.vision.positional_embedding.unsqueeze(0)
+        x = self.vision.patch_dropout(x) if hasattr(self.vision, 'patch_dropout') else x
+        x = self.vision.ln_pre(x)
+        x = self.vision.transformer(x)  # (B, 197, 768)
+        return x[:, 1:, :].float()  # (B, 196, 768) — exclude class token
+
+
+@torch.inference_mode()
 def cache_clip_text_embeddings(
     categories: dict[int, str],
     cache_path: str,
@@ -239,11 +377,21 @@ class CocoSegDataset(Dataset):
         hidden_cache_dir: str,
         clip_embeddings: dict[str, torch.Tensor],
         categories: dict[int, str],
+        target_grid: int = PATCH_GRID,
+        neg_per_image: int = 1,
+        clip_vision_cache_dir: Optional[str] = None,
+        img_dir: Optional[str] = None,
+        clip_preprocess=None,
     ):
         self.coco = coco
         self.hidden_cache_dir = hidden_cache_dir
         self.clip_embeddings = clip_embeddings
         self.categories = categories
+        self.target_grid = target_grid
+        self.target_n = target_grid * target_grid
+        self.clip_vision_cache_dir = clip_vision_cache_dir
+        self.img_dir = img_dir
+        self.clip_preprocess = clip_preprocess
 
         # Build index: (img_id, cat_id, [anns]) for all valid pairs
         self.samples = []
@@ -257,9 +405,9 @@ class CocoSegDataset(Dataset):
                     self.samples.append((img_id, cat_id, anns))
 
         # Also add negative samples: categories NOT present in image
-        self._add_negatives(img_ids)
+        self._add_negatives(img_ids, neg_per_image=neg_per_image)
 
-    def _add_negatives(self, img_ids: list[int]):
+    def _add_negatives(self, img_ids: list[int], neg_per_image: int = 1):
         """Add negative category samples (category not in image → all-zero mask)."""
         all_cat_ids = list(self.categories.keys())
         neg_samples = []
@@ -270,8 +418,10 @@ class CocoSegDataset(Dataset):
             present_cats = set(c for i, c, _ in self.samples if i == img_id)
             absent = [c for c in all_cat_ids if c not in present_cats and str(c) in self.clip_embeddings]
             if absent:
-                neg_cat = random.choice(absent)
-                neg_samples.append((img_id, neg_cat, []))
+                n = min(neg_per_image, len(absent))
+                chosen = random.sample(absent, n)
+                for neg_cat in chosen:
+                    neg_samples.append((img_id, neg_cat, []))
         self.samples.extend(neg_samples)
 
     def __len__(self):
@@ -287,25 +437,41 @@ class CocoSegDataset(Dataset):
             weights_only=True,
         ).float()  # (196, 192) — stored as float16
 
+        # Optionally concatenate CLIP vision features
+        if self.clip_vision_cache_dir:
+            clip_vis_path = os.path.join(self.clip_vision_cache_dir, f"{img_id}.pt")
+            if os.path.exists(clip_vis_path):
+                clip_vis = torch.load(clip_vis_path, map_location="cpu", weights_only=True).float()
+                hidden = torch.cat([hidden, clip_vis], dim=-1)  # (196, 192+768)
+
         # CLIP text embedding for this category
         query = self.clip_embeddings[str(cat_id)]  # (512,)
 
-        # Build mask target
+        # Build mask target at the configured target grid
         if anns:
             mask = build_category_mask(self.coco, img_id, cat_id, anns)
-            target = mask_to_patch_target(mask, PATCH_GRID)  # (14, 14)
+            target = mask_to_patch_target(mask, self.target_grid)
         else:
-            target = np.zeros((PATCH_GRID, PATCH_GRID), dtype=np.float32)
+            target = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
 
-        target = torch.from_numpy(target).reshape(NUM_PATCHES)  # (196,)
+        target = torch.from_numpy(target).reshape(self.target_n)
 
-        return {
+        result = {
             "hidden": hidden,
             "query": query,
             "target": target,
             "img_id": img_id,
             "cat_id": cat_id,
         }
+
+        # On-the-fly CLIP vision: return preprocessed image tensor
+        if self.clip_preprocess is not None and self.img_dir is not None:
+            img_info = self.coco.imgs[img_id]
+            img_path = os.path.join(self.img_dir, img_info["file_name"])
+            img = Image.open(img_path).convert("RGB")
+            result["clip_image"] = self.clip_preprocess(img)
+
+        return result
 
 
 # ── CLIPSeg soft targets ──────────────────────────────────────────────
@@ -319,28 +485,38 @@ def generate_clipseg_targets(
     categories: dict[int, str],
     cache_dir: str,
     device: torch.device,
+    target_grid: int = PATCH_GRID,
     max_cats_per_image: int = 5,
+    include_negatives: bool = False,
 ):
-    """Generate CLIPSeg soft heatmaps for mixing with hard mask supervision."""
+    """Generate CLIPSeg soft heatmaps for mixing with hard mask supervision.
+
+    `target_grid` controls the spatial resolution of cached targets. Cache
+    files are versioned by grid size so 14x and 28x and 56x can coexist.
+
+    `include_negatives`: if True, also generate CLIPSeg targets for a few
+    categories not present in the image. This gives the student CLIPSeg's
+    "this object is absent" signal for open-vocab.
+    """
     from transformers import CLIPSegForImageSegmentation, CLIPSegProcessor
 
     os.makedirs(cache_dir, exist_ok=True)
+    suffix = f"_g{target_grid}.pt"
 
-    done = sum(1 for i in img_ids if os.path.exists(os.path.join(cache_dir, f"{i}.pt")))
+    done = sum(1 for i in img_ids if os.path.exists(os.path.join(cache_dir, f"{i}{suffix}")))
     if done == len(img_ids):
-        print(f"[clipseg] All {done} images already cached")
+        print(f"[clipseg] All {done} images already cached at grid {target_grid}")
         return
 
-    print(f"[clipseg] Loading CLIPSeg model...")
+    print(f"[clipseg] Loading CLIPSeg model (target grid {target_grid})...")
     processor = CLIPSegProcessor.from_pretrained("CIDAS/clipseg-rd64-refined")
     model = CLIPSegForImageSegmentation.from_pretrained("CIDAS/clipseg-rd64-refined")
     model = model.to(device).eval()
 
-    cat_names = list(categories.values())
-    cat_ids = list(categories.keys())
+    all_cat_ids = list(categories.keys())
 
-    for img_id in tqdm(img_ids, desc="CLIPSeg soft targets"):
-        out_path = os.path.join(cache_dir, f"{img_id}.pt")
+    for img_id in tqdm(img_ids, desc=f"CLIPSeg soft targets g{target_grid}"):
+        out_path = os.path.join(cache_dir, f"{img_id}{suffix}")
         if os.path.exists(out_path):
             continue
 
@@ -349,6 +525,10 @@ def generate_clipseg_targets(
 
         present_cats = get_image_categories(coco, img_id)
         query_cat_ids = list(present_cats.keys())[:max_cats_per_image]
+        if include_negatives:
+            absent = [c for c in all_cat_ids if c not in present_cats]
+            random.shuffle(absent)
+            query_cat_ids = list(query_cat_ids) + absent[:2]
         query_names = [categories[c] for c in query_cat_ids if c in categories]
         if not query_names:
             continue
@@ -362,16 +542,19 @@ def generate_clipseg_targets(
 
         outputs = model(**inputs)
         logits = outputs.logits  # (N_queries, H, W)
+        if logits.dim() == 2:
+            logits = logits.unsqueeze(0)  # single-query edge case
 
-        # Downsample to 14x14
-        soft = torch.sigmoid(logits)
-        soft_14 = F.adaptive_avg_pool2d(soft.unsqueeze(1), (PATCH_GRID, PATCH_GRID))
-        soft_14 = soft_14.squeeze(1).cpu()  # (N_queries, 14, 14)
+        soft = torch.sigmoid(logits).unsqueeze(1).cpu()  # (N, 1, H, W)
+        # Bilinear interpolate to target_grid (works for any non-divisible H/W)
+        soft_g = F.interpolate(soft, size=(target_grid, target_grid),
+                               mode="bilinear", align_corners=False)
+        soft_g = soft_g.squeeze(1)  # (N, target_grid, target_grid)
 
         result = {}
         for i, cat_id in enumerate(query_cat_ids):
-            if i < len(soft_14):
-                result[str(cat_id)] = soft_14[i].to(torch.float16)
+            if i < len(soft_g):
+                result[str(cat_id)] = soft_g[i].to(torch.float16)
 
         torch.save(result, out_path)
 
@@ -391,6 +574,11 @@ class CocoSegWithClipSegDataset(Dataset):
         categories: dict[int, str],
         clipseg_cache_dir: Optional[str] = None,
         clipseg_mix_ratio: float = 0.3,
+        target_grid: int = PATCH_GRID,
+        neg_per_image: int = 1,
+        clip_vision_cache_dir: Optional[str] = None,
+        img_dir: Optional[str] = None,
+        clip_preprocess=None,
     ):
         self.coco = coco
         self.hidden_cache_dir = hidden_cache_dir
@@ -398,6 +586,12 @@ class CocoSegWithClipSegDataset(Dataset):
         self.categories = categories
         self.clipseg_cache_dir = clipseg_cache_dir
         self.clipseg_mix_ratio = clipseg_mix_ratio
+        self.target_grid = target_grid
+        self.target_n = target_grid * target_grid
+        self.clipseg_suffix = f"_g{target_grid}.pt"
+        self.clip_vision_cache_dir = clip_vision_cache_dir
+        self.img_dir = img_dir
+        self.clip_preprocess = clip_preprocess
 
         # Build index of (img_id, cat_id, anns, source) tuples
         self.samples = []
@@ -410,16 +604,27 @@ class CocoSegWithClipSegDataset(Dataset):
                 if str(cat_id) in clip_embeddings:
                     self.samples.append((img_id, cat_id, anns, "mask"))
 
-            # Add negative sample
+            # Add negative samples
             all_cat_ids = list(categories.keys())
             present = set(cats.keys())
             absent = [c for c in all_cat_ids if c not in present and str(c) in clip_embeddings]
             if absent:
-                neg = random.choice(absent)
-                self.samples.append((img_id, neg, [], "mask"))
+                n = min(neg_per_image, len(absent))
+                chosen = random.sample(absent, n)
+                for neg in chosen:
+                    self.samples.append((img_id, neg, [], "mask"))
 
     def __len__(self):
         return len(self.samples)
+
+    def _maybe_load_clip_image(self, img_id: int, result: dict) -> dict:
+        """Add preprocessed CLIP image to result dict if online mode is active."""
+        if self.clip_preprocess is not None and self.img_dir is not None:
+            img_info = self.coco.imgs[img_id]
+            img_path = os.path.join(self.img_dir, img_info["file_name"])
+            img = Image.open(img_path).convert("RGB")
+            result["clip_image"] = self.clip_preprocess(img)
+        return result
 
     def __getitem__(self, idx):
         img_id, cat_id, anns, source = self.samples[idx]
@@ -429,6 +634,13 @@ class CocoSegWithClipSegDataset(Dataset):
             map_location="cpu",
             weights_only=True,
         ).float()
+
+        # Optionally concatenate CLIP vision features (cached mode)
+        if self.clip_vision_cache_dir:
+            clip_vis_path = os.path.join(self.clip_vision_cache_dir, f"{img_id}.pt")
+            if os.path.exists(clip_vis_path):
+                clip_vis = torch.load(clip_vis_path, map_location="cpu", weights_only=True).float()
+                hidden = torch.cat([hidden, clip_vis], dim=-1)
 
         query = self.clip_embeddings[str(cat_id)]
 
@@ -440,61 +652,115 @@ class CocoSegWithClipSegDataset(Dataset):
         )
 
         if use_clipseg:
-            clipseg_path = os.path.join(self.clipseg_cache_dir, f"{img_id}.pt")
+            clipseg_path = os.path.join(self.clipseg_cache_dir, f"{img_id}{self.clipseg_suffix}")
             if os.path.exists(clipseg_path):
                 clipseg_data = torch.load(clipseg_path, map_location="cpu", weights_only=True)
                 if str(cat_id) in clipseg_data:
-                    target = clipseg_data[str(cat_id)].float().reshape(NUM_PATCHES)
-                    return {"hidden": hidden, "query": query, "target": target,
-                            "img_id": img_id, "cat_id": cat_id}
+                    target = clipseg_data[str(cat_id)].float().reshape(self.target_n)
+                    return self._maybe_load_clip_image(img_id, {
+                        "hidden": hidden, "query": query, "target": target,
+                        "img_id": img_id, "cat_id": cat_id})
 
         # Fall back to hard mask
         if anns:
             mask = build_category_mask(self.coco, img_id, cat_id, anns)
-            target = mask_to_patch_target(mask, PATCH_GRID)
+            target = mask_to_patch_target(mask, self.target_grid)
         else:
-            target = np.zeros((PATCH_GRID, PATCH_GRID), dtype=np.float32)
+            target = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
 
-        target = torch.from_numpy(target).reshape(NUM_PATCHES)
+        target = torch.from_numpy(target).reshape(self.target_n)
 
-        return {"hidden": hidden, "query": query, "target": target,
-                "img_id": img_id, "cat_id": cat_id}
+        return self._maybe_load_clip_image(img_id, {
+            "hidden": hidden, "query": query, "target": target,
+            "img_id": img_id, "cat_id": cat_id})
 
 
 # ── Training ───────────────────────────────────────────────────────────
 
 
-def train_epoch(head, loader, optimizer, device, epoch, total_epochs):
+def soft_dice_loss(probs: torch.Tensor, target: torch.Tensor, eps: float = 1e-6) -> torch.Tensor:
+    # probs, target: (B, N) in [0,1]. Per-sample soft dice, mean across batch.
+    intersection = (probs * target).sum(dim=1)
+    denom = probs.sum(dim=1) + target.sum(dim=1)
+    dice = (2 * intersection + eps) / (denom + eps)
+    return 1.0 - dice.mean()
+
+
+def focal_loss(logits: torch.Tensor, target: torch.Tensor, alpha: float = 0.25, gamma: float = 2.0) -> torch.Tensor:
+    """Focal loss (Lin et al. 2017) for imbalanced binary classification.
+
+    alpha_t = alpha for positive (target=1), 1-alpha for negative (target=0).
+    With alpha=0.25: foreground weighted 0.25, background 0.75 (standard RetinaNet).
+    With alpha=0.75: foreground weighted 0.75, background 0.25 (better for low-FG tasks).
+    """
+    bce = F.binary_cross_entropy_with_logits(logits, target, reduction='none')
+    pt = torch.exp(-bce)  # p_t
+    alpha_t = alpha * target + (1 - alpha) * (1 - target)
+    focal = alpha_t * (1 - pt) ** gamma * bce
+    return focal.mean()
+
+
+def train_epoch(head, loader, optimizer, device, epoch, total_epochs, dice_weight=0.0, use_focal=False, focal_alpha=0.25, focal_gamma=2.0, clip_vision_online: Optional[CLIPVisionOnline] = None):
     head.train()
-    losses = []
+    bce_losses, dice_losses, total_losses = [], [], []
     pbar = tqdm(loader, desc=f"Epoch {epoch+1}/{total_epochs} [train]")
     for batch in pbar:
         hidden = batch["hidden"].to(device)
         query = batch["query"].to(device)
         target = batch["target"].to(device)
 
-        logits = head(hidden, query)  # (B, 196)
-        loss = F.binary_cross_entropy_with_logits(logits, target)
+        # On-the-fly CLIP vision feature extraction
+        if clip_vision_online is not None and "clip_image" in batch:
+            clip_vis = clip_vision_online.extract_batch(batch["clip_image"].to(device))
+            hidden = torch.cat([hidden, clip_vis], dim=-1)
+
+        logits = head(hidden, query)  # (B, N)
+
+        # Compute loss term (focal or BCE)
+        if use_focal:
+            bce = focal_loss(logits, target, alpha=focal_alpha, gamma=focal_gamma)
+        else:
+            bce = F.binary_cross_entropy_with_logits(logits, target)
+
+        if dice_weight > 0:
+            probs = torch.sigmoid(logits)
+            dice = soft_dice_loss(probs, target)
+            loss = bce + dice_weight * dice
+        else:
+            dice = torch.zeros((), device=device)
+            loss = bce
 
         optimizer.zero_grad()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(head.parameters(), 1.0)
         optimizer.step()
 
-        losses.append(loss.item())
-        pbar.set_postfix(loss=f"{loss.item():.4f}")
+        bce_losses.append(bce.item())
+        dice_losses.append(dice.item())
+        total_losses.append(loss.item())
+        pbar.set_postfix(bce=f"{bce.item():.4f}", dice=f"{dice.item():.4f}")
 
-    return sum(losses) / len(losses)
+    return {
+        "bce": sum(bce_losses) / len(bce_losses),
+        "dice": sum(dice_losses) / len(dice_losses),
+        "total": sum(total_losses) / len(total_losses),
+    }
 
 
 @torch.inference_mode()
-def validate(head, loader, device):
+def validate(head, loader, device, use_focal=False, clip_vision_online: Optional[CLIPVisionOnline] = None):
+    # Always pure BCE for cross-experiment comparability.
     head.eval()
     losses = []
     for batch in loader:
         hidden = batch["hidden"].to(device)
         query = batch["query"].to(device)
         target = batch["target"].to(device)
+
+        # On-the-fly CLIP vision feature extraction
+        if clip_vision_online is not None and "clip_image" in batch:
+            clip_vis = clip_vision_online.extract_batch(batch["clip_image"].to(device))
+            hidden = torch.cat([hidden, clip_vis], dim=-1)
 
         logits = head(hidden, query)
         loss = F.binary_cross_entropy_with_logits(logits, target)
@@ -514,6 +780,8 @@ def save_qualitative_examples(
     device: torch.device,
     output_dir: str,
     num_examples: int = 20,
+    clip_vision_cache_dir: Optional[str] = None,
+    clip_vision_online: Optional[CLIPVisionOnline] = None,
 ):
     """Save side-by-side comparisons: original image + GT mask + predicted heatmap."""
     head.eval()
@@ -552,11 +820,22 @@ def save_qualitative_examples(
         mask = build_category_mask(coco, img_id, cat_id, anns)
         gt_14 = mask_to_patch_target(mask, PATCH_GRID)
 
-        # Predict
+        # Predict (output may be at decoder grid, not 14x14)
         hidden = torch.load(cache_path, map_location="cpu", weights_only=True).float()
+        if clip_vision_cache_dir:
+            cv_path = os.path.join(clip_vision_cache_dir, f"{img_id}.pt")
+            if os.path.exists(cv_path):
+                clip_vis = torch.load(cv_path, map_location="cpu", weights_only=True).float()
+                hidden = torch.cat([hidden, clip_vis], dim=-1)
+        elif clip_vision_online is not None:
+            clip_img = clip_vision_online.preprocess(img).unsqueeze(0).to(device)
+            clip_vis = clip_vision_online.extract_batch(clip_img)[0].cpu()
+            hidden = torch.cat([hidden, clip_vis], dim=-1)
         query = clip_embeddings[str(cat_id)]
         logits = head(hidden.unsqueeze(0).to(device), query.unsqueeze(0).to(device))
-        probs = torch.sigmoid(logits).reshape(PATCH_GRID, PATCH_GRID).cpu().numpy()
+        n_out = logits.shape[-1]
+        out_grid = int(round(n_out ** 0.5))
+        probs = torch.sigmoid(logits).reshape(out_grid, out_grid).cpu().numpy()
 
         # Upsample for overlay
         h, w = img_np.shape[:2]
@@ -607,7 +886,10 @@ def main():
     p.add_argument("--output_dir", default="results/coco_seg")
     p.add_argument("--device", default="mps")
     p.add_argument("--max_images", type=int, default=None,
-                   help="Limit images for faster iteration (None = all 5K val)")
+                   help="Limit images for faster iteration (None = all)")
+    p.add_argument("--train_split", default="val",
+                   help="COCO split to train on: 'val' (5K) or 'train' (118K). "
+                        "When 'train', val2017 is used for validation.")
     p.add_argument("--expanded_dim", type=int, default=512)
     p.add_argument("--n_attn_heads", type=int, default=8)
     p.add_argument("--n_attn_layers", type=int, default=3)
@@ -618,6 +900,28 @@ def main():
     p.add_argument("--val_split", type=float, default=0.2)
     p.add_argument("--clipseg_mix", type=float, default=0.0,
                    help="Fraction of samples using CLIPSeg soft targets (0=disabled)")
+    p.add_argument("--dice_weight", type=float, default=0.0,
+                   help="Soft-dice loss weight added to BCE (0=disabled). Encourages crisp boundaries.")
+    p.add_argument("--focal", action="store_true",
+                   help="Use focal loss instead of BCE.")
+    p.add_argument("--focal_alpha", type=float, default=0.25,
+                   help="Focal loss alpha parameter (default 0.25).")
+    p.add_argument("--focal_gamma", type=float, default=2.0,
+                   help="Focal loss gamma parameter (default 2.0).")
+    p.add_argument("--decoder", action="store_true",
+                   help="Use BigHeadDecoder with upsampling for higher-resolution output.")
+    p.add_argument("--out_grid", type=int, default=14,
+                   help="Output spatial grid size. With --decoder must be 14, 28, or 56.")
+    p.add_argument("--decoder_dim", type=int, default=128,
+                   help="Decoder bottleneck channel dim (BigHeadDecoder only).")
+    p.add_argument("--clipseg_neg", action="store_true",
+                   help="When generating CLIPSeg targets, also include negative categories.")
+    p.add_argument("--neg_per_image", type=int, default=1,
+                   help="Number of negative category samples per image (default 1).")
+    p.add_argument("--clip_vision", action="store_true",
+                   help="Concatenate CLIP ViT-B/16 patch features (768-dim) with AutoGaze features (cached to disk).")
+    p.add_argument("--clip_vision_online", action="store_true",
+                   help="Compute CLIP vision features on-the-fly (no disk caching). Use for large datasets where caching is infeasible.")
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--wandb_project", default="semantic-autogaze")
     p.add_argument("--run_name", default=None)
@@ -631,9 +935,21 @@ def main():
     device = torch.device(args.device)
 
     # ── 1. Download data ──
-    img_dir, ann_file = download_coco_val(args.data_dir)
+    if args.train_split == "train":
+        img_dir, ann_file = download_coco_train(args.data_dir)
+        # Use val2017 for validation
+        val_img_dir, val_ann_file = download_coco_val(args.data_dir)
+    else:
+        img_dir, ann_file = download_coco_val(args.data_dir)
+        val_img_dir, val_ann_file = None, None  # val split from same set
+
     print(f"[data] Loading COCO annotations from {ann_file}")
     coco = COCO(ann_file)
+    if val_ann_file and val_ann_file != ann_file:
+        print(f"[data] Loading COCO val annotations from {val_ann_file}")
+        coco_val = COCO(val_ann_file)
+    else:
+        coco_val = None
 
     # Category mapping
     cat_info = coco.loadCats(coco.getCatIds())
@@ -645,6 +961,34 @@ def main():
     cache_autogaze_hidden_states(
         img_dir, coco, hidden_cache_dir, device, max_images=args.max_images,
     )
+    if coco_val is not None:
+        val_hidden_cache_dir = os.path.join(args.output_dir, "val_hidden_cache")
+        cache_autogaze_hidden_states(
+            val_img_dir, coco_val, val_hidden_cache_dir, device,
+        )
+    else:
+        val_hidden_cache_dir = hidden_cache_dir
+
+    # ── 2b. Optional: Cache CLIP vision features ──
+    clip_vision_cache_dir = None
+    val_clip_vision_cache_dir = None
+    if args.clip_vision:
+        clip_vision_cache_dir = os.path.join(args.output_dir, "clip_vision_cache")
+        cache_clip_vision_features(img_dir, coco, clip_vision_cache_dir, device, max_images=args.max_images)
+        if coco_val is not None:
+            val_clip_vision_cache_dir = os.path.join(args.output_dir, "val_clip_vision_cache")
+            cache_clip_vision_features(val_img_dir, coco_val, val_clip_vision_cache_dir, device)
+        else:
+            val_clip_vision_cache_dir = clip_vision_cache_dir
+
+    # ── 2c. Optional: On-the-fly CLIP vision features ──
+    clip_vision_online = None
+    clip_preprocess = None
+    if args.clip_vision_online:
+        if args.clip_vision:
+            print("[warn] --clip_vision and --clip_vision_online both set; using online mode")
+        clip_vision_online = CLIPVisionOnline(device)
+        clip_preprocess = clip_vision_online.preprocess
 
     # ── 3. Cache CLIP text embeddings ──
     clip_cache_path = os.path.join(args.output_dir, "clip_text_embeddings.pt")
@@ -653,41 +997,81 @@ def main():
     # ── 4. Optional: CLIPSeg soft targets ──
     clipseg_cache_dir = None
     if args.clipseg_mix > 0:
-        clipseg_cache_dir = os.path.join(args.output_dir, "clipseg_cache")
+        # Reuse a top-level CLIPSeg cache so multiple runs share generation cost.
+        clipseg_cache_dir = os.path.join(args.data_dir, "clipseg_cache")
         all_img_ids = sorted(coco.getImgIds())
         if args.max_images:
             all_img_ids = all_img_ids[:args.max_images]
         generate_clipseg_targets(
             img_dir, coco, all_img_ids, categories, clipseg_cache_dir, device,
+            target_grid=args.out_grid, include_negatives=args.clipseg_neg,
         )
 
     # ── 5. Train/val split ──
-    all_img_ids = sorted(coco.getImgIds())
-    if args.max_images:
-        all_img_ids = all_img_ids[:args.max_images]
-    random.shuffle(all_img_ids)
-    split = int(len(all_img_ids) * (1 - args.val_split))
-    train_ids = all_img_ids[:split]
-    val_ids = all_img_ids[split:]
-    print(f"[data] Split: {len(train_ids)} train, {len(val_ids)} val images")
+    if coco_val is not None:
+        # Separate train/val COCO sets (e.g. train2017 + val2017)
+        train_ids = sorted(coco.getImgIds())
+        if args.max_images:
+            train_ids = train_ids[:args.max_images]
+        val_ids = sorted(coco_val.getImgIds())
+        val_coco_ref = coco_val
+        val_cache_dir = val_hidden_cache_dir
+        print(f"[data] Split: {len(train_ids)} train (train2017), {len(val_ids)} val (val2017)")
+    else:
+        all_img_ids = sorted(coco.getImgIds())
+        if args.max_images:
+            all_img_ids = all_img_ids[:args.max_images]
+        random.shuffle(all_img_ids)
+        split = int(len(all_img_ids) * (1 - args.val_split))
+        train_ids = all_img_ids[:split]
+        val_ids = all_img_ids[split:]
+        val_coco_ref = coco
+        val_cache_dir = hidden_cache_dir
+        print(f"[data] Split: {len(train_ids)} train, {len(val_ids)} val images")
 
-    DatasetClass = CocoSegWithClipSegDataset if args.clipseg_mix > 0 else CocoSegDataset
+    # Resolve CLIP vision cache dirs for val
+    train_cv_dir = clip_vision_cache_dir
+    val_cv_dir = val_clip_vision_cache_dir if coco_val is not None else clip_vision_cache_dir
+
+    # Resolve image dirs for on-the-fly CLIP vision (None when not using online mode)
+    train_img_dir_for_clip = img_dir if clip_preprocess else None
+    val_img_dir_for_clip = (val_img_dir if coco_val is not None else img_dir) if clip_preprocess else None
 
     if args.clipseg_mix > 0:
-        train_dataset = DatasetClass(
+        train_dataset = CocoSegWithClipSegDataset(
             coco, train_ids, hidden_cache_dir, clip_embeddings, categories,
             clipseg_cache_dir=clipseg_cache_dir,
             clipseg_mix_ratio=args.clipseg_mix,
+            target_grid=args.out_grid,
+            neg_per_image=args.neg_per_image,
+            clip_vision_cache_dir=train_cv_dir,
+            img_dir=train_img_dir_for_clip,
+            clip_preprocess=clip_preprocess,
         )
         val_dataset = CocoSegDataset(
-            coco, val_ids, hidden_cache_dir, clip_embeddings, categories,
+            val_coco_ref, val_ids, val_cache_dir, clip_embeddings, categories,
+            target_grid=args.out_grid,
+            neg_per_image=args.neg_per_image,
+            clip_vision_cache_dir=val_cv_dir,
+            img_dir=val_img_dir_for_clip,
+            clip_preprocess=clip_preprocess,
         )
     else:
         train_dataset = CocoSegDataset(
             coco, train_ids, hidden_cache_dir, clip_embeddings, categories,
+            target_grid=args.out_grid,
+            neg_per_image=args.neg_per_image,
+            clip_vision_cache_dir=train_cv_dir,
+            img_dir=train_img_dir_for_clip,
+            clip_preprocess=clip_preprocess,
         )
         val_dataset = CocoSegDataset(
-            coco, val_ids, hidden_cache_dir, clip_embeddings, categories,
+            val_coco_ref, val_ids, val_cache_dir, clip_embeddings, categories,
+            target_grid=args.out_grid,
+            neg_per_image=args.neg_per_image,
+            clip_vision_cache_dir=val_cv_dir,
+            img_dir=val_img_dir_for_clip,
+            clip_preprocess=clip_preprocess,
         )
 
     print(f"[data] {len(train_dataset)} train samples, {len(val_dataset)} val samples")
@@ -702,17 +1086,36 @@ def main():
     )
 
     # ── 6. Model ──
-    head = BigHead(
-        hidden_dim=192,
-        embedding_dim=512,
-        expanded_dim=args.expanded_dim,
-        n_attn_heads=args.n_attn_heads,
-        n_attn_layers=args.n_attn_layers,
-        dropout=args.dropout,
-    ).to(device)
+    use_clip_vision = args.clip_vision or args.clip_vision_online
+    hidden_dim = 192 + (768 if use_clip_vision else 0)
+    if args.decoder:
+        head = BigHeadDecoder(
+            hidden_dim=hidden_dim,
+            embedding_dim=512,
+            expanded_dim=args.expanded_dim,
+            n_attn_heads=args.n_attn_heads,
+            n_attn_layers=args.n_attn_layers,
+            decoder_dim=args.decoder_dim,
+            out_grid=args.out_grid,
+            in_grid=PATCH_GRID,
+            dropout=args.dropout,
+        ).to(device)
+        model_kind = "BigHeadDecoder"
+    else:
+        assert args.out_grid == PATCH_GRID, "BigHead only supports out_grid=14; pass --decoder for higher."
+        head = BigHead(
+            hidden_dim=hidden_dim,
+            embedding_dim=512,
+            expanded_dim=args.expanded_dim,
+            n_attn_heads=args.n_attn_heads,
+            n_attn_layers=args.n_attn_layers,
+            dropout=args.dropout,
+        ).to(device)
+        model_kind = "BigHead"
     param_count = sum(p.numel() for p in head.parameters()) / 1e3
-    print(f"[model] BigHead: {param_count:.1f}K params "
-          f"(e={args.expanded_dim}, L={args.n_attn_layers}, h={args.n_attn_heads})")
+    print(f"[model] {model_kind}: {param_count:.1f}K params "
+          f"(e={args.expanded_dim}, L={args.n_attn_layers}, h={args.n_attn_heads}, "
+          f"out_grid={args.out_grid})")
 
     optimizer = torch.optim.AdamW(head.parameters(), lr=args.lr, weight_decay=0.01)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.num_epochs)
@@ -731,14 +1134,25 @@ def main():
     t0 = time.time()
 
     for epoch in range(args.num_epochs):
-        train_loss = train_epoch(head, train_loader, optimizer, device, epoch, args.num_epochs)
-        val_loss = validate(head, val_loader, device)
+        train_metrics = train_epoch(
+            head, train_loader, optimizer, device, epoch, args.num_epochs,
+            dice_weight=args.dice_weight,
+            use_focal=args.focal,
+            focal_alpha=args.focal_alpha,
+            focal_gamma=args.focal_gamma,
+            clip_vision_online=clip_vision_online,
+        )
+        val_loss = validate(head, val_loader, device, clip_vision_online=clip_vision_online)
         scheduler.step()
 
         lr = optimizer.param_groups[0]["lr"]
-        print(f"  Epoch {epoch+1}: train_bce={train_loss:.4f} val_bce={val_loss:.4f} lr={lr:.6f}")
+        train_loss = train_metrics["bce"]
+        print(f"  Epoch {epoch+1}: train_bce={train_loss:.4f} "
+              f"train_dice={train_metrics['dice']:.4f} val_bce={val_loss:.4f} lr={lr:.6f}")
         wandb.log({
             "train/bce": train_loss,
+            "train/dice": train_metrics["dice"],
+            "train/total": train_metrics["total"],
             "val/bce": val_loss,
             "train/lr": lr,
             "epoch": epoch + 1,
@@ -749,11 +1163,15 @@ def main():
             ckpt = {
                 "state_dict": head.state_dict(),
                 "config": {
-                    "hidden_dim": 192,
+                    "hidden_dim": hidden_dim,
                     "embedding_dim": 512,
                     "expanded_dim": args.expanded_dim,
                     "n_attn_heads": args.n_attn_heads,
                     "n_attn_layers": args.n_attn_layers,
+                    "model_kind": model_kind,
+                    "out_grid": args.out_grid,
+                    "decoder_dim": args.decoder_dim if args.decoder else None,
+                    "clip_vision": use_clip_vision,
                 },
                 "epoch": epoch + 1,
                 "val_bce": val_loss,
@@ -764,7 +1182,7 @@ def main():
 
         torch.save(
             {"state_dict": head.state_dict(), "epoch": epoch + 1, "val_bce": val_loss,
-             "config": {"hidden_dim": 192, "embedding_dim": 512,
+             "config": {"hidden_dim": hidden_dim, "embedding_dim": 512,
                         "expanded_dim": args.expanded_dim,
                         "n_attn_heads": args.n_attn_heads,
                         "n_attn_layers": args.n_attn_layers}},
@@ -774,14 +1192,18 @@ def main():
     elapsed = time.time() - t0
     print(f"\n[train] Done in {elapsed/60:.1f} min. Best val_bce={best_val_bce:.4f}")
 
-    # ── 9. Qualitative evaluation ──
+    # ── 9. Qualitative evaluation (on val set) ──
     print(f"\n[eval] Generating {args.num_qual_examples} qualitative examples...")
     best_ckpt = torch.load(os.path.join(args.output_dir, "best_head.pt"), map_location=device)
     head.load_state_dict(best_ckpt["state_dict"])
     qual_dir = os.path.join(args.output_dir, "qualitative")
+    qual_coco = coco_val if coco_val is not None else coco
+    qual_img_dir = val_img_dir if val_img_dir is not None else img_dir
     save_qualitative_examples(
-        head, coco, img_dir, hidden_cache_dir, clip_embeddings,
+        head, qual_coco, qual_img_dir, val_cache_dir, clip_embeddings,
         categories, device, qual_dir, num_examples=args.num_qual_examples,
+        clip_vision_cache_dir=val_clip_vision_cache_dir,
+        clip_vision_online=clip_vision_online,
     )
 
     wandb.finish()

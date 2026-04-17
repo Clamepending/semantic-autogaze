@@ -40,13 +40,21 @@ def _pick_device(device: Optional[str]) -> torch.device:
     return torch.device("cpu")
 
 
-def _infer_head_class(state_dict: dict):
+def _infer_head_class(state_dict: dict, cfg: dict | None = None):
     keys = set(state_dict.keys())
-    from .bighead import BigHead, TemporalBigHead
+    from .bighead import BigHead, BigHeadDecoder, TemporalBigHead
     from .model import SimilarityHead
+
+    kind = (cfg or {}).get("model_kind")
+    if kind == "BigHeadDecoder":
+        return BigHeadDecoder
+    if kind == "BigHead":
+        return BigHead
 
     if any(k.startswith("temporal_blocks.") for k in keys):
         return TemporalBigHead
+    if any(k.startswith("decoder_in.") or k.startswith("decoder_up.") or k.startswith("decoder_out.") for k in keys):
+        return BigHeadDecoder
     if any(k.startswith("blocks.") and k.endswith(".attn.in_proj_weight") for k in keys):
         return BigHead
     return SimilarityHead
@@ -54,13 +62,12 @@ def _infer_head_class(state_dict: dict):
 
 def load_head(ckpt_path: str | Path, device: torch.device) -> tuple[torch.nn.Module, str]:
     """Load a trained head checkpoint and return (module, head_type_name)."""
-    ckpt = torch.load(ckpt_path, map_location=device)
+    ckpt = torch.load(ckpt_path, map_location=device, weights_only=False)
     state_dict = ckpt.get("state_dict", ckpt) if isinstance(ckpt, dict) else ckpt
     cfg = ckpt.get("config", {}) if isinstance(ckpt, dict) else {}
 
-    HeadCls = _infer_head_class(state_dict)
+    HeadCls = _infer_head_class(state_dict, cfg)
     if HeadCls.__name__ == "SimilarityHead":
-        # `SimilarityHead` constructor: (hidden_dim, embedding_dim)
         head = HeadCls(hidden_dim=cfg.get("hidden_dim", 192), embedding_dim=cfg.get("embedding_dim", 512))
     else:
         head = HeadCls(**{k: v for k, v in cfg.items() if k in HeadCls.__init__.__code__.co_varnames})

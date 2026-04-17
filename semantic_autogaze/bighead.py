@@ -116,6 +116,89 @@ class BigHead(nn.Module):
         return self.out_proj(self.out_norm(h)).squeeze(-1)
 
 
+class BigHeadDecoder(nn.Module):
+    """BigHead encoder + tiny upsampling decoder for higher-resolution heatmaps.
+
+    The encoder is the same query-conditioned spatial-attention stack as
+    `BigHead`; the decoder reshapes the per-patch features back to a 14x14
+    spatial map and upsamples 2x or 4x with small convs. Designed for
+    negligible extra latency (~1-2ms on MPS for 14→28).
+
+    Output grid: `out_grid` × `out_grid` per sample.
+    """
+
+    def __init__(
+        self,
+        hidden_dim: int = 192,
+        embedding_dim: int = 512,
+        expanded_dim: int = 512,
+        n_attn_heads: int = 8,
+        n_attn_layers: int = 3,
+        decoder_dim: int = 128,
+        out_grid: int = 28,
+        in_grid: int = 14,
+        dropout: float = 0.0,
+    ):
+        super().__init__()
+        assert out_grid in (14, 28, 56), "out_grid must be 14, 28, or 56"
+        assert out_grid % in_grid == 0, "out_grid must be a multiple of in_grid"
+
+        self.hidden_dim = hidden_dim
+        self.embedding_dim = embedding_dim
+        self.expanded_dim = expanded_dim
+        self.in_grid = in_grid
+        self.out_grid = out_grid
+        self.upscale = out_grid // in_grid
+
+        self.proj = nn.Linear(hidden_dim + embedding_dim, expanded_dim)
+        self.blocks = nn.ModuleList(
+            _PatchSelfAttnBlock(expanded_dim, n_attn_heads, dropout=dropout)
+            for _ in range(n_attn_layers)
+        )
+        self.feat_norm = nn.LayerNorm(expanded_dim)
+
+        # Decoder: 1x1 conv to compress, then progressive PixelShuffle upsamples.
+        self.decoder_in = nn.Conv2d(expanded_dim, decoder_dim, kernel_size=1)
+        layers = []
+        cur_dim = decoder_dim
+        cur_scale = 1
+        while cur_scale < self.upscale:
+            # 3x3 conv then PixelShuffle x2 (channel reduction by 4)
+            layers.append(nn.Conv2d(cur_dim, cur_dim * 4, kernel_size=3, padding=1))
+            layers.append(nn.GELU())
+            layers.append(nn.PixelShuffle(2))
+            cur_scale *= 2
+            # PixelShuffle reduces channels by upscale^2; stays at cur_dim.
+        self.decoder_up = nn.Sequential(*layers) if layers else nn.Identity()
+        self.decoder_out = nn.Conv2d(cur_dim, 1, kernel_size=1)
+
+    def forward(self, patch_hidden: torch.Tensor, query_embed: torch.Tensor) -> torch.Tensor:
+        """
+        Args
+        ----
+        patch_hidden : (B, N, hidden_dim)  AutoGaze patch features (N = in_grid**2).
+        query_embed  : (B, embedding_dim)  CLIP text embedding.
+
+        Returns
+        -------
+        logits : (B, out_grid * out_grid)  raw per-pixel scores at decoder resolution.
+        """
+        B, N, _ = patch_hidden.shape
+        assert N == self.in_grid * self.in_grid, f"expected {self.in_grid**2} patches"
+        q = query_embed.unsqueeze(1).expand(B, N, -1)
+        h = self.proj(torch.cat([patch_hidden, q], dim=-1))  # (B, N, E)
+        for block in self.blocks:
+            h = block(h)
+        h = self.feat_norm(h)  # (B, N, E)
+
+        # (B, N, E) → (B, E, in_grid, in_grid)
+        feat = h.transpose(1, 2).reshape(B, self.expanded_dim, self.in_grid, self.in_grid)
+        feat = self.decoder_in(feat)
+        feat = self.decoder_up(feat)
+        logits = self.decoder_out(feat)  # (B, 1, out_grid, out_grid)
+        return logits.reshape(B, self.out_grid * self.out_grid)
+
+
 class TemporalBigHead(nn.Module):
     """BigHead + temporal attention across frames.
 
