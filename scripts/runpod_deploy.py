@@ -36,7 +36,7 @@ from typing import Optional
 import runpod
 
 REPO_URL = "https://github.com/Clamepending/semantic-autogaze.git"
-DEFAULT_BRANCH = "main"
+DEFAULT_BRANCH = "reconstruct-from-wandb-2026-04-15"
 VOLUME_MOUNT = "/workspace"
 
 # GPU type IDs as RunPod's API expects them.
@@ -157,14 +157,26 @@ def prep(args):
 set -eux
 mkdir -p {VOLUME_MOUNT}/semantic-autogaze
 cd {VOLUME_MOUNT}/semantic-autogaze
-[ -d .git ] || git clone --branch {DEFAULT_BRANCH} {REPO_URL} .
-pip install -e . open_clip_torch wandb
-[ -n "${{HF_TOKEN:-}}" ] && huggingface-cli login --token "$HF_TOKEN"
+if [ -d .git ]; then
+    git fetch origin {DEFAULT_BRANCH} && git checkout {DEFAULT_BRANCH} && git pull --ff-only
+else
+    git clone --branch {DEFAULT_BRANCH} {REPO_URL} .
+fi
+pip install -e . open_clip_torch wandb pycocotools
+[ -n "${{HF_TOKEN:-}}" ] && huggingface-cli login --token "$HF_TOKEN" || true
+
 # Pre-download AutoGaze weights into the volume's HF cache.
-python - <<'PY'
-from huggingface_hub import snapshot_download
-snapshot_download("nvidia/AutoGaze", cache_dir="{VOLUME_MOUNT}/hf_cache")
-PY
+export HF_HOME={VOLUME_MOUNT}/hf_cache
+python -c "from huggingface_hub import snapshot_download; snapshot_download('nvidia/AutoGaze')"
+
+# Download COCO train2017 + val2017 + annotations
+python -c "
+from semantic_autogaze.train_coco_seg import download_coco_val, download_coco_train
+download_coco_val('data/coco')
+download_coco_train('data/coco')
+print('[prep] COCO data downloaded')
+"
+
 echo "[prep] volume is ready at {VOLUME_MOUNT}/semantic-autogaze"
 """
     pod = runpod.create_pod(
