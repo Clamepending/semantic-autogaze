@@ -200,6 +200,35 @@ def build_category_mask(coco: COCO, img_id: int, cat_id: int, anns: list) -> np.
     return mask
 
 
+def build_other_present_target(
+    coco: COCO,
+    img_id: int,
+    self_cat_id: int,
+    cats_for_img: dict,
+    grid: int,
+    self_target: np.ndarray,
+) -> np.ndarray:
+    """Patch-grid weight map of OTHER present categories' coverage in the image.
+
+    For each patch, value = max occupancy across all present categories ≠ self.
+    Then subtract self_target so we never penalise the model for firing where
+    the positive itself overlaps another category (e.g. person on bicycle).
+
+    Used by v13e (within-image hard negatives): we want the model trained on
+    (image, "fork") to be heavily discouraged from firing on the bottle's
+    patches in the same image. The weight = "how-other-it-is" per patch.
+    """
+    other = np.zeros((grid, grid), dtype=np.float32)
+    for cat_id, anns in cats_for_img.items():
+        if cat_id == self_cat_id or not anns:
+            continue
+        m = build_category_mask(coco, img_id, cat_id, anns)
+        t = mask_to_patch_target(m, grid)
+        other = np.maximum(other, t)
+    other = np.clip(other - self_target, 0.0, 1.0)
+    return other
+
+
 # ── Caching ────────────────────────────────────────────────────────────
 
 
@@ -410,6 +439,7 @@ class CocoSegDataset(Dataset):
         target_grid: int = PATCH_GRID,
         neg_per_image: int = 1,
         hard_semantic_neg_per_image: int = 0,
+        within_image_neg: bool = False,
         clip_vision_cache_dir: Optional[str] = None,
         img_dir: Optional[str] = None,
         clip_preprocess=None,
@@ -423,17 +453,25 @@ class CocoSegDataset(Dataset):
         self.clip_vision_cache_dir = clip_vision_cache_dir
         self.img_dir = img_dir
         self.clip_preprocess = clip_preprocess
+        self.within_image_neg = within_image_neg
 
         # Build index: (img_id, cat_id, [anns]) for all valid pairs
+        # Also build a per-image map of all present (cat_id -> anns) for v13e
+        # within-image hard negatives.
         self.samples = []
+        self.cats_for_img: dict[int, dict] = {}
         for img_id in img_ids:
             cache_path = os.path.join(hidden_cache_dir, f"{img_id}.pt")
             if not os.path.exists(cache_path):
                 continue
             cats = get_image_categories(coco, img_id)
+            present = {}
             for cat_id, anns in cats.items():
                 if str(cat_id) in clip_embeddings:
                     self.samples.append((img_id, cat_id, anns))
+                    present[cat_id] = anns
+            if present:
+                self.cats_for_img[img_id] = present
 
         # Also add negative samples: categories NOT present in image
         self._add_negatives(
@@ -519,12 +557,25 @@ class CocoSegDataset(Dataset):
         else:
             target = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
 
-        target = torch.from_numpy(target).reshape(self.target_n)
+        # v13e: per-patch weight map for OTHER present categories (in-image
+        # hard negatives). Zeros for synthetic negative samples or when
+        # within-image negatives are disabled.
+        if self.within_image_neg and anns and img_id in self.cats_for_img:
+            other = build_other_present_target(
+                self.coco, img_id, cat_id, self.cats_for_img[img_id],
+                self.target_grid, target,
+            )
+        else:
+            other = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
+
+        target_t = torch.from_numpy(target).reshape(self.target_n)
+        other_t = torch.from_numpy(other).reshape(self.target_n)
 
         result = {
             "hidden": hidden,
             "query": query,
-            "target": target,
+            "target": target_t,
+            "other_target": other_t,
             "img_id": img_id,
             "cat_id": cat_id,
         }
@@ -642,6 +693,7 @@ class CocoSegWithClipSegDataset(Dataset):
         target_grid: int = PATCH_GRID,
         neg_per_image: int = 1,
         hard_semantic_neg_per_image: int = 0,
+        within_image_neg: bool = False,
         clip_vision_cache_dir: Optional[str] = None,
         img_dir: Optional[str] = None,
         clip_preprocess=None,
@@ -658,9 +710,12 @@ class CocoSegWithClipSegDataset(Dataset):
         self.clip_vision_cache_dir = clip_vision_cache_dir
         self.img_dir = img_dir
         self.clip_preprocess = clip_preprocess
+        self.within_image_neg = within_image_neg
 
         # Build index of (img_id, cat_id, anns, source) tuples
+        # Also cache per-image (cat_id -> anns) for v13e in-image negatives.
         self.samples = []
+        self.cats_for_img: dict[int, dict] = {}
         all_cat_ids = [c for c in categories.keys() if str(c) in clip_embeddings]
         for img_id in img_ids:
             cache_path = os.path.join(hidden_cache_dir, f"{img_id}.pt")
@@ -668,10 +723,14 @@ class CocoSegWithClipSegDataset(Dataset):
                 continue
             cats = get_image_categories(coco, img_id)
             present_for_neg = []
+            present_anns: dict = {}
             for cat_id, anns in cats.items():
                 if str(cat_id) in clip_embeddings:
                     self.samples.append((img_id, cat_id, anns, "mask"))
                     present_for_neg.append(cat_id)
+                    present_anns[cat_id] = anns
+            if present_anns:
+                self.cats_for_img[img_id] = present_anns
 
             # Random absent negatives
             present = set(cats.keys())
@@ -728,27 +787,38 @@ class CocoSegWithClipSegDataset(Dataset):
             and anns  # only for positive samples
         )
 
+        target_np: Optional[np.ndarray] = None
+        target_t: Optional[torch.Tensor] = None
         if use_clipseg:
             clipseg_path = os.path.join(self.clipseg_cache_dir, f"{img_id}{self.clipseg_suffix}")
             if os.path.exists(clipseg_path):
                 clipseg_data = torch.load(clipseg_path, map_location="cpu", weights_only=True)
                 if str(cat_id) in clipseg_data:
-                    target = clipseg_data[str(cat_id)].float().reshape(self.target_n)
-                    return self._maybe_load_clip_image(img_id, {
-                        "hidden": hidden, "query": query, "target": target,
-                        "img_id": img_id, "cat_id": cat_id})
+                    soft = clipseg_data[str(cat_id)].float()
+                    target_np = soft.reshape(self.target_grid, self.target_grid).numpy()
+                    target_t = soft.reshape(self.target_n)
 
-        # Fall back to hard mask
-        if anns:
-            mask = build_category_mask(self.coco, img_id, cat_id, anns)
-            target = mask_to_patch_target(mask, self.target_grid)
+        if target_t is None:
+            if anns:
+                mask = build_category_mask(self.coco, img_id, cat_id, anns)
+                target_np = mask_to_patch_target(mask, self.target_grid)
+            else:
+                target_np = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
+            target_t = torch.from_numpy(target_np).reshape(self.target_n)
+
+        # v13e other-present weight map (zeros if disabled or pure-negative sample)
+        if self.within_image_neg and anns and img_id in self.cats_for_img:
+            other = build_other_present_target(
+                self.coco, img_id, cat_id, self.cats_for_img[img_id],
+                self.target_grid, target_np,
+            )
         else:
-            target = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
-
-        target = torch.from_numpy(target).reshape(self.target_n)
+            other = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
+        other_t = torch.from_numpy(other).reshape(self.target_n)
 
         return self._maybe_load_clip_image(img_id, {
-            "hidden": hidden, "query": query, "target": target,
+            "hidden": hidden, "query": query, "target": target_t,
+            "other_target": other_t,
             "img_id": img_id, "cat_id": cat_id})
 
 
@@ -777,9 +847,9 @@ def focal_loss(logits: torch.Tensor, target: torch.Tensor, alpha: float = 0.25, 
     return focal.mean()
 
 
-def train_epoch(head, loader, optimizer, device, epoch, total_epochs, dice_weight=0.0, use_focal=False, focal_alpha=0.25, focal_gamma=2.0, clip_vision_online: Optional[CLIPVisionOnline] = None):
+def train_epoch(head, loader, optimizer, device, epoch, total_epochs, dice_weight=0.0, use_focal=False, focal_alpha=0.25, focal_gamma=2.0, other_neg_weight=0.0, clip_vision_online: Optional[CLIPVisionOnline] = None):
     head.train()
-    bce_losses, dice_losses, total_losses = [], [], []
+    bce_losses, dice_losses, other_losses, total_losses = [], [], [], []
     pbar = tqdm(loader, desc=f"Epoch {epoch+1}/{total_epochs} [train]")
     for batch in pbar:
         hidden = batch["hidden"].to(device)
@@ -807,6 +877,20 @@ def train_epoch(head, loader, optimizer, device, epoch, total_epochs, dice_weigh
             dice = torch.zeros((), device=device)
             loss = bce
 
+        # v13e: weighted BCE pushing pred to 0 inside other present categories.
+        # weight = how-other-it-is per patch (in [0,1]); normalised by sum so
+        # the term is interpretable as "average BCE on other-cat patches".
+        if other_neg_weight > 0 and "other_target" in batch:
+            other_target = batch["other_target"].to(device)
+            denom = other_target.sum().clamp(min=1.0)
+            per_pixel = F.binary_cross_entropy_with_logits(
+                logits, torch.zeros_like(logits), reduction="none"
+            )
+            other_loss = (per_pixel * other_target).sum() / denom
+            loss = loss + other_neg_weight * other_loss
+        else:
+            other_loss = torch.zeros((), device=device)
+
         optimizer.zero_grad()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(head.parameters(), 1.0)
@@ -814,12 +898,17 @@ def train_epoch(head, loader, optimizer, device, epoch, total_epochs, dice_weigh
 
         bce_losses.append(bce.item())
         dice_losses.append(dice.item())
+        other_losses.append(other_loss.item())
         total_losses.append(loss.item())
-        pbar.set_postfix(bce=f"{bce.item():.4f}", dice=f"{dice.item():.4f}")
+        pbar.set_postfix(
+            bce=f"{bce.item():.4f}", dice=f"{dice.item():.4f}",
+            otr=f"{other_loss.item():.4f}",
+        )
 
     return {
         "bce": sum(bce_losses) / len(bce_losses),
         "dice": sum(dice_losses) / len(dice_losses),
+        "other": sum(other_losses) / len(other_losses),
         "total": sum(total_losses) / len(total_losses),
     }
 
@@ -999,6 +1088,14 @@ def main():
                    help="Number of HARD semantic negatives per image (absent categories most "
                         "similar in CLIP text-embedding space to a positive). Forces fine-grained "
                         "query routing. v13c. Additive to --neg_per_image.")
+    p.add_argument("--within_image_neg", action="store_true",
+                   help="v13e: emit per-patch weight map of OTHER present categories so "
+                        "the loss can directly penalise firing on co-occurring objects. "
+                        "Requires --other_neg_weight > 0 to take effect.")
+    p.add_argument("--other_neg_weight", type=float, default=0.0,
+                   help="v13e: weight on the within-image hard-negative BCE term. "
+                        "Tuned: 1.0 = roughly comparable to main BCE on small-object cases; "
+                        "5.0 = aggressive routing pressure.")
     p.add_argument("--clip_vision", action="store_true",
                    help="Concatenate CLIP ViT-B/16 patch features (768-dim) with AutoGaze features (cached to disk).")
     p.add_argument("--clip_vision_online", action="store_true",
@@ -1007,6 +1104,9 @@ def main():
     p.add_argument("--wandb_project", default="semantic-autogaze")
     p.add_argument("--run_name", default=None)
     p.add_argument("--num_qual_examples", type=int, default=20)
+    p.add_argument("--init_from", default=None,
+                   help="Path to a .pt checkpoint to initialise the head from "
+                        "(state_dict only). Lets you fine-tune from a prior run.")
     args = p.parse_args()
 
     random.seed(args.seed)
@@ -1126,6 +1226,7 @@ def main():
             target_grid=args.out_grid,
             neg_per_image=args.neg_per_image,
             hard_semantic_neg_per_image=args.hard_semantic_neg_per_image,
+            within_image_neg=args.within_image_neg,
             clip_vision_cache_dir=train_cv_dir,
             img_dir=train_img_dir_for_clip,
             clip_preprocess=clip_preprocess,
@@ -1135,6 +1236,7 @@ def main():
             target_grid=args.out_grid,
             neg_per_image=args.neg_per_image,
             hard_semantic_neg_per_image=args.hard_semantic_neg_per_image,
+            within_image_neg=args.within_image_neg,
             clip_vision_cache_dir=val_cv_dir,
             img_dir=val_img_dir_for_clip,
             clip_preprocess=clip_preprocess,
@@ -1145,6 +1247,7 @@ def main():
             target_grid=args.out_grid,
             neg_per_image=args.neg_per_image,
             hard_semantic_neg_per_image=args.hard_semantic_neg_per_image,
+            within_image_neg=args.within_image_neg,
             clip_vision_cache_dir=train_cv_dir,
             img_dir=train_img_dir_for_clip,
             clip_preprocess=clip_preprocess,
@@ -1154,6 +1257,7 @@ def main():
             target_grid=args.out_grid,
             neg_per_image=args.neg_per_image,
             hard_semantic_neg_per_image=args.hard_semantic_neg_per_image,
+            within_image_neg=args.within_image_neg,
             clip_vision_cache_dir=val_cv_dir,
             img_dir=val_img_dir_for_clip,
             clip_preprocess=clip_preprocess,
@@ -1202,6 +1306,13 @@ def main():
           f"(e={args.expanded_dim}, L={args.n_attn_layers}, h={args.n_attn_heads}, "
           f"out_grid={args.out_grid})")
 
+    if args.init_from:
+        ckpt = torch.load(args.init_from, map_location=device, weights_only=True)
+        sd = ckpt["state_dict"] if isinstance(ckpt, dict) and "state_dict" in ckpt else ckpt
+        missing, unexpected = head.load_state_dict(sd, strict=False)
+        print(f"[init] Loaded head from {args.init_from}; "
+              f"missing={len(missing)} unexpected={len(unexpected)}")
+
     optimizer = torch.optim.AdamW(head.parameters(), lr=args.lr, weight_decay=0.01)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.num_epochs)
 
@@ -1225,6 +1336,7 @@ def main():
             use_focal=args.focal,
             focal_alpha=args.focal_alpha,
             focal_gamma=args.focal_gamma,
+            other_neg_weight=args.other_neg_weight,
             clip_vision_online=clip_vision_online,
         )
         val_loss = validate(head, val_loader, device, clip_vision_online=clip_vision_online)
@@ -1237,6 +1349,7 @@ def main():
         wandb.log({
             "train/bce": train_loss,
             "train/dice": train_metrics["dice"],
+            "train/other": train_metrics.get("other", 0.0),
             "train/total": train_metrics["total"],
             "val/bce": val_loss,
             "train/lr": lr,
