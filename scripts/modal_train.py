@@ -117,6 +117,15 @@ def train(run_name: str = "coco_seg_v12", train_args: str = ""):
 
     os.chdir("/opt/semantic-autogaze")
 
+    # Pull latest commit on the configured branch so we don't run a stale
+    # snapshot baked into the cached image. Modal caches `run_commands` layers,
+    # so without this any new commit on BRANCH would be silently ignored.
+    print(f"[code] git pull origin {BRANCH}")
+    subprocess.run(["git", "fetch", "origin", BRANCH], check=True)
+    subprocess.run(["git", "reset", "--hard", f"origin/{BRANCH}"], check=True)
+    sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"]).decode().strip()
+    print(f"[code] now at {sha}")
+
     # Symlink data volume
     data_dir = f"{VOLUME_PATH}/coco"
     os.makedirs(data_dir, exist_ok=True)
