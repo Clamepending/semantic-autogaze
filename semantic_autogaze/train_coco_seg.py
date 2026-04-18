@@ -1107,6 +1107,13 @@ def main():
     p.add_argument("--init_from", default=None,
                    help="Path to a .pt checkpoint to initialise the head from "
                         "(state_dict only). Lets you fine-tune from a prior run.")
+    p.add_argument("--hidden_cache_dir", default=None,
+                   help="Override the train-split AutoGaze hidden-state cache dir. "
+                        "Default: <output_dir>/hidden_cache. Point at a prior run's cache "
+                        "to skip the multi-hour re-cache when re-using the same split.")
+    p.add_argument("--val_hidden_cache_dir", default=None,
+                   help="Override the val-split AutoGaze hidden-state cache dir. "
+                        "Default: <output_dir>/val_hidden_cache (only used when train_split=train).")
     args = p.parse_args()
 
     random.seed(args.seed)
@@ -1138,12 +1145,16 @@ def main():
     print(f"[data] {len(categories)} categories: {list(categories.values())[:10]}...")
 
     # ── 2. Cache hidden states ──
-    hidden_cache_dir = os.path.join(args.output_dir, "hidden_cache")
+    hidden_cache_dir = args.hidden_cache_dir or os.path.join(args.output_dir, "hidden_cache")
+    os.makedirs(hidden_cache_dir, exist_ok=True)
+    print(f"[cache] train hidden-state cache dir: {hidden_cache_dir}")
     cache_autogaze_hidden_states(
         img_dir, coco, hidden_cache_dir, device, max_images=args.max_images,
     )
     if coco_val is not None:
-        val_hidden_cache_dir = os.path.join(args.output_dir, "val_hidden_cache")
+        val_hidden_cache_dir = args.val_hidden_cache_dir or os.path.join(args.output_dir, "val_hidden_cache")
+        os.makedirs(val_hidden_cache_dir, exist_ok=True)
+        print(f"[cache] val hidden-state cache dir: {val_hidden_cache_dir}")
         cache_autogaze_hidden_states(
             val_img_dir, coco_val, val_hidden_cache_dir, device,
         )

@@ -21,6 +21,11 @@ cd "$(dirname "$0")/.."
 
 RUN_NAME="${RUN_NAME:-coco_seg_v13e}"
 OTHER_NEG_WEIGHT="${OTHER_NEG_WEIGHT:-2.0}"
+# Reuse v12c's prebuilt hidden-state caches on the results volume so we skip
+# the ~6h re-cache of train2017 every run. v12c was the first full train2017
+# run that successfully populated 118287 train + 5000 val .pt files.
+HIDDEN_CACHE_DIR="${HIDDEN_CACHE_DIR:-/results/v12c/hidden_cache}"
+VAL_HIDDEN_CACHE_DIR="${VAL_HIDDEN_CACHE_DIR:-/results/v12c/val_hidden_cache}"
 
 TRAIN_ARGS=(
   --device cuda
@@ -40,6 +45,8 @@ TRAIN_ARGS=(
   --other_neg_weight "${OTHER_NEG_WEIGHT}"
   --train_split train
   --num_qual_examples 20
+  --hidden_cache_dir "${HIDDEN_CACHE_DIR}"
+  --val_hidden_cache_dir "${VAL_HIDDEN_CACHE_DIR}"
 )
 
 echo "[v13e] launching detached on Modal as run_name=${RUN_NAME}"
