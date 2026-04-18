@@ -473,6 +473,27 @@ class CocoSegDataset(Dataset):
             if present:
                 self.cats_for_img[img_id] = present
 
+        # v13e: precompute per-image per-category patch-occupancy maps once,
+        # so __getitem__ never has to rasterize polygons. Without this, every
+        # (img_id, query_cat) sample pays the cost of re-building all present
+        # categories' masks → 130× training slowdown vs v11 (measured: 9.5s/it
+        # vs 0.07s/it on Modal T4 at bs=32).
+        self.cat_patch_occupancy: dict[int, dict[int, np.ndarray]] = {}
+        if within_image_neg:
+            print(f"[data] precomputing within-image-neg patch occupancy for {len(self.cats_for_img)} images at grid {target_grid}…")
+            for img_id, present in tqdm(
+                self.cats_for_img.items(),
+                desc="cat patch occupancy",
+            ):
+                per_cat = {}
+                for cat_id, anns in present.items():
+                    if not anns:
+                        continue
+                    m = build_category_mask(coco, img_id, cat_id, anns)
+                    per_cat[cat_id] = mask_to_patch_target(m, target_grid)
+                if per_cat:
+                    self.cat_patch_occupancy[img_id] = per_cat
+
         # Also add negative samples: categories NOT present in image
         self._add_negatives(
             img_ids,
@@ -558,13 +579,17 @@ class CocoSegDataset(Dataset):
             target = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
 
         # v13e: per-patch weight map for OTHER present categories (in-image
-        # hard negatives). Zeros for synthetic negative samples or when
-        # within-image negatives are disabled.
-        if self.within_image_neg and anns and img_id in self.cats_for_img:
-            other = build_other_present_target(
-                self.coco, img_id, cat_id, self.cats_for_img[img_id],
-                self.target_grid, target,
-            )
+        # hard negatives). Uses the patch-occupancy maps precomputed once at
+        # dataset init — no polygon rasterization in the hot path.
+        if self.within_image_neg and img_id in self.cat_patch_occupancy:
+            occ = self.cat_patch_occupancy[img_id]
+            other = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
+            for c, t in occ.items():
+                if c == cat_id:
+                    continue
+                np.maximum(other, t, out=other)
+            np.subtract(other, target, out=other)
+            np.clip(other, 0.0, 1.0, out=other)
         else:
             other = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
 
@@ -750,6 +775,26 @@ class CocoSegWithClipSegDataset(Dataset):
                 for neg in hard_picks:
                     self.samples.append((img_id, neg, [], "mask"))
 
+        # v13e: precompute per-image per-category patch-occupancy maps once
+        # (same fix as in CocoSegDataset — without it, each __getitem__ would
+        # rasterize every present category's polygons, blowing up training
+        # time ~130×).
+        self.cat_patch_occupancy: dict[int, dict[int, np.ndarray]] = {}
+        if within_image_neg:
+            print(f"[data] precomputing within-image-neg patch occupancy for {len(self.cats_for_img)} images at grid {target_grid}…")
+            for img_id, present in tqdm(
+                self.cats_for_img.items(),
+                desc="cat patch occupancy (clipseg dataset)",
+            ):
+                per_cat = {}
+                for cat_id, anns in present.items():
+                    if not anns:
+                        continue
+                    m = build_category_mask(coco, img_id, cat_id, anns)
+                    per_cat[cat_id] = mask_to_patch_target(m, target_grid)
+                if per_cat:
+                    self.cat_patch_occupancy[img_id] = per_cat
+
     def __len__(self):
         return len(self.samples)
 
@@ -806,12 +851,17 @@ class CocoSegWithClipSegDataset(Dataset):
                 target_np = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
             target_t = torch.from_numpy(target_np).reshape(self.target_n)
 
-        # v13e other-present weight map (zeros if disabled or pure-negative sample)
-        if self.within_image_neg and anns and img_id in self.cats_for_img:
-            other = build_other_present_target(
-                self.coco, img_id, cat_id, self.cats_for_img[img_id],
-                self.target_grid, target_np,
-            )
+        # v13e other-present weight map. Uses precomputed patch-occupancy
+        # maps so the hot path never rasterizes polygons.
+        if self.within_image_neg and anns and img_id in self.cat_patch_occupancy:
+            occ = self.cat_patch_occupancy[img_id]
+            other = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
+            for c, t in occ.items():
+                if c == cat_id:
+                    continue
+                np.maximum(other, t, out=other)
+            np.subtract(other, target_np, out=other)
+            np.clip(other, 0.0, 1.0, out=other)
         else:
             other = np.zeros((self.target_grid, self.target_grid), dtype=np.float32)
         other_t = torch.from_numpy(other).reshape(self.target_n)
@@ -1114,6 +1164,9 @@ def main():
     p.add_argument("--val_hidden_cache_dir", default=None,
                    help="Override the val-split AutoGaze hidden-state cache dir. "
                         "Default: <output_dir>/val_hidden_cache (only used when train_split=train).")
+    p.add_argument("--num_workers", type=int, default=4,
+                   help="DataLoader worker processes. 0 keeps loading on the main thread "
+                        "(GPU starves; only useful for debugging). Default 4.")
     args = p.parse_args()
 
     random.seed(args.seed)
@@ -1278,11 +1331,15 @@ def main():
 
     train_loader = DataLoader(
         train_dataset, batch_size=args.batch_size, shuffle=True,
-        num_workers=0, drop_last=True,
+        num_workers=args.num_workers, drop_last=True,
+        pin_memory=(device.type == "cuda"),
+        persistent_workers=(args.num_workers > 0),
     )
     val_loader = DataLoader(
         val_dataset, batch_size=args.batch_size, shuffle=False,
-        num_workers=0,
+        num_workers=args.num_workers,
+        pin_memory=(device.type == "cuda"),
+        persistent_workers=(args.num_workers > 0),
     )
 
     # ── 6. Model ──
