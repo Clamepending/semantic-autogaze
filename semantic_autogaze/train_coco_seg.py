@@ -159,6 +159,36 @@ def get_image_categories(coco: COCO, img_id: int, min_area_frac: float = 0.005):
     return cats
 
 
+def pick_hard_semantic_negatives(
+    present_cat_ids,
+    absent_cat_ids: list[int],
+    clip_embeddings: dict[str, torch.Tensor],
+    k: int,
+) -> list[int]:
+    """Pick k absent categories most similar (max CLIP cos-sim) to any positive.
+
+    For each absent category, score = max over positives of cos(absent, positive).
+    Highest scores = hardest negatives (semantically closest to something in
+    the image). This is the gradient signal that forces fine-grained query
+    routing instead of "predict objectness on any kitchen-utensil query".
+    """
+    if k <= 0 or not absent_cat_ids or not present_cat_ids:
+        return []
+    pos_embs = torch.stack(
+        [clip_embeddings[str(c)].float() for c in present_cat_ids], dim=0
+    )  # (P, D)
+    pos_embs = F.normalize(pos_embs, dim=-1)
+    abs_embs = torch.stack(
+        [clip_embeddings[str(c)].float() for c in absent_cat_ids], dim=0
+    )  # (A, D)
+    abs_embs = F.normalize(abs_embs, dim=-1)
+    sims = abs_embs @ pos_embs.T  # (A, P)
+    scores = sims.max(dim=-1).values  # (A,)
+    topk = min(k, len(absent_cat_ids))
+    idx = torch.topk(scores, topk).indices.tolist()
+    return [absent_cat_ids[i] for i in idx]
+
+
 def build_category_mask(coco: COCO, img_id: int, cat_id: int, anns: list) -> np.ndarray:
     """Build binary mask for all instances of a category in an image."""
     img_info = coco.imgs[img_id]
@@ -379,6 +409,7 @@ class CocoSegDataset(Dataset):
         categories: dict[int, str],
         target_grid: int = PATCH_GRID,
         neg_per_image: int = 1,
+        hard_semantic_neg_per_image: int = 0,
         clip_vision_cache_dir: Optional[str] = None,
         img_dir: Optional[str] = None,
         clip_preprocess=None,
@@ -405,23 +436,57 @@ class CocoSegDataset(Dataset):
                     self.samples.append((img_id, cat_id, anns))
 
         # Also add negative samples: categories NOT present in image
-        self._add_negatives(img_ids, neg_per_image=neg_per_image)
+        self._add_negatives(
+            img_ids,
+            neg_per_image=neg_per_image,
+            hard_semantic_neg_per_image=hard_semantic_neg_per_image,
+        )
 
-    def _add_negatives(self, img_ids: list[int], neg_per_image: int = 1):
-        """Add negative category samples (category not in image → all-zero mask)."""
-        all_cat_ids = list(self.categories.keys())
+    def _add_negatives(
+        self,
+        img_ids: list[int],
+        neg_per_image: int = 1,
+        hard_semantic_neg_per_image: int = 0,
+    ):
+        """Add negative category samples (category not in image → all-zero mask).
+
+        - `neg_per_image`: random absent categories (the easy negatives).
+        - `hard_semantic_neg_per_image`: absent categories most similar in CLIP
+          text-embedding space to a positive in the image. Forces fine-grained
+          query routing because the head can't tell "knife" from "fork" without
+          actually using the query.
+        """
+        all_cat_ids = [c for c in self.categories.keys() if str(c) in self.clip_embeddings]
         neg_samples = []
+        present_by_img = {}
+        for img_id, cat_id, _ in self.samples:
+            present_by_img.setdefault(img_id, set()).add(cat_id)
+
         for img_id in img_ids:
             cache_path = os.path.join(self.hidden_cache_dir, f"{img_id}.pt")
             if not os.path.exists(cache_path):
                 continue
-            present_cats = set(c for i, c, _ in self.samples if i == img_id)
-            absent = [c for c in all_cat_ids if c not in present_cats and str(c) in self.clip_embeddings]
-            if absent:
-                n = min(neg_per_image, len(absent))
-                chosen = random.sample(absent, n)
+            present_cats = present_by_img.get(img_id, set())
+            absent = [c for c in all_cat_ids if c not in present_cats]
+            if not absent:
+                continue
+
+            # Random absent negatives (existing behavior)
+            n_rand = min(neg_per_image, len(absent))
+            if n_rand > 0:
+                chosen = random.sample(absent, n_rand)
                 for neg_cat in chosen:
                     neg_samples.append((img_id, neg_cat, []))
+
+            # Hard semantic negatives: most-similar-to-any-positive absent cats
+            n_hard = min(hard_semantic_neg_per_image, len(absent))
+            if n_hard > 0 and present_cats:
+                hard_picks = pick_hard_semantic_negatives(
+                    present_cats, absent, self.clip_embeddings, n_hard
+                )
+                for neg_cat in hard_picks:
+                    neg_samples.append((img_id, neg_cat, []))
+
         self.samples.extend(neg_samples)
 
     def __len__(self):
@@ -576,6 +641,7 @@ class CocoSegWithClipSegDataset(Dataset):
         clipseg_mix_ratio: float = 0.3,
         target_grid: int = PATCH_GRID,
         neg_per_image: int = 1,
+        hard_semantic_neg_per_image: int = 0,
         clip_vision_cache_dir: Optional[str] = None,
         img_dir: Optional[str] = None,
         clip_preprocess=None,
@@ -595,23 +661,34 @@ class CocoSegWithClipSegDataset(Dataset):
 
         # Build index of (img_id, cat_id, anns, source) tuples
         self.samples = []
+        all_cat_ids = [c for c in categories.keys() if str(c) in clip_embeddings]
         for img_id in img_ids:
             cache_path = os.path.join(hidden_cache_dir, f"{img_id}.pt")
             if not os.path.exists(cache_path):
                 continue
             cats = get_image_categories(coco, img_id)
+            present_for_neg = []
             for cat_id, anns in cats.items():
                 if str(cat_id) in clip_embeddings:
                     self.samples.append((img_id, cat_id, anns, "mask"))
+                    present_for_neg.append(cat_id)
 
-            # Add negative samples
-            all_cat_ids = list(categories.keys())
+            # Random absent negatives
             present = set(cats.keys())
-            absent = [c for c in all_cat_ids if c not in present and str(c) in clip_embeddings]
-            if absent:
+            absent = [c for c in all_cat_ids if c not in present]
+            if absent and neg_per_image > 0:
                 n = min(neg_per_image, len(absent))
                 chosen = random.sample(absent, n)
                 for neg in chosen:
+                    self.samples.append((img_id, neg, [], "mask"))
+
+            # Hard semantic negatives
+            if absent and hard_semantic_neg_per_image > 0 and present_for_neg:
+                n_hard = min(hard_semantic_neg_per_image, len(absent))
+                hard_picks = pick_hard_semantic_negatives(
+                    present_for_neg, absent, clip_embeddings, n_hard
+                )
+                for neg in hard_picks:
                     self.samples.append((img_id, neg, [], "mask"))
 
     def __len__(self):
@@ -918,6 +995,10 @@ def main():
                    help="When generating CLIPSeg targets, also include negative categories.")
     p.add_argument("--neg_per_image", type=int, default=1,
                    help="Number of negative category samples per image (default 1).")
+    p.add_argument("--hard_semantic_neg_per_image", type=int, default=0,
+                   help="Number of HARD semantic negatives per image (absent categories most "
+                        "similar in CLIP text-embedding space to a positive). Forces fine-grained "
+                        "query routing. v13c. Additive to --neg_per_image.")
     p.add_argument("--clip_vision", action="store_true",
                    help="Concatenate CLIP ViT-B/16 patch features (768-dim) with AutoGaze features (cached to disk).")
     p.add_argument("--clip_vision_online", action="store_true",
@@ -1044,6 +1125,7 @@ def main():
             clipseg_mix_ratio=args.clipseg_mix,
             target_grid=args.out_grid,
             neg_per_image=args.neg_per_image,
+            hard_semantic_neg_per_image=args.hard_semantic_neg_per_image,
             clip_vision_cache_dir=train_cv_dir,
             img_dir=train_img_dir_for_clip,
             clip_preprocess=clip_preprocess,
@@ -1052,6 +1134,7 @@ def main():
             val_coco_ref, val_ids, val_cache_dir, clip_embeddings, categories,
             target_grid=args.out_grid,
             neg_per_image=args.neg_per_image,
+            hard_semantic_neg_per_image=args.hard_semantic_neg_per_image,
             clip_vision_cache_dir=val_cv_dir,
             img_dir=val_img_dir_for_clip,
             clip_preprocess=clip_preprocess,
@@ -1061,6 +1144,7 @@ def main():
             coco, train_ids, hidden_cache_dir, clip_embeddings, categories,
             target_grid=args.out_grid,
             neg_per_image=args.neg_per_image,
+            hard_semantic_neg_per_image=args.hard_semantic_neg_per_image,
             clip_vision_cache_dir=train_cv_dir,
             img_dir=train_img_dir_for_clip,
             clip_preprocess=clip_preprocess,
@@ -1069,6 +1153,7 @@ def main():
             val_coco_ref, val_ids, val_cache_dir, clip_embeddings, categories,
             target_grid=args.out_grid,
             neg_per_image=args.neg_per_image,
+            hard_semantic_neg_per_image=args.hard_semantic_neg_per_image,
             clip_vision_cache_dir=val_cv_dir,
             img_dir=val_img_dir_for_clip,
             clip_preprocess=clip_preprocess,
