@@ -656,6 +656,8 @@ def generate_clipseg_targets(
 
     all_cat_ids = list(categories.keys())
 
+    from semantic_autogaze.letterbox import letterbox_image
+
     for img_id in tqdm(img_ids, desc=f"CLIPSeg soft targets g{target_grid}"):
         out_path = os.path.join(cache_dir, f"{img_id}{suffix}")
         if os.path.exists(out_path):
@@ -663,6 +665,11 @@ def generate_clipseg_targets(
 
         img_info = coco.imgs[img_id]
         img = Image.open(os.path.join(img_dir, img_info["file_name"])).convert("RGB")
+        # Letterbox to square before CLIPSeg sees it. CLIPSegProcessor will
+        # resize to 352x352; with a square input that resize is aspect-
+        # preserving and the resulting target lives in letterbox-square frame
+        # consistent with the DINOv2 cache.
+        img, _ = letterbox_image(img)
 
         present_cats = get_image_categories(coco, img_id)
         query_cat_ids = list(present_cats.keys())[:max_cats_per_image]

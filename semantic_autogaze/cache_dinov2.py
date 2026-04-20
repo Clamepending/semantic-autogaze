@@ -2,9 +2,11 @@
 
 Run once per dataset; both recipe A and recipe B trainings reuse the cache.
 
-Each image is resized to 224×224 (DINOv2's native res), passed through the
-frozen encoder, and the per-patch hidden state (no CLS) is saved as a
-(256, 384) float16 tensor at `<cache_dir>/<img_id>.pt`.
+Each image is letterbox-padded to a square (no aspect distortion, no content
+loss), then resized to 224×224, passed through the frozen DINOv2 encoder,
+and the per-patch hidden state (no CLS) is saved as a (256, 384) float16
+tensor at `<cache_dir>/<img_id>.pt`. The patches are in letterbox-square
+frame indexed by L = max(h, w) of the original image.
 """
 from __future__ import annotations
 
@@ -13,19 +15,32 @@ import os
 from pathlib import Path
 
 import torch
+import torchvision.transforms.functional as TF
 from PIL import Image
 from pycocotools.coco import COCO
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 from transformers import AutoImageProcessor, AutoModel
 
+from semantic_autogaze.letterbox import letterbox_image
+
 
 class _ImageDataset(Dataset):
-    def __init__(self, img_ids: list[int], img_dir: str, file_names: dict[int, str], processor):
+    def __init__(
+        self,
+        img_ids: list[int],
+        img_dir: str,
+        file_names: dict[int, str],
+        image_mean: list[float],
+        image_std: list[float],
+        input_size: int = 224,
+    ):
         self.img_ids = img_ids
         self.img_dir = img_dir
         self.file_names = file_names
-        self.processor = processor
+        self.image_mean = image_mean
+        self.image_std = image_std
+        self.input_size = input_size
 
     def __len__(self):
         return len(self.img_ids)
@@ -34,8 +49,15 @@ class _ImageDataset(Dataset):
         img_id = self.img_ids[idx]
         path = os.path.join(self.img_dir, self.file_names[img_id])
         img = Image.open(path).convert("RGB")
-        inputs = self.processor(images=img, return_tensors="pt")
-        return img_id, inputs["pixel_values"][0]
+        # Letterbox to square first → resize to model's native input → normalize.
+        # This replaces AutoImageProcessor's shortest-edge + center-crop, which
+        # silently discards content for non-square images.
+        square, _ = letterbox_image(img)
+        if square.size != (self.input_size, self.input_size):
+            square = square.resize((self.input_size, self.input_size), Image.BILINEAR)
+        tensor = TF.to_tensor(square)  # (3, H, W) in [0, 1]
+        tensor = TF.normalize(tensor, mean=self.image_mean, std=self.image_std)
+        return img_id, tensor
 
 
 @torch.inference_mode()
@@ -62,11 +84,33 @@ def cache_dinov2(
         return
     print(f"[dinov2] need to cache {len(pending)}/{len(img_ids)} images → {cache_dir}")
 
+    # We borrow only the normalization constants from the HF processor and
+    # build our own letterbox-aware preprocessing pipeline. Input size is
+    # taken from the processor's crop_size (224 for DINOv2-small), which is
+    # what the original cache used and what IconStudent's pos_embed expects
+    # (16x16 = 256 patches). The model itself supports variable resolution,
+    # but downstream code assumes the 16x16 grid.
     processor = AutoImageProcessor.from_pretrained(model_name)
     model = AutoModel.from_pretrained(model_name).to(device).eval()
-    print(f"[dinov2] model on {device}, hidden={model.config.hidden_size}, patch={model.config.patch_size}")
+    input_size = (
+        processor.crop_size["height"]
+        if hasattr(processor, "crop_size") and processor.crop_size
+        else processor.size.get("shortest_edge", 224)
+    )
+    print(
+        f"[dinov2] model on {device}, hidden={model.config.hidden_size}, "
+        f"patch={model.config.patch_size}, input={input_size}, "
+        f"frame=letterbox-square"
+    )
 
-    ds = _ImageDataset(pending, img_dir, file_names, processor)
+    ds = _ImageDataset(
+        pending,
+        img_dir,
+        file_names,
+        image_mean=list(processor.image_mean),
+        image_std=list(processor.image_std),
+        input_size=input_size,
+    )
     loader = DataLoader(ds, batch_size=batch_size, num_workers=num_workers, shuffle=False)
 
     for batch_ids, pixels in tqdm(loader, desc="dinov2 cache"):

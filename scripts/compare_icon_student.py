@@ -23,6 +23,12 @@ from PIL import Image
 from pycocotools.coco import COCO
 
 from semantic_autogaze.icon_student import IconStudent
+from semantic_autogaze.letterbox import (
+    LetterboxInfo,
+    compute_info,
+    heatmap_to_original,
+    letterbox_mask,
+)
 from semantic_autogaze.train_coco_seg import build_category_mask, get_image_categories
 
 
@@ -58,22 +64,21 @@ def load_student(ckpt_path: str, device: torch.device) -> IconStudent:
 
 @torch.inference_mode()
 def predict(model: IconStudent, patches: torch.Tensor, query: torch.Tensor,
-            device: torch.device, h: int, w: int) -> np.ndarray:
+            device: torch.device, info: LetterboxInfo) -> np.ndarray:
+    """Predict in letterbox-square frame, then un-letterbox to (h, w)."""
     logits = model(patches.unsqueeze(0).to(device), query.unsqueeze(0).to(device))
-    probs = torch.sigmoid(logits)[0].cpu()
-    up = F.interpolate(
-        probs.unsqueeze(0).unsqueeze(0),
-        size=(h, w), mode="bilinear", align_corners=False,
-    )[0, 0].numpy()
-    rng = up.max() - up.min()
-    return (up - up.min()) / (rng + 1e-8) if rng > 0 else up
+    probs = torch.sigmoid(logits)[0].cpu().numpy()
+    hw = heatmap_to_original(probs, info, mode="bilinear")
+    rng = hw.max() - hw.min()
+    return (hw - hw.min()) / (rng + 1e-8) if rng > 0 else hw
 
 
-def upsample_target(t: torch.Tensor, h: int, w: int) -> np.ndarray:
-    arr = t.float().unsqueeze(0).unsqueeze(0)
-    up = F.interpolate(arr, size=(h, w), mode="bilinear", align_corners=False)[0, 0].numpy()
-    rng = up.max() - up.min()
-    return (up - up.min()) / (rng + 1e-8) if rng > 0 else up
+def target_to_original(t: torch.Tensor, info: LetterboxInfo) -> np.ndarray:
+    """Cached target lives in letterbox-square frame; un-letterbox to (h, w)."""
+    arr = t.float().numpy()
+    hw = heatmap_to_original(arr, info, mode="bilinear")
+    rng = hw.max() - hw.min()
+    return (hw - hw.min()) / (rng + 1e-8) if rng > 0 else hw
 
 
 def overlay(img_np: np.ndarray, gray: np.ndarray, cmap) -> np.ndarray:
@@ -132,24 +137,26 @@ def main():
             continue
         patches = torch.load(patch_path, map_location="cpu", weights_only=True).float()
 
-        info = coco.imgs[img_id]
-        img = Image.open(os.path.join(img_dir, info["file_name"])).convert("RGB")
+        img_info = coco.imgs[img_id]
+        img = Image.open(os.path.join(img_dir, img_info["file_name"])).convert("RGB")
         img_np = np.array(img)
         h, w = img_np.shape[:2]
+        lb = compute_info(h, w)
 
         anns = coco.loadAnns(coco.getAnnIds(imgIds=img_id, catIds=[cat_id], iscrowd=0))
         if not anns:
             print(f"  [skip] {idx:03d}: no GT anns for {cat_name} in {img_id}")
             continue
+        # COCO GT is in native (h, w) frame already; just normalize.
         gt_mask = build_category_mask(coco, img_id, cat_id, anns).astype(np.float32)
         gt_norm = gt_mask / (gt_mask.max() + 1e-8)
 
-        # CLIPSeg teacher target (cached at target_grid)
+        # CLIPSeg teacher target (cached at target_grid in letterbox-square frame)
         cs_path = Path(args.clipseg_cache) / f"{img_id}_g{args.target_grid}.pt"
         if cs_path.exists():
             cs_dict = torch.load(cs_path, map_location="cpu", weights_only=True)
             cs_t = cs_dict.get(str(cat_id))
-            cs_up = upsample_target(cs_t, h, w) if cs_t is not None else np.zeros((h, w))
+            cs_up = target_to_original(cs_t, lb) if cs_t is not None else np.zeros((h, w))
         else:
             cs_up = np.zeros((h, w))
 
@@ -160,8 +167,8 @@ def main():
         ]
 
         query = clip_text[str(cat_id)].float()
-        pa = predict(model_a, patches, query, device, h, w)
-        pb = predict(model_b, patches, query, device, h, w)
+        pa = predict(model_a, patches, query, device, lb)
+        pb = predict(model_b, patches, query, device, lb)
 
         fig, axes = plt.subplots(1, 5, figsize=(30, 6))
         axes[0].imshow(img_np); axes[0].set_title(f"image {img_id}"); axes[0].axis("off")

@@ -27,6 +27,7 @@ from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 
 from semantic_autogaze.icon_student import IconStudent, trainable_param_count
+from semantic_autogaze.letterbox import letterbox_mask
 from semantic_autogaze.train_coco_seg import (
     build_category_mask,
     cache_clip_text_embeddings,
@@ -108,7 +109,11 @@ class _IconDataset(Dataset):
             anns = self.coco.loadAnns(self.coco.getAnnIds(imgIds=img_id, catIds=[cat_id], iscrowd=0))
             if anns:
                 m = build_category_mask(self.coco, img_id, cat_id, anns)
-                t = torch.from_numpy(m.astype(np.float32)).unsqueeze(0).unsqueeze(0)
+                # Letterbox the native-resolution mask to a square before
+                # downsampling so the target's geometry matches DINOv2's
+                # letterbox-square input frame.
+                m_sq, _ = letterbox_mask(m)
+                t = torch.from_numpy(m_sq.astype(np.float32)).unsqueeze(0).unsqueeze(0)
                 t = F.interpolate(t, size=(self.target_grid, self.target_grid),
                                   mode="bilinear", align_corners=False)
                 target = t.squeeze(0).squeeze(0).clamp(0, 1)
