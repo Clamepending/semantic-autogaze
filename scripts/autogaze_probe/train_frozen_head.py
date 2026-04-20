@@ -118,6 +118,9 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--feature-dir", default="results/autogaze_probe/features_gaze_val")
     p.add_argument("--teacher-dir", default="results/autogaze_probe/teacher_14x14_val")
+    p.add_argument("--val-feature-dir", default=None,
+                   help="If set, train on (feature-dir, teacher-dir) and val on these.")
+    p.add_argument("--val-teacher-dir", default=None)
     p.add_argument("--clip-text", default="results/icon_student_B_native_train/clip_text_embeddings.pt")
     p.add_argument("--out-dir", default="results/autogaze_frozen_head/cycle1")
     p.add_argument("--device", default="cpu")
@@ -141,11 +144,22 @@ def main():
 
     image_ids = [int(k) for k in sidecar.keys() if (feature_dir / f"{k}.pt").exists()]
     rng.shuffle(image_ids)
-    n_train = int(0.8 * len(image_ids))
-    train_ids, val_ids = image_ids[:n_train], image_ids[n_train:]
 
-    train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text)
-    val_ds = ProbeDataset(val_ids, sidecar, feature_dir, teacher_dir, clip_text)
+    if args.val_feature_dir and args.val_teacher_dir:
+        val_feature_dir = Path(args.val_feature_dir)
+        val_teacher_dir = Path(args.val_teacher_dir)
+        with open(val_teacher_dir / "_sidecar.json") as f:
+            val_sidecar = json.load(f)
+        val_ids = [int(k) for k in val_sidecar.keys()
+                   if (val_feature_dir / f"{k}.pt").exists()]
+        train_ids = image_ids
+        train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text)
+        val_ds = ProbeDataset(val_ids, val_sidecar, val_feature_dir, val_teacher_dir, clip_text)
+    else:
+        n_train = int(0.8 * len(image_ids))
+        train_ids, val_ids = image_ids[:n_train], image_ids[n_train:]
+        train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text)
+        val_ds = ProbeDataset(val_ids, sidecar, feature_dir, teacher_dir, clip_text)
     print(f"[diag] {len(train_ds)} train pairs / {len(val_ds)} val pairs "
           f"(over {len(train_ids)}/{len(val_ids)} images)")
 
