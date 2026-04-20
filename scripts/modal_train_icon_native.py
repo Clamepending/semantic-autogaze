@@ -107,55 +107,49 @@ def _setup():
 @app.function(
     gpu="T4",
     volumes={DATA_PATH: data_vol, RESULTS_PATH: results_vol},
-    timeout=8 * 3600,
+    timeout=20 * 3600,
 )
-def cache():
-    """Cache DINOv2 native features for both val2017 and train2017."""
+def cache_and_train(skip_cache: bool = False):
+    """Cache DINOv2 native (val2017 + train2017) then train IconStudent
+    Recipe B with external val-ann.
+
+    Single function so `modal run --detach` survives local disconnect:
+    detach guarantees the *most recently triggered* remote call lives on,
+    so we collapse cache+train into one call.
+    """
     import torch
     assert torch.cuda.is_available()
     print(f"[gpu] {torch.cuda.get_device_name(0)}", flush=True)
     _setup()
 
-    # val2017 first (small, fast — also lets us fail early if anything's wrong)
-    _stream(
-        "python -m semantic_autogaze.cache_dinov2 "
-        "--ann data/coco/annotations/instances_val2017.json "
-        "--img-dir data/coco/val2017 "
-        f"--cache-dir {CACHE_VAL_DIR} "
-        "--mode native --device cuda --num-workers 4"
-    )
-    results_vol.commit()
-    print("[cache] val2017 done, committed", flush=True)
+    if not skip_cache:
+        # val2017 first (small, fast — fail early if anything's wrong)
+        _stream(
+            "python -m semantic_autogaze.cache_dinov2 "
+            "--ann data/coco/annotations/instances_val2017.json "
+            "--img-dir data/coco/val2017 "
+            f"--cache-dir {CACHE_VAL_DIR} "
+            "--mode native --device cuda --num-workers 4"
+        )
+        results_vol.commit()
+        print("[cache] val2017 done, committed", flush=True)
 
-    _stream(
-        "python -m semantic_autogaze.cache_dinov2 "
-        "--ann data/coco/annotations/instances_train2017.json "
-        "--img-dir data/coco/train2017 "
-        f"--cache-dir {CACHE_TRAIN_DIR} "
-        "--mode native --device cuda --num-workers 4"
-    )
-    results_vol.commit()
-    print("[cache] train2017 done, committed", flush=True)
-
-
-@app.function(
-    gpu="T4",
-    volumes={DATA_PATH: data_vol, RESULTS_PATH: results_vol},
-    timeout=12 * 3600,
-)
-def train():
-    """Train IconStudent Recipe B on the native train2017 cache, val on val2017."""
-    import torch
-    assert torch.cuda.is_available()
-    print(f"[gpu] {torch.cuda.get_device_name(0)}", flush=True)
-    _setup()
+        _stream(
+            "python -m semantic_autogaze.cache_dinov2 "
+            "--ann data/coco/annotations/instances_train2017.json "
+            "--img-dir data/coco/train2017 "
+            f"--cache-dir {CACHE_TRAIN_DIR} "
+            "--mode native --device cuda --num-workers 4"
+        )
+        results_vol.commit()
+        print("[cache] train2017 done, committed", flush=True)
 
     # Sanity: caches must be populated.
     for d in (CACHE_VAL_DIR, CACHE_TRAIN_DIR):
         n = len(os.listdir(d)) if os.path.isdir(d) else 0
         print(f"[cache] {d}: {n} files", flush=True)
         if n < 100:
-            raise RuntimeError(f"cache {d} has only {n} files — run cache step first")
+            raise RuntimeError(f"cache {d} has only {n} files — run cache first")
 
     _stream(
         "python -u -m semantic_autogaze.train_icon_student "
@@ -180,10 +174,5 @@ def train():
 
 @app.local_entrypoint()
 def main(skip_cache: bool = False):
-    """Orchestrate cache → train. Pass --skip-cache to retrain only."""
-    if not skip_cache:
-        print("[main] step 1/2: cache", flush=True)
-        cache.remote()
-    print("[main] step 2/2: train", flush=True)
-    train.remote()
-    print("[main] all remote work complete", flush=True)
+    """Single .remote() so --detach guarantees survival."""
+    cache_and_train.remote(skip_cache=skip_cache)
