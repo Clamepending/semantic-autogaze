@@ -65,20 +65,18 @@ def load_student(ckpt_path: str, device: torch.device) -> IconStudent:
 @torch.inference_mode()
 def predict(model: IconStudent, patches: torch.Tensor, query: torch.Tensor,
             device: torch.device, info: LetterboxInfo) -> np.ndarray:
-    """Predict in letterbox-square frame, then un-letterbox to (h, w)."""
+    """Predict in letterbox-square frame, un-letterbox to (h, w), keep absolute [0, 1] scale."""
     logits = model(patches.unsqueeze(0).to(device), query.unsqueeze(0).to(device))
     probs = torch.sigmoid(logits)[0].cpu().numpy()
     hw = heatmap_to_original(probs, info, mode="bilinear")
-    rng = hw.max() - hw.min()
-    return (hw - hw.min()) / (rng + 1e-8) if rng > 0 else hw
+    return np.clip(hw, 0.0, 1.0)
 
 
 def target_to_original(t: torch.Tensor, info: LetterboxInfo) -> np.ndarray:
-    """Cached target lives in letterbox-square frame; un-letterbox to (h, w)."""
+    """Cached target lives in letterbox-square frame; un-letterbox to (h, w), keep absolute [0, 1]."""
     arr = t.float().numpy()
     hw = heatmap_to_original(arr, info, mode="bilinear")
-    rng = hw.max() - hw.min()
-    return (hw - hw.min()) / (rng + 1e-8) if rng > 0 else hw
+    return np.clip(hw, 0.0, 1.0)
 
 
 def overlay(img_np: np.ndarray, gray: np.ndarray, cmap) -> np.ndarray:
@@ -147,9 +145,9 @@ def main():
         if not anns:
             print(f"  [skip] {idx:03d}: no GT anns for {cat_name} in {img_id}")
             continue
-        # COCO GT is in native (h, w) frame already; just normalize.
+        # COCO GT is in native (h, w) frame already; binary mask in [0, 1].
         gt_mask = build_category_mask(coco, img_id, cat_id, anns).astype(np.float32)
-        gt_norm = gt_mask / (gt_mask.max() + 1e-8)
+        gt_norm = np.clip(gt_mask, 0.0, 1.0)
 
         # CLIPSeg teacher target (cached at target_grid in letterbox-square frame)
         cs_path = Path(args.clipseg_cache) / f"{img_id}_g{args.target_grid}.pt"
@@ -173,9 +171,9 @@ def main():
         fig, axes = plt.subplots(1, 5, figsize=(30, 6))
         axes[0].imshow(img_np); axes[0].set_title(f"image {img_id}"); axes[0].axis("off")
         axes[1].imshow(overlay(img_np, gt_norm, cmap)); axes[1].set_title(f"COCO GT \"{cat_name}\""); axes[1].axis("off")
-        axes[2].imshow(overlay(img_np, cs_up, cmap)); axes[2].set_title(f"CLIPSeg teacher (g{args.target_grid})"); axes[2].axis("off")
-        axes[3].imshow(overlay(img_np, pa, cmap)); axes[3].set_title(args.label_a); axes[3].axis("off")
-        axes[4].imshow(overlay(img_np, pb, cmap)); axes[4].set_title(args.label_b); axes[4].axis("off")
+        axes[2].imshow(overlay(img_np, cs_up, cmap)); axes[2].set_title(f"CLIPSeg teacher (max={cs_up.max():.2f})"); axes[2].axis("off")
+        axes[3].imshow(overlay(img_np, pa, cmap)); axes[3].set_title(f"{args.label_a} (max={pa.max():.2f})"); axes[3].axis("off")
+        axes[4].imshow(overlay(img_np, pb, cmap)); axes[4].set_title(f"{args.label_b} (max={pb.max():.2f})"); axes[4].axis("off")
         others_str = ", ".join(other_cats[:8]) + ("…" if len(other_cats) > 8 else "")
         plt.suptitle(f"query: \"{cat_name}\"  |  also present: {others_str}", fontsize=12)
         plt.tight_layout()
