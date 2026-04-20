@@ -164,9 +164,9 @@ def cache_and_train(skip_cache: bool = False):
         f"--val-dinov2-cache {CACHE_VAL_DIR} "
         f"--output-dir {OUT_DIR} "
         "--device cuda "
-        "--num-epochs 10 "
+        "--num-epochs 3 "
         "--batch-size 16 "
-        "--num-workers 4 "
+        "--num-workers 8 "
         "--lr 3e-4"
     )
     results_vol.commit()
