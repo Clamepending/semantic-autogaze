@@ -108,7 +108,7 @@ def _setup():
     gpu="T4",
     volumes={DATA_PATH: data_vol, RESULTS_PATH: results_vol},
     timeout=20 * 3600,
-    ephemeral_disk=100 * 1024,
+    ephemeral_disk=524288,  # 512 GiB — Modal's enforced minimum for custom ephemeral_disk
 )
 def cache_and_train(skip_cache: bool = False):
     """Cache DINOv2 native (val2017 + train2017) then train IconStudent
