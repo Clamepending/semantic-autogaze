@@ -39,8 +39,35 @@ from semantic_autogaze.train_coco_seg import (
 CLIPSEG_TARGET_GRID = 128
 
 
+def _is_native_cache(dinov2_cache: str) -> bool:
+    """Sniff one .pt file to decide if cache is native-aspect (dict) or
+    legacy letterbox (bare tensor)."""
+    cache = Path(dinov2_cache)
+    for p in cache.iterdir():
+        if p.suffix == ".pt":
+            obj = torch.load(p, map_location="cpu", weights_only=True)
+            return isinstance(obj, dict) and "patches" in obj and "grid" in obj
+    raise RuntimeError(f"no .pt files in {dinov2_cache}")
+
+
 class _IconDataset(Dataset):
-    """Yields (patch_features, query_embed, target_128, meta) per (img_id, cat_id)."""
+    """Yields (patch_features, query_embed, target) per (img_id, cat_id).
+
+    Two modes (auto-detected from cache layout):
+
+    - **letterbox** (legacy): cache has bare ``(256, 384)`` tensors. Target
+      is the letterboxed COCO mask (or CLIPSeg cache) downsampled to
+      ``target_grid``. Output grid = 16×16 → ``target_grid``.
+
+    - **native**: cache has dicts ``{patches, grid, img_hw, encode_hw,
+      crop_top_left, patch_size}``. At train time we crop a random
+      ``in_grid``×``in_grid`` sub-grid of patches (default 16×16); the
+      corresponding pixel-rectangle of the original image is computed
+      and the COCO mask is cropped to it, then resized to
+      ``target_grid``. This is autogaze-style RandomCrop in patch
+      space, which keeps batches at fixed token count and trains the
+      model on diverse spatial windows.
+    """
 
     def __init__(
         self,
@@ -53,6 +80,8 @@ class _IconDataset(Dataset):
         max_cats_per_image: int = 5,
         include_clipseg_negatives: bool = False,
         target_grid: int = CLIPSEG_TARGET_GRID,
+        in_grid: int = 16,
+        train_mode: bool = True,
     ):
         assert supervision in ("A", "B"), supervision
         self.coco = coco
@@ -60,11 +89,19 @@ class _IconDataset(Dataset):
         self.supervision = supervision
         self.clipseg_cache = clipseg_cache
         self.target_grid = target_grid
+        self.in_grid = in_grid
+        self.train_mode = train_mode
+        self.native = _is_native_cache(dinov2_cache)
+
+        if self.native and supervision == "A":
+            raise NotImplementedError(
+                "Recipe A (CLIPSeg distillation) on a native-aspect cache "
+                "would require per-crop CLIPSeg recompute. Use Recipe B."
+            )
 
         self.cat_names = {c["id"]: c["name"] for c in coco.loadCats(coco.getCatIds())}
         self.clip_text = torch.load(clip_text_path, map_location="cpu", weights_only=True)
 
-        # Build (img_id, cat_id) sample list — only for images we have all data for.
         self.samples: list[tuple[int, int]] = []
         all_cat_ids = list(self.cat_names.keys())
         for img_id in img_ids:
@@ -74,7 +111,6 @@ class _IconDataset(Dataset):
             present = get_image_categories(coco, img_id)
             cat_ids = list(present.keys())[:max_cats_per_image]
             if supervision == "A":
-                # CLIPSeg cache may also include negatives — load all keys.
                 cs_path = Path(clipseg_cache) / f"{img_id}_g{target_grid}.pt"
                 if not cs_path.exists():
                     continue
@@ -91,35 +127,107 @@ class _IconDataset(Dataset):
     def __len__(self):
         return len(self.samples)
 
+    def _load_patches(self, img_id: int):
+        """Return (patches_tensor, meta_or_None). meta is None for letterbox."""
+        obj = torch.load(Path(self.dinov2_cache) / f"{img_id}.pt", map_location="cpu",
+                         weights_only=True)
+        if self.native:
+            return obj["patches"].float(), obj
+        return obj.float(), None
+
+    def _crop_native(self, patches_full: torch.Tensor, meta: dict, mask_native: np.ndarray):
+        """Patch-space crop: take an in_grid×in_grid sub-grid; project to
+        original-image pixels; crop the (h, w) COCO mask to that
+        rectangle; resize to target_grid.
+
+        Returns (patches_crop, target_grid_tensor).
+        """
+        n_h, n_w = meta["grid"]
+        ig = self.in_grid
+        if n_h < ig or n_w < ig:
+            raise ValueError(f"img has grid {n_h}x{n_w} < in_grid {ig}; resize edge too small")
+        if self.train_mode:
+            r0 = random.randint(0, n_h - ig)
+            c0 = random.randint(0, n_w - ig)
+        else:
+            r0 = (n_h - ig) // 2
+            c0 = (n_w - ig) // 2
+        # Crop patches: (n_h*n_w, D) → reshape (n_h, n_w, D), slice, flatten.
+        D = patches_full.shape[-1]
+        grid = patches_full.view(n_h, n_w, D)
+        patches = grid[r0:r0 + ig, c0:c0 + ig, :].reshape(ig * ig, D).contiguous()
+
+        # Project the patch sub-grid back to original-image pixel coords.
+        ps = meta["patch_size"]
+        enc_h, enc_w = meta["encode_hw"]
+        top_pad, left_pad = meta["crop_top_left"]
+        # In post-resize, post-crop frame: pixel (top, left, bottom, right) of sub-grid.
+        sub_top = r0 * ps
+        sub_left = c0 * ps
+        sub_bot = sub_top + ig * ps
+        sub_right = sub_left + ig * ps
+        # Add the resize-then-crop offset to land in resized-image coords:
+        rs_top = sub_top + top_pad
+        rs_left = sub_left + left_pad
+        rs_bot = sub_bot + top_pad
+        rs_right = sub_right + left_pad
+        # Map to original-image coords via the per-axis scale stored in
+        # the cache (avoids re-deriving it from h0/w0/shortest_edge).
+        h0, w0 = meta["img_hw"]
+        new_h, new_w = meta["resize_hw"]
+        sy = h0 / float(new_h)
+        sx = w0 / float(new_w)
+        og_top = max(0, int(round(rs_top * sy)))
+        og_left = max(0, int(round(rs_left * sx)))
+        og_bot = min(h0, int(round(rs_bot * sy)))
+        og_right = min(w0, int(round(rs_right * sx)))
+        if og_bot <= og_top or og_right <= og_left:
+            target = torch.zeros(self.target_grid, self.target_grid)
+        else:
+            sub_mask = mask_native[og_top:og_bot, og_left:og_right]
+            t = torch.from_numpy(sub_mask.astype(np.float32)).unsqueeze(0).unsqueeze(0)
+            t = F.interpolate(t, size=(self.target_grid, self.target_grid),
+                              mode="bilinear", align_corners=False)
+            target = t.squeeze(0).squeeze(0).clamp(0, 1)
+        return patches, target
+
     def __getitem__(self, idx):
         img_id, cat_id = self.samples[idx]
-        patches = torch.load(Path(self.dinov2_cache) / f"{img_id}.pt", map_location="cpu",
-                             weights_only=True).float()
+        patches_full, meta = self._load_patches(img_id)
         query = self.clip_text[str(cat_id)].float()
 
         if self.supervision == "A":
+            # Letterbox-only (native+A is rejected in __init__).
             cs = torch.load(Path(self.clipseg_cache) / f"{img_id}_g{self.target_grid}.pt",
                             map_location="cpu", weights_only=True)
             target = cs.get(str(cat_id))
             if target is None:
-                # category not in CLIPSeg cache → zeros (treat as absent)
                 target = torch.zeros(self.target_grid, self.target_grid, dtype=torch.float16)
             target = target.float()
-        else:
-            anns = self.coco.loadAnns(self.coco.getAnnIds(imgIds=img_id, catIds=[cat_id], iscrowd=0))
-            if anns:
-                m = build_category_mask(self.coco, img_id, cat_id, anns)
-                # Letterbox the native-resolution mask to a square before
-                # downsampling so the target's geometry matches DINOv2's
-                # letterbox-square input frame.
-                m_sq, _ = letterbox_mask(m)
-                t = torch.from_numpy(m_sq.astype(np.float32)).unsqueeze(0).unsqueeze(0)
-                t = F.interpolate(t, size=(self.target_grid, self.target_grid),
-                                  mode="bilinear", align_corners=False)
-                target = t.squeeze(0).squeeze(0).clamp(0, 1)
-            else:
-                target = torch.zeros(self.target_grid, self.target_grid)
-        return patches, query, target
+            return patches_full, query, target
+
+        # Recipe B: COCO masks.
+        anns = self.coco.loadAnns(self.coco.getAnnIds(imgIds=img_id, catIds=[cat_id], iscrowd=0))
+        if not anns:
+            target = torch.zeros(self.target_grid, self.target_grid)
+            if self.native:
+                # still need to crop patches to in_grid x in_grid
+                m_native = np.zeros(meta["img_hw"], dtype=np.float32)
+                patches, target = self._crop_native(patches_full, meta, m_native)
+                return patches, query, target
+            return patches_full, query, target
+
+        m = build_category_mask(self.coco, img_id, cat_id, anns)
+        if self.native:
+            patches, target = self._crop_native(patches_full, meta, m)
+            return patches, query, target
+        # legacy letterbox path
+        m_sq, _ = letterbox_mask(m)
+        t = torch.from_numpy(m_sq.astype(np.float32)).unsqueeze(0).unsqueeze(0)
+        t = F.interpolate(t, size=(self.target_grid, self.target_grid),
+                          mode="bilinear", align_corners=False)
+        target = t.squeeze(0).squeeze(0).clamp(0, 1)
+        return patches_full, query, target
 
 
 def soft_dice(probs, target, eps=1e-6):
@@ -260,8 +368,8 @@ def main():
         supervision=args.supervision,
         clipseg_cache=args.clipseg_cache,
     )
-    train_ds = _IconDataset(img_ids=train_ids, **common)
-    val_ds = _IconDataset(img_ids=val_ids, **common)
+    train_ds = _IconDataset(img_ids=train_ids, train_mode=True, **common)
+    val_ds = _IconDataset(img_ids=val_ids, train_mode=False, **common)
     print(f"[data] train samples={len(train_ds)} val samples={len(val_ds)}")
 
     train_loader = DataLoader(
