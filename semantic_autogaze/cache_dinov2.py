@@ -146,6 +146,11 @@ class _NativeDataset(Dataset):
         return img_id, tensor, meta
 
 
+def _unwrap_single(batch):
+    """DataLoader collate for batch_size=1 with non-stackable items."""
+    return batch[0]
+
+
 @torch.inference_mode()
 def cache_dinov2(
     coco_ann: str,
@@ -214,9 +219,10 @@ def cache_dinov2(
         )
         # Variable image shapes → batch_size=1 (no collate). DINOv2-small
         # at these resolutions is fast enough that batching is not the
-        # bottleneck (disk I/O is).
+        # bottleneck (disk I/O is). collate_fn must be a top-level
+        # function so it pickles for multi-worker DataLoader.
         loader = DataLoader(ds, batch_size=1, num_workers=num_workers, shuffle=False,
-                            collate_fn=lambda batch: batch[0])
+                            collate_fn=_unwrap_single)
         for img_id, pixels, meta in tqdm(loader, desc="dinov2 cache (native)"):
             pixels = pixels.unsqueeze(0).to(device)  # (1, 3, H, W)
             out = model(pixel_values=pixels)

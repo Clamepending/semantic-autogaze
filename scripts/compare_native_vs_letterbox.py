@@ -53,7 +53,15 @@ def load_student(ckpt_path: str, device: torch.device) -> IconStudent:
         n_layers=cfg["n_layers"], n_heads=cfg["n_heads"],
         dropout=0.0,
     ).to(device)
-    model.load_state_dict(raw["state_dict"])
+    sd = raw["state_dict"]
+    # Backward-compat: pre-r/native-aspect checkpoints stored pos_embed as
+    # (1, in_grid*in_grid, decoder_dim); new layout is (1, D, in_grid, in_grid)
+    # so it can be bilinearly interpolated to native grids at forward time.
+    pe = sd.get("pos_embed")
+    if pe is not None and pe.dim() == 3:
+        ig = cfg["in_grid"]; D = cfg["decoder_dim"]
+        sd["pos_embed"] = pe.transpose(1, 2).reshape(1, D, ig, ig).contiguous()
+    model.load_state_dict(sd)
     model.eval()
     return model
 
