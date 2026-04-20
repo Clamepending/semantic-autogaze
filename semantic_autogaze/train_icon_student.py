@@ -316,7 +316,18 @@ def main():
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--decoder-dim", type=int, default=256)
     p.add_argument("--n-layers", type=int, default=2)
+    p.add_argument("--val-ann", default=None,
+                   help="If set, val on this annotation file instead of "
+                        "internal --val-frac split. Use to train on train2017 "
+                        "and validate on val2017. Requires --val-img-subdir "
+                        "and --val-dinov2-cache.")
+    p.add_argument("--val-img-subdir", default=None)
+    p.add_argument("--val-dinov2-cache", default=None)
     args = p.parse_args()
+    if (args.val_ann or args.val_img_subdir or args.val_dinov2_cache) and not (
+        args.val_ann and args.val_img_subdir and args.val_dinov2_cache
+    ):
+        raise SystemExit("--val-ann/--val-img-subdir/--val-dinov2-cache must be set together")
 
     Path(args.output_dir).mkdir(parents=True, exist_ok=True)
     device = torch.device(args.device)
@@ -352,24 +363,44 @@ def main():
             include_negatives=False,
         )
 
-    # split
-    rng = random.Random(args.seed)
-    shuffled = list(img_ids)
-    rng.shuffle(shuffled)
-    n_val = max(1, int(len(shuffled) * args.val_frac))
-    val_ids = sorted(shuffled[:n_val])
-    train_ids = sorted(shuffled[n_val:])
-    print(f"[data] train={len(train_ids)} val={len(val_ids)}")
+    # split: either external val ann (full train + full val from separate files)
+    # or internal random split of img_ids by --val-frac.
+    if args.val_ann is not None:
+        train_ids = img_ids
+        val_coco = COCO(os.path.join(args.data_dir, args.val_ann))
+        val_ids = sorted(val_coco.getImgIds())
+        if args.max_images is not None:
+            val_ids = val_ids[: args.max_images]
+        val_dinov2_cache = args.val_dinov2_cache
+        print(f"[data] external val: train={len(train_ids)} ({args.ann}) "
+              f"val={len(val_ids)} ({args.val_ann})")
+    else:
+        rng = random.Random(args.seed)
+        shuffled = list(img_ids)
+        rng.shuffle(shuffled)
+        n_val = max(1, int(len(shuffled) * args.val_frac))
+        val_ids = sorted(shuffled[:n_val])
+        train_ids = sorted(shuffled[n_val:])
+        val_coco = coco
+        val_dinov2_cache = args.dinov2_cache
+        print(f"[data] internal split: train={len(train_ids)} val={len(val_ids)}")
 
-    common = dict(
+    common_train = dict(
         coco=coco,
         dinov2_cache=args.dinov2_cache,
         clip_text_path=args.clip_text_cache,
         supervision=args.supervision,
         clipseg_cache=args.clipseg_cache,
     )
-    train_ds = _IconDataset(img_ids=train_ids, train_mode=True, **common)
-    val_ds = _IconDataset(img_ids=val_ids, train_mode=False, **common)
+    common_val = dict(
+        coco=val_coco,
+        dinov2_cache=val_dinov2_cache,
+        clip_text_path=args.clip_text_cache,
+        supervision=args.supervision,
+        clipseg_cache=args.clipseg_cache,
+    )
+    train_ds = _IconDataset(img_ids=train_ids, train_mode=True, **common_train)
+    val_ds = _IconDataset(img_ids=val_ids, train_mode=False, **common_val)
     print(f"[data] train samples={len(train_ds)} val samples={len(val_ds)}")
 
     train_loader = DataLoader(
