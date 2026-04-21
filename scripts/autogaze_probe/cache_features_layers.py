@@ -1,9 +1,12 @@
 """Cycle 1 (light-finetune): cache hidden states from EVERY gaze-decoder layer.
 
 For each image, runs AutoGaze with `output_hidden_states=True` on the
-4-layer LLaMA decoder and saves a (5, 196, 192) tensor:
-    [0] = input embed (output of connector, input to decoder layer 0)
-    [1..4] = output of decoder layers 0..3
+4-layer LLaMA decoder and saves a (4, 196, 192) fp16 tensor:
+    [0..3] = output of decoder layers 0..3 (skips input embed to save disk)
+
+Stored as fp16 -- per-patch hidden states are in roughly [-10, 10] so 3-4
+sig figs of fp16 is plenty. fp16 keeps the 5K-image val cache near 1.5GB
+instead of ~3.7GB; 5-layer fp32 doesn't fit on the dev box.
 
 The current `cache_features.py` only saves layer 4 (last_hidden_state).
 This lets the layer-ablation trainer pick which layer is the best
@@ -56,10 +59,10 @@ def cache_image(model: SemanticAutoGaze, video: torch.Tensor) -> torch.Tensor:
         position_ids=attention_mask.cumsum(dim=-1) - 1,
         output_hidden_states=True,
     )
-    # outputs.hidden_states is a tuple of length n_layers+1
-    # each (B, T*N, hidden_dim). Stack along new dim 0.
-    hs = torch.stack([h[0] for h in outputs.hidden_states], dim=0)  # (n_layers+1, T*N, hidden_dim)
-    return hs.cpu().contiguous()
+    # outputs.hidden_states is a tuple of length n_layers+1 (input embed + 4 layer outputs).
+    # We skip [0] (input embed) and keep [1..4] (each decoder layer's output).
+    hs = torch.stack([h[0] for h in outputs.hidden_states[1:]], dim=0)  # (n_layers, T*N, hidden_dim)
+    return hs.cpu().contiguous().half()
 
 
 def main():

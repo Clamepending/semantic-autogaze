@@ -217,8 +217,8 @@ def main():
     p.add_argument("--n-epochs", type=int, default=10)
     p.add_argument("--batch-size", type=int, default=64)
     p.add_argument("--lr", type=float, default=1e-3)
-    p.add_argument("--layers", default="0,1,2,3,4",
-                   help="Comma-separated layer indices to train (0=input embed, 4=last layer)")
+    p.add_argument("--layers", default="0,1,2,3",
+                   help="Comma-separated layer indices to train (0=after layer 0, 3=after layer 3 == last layer)")
     args = p.parse_args()
 
     rng = random.Random(args.seed)
