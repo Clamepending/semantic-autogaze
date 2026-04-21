@@ -1,0 +1,44 @@
+[diag] loading COCO + text...
+loading annotations into memory...
+Done (t=0.21s)
+creating index...
+index created!
+[diag] loading AutoGaze + IconStudent-118K...
+[diag] 20 audit pairs
+[diag] 20 usable audit bundles
+
+=== frozen_cycle1 (bilinear_cosine) ===
+  frozen_cycle1: 1W/18L/1T = (W+T)/n = 2/20 | head_ms mean=0.05 p95=0.06
+
+=== frozen_cycle2 (bilinear_cosine) ===
+  frozen_cycle2: 0W/19L/1T = (W+T)/n = 1/20 | head_ms mean=0.05 p95=0.05
+
+=== filter_attn (filter_head) ===
+  filter_attn: 0W/19L/1T = (W+T)/n = 1/20 | head_ms mean=0.16 p95=0.17
+
+=== perpatch_tinyhead (perpatch_tinyhead) ===
+/Users/mark/code/semantic-autogaze/scripts/criterion_bootstrap/audit_all.py:102: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.transformer = nn.TransformerEncoder(layer, num_layers=n_layers)
+  perpatch_tinyhead: 1W/18L/1T = (W+T)/n = 2/20 | head_ms mean=0.41 p95=0.48
+
+=== upscale_28 (filter_head_upscale) ===
+  upscale_28: 0W/19L/1T = (W+T)/n = 1/20 | head_ms mean=0.43 p95=0.55
+
+=== deep_finetune (deep_finetune) ===
+  deep_finetune: 0W/19L/1T = (W+T)/n = 1/20 | head_ms mean=3.13 p95=3.50
+[WARN] skipping teacher_mse — missing ckpt results/teacher_mse_distill/best.pt
+
+=== coco_mask_distill (filter_head) ===
+  coco_mask_distill: 1W/18L/1T = (W+T)/n = 2/20 | head_ms mean=0.16 p95=0.17
+
+[done] wrote results/criterion_bootstrap/audit_all.json
+
+=== SUMMARY ===
+head                      W+T/n    head_ms   clears ≥6/20    clears ≤5ms
+frozen_cycle1            2/20       0.05ms            no           YES
+frozen_cycle2            1/20       0.05ms            no           YES
+filter_attn              1/20       0.16ms            no           YES
+perpatch_tinyhead        2/20       0.41ms            no           YES
+upscale_28               1/20       0.43ms            no           YES
+deep_finetune            1/20       3.13ms            no           YES
+coco_mask_distill        2/20       0.16ms            no           YES

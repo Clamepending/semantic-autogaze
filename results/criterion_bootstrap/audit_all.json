@@ -1,0 +1,1239 @@
+{
+  "tie_band": 0.05,
+  "n_pairs": 20,
+  "device": "cpu",
+  "heads": [
+    {
+      "name": "frozen_cycle1",
+      "kind": "bilinear_cosine",
+      "ckpt": "results/autogaze_frozen_head/cycle1/best.pt",
+      "wins": 1,
+      "losses": 18,
+      "ties": 1,
+      "wins_plus_ties": 2,
+      "n": 20,
+      "head_ms_mean": 0.0510641816072166,
+      "head_ms_p50": 0.04656250530388206,
+      "head_ms_p95": 0.0591288655414246,
+      "head_ms_std": 0.021449043067558005,
+      "per_pair": [
+        {
+          "img_id": 70229,
+          "cat": "bench",
+          "iou_head": 0.07741000901959713,
+          "iou_icon": 0.7027512075911182,
+          "delta": -0.625341198571521,
+          "verdict": "L"
+        },
+        {
+          "img_id": 141821,
+          "cat": "bowl",
+          "iou_head": 0.021452523662238973,
+          "iou_icon": 0.7102910405174053,
+          "delta": -0.6888385168551664,
+          "verdict": "L"
+        },
+        {
+          "img_id": 185472,
+          "cat": "train",
+          "iou_head": 0.14970522178551376,
+          "iou_icon": 0.8558574453069866,
+          "delta": -0.7061522235214728,
+          "verdict": "L"
+        },
+        {
+          "img_id": 532058,
+          "cat": "bed",
+          "iou_head": 0.7635670812384229,
+          "iou_icon": 0.6298485329188694,
+          "delta": 0.13371854831955343,
+          "verdict": "W"
+        },
+        {
+          "img_id": 274272,
+          "cat": "bus",
+          "iou_head": 0.06934646180480415,
+          "iou_icon": 0.9134461111051289,
+          "delta": -0.8440996493003247,
+          "verdict": "L"
+        },
+        {
+          "img_id": 52007,
+          "cat": "person",
+          "iou_head": 0.07315180048352207,
+          "iou_icon": 0.5770392749244713,
+          "delta": -0.5038874744409492,
+          "verdict": "L"
+        },
+        {
+          "img_id": 173091,
+          "cat": "apple",
+          "iou_head": 0.06749059017768505,
+          "iou_icon": 0.8408536160122743,
+          "delta": -0.7733630258345892,
+          "verdict": "L"
+        },
+        {
+          "img_id": 278353,
+          "cat": "sheep",
+          "iou_head": 0.6303011574062897,
+          "iou_icon": 0.9294412438116723,
+          "delta": -0.2991400864053826,
+          "verdict": "L"
+        },
+        {
+          "img_id": 184321,
+          "cat": "train",
+          "iou_head": 0.02433420365535248,
+          "iou_icon": 0.891516871649322,
+          "delta": -0.8671826679939696,
+          "verdict": "L"
+        },
+        {
+          "img_id": 74058,
+          "cat": "bicycle",
+          "iou_head": 0.06687650914108313,
+          "iou_icon": 0.6670963306694165,
+          "delta": -0.6002198215283334,
+          "verdict": "L"
+        },
+        {
+          "img_id": 30504,
+          "cat": "skis",
+          "iou_head": 0.04038252580629229,
+          "iou_icon": 0.4930747922437673,
+          "delta": -0.452692266437475,
+          "verdict": "L"
+        },
+        {
+          "img_id": 268378,
+          "cat": "chair",
+          "iou_head": 0.03039217334297097,
+          "iou_icon": 0.7259209942299156,
+          "delta": -0.6955288208869447,
+          "verdict": "L"
+        },
+        {
+          "img_id": 343466,
+          "cat": "oven",
+          "iou_head": 0.0,
+          "iou_icon": 0.735120511559272,
+          "delta": -0.735120511559272,
+          "verdict": "L"
+        },
+        {
+          "img_id": 217400,
+          "cat": "train",
+          "iou_head": 0.20152569653827843,
+          "iou_icon": 0.8289906839793406,
+          "delta": -0.6274649874410622,
+          "verdict": "L"
+        },
+        {
+          "img_id": 401244,
+          "cat": "frisbee",
+          "iou_head": 0.020724050770527004,
+          "iou_icon": 0.6669484361792054,
+          "delta": -0.6462243854086784,
+          "verdict": "L"
+        },
+        {
+          "img_id": 488166,
+          "cat": "fork",
+          "iou_head": 0.016148893792510683,
+          "iou_icon": 0.2833530106257379,
+          "delta": -0.26720411683322726,
+          "verdict": "L"
+        },
+        {
+          "img_id": 348481,
+          "cat": "remote",
+          "iou_head": 0.01688778819505867,
+          "iou_icon": 0.0,
+          "delta": 0.01688778819505867,
+          "verdict": "T"
+        },
+        {
+          "img_id": 259830,
+          "cat": "person",
+          "iou_head": 0.005492956728510614,
+          "iou_icon": 0.6911034746086292,
+          "delta": -0.6856105178801186,
+          "verdict": "L"
+        },
+        {
+          "img_id": 17436,
+          "cat": "person",
+          "iou_head": 0.031164174549893196,
+          "iou_icon": 0.5692771084337349,
+          "delta": -0.5381129338838417,
+          "verdict": "L"
+        },
+        {
+          "img_id": 231125,
+          "cat": "person",
+          "iou_head": 0.282868232546887,
+          "iou_icon": 0.8046409126263936,
+          "delta": -0.5217726800795066,
+          "verdict": "L"
+        }
+      ]
+    },
+    {
+      "name": "frozen_cycle2",
+      "kind": "bilinear_cosine",
+      "ckpt": "results/autogaze_frozen_head/cycle2/best.pt",
+      "wins": 0,
+      "losses": 19,
+      "ties": 1,
+      "wins_plus_ties": 1,
+      "n": 20,
+      "head_ms_mean": 0.04603628010954708,
+      "head_ms_p50": 0.04652100324165076,
+      "head_ms_p95": 0.04783602926181629,
+      "head_ms_std": 0.0015047040267908212,
+      "per_pair": [
+        {
+          "img_id": 70229,
+          "cat": "bench",
+          "iou_head": 0.092268752876208,
+          "iou_icon": 0.7027512075911182,
+          "delta": -0.6104824547149101,
+          "verdict": "L"
+        },
+        {
+          "img_id": 141821,
+          "cat": "bowl",
+          "iou_head": 0.019839716138504833,
+          "iou_icon": 0.7102910405174053,
+          "delta": -0.6904513243789004,
+          "verdict": "L"
+        },
+        {
+          "img_id": 185472,
+          "cat": "train",
+          "iou_head": 0.17590277083124936,
+          "iou_icon": 0.8558574453069866,
+          "delta": -0.6799546744757372,
+          "verdict": "L"
+        },
+        {
+          "img_id": 532058,
+          "cat": "bed",
+          "iou_head": 0.44847630099080604,
+          "iou_icon": 0.6298485329188694,
+          "delta": -0.1813722319280634,
+          "verdict": "L"
+        },
+        {
+          "img_id": 274272,
+          "cat": "bus",
+          "iou_head": 0.1700816835110065,
+          "iou_icon": 0.9134461111051289,
+          "delta": -0.7433644275941224,
+          "verdict": "L"
+        },
+        {
+          "img_id": 52007,
+          "cat": "person",
+          "iou_head": 0.074666752735371,
+          "iou_icon": 0.5770392749244713,
+          "delta": -0.5023725221891002,
+          "verdict": "L"
+        },
+        {
+          "img_id": 173091,
+          "cat": "apple",
+          "iou_head": 0.06671004507506388,
+          "iou_icon": 0.8408536160122743,
+          "delta": -0.7741435709372104,
+          "verdict": "L"
+        },
+        {
+          "img_id": 278353,
+          "cat": "sheep",
+          "iou_head": 0.05815737612612613,
+          "iou_icon": 0.9294412438116723,
+          "delta": -0.8712838676855461,
+          "verdict": "L"
+        },
+        {
+          "img_id": 184321,
+          "cat": "train",
+          "iou_head": 0.03955062387771076,
+          "iou_icon": 0.891516871649322,
+          "delta": -0.8519662477716112,
+          "verdict": "L"
+        },
+        {
+          "img_id": 74058,
+          "cat": "bicycle",
+          "iou_head": 0.06780590595502699,
+          "iou_icon": 0.6670963306694165,
+          "delta": -0.5992904247143895,
+          "verdict": "L"
+        },
+        {
+          "img_id": 30504,
+          "cat": "skis",
+          "iou_head": 0.04198361241576475,
+          "iou_icon": 0.4930747922437673,
+          "delta": -0.45109117982800256,
+          "verdict": "L"
+        },
+        {
+          "img_id": 268378,
+          "cat": "chair",
+          "iou_head": 0.03028236370441219,
+          "iou_icon": 0.7259209942299156,
+          "delta": -0.6956386305255035,
+          "verdict": "L"
+        },
+        {
+          "img_id": 343466,
+          "cat": "oven",
+          "iou_head": 0.08030283587835237,
+          "iou_icon": 0.735120511559272,
+          "delta": -0.6548176756809196,
+          "verdict": "L"
+        },
+        {
+          "img_id": 217400,
+          "cat": "train",
+          "iou_head": 0.3045952256806692,
+          "iou_icon": 0.8289906839793406,
+          "delta": -0.5243954582986714,
+          "verdict": "L"
+        },
+        {
+          "img_id": 401244,
+          "cat": "frisbee",
+          "iou_head": 0.01912765356997272,
+          "iou_icon": 0.6669484361792054,
+          "delta": -0.6478207826092327,
+          "verdict": "L"
+        },
+        {
+          "img_id": 488166,
+          "cat": "fork",
+          "iou_head": 0.014667960166828354,
+          "iou_icon": 0.2833530106257379,
+          "delta": -0.26868505045890956,
+          "verdict": "L"
+        },
+        {
+          "img_id": 348481,
+          "cat": "remote",
+          "iou_head": 0.03598429867851418,
+          "iou_icon": 0.0,
+          "delta": 0.03598429867851418,
+          "verdict": "T"
+        },
+        {
+          "img_id": 259830,
+          "cat": "person",
+          "iou_head": 0.001212383632820957,
+          "iou_icon": 0.6911034746086292,
+          "delta": -0.6898910909758083,
+          "verdict": "L"
+        },
+        {
+          "img_id": 17436,
+          "cat": "person",
+          "iou_head": 0.03115765659852187,
+          "iou_icon": 0.5692771084337349,
+          "delta": -0.538119451835213,
+          "verdict": "L"
+        },
+        {
+          "img_id": 231125,
+          "cat": "person",
+          "iou_head": 0.013946755172657298,
+          "iou_icon": 0.8046409126263936,
+          "delta": -0.7906941574537363,
+          "verdict": "L"
+        }
+      ]
+    },
+    {
+      "name": "filter_attn",
+      "kind": "filter_head",
+      "ckpt": "results/filter_head_retrain/best_attn.pt",
+      "wins": 0,
+      "losses": 19,
+      "ties": 1,
+      "wins_plus_ties": 1,
+      "n": 20,
+      "head_ms_mean": 0.1585307897767052,
+      "head_ms_p50": 0.15935399278532714,
+      "head_ms_p95": 0.17486009455751625,
+      "head_ms_std": 0.012344915666384505,
+      "per_pair": [
+        {
+          "img_id": 70229,
+          "cat": "bench",
+          "iou_head": 0.11557778042933539,
+          "iou_icon": 0.7027512075911182,
+          "delta": -0.5871734271617828,
+          "verdict": "L"
+        },
+        {
+          "img_id": 141821,
+          "cat": "bowl",
+          "iou_head": 0.0393441933494084,
+          "iou_icon": 0.7102910405174053,
+          "delta": -0.6709468471679969,
+          "verdict": "L"
+        },
+        {
+          "img_id": 185472,
+          "cat": "train",
+          "iou_head": 0.0,
+          "iou_icon": 0.8558574453069866,
+          "delta": -0.8558574453069866,
+          "verdict": "L"
+        },
+        {
+          "img_id": 532058,
+          "cat": "bed",
+          "iou_head": 0.3344242204322241,
+          "iou_icon": 0.6298485329188694,
+          "delta": -0.29542431248664536,
+          "verdict": "L"
+        },
+        {
+          "img_id": 274272,
+          "cat": "bus",
+          "iou_head": 0.3874510648443689,
+          "iou_icon": 0.9134461111051289,
+          "delta": -0.5259950462607599,
+          "verdict": "L"
+        },
+        {
+          "img_id": 52007,
+          "cat": "person",
+          "iou_head": 0.03894856989391701,
+          "iou_icon": 0.5770392749244713,
+          "delta": -0.5380907050305542,
+          "verdict": "L"
+        },
+        {
+          "img_id": 173091,
+          "cat": "apple",
+          "iou_head": 0.004484102332410911,
+          "iou_icon": 0.8408536160122743,
+          "delta": -0.8363695136798633,
+          "verdict": "L"
+        },
+        {
+          "img_id": 278353,
+          "cat": "sheep",
+          "iou_head": 0.19713901160918962,
+          "iou_icon": 0.9294412438116723,
+          "delta": -0.7323022322024826,
+          "verdict": "L"
+        },
+        {
+          "img_id": 184321,
+          "cat": "train",
+          "iou_head": 0.009731519354553563,
+          "iou_icon": 0.891516871649322,
+          "delta": -0.8817853522947685,
+          "verdict": "L"
+        },
+        {
+          "img_id": 74058,
+          "cat": "bicycle",
+          "iou_head": 0.01784445170088934,
+          "iou_icon": 0.6670963306694165,
+          "delta": -0.6492518789685272,
+          "verdict": "L"
+        },
+        {
+          "img_id": 30504,
+          "cat": "skis",
+          "iou_head": 0.0,
+          "iou_icon": 0.4930747922437673,
+          "delta": -0.4930747922437673,
+          "verdict": "L"
+        },
+        {
+          "img_id": 268378,
+          "cat": "chair",
+          "iou_head": 0.01707132018209408,
+          "iou_icon": 0.7259209942299156,
+          "delta": -0.7088496740478215,
+          "verdict": "L"
+        },
+        {
+          "img_id": 343466,
+          "cat": "oven",
+          "iou_head": 0.007503410641200546,
+          "iou_icon": 0.735120511559272,
+          "delta": -0.7276171009180715,
+          "verdict": "L"
+        },
+        {
+          "img_id": 217400,
+          "cat": "train",
+          "iou_head": 0.16211222570003966,
+          "iou_icon": 0.8289906839793406,
+          "delta": -0.6668784582793009,
+          "verdict": "L"
+        },
+        {
+          "img_id": 401244,
+          "cat": "frisbee",
+          "iou_head": 0.0,
+          "iou_icon": 0.6669484361792054,
+          "delta": -0.6669484361792054,
+          "verdict": "L"
+        },
+        {
+          "img_id": 488166,
+          "cat": "fork",
+          "iou_head": 0.0377320822519465,
+          "iou_icon": 0.2833530106257379,
+          "delta": -0.24562092837379143,
+          "verdict": "L"
+        },
+        {
+          "img_id": 348481,
+          "cat": "remote",
+          "iou_head": 0.0,
+          "iou_icon": 0.0,
+          "delta": 0.0,
+          "verdict": "T"
+        },
+        {
+          "img_id": 259830,
+          "cat": "person",
+          "iou_head": 0.008060332934792606,
+          "iou_icon": 0.6911034746086292,
+          "delta": -0.6830431416738366,
+          "verdict": "L"
+        },
+        {
+          "img_id": 17436,
+          "cat": "person",
+          "iou_head": 0.015928139821973882,
+          "iou_icon": 0.5692771084337349,
+          "delta": -0.5533489686117611,
+          "verdict": "L"
+        },
+        {
+          "img_id": 231125,
+          "cat": "person",
+          "iou_head": 0.14186427925757927,
+          "iou_icon": 0.8046409126263936,
+          "delta": -0.6627766333688143,
+          "verdict": "L"
+        }
+      ]
+    },
+    {
+      "name": "perpatch_tinyhead",
+      "kind": "perpatch_tinyhead",
+      "ckpt": "results/perpatch_tinyhead/best.pt",
+      "wins": 1,
+      "losses": 18,
+      "ties": 1,
+      "wins_plus_ties": 2,
+      "n": 20,
+      "head_ms_mean": 0.40622165048262104,
+      "head_ms_p50": 0.40189600258599967,
+      "head_ms_p95": 0.4781271010870114,
+      "head_ms_std": 0.034848725982496026,
+      "per_pair": [
+        {
+          "img_id": 70229,
+          "cat": "bench",
+          "iou_head": 0.02801769750964998,
+          "iou_icon": 0.7027512075911182,
+          "delta": -0.6747335100814682,
+          "verdict": "L"
+        },
+        {
+          "img_id": 141821,
+          "cat": "bowl",
+          "iou_head": 0.027049767938098875,
+          "iou_icon": 0.7102910405174053,
+          "delta": -0.6832412725793064,
+          "verdict": "L"
+        },
+        {
+          "img_id": 185472,
+          "cat": "train",
+          "iou_head": 0.0511510255054254,
+          "iou_icon": 0.8558574453069866,
+          "delta": -0.8047064198015612,
+          "verdict": "L"
+        },
+        {
+          "img_id": 532058,
+          "cat": "bed",
+          "iou_head": 0.9117024739583334,
+          "iou_icon": 0.6298485329188694,
+          "delta": 0.28185394103946393,
+          "verdict": "W"
+        },
+        {
+          "img_id": 274272,
+          "cat": "bus",
+          "iou_head": 0.3152904749923118,
+          "iou_icon": 0.9134461111051289,
+          "delta": -0.5981556361128171,
+          "verdict": "L"
+        },
+        {
+          "img_id": 52007,
+          "cat": "person",
+          "iou_head": 0.04364279265723744,
+          "iou_icon": 0.5770392749244713,
+          "delta": -0.5333964822672338,
+          "verdict": "L"
+        },
+        {
+          "img_id": 173091,
+          "cat": "apple",
+          "iou_head": 0.05948910403691104,
+          "iou_icon": 0.8408536160122743,
+          "delta": -0.7813645119753633,
+          "verdict": "L"
+        },
+        {
+          "img_id": 278353,
+          "cat": "sheep",
+          "iou_head": 0.3966233418196436,
+          "iou_icon": 0.9294412438116723,
+          "delta": -0.5328179019920287,
+          "verdict": "L"
+        },
+        {
+          "img_id": 184321,
+          "cat": "train",
+          "iou_head": 0.04900540597281268,
+          "iou_icon": 0.891516871649322,
+          "delta": -0.8425114656765094,
+          "verdict": "L"
+        },
+        {
+          "img_id": 74058,
+          "cat": "bicycle",
+          "iou_head": 0.06603048760118922,
+          "iou_icon": 0.6670963306694165,
+          "delta": -0.6010658430682273,
+          "verdict": "L"
+        },
+        {
+          "img_id": 30504,
+          "cat": "skis",
+          "iou_head": 0.042178067922282104,
+          "iou_icon": 0.4930747922437673,
+          "delta": -0.4508967243214852,
+          "verdict": "L"
+        },
+        {
+          "img_id": 268378,
+          "cat": "chair",
+          "iou_head": 0.01664746333077289,
+          "iou_icon": 0.7259209942299156,
+          "delta": -0.7092735308991427,
+          "verdict": "L"
+        },
+        {
+          "img_id": 343466,
+          "cat": "oven",
+          "iou_head": 0.0874217702279839,
+          "iou_icon": 0.735120511559272,
+          "delta": -0.6476987413312881,
+          "verdict": "L"
+        },
+        {
+          "img_id": 217400,
+          "cat": "train",
+          "iou_head": 0.38359674570563096,
+          "iou_icon": 0.8289906839793406,
+          "delta": -0.44539393827370966,
+          "verdict": "L"
+        },
+        {
+          "img_id": 401244,
+          "cat": "frisbee",
+          "iou_head": 0.021878227935269137,
+          "iou_icon": 0.6669484361792054,
+          "delta": -0.6450702082439362,
+          "verdict": "L"
+        },
+        {
+          "img_id": 488166,
+          "cat": "fork",
+          "iou_head": 0.016749528544488256,
+          "iou_icon": 0.2833530106257379,
+          "delta": -0.2666034820812497,
+          "verdict": "L"
+        },
+        {
+          "img_id": 348481,
+          "cat": "remote",
+          "iou_head": 0.0,
+          "iou_icon": 0.0,
+          "delta": 0.0,
+          "verdict": "T"
+        },
+        {
+          "img_id": 259830,
+          "cat": "person",
+          "iou_head": 0.00805514705882353,
+          "iou_icon": 0.6911034746086292,
+          "delta": -0.6830483275498057,
+          "verdict": "L"
+        },
+        {
+          "img_id": 17436,
+          "cat": "person",
+          "iou_head": 0.023166698166698165,
+          "iou_icon": 0.5692771084337349,
+          "delta": -0.5461104102670368,
+          "verdict": "L"
+        },
+        {
+          "img_id": 231125,
+          "cat": "person",
+          "iou_head": 0.15566856929508466,
+          "iou_icon": 0.8046409126263936,
+          "delta": -0.6489723433313089,
+          "verdict": "L"
+        }
+      ]
+    },
+    {
+      "name": "upscale_28",
+      "kind": "filter_head_upscale",
+      "ckpt": "results/filter_head_upscale/best.pt",
+      "wins": 0,
+      "losses": 19,
+      "ties": 1,
+      "wins_plus_ties": 1,
+      "n": 20,
+      "head_ms_mean": 0.4278670405619778,
+      "head_ms_p50": 0.42127049528062344,
+      "head_ms_p95": 0.5467708193464204,
+      "head_ms_std": 0.07293617251631705,
+      "per_pair": [
+        {
+          "img_id": 70229,
+          "cat": "bench",
+          "iou_head": 0.10519831471782677,
+          "iou_icon": 0.7027512075911182,
+          "delta": -0.5975528928732914,
+          "verdict": "L"
+        },
+        {
+          "img_id": 141821,
+          "cat": "bowl",
+          "iou_head": 0.03195414528667776,
+          "iou_icon": 0.7102910405174053,
+          "delta": -0.6783368952307276,
+          "verdict": "L"
+        },
+        {
+          "img_id": 185472,
+          "cat": "train",
+          "iou_head": 0.0,
+          "iou_icon": 0.8558574453069866,
+          "delta": -0.8558574453069866,
+          "verdict": "L"
+        },
+        {
+          "img_id": 532058,
+          "cat": "bed",
+          "iou_head": 0.3809293969377631,
+          "iou_icon": 0.6298485329188694,
+          "delta": -0.24891913598110632,
+          "verdict": "L"
+        },
+        {
+          "img_id": 274272,
+          "cat": "bus",
+          "iou_head": 0.35374830735544094,
+          "iou_icon": 0.9134461111051289,
+          "delta": -0.5596978037496879,
+          "verdict": "L"
+        },
+        {
+          "img_id": 52007,
+          "cat": "person",
+          "iou_head": 0.039003432382732524,
+          "iou_icon": 0.5770392749244713,
+          "delta": -0.5380358425417388,
+          "verdict": "L"
+        },
+        {
+          "img_id": 173091,
+          "cat": "apple",
+          "iou_head": 0.023058779130106614,
+          "iou_icon": 0.8408536160122743,
+          "delta": -0.8177948368821677,
+          "verdict": "L"
+        },
+        {
+          "img_id": 278353,
+          "cat": "sheep",
+          "iou_head": 0.19399778612834628,
+          "iou_icon": 0.9294412438116723,
+          "delta": -0.735443457683326,
+          "verdict": "L"
+        },
+        {
+          "img_id": 184321,
+          "cat": "train",
+          "iou_head": 0.012009685230024212,
+          "iou_icon": 0.891516871649322,
+          "delta": -0.8795071864192978,
+          "verdict": "L"
+        },
+        {
+          "img_id": 74058,
+          "cat": "bicycle",
+          "iou_head": 0.034712975639030065,
+          "iou_icon": 0.6670963306694165,
+          "delta": -0.6323833550303865,
+          "verdict": "L"
+        },
+        {
+          "img_id": 30504,
+          "cat": "skis",
+          "iou_head": 0.0,
+          "iou_icon": 0.4930747922437673,
+          "delta": -0.4930747922437673,
+          "verdict": "L"
+        },
+        {
+          "img_id": 268378,
+          "cat": "chair",
+          "iou_head": 0.016472025753695045,
+          "iou_icon": 0.7259209942299156,
+          "delta": -0.7094489684762206,
+          "verdict": "L"
+        },
+        {
+          "img_id": 343466,
+          "cat": "oven",
+          "iou_head": 0.0016412587191869457,
+          "iou_icon": 0.735120511559272,
+          "delta": -0.7334792528400851,
+          "verdict": "L"
+        },
+        {
+          "img_id": 217400,
+          "cat": "train",
+          "iou_head": 0.16427224641671256,
+          "iou_icon": 0.8289906839793406,
+          "delta": -0.664718437562628,
+          "verdict": "L"
+        },
+        {
+          "img_id": 401244,
+          "cat": "frisbee",
+          "iou_head": 0.0,
+          "iou_icon": 0.6669484361792054,
+          "delta": -0.6669484361792054,
+          "verdict": "L"
+        },
+        {
+          "img_id": 488166,
+          "cat": "fork",
+          "iou_head": 0.020355871886120997,
+          "iou_icon": 0.2833530106257379,
+          "delta": -0.26299713873961694,
+          "verdict": "L"
+        },
+        {
+          "img_id": 348481,
+          "cat": "remote",
+          "iou_head": 0.0,
+          "iou_icon": 0.0,
+          "delta": 0.0,
+          "verdict": "T"
+        },
+        {
+          "img_id": 259830,
+          "cat": "person",
+          "iou_head": 0.008061934496322271,
+          "iou_icon": 0.6911034746086292,
+          "delta": -0.6830415401123069,
+          "verdict": "L"
+        },
+        {
+          "img_id": 17436,
+          "cat": "person",
+          "iou_head": 0.01592710498960499,
+          "iou_icon": 0.5692771084337349,
+          "delta": -0.5533500034441299,
+          "verdict": "L"
+        },
+        {
+          "img_id": 231125,
+          "cat": "person",
+          "iou_head": 0.14491796784735747,
+          "iou_icon": 0.8046409126263936,
+          "delta": -0.6597229447790361,
+          "verdict": "L"
+        }
+      ]
+    },
+    {
+      "name": "deep_finetune",
+      "kind": "deep_finetune",
+      "ckpt": "results/autogaze_deep_finetune/cycle1/best.pt",
+      "wins": 0,
+      "losses": 19,
+      "ties": 1,
+      "wins_plus_ties": 1,
+      "n": 20,
+      "head_ms_mean": 3.127975349489134,
+      "head_ms_p50": 3.1222705001709983,
+      "head_ms_p95": 3.4976955561432987,
+      "head_ms_std": 0.22490415980409148,
+      "per_pair": [
+        {
+          "img_id": 70229,
+          "cat": "bench",
+          "iou_head": 0.11749076470239624,
+          "iou_icon": 0.7027512075911182,
+          "delta": -0.5852604428887219,
+          "verdict": "L"
+        },
+        {
+          "img_id": 141821,
+          "cat": "bowl",
+          "iou_head": 0.05830834273346723,
+          "iou_icon": 0.7102910405174053,
+          "delta": -0.6519826977839381,
+          "verdict": "L"
+        },
+        {
+          "img_id": 185472,
+          "cat": "train",
+          "iou_head": 0.01273224830764799,
+          "iou_icon": 0.8558574453069866,
+          "delta": -0.8431251969993386,
+          "verdict": "L"
+        },
+        {
+          "img_id": 532058,
+          "cat": "bed",
+          "iou_head": 0.5437644532262462,
+          "iou_icon": 0.6298485329188694,
+          "delta": -0.08608407969262322,
+          "verdict": "L"
+        },
+        {
+          "img_id": 274272,
+          "cat": "bus",
+          "iou_head": 0.36731703160944024,
+          "iou_icon": 0.9134461111051289,
+          "delta": -0.5461290794956886,
+          "verdict": "L"
+        },
+        {
+          "img_id": 52007,
+          "cat": "person",
+          "iou_head": 0.042532443727546006,
+          "iou_icon": 0.5770392749244713,
+          "delta": -0.5345068311969252,
+          "verdict": "L"
+        },
+        {
+          "img_id": 173091,
+          "cat": "apple",
+          "iou_head": 0.0,
+          "iou_icon": 0.8408536160122743,
+          "delta": -0.8408536160122743,
+          "verdict": "L"
+        },
+        {
+          "img_id": 278353,
+          "cat": "sheep",
+          "iou_head": 0.11211036409674321,
+          "iou_icon": 0.9294412438116723,
+          "delta": -0.817330879714929,
+          "verdict": "L"
+        },
+        {
+          "img_id": 184321,
+          "cat": "train",
+          "iou_head": 0.03456586008322708,
+          "iou_icon": 0.891516871649322,
+          "delta": -0.856951011566095,
+          "verdict": "L"
+        },
+        {
+          "img_id": 74058,
+          "cat": "bicycle",
+          "iou_head": 0.03268138536319066,
+          "iou_icon": 0.6670963306694165,
+          "delta": -0.6344149453062259,
+          "verdict": "L"
+        },
+        {
+          "img_id": 30504,
+          "cat": "skis",
+          "iou_head": 0.0,
+          "iou_icon": 0.4930747922437673,
+          "delta": -0.4930747922437673,
+          "verdict": "L"
+        },
+        {
+          "img_id": 268378,
+          "cat": "chair",
+          "iou_head": 0.005472207103812206,
+          "iou_icon": 0.7259209942299156,
+          "delta": -0.7204487871261034,
+          "verdict": "L"
+        },
+        {
+          "img_id": 343466,
+          "cat": "oven",
+          "iou_head": 0.011710900145520061,
+          "iou_icon": 0.735120511559272,
+          "delta": -0.723409611413752,
+          "verdict": "L"
+        },
+        {
+          "img_id": 217400,
+          "cat": "train",
+          "iou_head": 0.1045258522856235,
+          "iou_icon": 0.8289906839793406,
+          "delta": -0.7244648316937171,
+          "verdict": "L"
+        },
+        {
+          "img_id": 401244,
+          "cat": "frisbee",
+          "iou_head": 0.0,
+          "iou_icon": 0.6669484361792054,
+          "delta": -0.6669484361792054,
+          "verdict": "L"
+        },
+        {
+          "img_id": 488166,
+          "cat": "fork",
+          "iou_head": 0.10785979485243219,
+          "iou_icon": 0.2833530106257379,
+          "delta": -0.17549321577330573,
+          "verdict": "L"
+        },
+        {
+          "img_id": 348481,
+          "cat": "remote",
+          "iou_head": 0.04455938131126545,
+          "iou_icon": 0.0,
+          "delta": 0.04455938131126545,
+          "verdict": "T"
+        },
+        {
+          "img_id": 259830,
+          "cat": "person",
+          "iou_head": 0.0026954817086666458,
+          "iou_icon": 0.6911034746086292,
+          "delta": -0.6884079928999626,
+          "verdict": "L"
+        },
+        {
+          "img_id": 17436,
+          "cat": "person",
+          "iou_head": 0.016408639719416612,
+          "iou_icon": 0.5692771084337349,
+          "delta": -0.5528684687143183,
+          "verdict": "L"
+        },
+        {
+          "img_id": 231125,
+          "cat": "person",
+          "iou_head": 0.1454983030649976,
+          "iou_icon": 0.8046409126263936,
+          "delta": -0.659142609561396,
+          "verdict": "L"
+        }
+      ]
+    },
+    {
+      "name": "coco_mask_distill",
+      "kind": "filter_head",
+      "ckpt": "results/coco_mask_distill/best.pt",
+      "wins": 1,
+      "losses": 18,
+      "ties": 1,
+      "wins_plus_ties": 2,
+      "n": 20,
+      "head_ms_mean": 0.15754255960928276,
+      "head_ms_p50": 0.15579149476252496,
+      "head_ms_p95": 0.165616707818117,
+      "head_ms_std": 0.009625337140401863,
+      "per_pair": [
+        {
+          "img_id": 70229,
+          "cat": "bench",
+          "iou_head": 0.09781496543521505,
+          "iou_icon": 0.7027512075911182,
+          "delta": -0.6049362421559031,
+          "verdict": "L"
+        },
+        {
+          "img_id": 141821,
+          "cat": "bowl",
+          "iou_head": 0.03107825227951611,
+          "iou_icon": 0.7102910405174053,
+          "delta": -0.6792127882378892,
+          "verdict": "L"
+        },
+        {
+          "img_id": 185472,
+          "cat": "train",
+          "iou_head": 0.041192039178910074,
+          "iou_icon": 0.8558574453069866,
+          "delta": -0.8146654061280765,
+          "verdict": "L"
+        },
+        {
+          "img_id": 532058,
+          "cat": "bed",
+          "iou_head": 0.9117024739583334,
+          "iou_icon": 0.6298485329188694,
+          "delta": 0.28185394103946393,
+          "verdict": "W"
+        },
+        {
+          "img_id": 274272,
+          "cat": "bus",
+          "iou_head": 0.333537683436147,
+          "iou_icon": 0.9134461111051289,
+          "delta": -0.5799084276689819,
+          "verdict": "L"
+        },
+        {
+          "img_id": 52007,
+          "cat": "person",
+          "iou_head": 0.11865695435705001,
+          "iou_icon": 0.5770392749244713,
+          "delta": -0.45838232056742123,
+          "verdict": "L"
+        },
+        {
+          "img_id": 173091,
+          "cat": "apple",
+          "iou_head": 0.18313042964363807,
+          "iou_icon": 0.8408536160122743,
+          "delta": -0.6577231863686361,
+          "verdict": "L"
+        },
+        {
+          "img_id": 278353,
+          "cat": "sheep",
+          "iou_head": 0.5613032318378258,
+          "iou_icon": 0.9294412438116723,
+          "delta": -0.36813801197384644,
+          "verdict": "L"
+        },
+        {
+          "img_id": 184321,
+          "cat": "train",
+          "iou_head": 0.049722021045456484,
+          "iou_icon": 0.891516871649322,
+          "delta": -0.8417948506038655,
+          "verdict": "L"
+        },
+        {
+          "img_id": 74058,
+          "cat": "bicycle",
+          "iou_head": 0.07886026609759815,
+          "iou_icon": 0.6670963306694165,
+          "delta": -0.5882360645718184,
+          "verdict": "L"
+        },
+        {
+          "img_id": 30504,
+          "cat": "skis",
+          "iou_head": 0.04143390665247539,
+          "iou_icon": 0.4930747922437673,
+          "delta": -0.45164088559129195,
+          "verdict": "L"
+        },
+        {
+          "img_id": 268378,
+          "cat": "chair",
+          "iou_head": 0.07560229650694854,
+          "iou_icon": 0.7259209942299156,
+          "delta": -0.6503186977229671,
+          "verdict": "L"
+        },
+        {
+          "img_id": 343466,
+          "cat": "oven",
+          "iou_head": 0.10821493430189083,
+          "iou_icon": 0.735120511559272,
+          "delta": -0.6269055772573813,
+          "verdict": "L"
+        },
+        {
+          "img_id": 217400,
+          "cat": "train",
+          "iou_head": 0.45015420436674086,
+          "iou_icon": 0.8289906839793406,
+          "delta": -0.37883647961259975,
+          "verdict": "L"
+        },
+        {
+          "img_id": 401244,
+          "cat": "frisbee",
+          "iou_head": 0.0,
+          "iou_icon": 0.6669484361792054,
+          "delta": -0.6669484361792054,
+          "verdict": "L"
+        },
+        {
+          "img_id": 488166,
+          "cat": "fork",
+          "iou_head": 0.01690194450211058,
+          "iou_icon": 0.2833530106257379,
+          "delta": -0.26645106612362734,
+          "verdict": "L"
+        },
+        {
+          "img_id": 348481,
+          "cat": "remote",
+          "iou_head": 0.013501879734174,
+          "iou_icon": 0.0,
+          "delta": 0.013501879734174,
+          "verdict": "T"
+        },
+        {
+          "img_id": 259830,
+          "cat": "person",
+          "iou_head": 0.009532444373202961,
+          "iou_icon": 0.6911034746086292,
+          "delta": -0.6815710302354262,
+          "verdict": "L"
+        },
+        {
+          "img_id": 17436,
+          "cat": "person",
+          "iou_head": 0.03543763832369529,
+          "iou_icon": 0.5692771084337349,
+          "delta": -0.5338394701100396,
+          "verdict": "L"
+        },
+        {
+          "img_id": 231125,
+          "cat": "person",
+          "iou_head": 0.21198348380735216,
+          "iou_icon": 0.8046409126263936,
+          "delta": -0.5926574288190414,
+          "verdict": "L"
+        }
+      ]
+    }
+  ]
+}
