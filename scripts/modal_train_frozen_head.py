@@ -101,6 +101,11 @@ def _setup():
     subprocess.run(["git", "reset", "--hard", f"origin/{BRANCH}"], check=True)
     sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"]).decode().strip()
     print(f"[code] now at {sha}", flush=True)
+    # Diagnostic: show disk + inode usage so we can see what's full when Modal volumes throw ENOSPC.
+    print("[df] disk usage:", flush=True)
+    subprocess.run(["df", "-h"], check=False)
+    print("[df] inode usage:", flush=True)
+    subprocess.run(["df", "-i"], check=False)
 
     if not os.path.exists("data"):
         os.symlink(DATA_PATH, "data")
@@ -140,6 +145,11 @@ def cycle2(skip_features: bool = False, skip_teacher: bool = False):
         if not os.path.exists(fp):
             raise RuntimeError(f"missing {fp} — needed from r/native-aspect-train2017 run")
         print(f"[ok] {fp} ({os.path.getsize(fp)/1e6:.1f} MB)", flush=True)
+
+    # Diagnostic: dump per-mount sizes to see which directory dominates.
+    import subprocess as _sp
+    print("[du] /results top-level (max-depth=2):", flush=True)
+    _sp.run(["du", "-h", "--max-depth=2", "/results"], check=False)
 
     # Sanity: dinov2_train_native must be populated (teacher cache reads from it).
     n_dv2_train = len(os.listdir(CACHE_TRAIN_DV2)) if os.path.isdir(CACHE_TRAIN_DV2) else 0
