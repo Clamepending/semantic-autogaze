@@ -97,6 +97,10 @@ def main():
     p.add_argument("--out-dir", default="results/autogaze_probe/teacher_14x14_val")
     p.add_argument("--device", default="cpu")
     p.add_argument("--max-images", type=int, default=None)
+    p.add_argument("--start-idx", type=int, default=0,
+                   help="Start image index (after sort + max-images cap).")
+    p.add_argument("--end-idx", type=int, default=None,
+                   help="End image index (exclusive). None = all.")
     args = p.parse_args()
 
     device = torch.device(args.device)
@@ -107,6 +111,10 @@ def main():
     img_ids = sorted(coco.getImgIds())
     if args.max_images:
         img_ids = img_ids[: args.max_images]
+    if args.start_idx or args.end_idx is not None:
+        end = args.end_idx if args.end_idx is not None else len(img_ids)
+        img_ids = img_ids[args.start_idx:end]
+        print(f"[diag] chunk: image indices [{args.start_idx}, {end}) -> {len(img_ids)} images")
 
     print(f"[diag] loading 118K student: {args.ckpt}")
     model = load_student(args.ckpt, device)
@@ -141,9 +149,20 @@ def main():
             rate = n_pred / max(elapsed, 1e-9)
             print(f"  [{i+1}/{len(img_ids)}] preds={n_pred} ({rate:.0f}/s)")
 
-    with open(out_dir / "_sidecar.json", "w") as f:
-        json.dump({str(k): v for k, v in sidecar.items()}, f)
-    print(f"[diag] cached {len(sidecar)} images, {n_pred} per-cat heatmaps in {time.time()-t0:.1f}s")
+    sidecar_path = out_dir / "_sidecar.json"
+    merged = {}
+    if sidecar_path.exists():
+        try:
+            with open(sidecar_path) as f:
+                merged = json.load(f)
+        except json.JSONDecodeError:
+            merged = {}
+    for k, v in sidecar.items():
+        merged[str(k)] = v
+    with open(sidecar_path, "w") as f:
+        json.dump(merged, f)
+    print(f"[diag] cached {len(sidecar)} images this chunk ({n_pred} preds in {time.time()-t0:.1f}s); "
+          f"sidecar total now {len(merged)} images")
 
 
 if __name__ == "__main__":

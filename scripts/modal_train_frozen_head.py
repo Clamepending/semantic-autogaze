@@ -191,19 +191,29 @@ def cycle2(skip_features: bool = False, skip_teacher: bool = False):
         results_vol.commit()
         print("[teacher] val2017 done, committed", flush=True)
 
-        _stream(
-            "python -u scripts/autogaze_probe/cache_teacher.py "
-            f"--ckpt {teacher_ckpt} "
-            f"--clip-text-embeddings {clip_text} "
-            f"--dinov2-cache-native {CACHE_TRAIN_DV2} "
-            "--data-dir data/coco "
-            "--ann annotations/instances_train2017.json "
-            "--img-subdir train2017 "
-            f"--out-dir {TEACH_TRAIN} "
-            "--device cuda"
-        )
-        results_vol.commit()
-        print("[teacher] train2017 done, committed", flush=True)
+        # Chunked: write CHUNK_SIZE teacher files, commit, repeat. The
+        # uncommitted writeback cache on the worker's ephemeral disk
+        # filled up at ~70K files in the prior un-chunked run.
+        TOTAL_TRAIN = 118287
+        CHUNK_SIZE = 15000
+        for start in range(0, TOTAL_TRAIN, CHUNK_SIZE):
+            end = min(start + CHUNK_SIZE, TOTAL_TRAIN)
+            print(f"[teacher] train2017 chunk [{start}, {end})", flush=True)
+            _stream(
+                "python -u scripts/autogaze_probe/cache_teacher.py "
+                f"--ckpt {teacher_ckpt} "
+                f"--clip-text-embeddings {clip_text} "
+                f"--dinov2-cache-native {CACHE_TRAIN_DV2} "
+                "--data-dir data/coco "
+                "--ann annotations/instances_train2017.json "
+                "--img-subdir train2017 "
+                f"--out-dir {TEACH_TRAIN} "
+                "--device cuda "
+                f"--start-idx {start} --end-idx {end}"
+            )
+            results_vol.commit()
+            print(f"[teacher] train2017 chunk [{start}, {end}) committed", flush=True)
+        print("[teacher] train2017 all chunks done", flush=True)
 
     # Sanity counts before training.
     for d in (FEAT_VAL, FEAT_TRAIN, TEACH_VAL, TEACH_TRAIN):
