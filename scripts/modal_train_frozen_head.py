@@ -130,6 +130,7 @@ def _setup():
     volumes={DATA_PATH: data_vol, RESULTS_PATH: results_vol},
     timeout=20 * 3600,
     ephemeral_disk=524288,
+    memory=24576,
 )
 def cycle2(skip_features: bool = False, skip_teacher: bool = False):
     import torch
@@ -241,7 +242,8 @@ def cycle2(skip_features: bool = False, skip_teacher: bool = False):
         "--device cuda "
         "--n-epochs 10 "
         "--batch-size 256 "
-        "--num-workers 8 "
+        "--num-workers 0 "
+        "--preload "
         "--lr 1e-3"
     )
     results_vol.commit()

@@ -46,7 +46,7 @@ class BilinearCosineHead(nn.Module):
 
 class ProbeDataset(Dataset):
     def __init__(self, image_ids, sidecar, feature_dir: Path, teacher_dir: Path,
-                 clip_text: dict):
+                 clip_text: dict, preload: bool = False):
         self.feature_dir = feature_dir
         self.teacher_dir = teacher_dir
         self.clip_text = clip_text
@@ -54,14 +54,56 @@ class ProbeDataset(Dataset):
         for img_id in image_ids:
             for c in sidecar.get(str(img_id), []):
                 self.pairs.append((int(img_id), int(c)))
+        self.preload = preload
+        self.feat_cache = None
+        self.teach_cache = None
+        if preload:
+            self._do_preload(image_ids)
+
+    def _do_preload(self, image_ids):
+        # Load every (feature, teacher) file once at startup. Modal Volume's
+        # ~250ms/file random-access latency dominates batched training; once
+        # loaded into a process-local dict, __getitem__ is pure RAM.
+        # Stored as fp16 to fit 118K x 196 x 192 features in ~8.7GB RAM.
+        # Parallelized: serial 118K * 250ms = ~8 hr; 64 threads ~ 8 min.
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        from tqdm import tqdm as _tqdm
+        self.feat_cache = {}
+        self.teach_cache = {}
+
+        def _load_one(img_id: int):
+            fp = self.feature_dir / f"{img_id}.pt"
+            tp = self.teacher_dir / f"{img_id}.pt"
+            if not fp.exists() or not tp.exists():
+                return img_id, None, None
+            patches = torch.load(fp, weights_only=True).half()
+            t = torch.load(tp, weights_only=True)
+            teach = {int(k): v.half() for k, v in t.items()}
+            return img_id, patches, teach
+
+        with ThreadPoolExecutor(max_workers=64) as ex:
+            futures = [ex.submit(_load_one, int(i)) for i in image_ids]
+            for fut in _tqdm(as_completed(futures), total=len(futures), desc="preload"):
+                img_id, patches, teach = fut.result()
+                if patches is None:
+                    continue
+                self.feat_cache[img_id] = patches
+                self.teach_cache[img_id] = teach
+        # Drop pairs whose images failed to preload.
+        self.pairs = [(i, c) for (i, c) in self.pairs if i in self.feat_cache and i in self.teach_cache]
+        print(f"[preload] {len(self.feat_cache)} images, {len(self.pairs)} pairs in cache", flush=True)
 
     def __len__(self):
         return len(self.pairs)
 
     def __getitem__(self, idx):
         img_id, cat_id = self.pairs[idx]
-        patches = torch.load(self.feature_dir / f"{img_id}.pt", weights_only=True).float()
-        teacher = torch.load(self.teacher_dir / f"{img_id}.pt", weights_only=True)
+        if self.preload:
+            patches = self.feat_cache[img_id].float()
+            teacher = self.teach_cache[img_id]
+        else:
+            patches = torch.load(self.feature_dir / f"{img_id}.pt", weights_only=True).float()
+            teacher = torch.load(self.teacher_dir / f"{img_id}.pt", weights_only=True)
         target = teacher[int(cat_id)].float().reshape(-1)
         query = self.clip_text[str(cat_id)].float()
         return {"patches": patches, "query": query, "target": target}
@@ -129,6 +171,9 @@ def main():
     p.add_argument("--batch-size", type=int, default=64)
     p.add_argument("--num-workers", type=int, default=2)
     p.add_argument("--lr", type=float, default=1e-3)
+    p.add_argument("--preload", action="store_true",
+                   help="Load all features+teachers into RAM at startup. "
+                        "Use on Modal Volumes where per-file latency dominates.")
     args = p.parse_args()
 
     rng = random.Random(args.seed)
@@ -153,22 +198,30 @@ def main():
         val_ids = [int(k) for k in val_sidecar.keys()
                    if (val_feature_dir / f"{k}.pt").exists()]
         train_ids = image_ids
-        train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text)
-        val_ds = ProbeDataset(val_ids, val_sidecar, val_feature_dir, val_teacher_dir, clip_text)
+        train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text,
+                                preload=args.preload)
+        val_ds = ProbeDataset(val_ids, val_sidecar, val_feature_dir, val_teacher_dir, clip_text,
+                              preload=args.preload)
     else:
         n_train = int(0.8 * len(image_ids))
         train_ids, val_ids = image_ids[:n_train], image_ids[n_train:]
-        train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text)
-        val_ds = ProbeDataset(val_ids, sidecar, feature_dir, teacher_dir, clip_text)
+        train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text,
+                                preload=args.preload)
+        val_ds = ProbeDataset(val_ids, sidecar, feature_dir, teacher_dir, clip_text,
+                              preload=args.preload)
     print(f"[diag] {len(train_ds)} train pairs / {len(val_ds)} val pairs "
           f"(over {len(train_ids)}/{len(val_ids)} images)")
 
+    # When preloaded, __getitem__ is pure-RAM dict lookup; multi-worker forking
+    # would copy the giant cache (CoW saves us in theory but glibc fragments it).
+    # 0 workers is fastest in practice once I/O is removed.
+    nw = 0 if args.preload else args.num_workers
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
-                              num_workers=args.num_workers, drop_last=True,
-                              persistent_workers=args.num_workers > 0)
+                              num_workers=nw, drop_last=True,
+                              persistent_workers=nw > 0)
     val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False,
-                            num_workers=args.num_workers,
-                            persistent_workers=args.num_workers > 0)
+                            num_workers=nw,
+                            persistent_workers=nw > 0)
 
     head = BilinearCosineHead().to(device)
     n_params = sum(p.numel() for p in head.parameters())
