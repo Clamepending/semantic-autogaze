@@ -1,0 +1,49 @@
+[diag] loading text + COCO ann...
+loading annotations into memory...
+Done (t=0.34s)
+creating index...
+index created!
+[diag] Q=80 categories
+[diag] using 5000 cached images
+[diag] preloading L0 features into memory (fp32)...
+preload:   0%|          | 0/5000 [00:00<?, ?it/s]preload:   4%|▍         | 216/5000 [00:00<00:02, 2136.54it/s]preload:   9%|▊         | 430/5000 [00:00<00:08, 530.70it/s] preload:  11%|█         | 539/5000 [00:01<00:09, 447.25it/s]preload:  12%|█▏        | 613/5000 [00:01<00:11, 398.47it/s]preload:  13%|█▎        | 670/5000 [00:01<00:11, 376.79it/s]preload:  14%|█▍        | 718/5000 [00:01<00:11, 370.65it/s]preload:  15%|█▌        | 761/5000 [00:01<00:12, 339.19it/s]preload:  16%|█▌        | 799/5000 [00:01<00:13, 321.31it/s]preload:  17%|█▋        | 843/5000 [00:02<00:12, 343.57it/s]preload:  18%|█▊        | 880/5000 [00:02<00:12, 342.68it/s]preload:  18%|█▊        | 916/5000 [00:02<00:12, 332.82it/s]preload:  19%|█▉        | 951/5000 [00:02<00:12, 329.53it/s]preload:  20%|█▉        | 985/5000 [00:02<00:12, 317.40it/s]preload:  20%|██        | 1018/5000 [00:02<00:13, 297.32it/s]preload:  21%|██        | 1051/5000 [00:02<00:13, 303.47it/s]preload:  22%|██▏       | 1082/5000 [00:02<00:13, 293.51it/s]preload:  22%|██▏       | 1121/5000 [00:02<00:12, 316.34it/s]preload:  23%|██▎       | 1153/5000 [00:03<00:12, 316.01it/s]preload:  24%|██▍       | 1193/5000 [00:03<00:11, 339.09it/s]preload:  25%|██▍       | 1228/5000 [00:03<00:11, 339.53it/s]preload:  25%|██▌       | 1263/5000 [00:03<00:13, 281.93it/s]preload:  26%|██▌       | 1293/5000 [00:03<00:14, 247.68it/s]preload:  26%|██▋       | 1324/5000 [00:03<00:14, 261.15it/s]preload:  28%|██▊       | 1379/5000 [00:03<00:10, 333.49it/s]preload:  29%|██▊       | 1435/5000 [00:03<00:09, 390.73it/s]preload:  30%|██▉       | 1477/5000 [00:04<00:10, 348.35it/s]preload:  30%|███       | 1515/5000 [00:04<00:09, 349.18it/s]preload:  31%|███       | 1557/5000 [00:04<00:09, 366.26it/s]preload:  33%|███▎      | 1633/5000 [00:04<00:07, 473.14it/s]preload:  34%|███▍      | 1695/5000 [00:04<00:06, 510.48it/s]preload:  35%|███▍      | 1748/5000 [00:04<00:09, 358.84it/s]preload:  36%|███▋      | 1822/5000 [00:04<00:07, 442.44it/s]preload:  38%|███▊      | 1884/5000 [00:04<00:06, 484.77it/s]preload:  39%|███▉      | 1940/5000 [00:05<00:06, 471.97it/s]preload:  40%|████      | 2000/5000 [00:05<00:05, 503.20it/s]preload:  41%|████      | 2055/5000 [00:05<00:07, 396.72it/s]preload:  42%|████▏     | 2101/5000 [00:05<00:08, 353.95it/s]preload:  43%|████▎     | 2142/5000 [00:05<00:07, 362.51it/s]preload:  44%|████▍     | 2188/5000 [00:05<00:07, 383.22it/s]preload:  45%|████▍     | 2237/5000 [00:05<00:06, 408.81it/s]preload:  46%|████▌     | 2281/5000 [00:05<00:06, 404.52it/s]preload:  46%|████▋     | 2324/5000 [00:06<00:08, 328.67it/s]preload:  48%|████▊     | 2388/5000 [00:06<00:06, 401.26it/s]preload:  49%|████▉     | 2447/5000 [00:06<00:05, 447.79it/s]preload:  50%|████▉     | 2496/5000 [00:06<00:06, 410.10it/s]preload:  51%|█████     | 2558/5000 [00:06<00:05, 462.65it/s]preload:  53%|█████▎    | 2649/5000 [00:06<00:04, 579.97it/s]preload:  55%|█████▍    | 2725/5000 [00:06<00:03, 627.14it/s]preload:  56%|█████▌    | 2800/5000 [00:06<00:03, 661.47it/s]preload:  58%|█████▊    | 2887/5000 [00:06<00:02, 719.89it/s]preload:  59%|█████▉    | 2966/5000 [00:07<00:02, 738.20it/s]preload:  61%|██████    | 3042/5000 [00:07<00:02, 737.00it/s]preload:  62%|██████▏   | 3117/5000 [00:07<00:03, 592.74it/s]preload:  64%|██████▍   | 3197/5000 [00:07<00:02, 643.29it/s]preload:  66%|██████▌   | 3282/5000 [00:07<00:02, 696.90it/s]preload:  67%|██████▋   | 3356/5000 [00:07<00:02, 682.65it/s]preload:  69%|██████▊   | 3429/5000 [00:07<00:02, 691.77it/s]preload:  70%|███████   | 3501/5000 [00:07<00:02, 553.86it/s]preload:  71%|███████   | 3562/5000 [00:08<00:03, 407.22it/s]preload:  72%|███████▏  | 3612/5000 [00:08<00:04, 335.94it/s]preload:  73%|███████▎  | 3654/5000 [00:08<00:04, 302.08it/s]preload:  74%|███████▍  | 3710/5000 [00:08<00:03, 348.82it/s]preload:  75%|███████▌  | 3752/5000 [00:08<00:03, 317.17it/s]preload:  76%|███████▌  | 3789/5000 [00:09<00:04, 281.36it/s]preload:  77%|███████▋  | 3829/5000 [00:09<00:03, 304.72it/s]preload:  77%|███████▋  | 3864/5000 [00:09<00:04, 263.20it/s]preload:  79%|███████▊  | 3936/5000 [00:09<00:02, 358.81it/s]preload:  80%|███████▉  | 3979/5000 [00:09<00:02, 358.82it/s]preload:  80%|████████  | 4020/5000 [00:09<00:03, 307.52it/s]preload:  81%|████████  | 4055/5000 [00:09<00:03, 281.09it/s]preload:  82%|████████▏ | 4086/5000 [00:10<00:03, 282.51it/s]preload:  82%|████████▏ | 4117/5000 [00:10<00:03, 245.81it/s]preload:  84%|████████▍ | 4192/5000 [00:10<00:02, 356.43it/s]preload:  85%|████████▍ | 4233/5000 [00:10<00:02, 280.11it/s]preload:  85%|████████▌ | 4267/5000 [00:10<00:02, 271.18it/s]preload:  86%|████████▌ | 4299/5000 [00:10<00:02, 273.34it/s]preload:  87%|████████▋ | 4330/5000 [00:11<00:02, 249.85it/s]preload:  88%|████████▊ | 4415/5000 [00:11<00:01, 384.43it/s]preload:  90%|████████▉ | 4484/5000 [00:11<00:01, 458.12it/s]preload:  91%|█████████ | 4536/5000 [00:11<00:01, 331.52it/s]preload:  92%|█████████▏| 4578/5000 [00:11<00:01, 309.47it/s]preload:  92%|█████████▏| 4616/5000 [00:11<00:01, 310.59it/s]preload:  94%|█████████▍| 4693/5000 [00:11<00:00, 406.76it/s]preload:  95%|█████████▍| 4740/5000 [00:12<00:00, 348.71it/s]preload:  96%|█████████▌| 4781/5000 [00:12<00:00, 324.39it/s]preload:  96%|█████████▋| 4818/5000 [00:12<00:00, 269.48it/s]preload:  98%|█████████▊| 4900/5000 [00:12<00:00, 376.84it/s]preload:  99%|█████████▉| 4945/5000 [00:12<00:00, 338.60it/s]preload: 100%|█████████▉| 4985/5000 [00:12<00:00, 289.85it/s]preload: 100%|██████████| 5000/5000 [00:12<00:00, 385.19it/s]
+[diag] preloaded 5000 feats in 13.0s
+[diag] pos_rate=0.0366 pos_weight=26.34
+[diag] split: train=4000 val=1000
+[diag] loading AutoGaze (for layer weight extraction)...
+[diag] trainable: layers=1107072, head=148355, total=1255427
+/Users/mark/code/semantic-autogaze/scripts/autogaze_probe/train_deep_unfreeze.py:257: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+  loss_sum += float(loss); nb += 1
+[ep 00] loss=1.1449 val_auc=0.7917 val_ap=0.2200 (49s)
+[ep 01] loss=1.0376 val_auc=0.8185 val_ap=0.2414 (39s)
+[ep 02] loss=0.9986 val_auc=0.8267 val_ap=0.2537 (29s)
+[ep 03] loss=0.9737 val_auc=0.8293 val_ap=0.2558 (30s)
+[ep 04] loss=0.9490 val_auc=0.8309 val_ap=0.2646 (30s)
+[ep 05] loss=0.9373 val_auc=0.8416 val_ap=0.2728 (29s)
+[ep 06] loss=0.9209 val_auc=0.8440 val_ap=0.2763 (31s)
+[ep 07] loss=0.9064 val_auc=0.8468 val_ap=0.2822 (31s)
+[ep 08] loss=0.9006 val_auc=0.8483 val_ap=0.2842 (47s)
+[ep 09] loss=0.8868 val_auc=0.8466 val_ap=0.2872 (54s)
+[ep 10] loss=0.8763 val_auc=0.8502 val_ap=0.2938 (55s)
+[ep 11] loss=0.8653 val_auc=0.8534 val_ap=0.2891 (53s)
+[ep 12] loss=0.8526 val_auc=0.8517 val_ap=0.2927 (53s)
+[ep 13] loss=0.8437 val_auc=0.8494 val_ap=0.2949 (51s)
+[ep 14] loss=0.8284 val_auc=0.8536 val_ap=0.2950 (31s)
+[ep 15] loss=0.8202 val_auc=0.8517 val_ap=0.2996 (30s)
+[ep 16] loss=0.8067 val_auc=0.8482 val_ap=0.2892 (30s)
+[ep 17] loss=0.8004 val_auc=0.8517 val_ap=0.3016 (30s)
+[ep 18] loss=0.7856 val_auc=0.8537 val_ap=0.2997 (30s)
+[ep 19] loss=0.7734 val_auc=0.8522 val_ap=0.3028 (30s)
+[ep 20] loss=0.7626 val_auc=0.8526 val_ap=0.3045 (30s)
+[ep 21] loss=0.7497 val_auc=0.8463 val_ap=0.2971 (30s)
+[ep 22] loss=0.7391 val_auc=0.8516 val_ap=0.3053 (32s)
+[ep 23] loss=0.7217 val_auc=0.8525 val_ap=0.2999 (31s)
+[ep 24] loss=0.7025 val_auc=0.8500 val_ap=0.3031 (31s)
+[ep 25] loss=0.6894 val_auc=0.8498 val_ap=0.2941 (30s)
+[ep 26] loss=0.6706 val_auc=0.8500 val_ap=0.2958 (31s)
+[ep 27] loss=0.6541 val_auc=0.8504 val_ap=0.2974 (31s)
+[ep 28] loss=0.6337 val_auc=0.8486 val_ap=0.2795 (30s)
+[ep 29] loss=0.6128 val_auc=0.8454 val_ap=0.2944 (29s)
+[done] best val_auc=0.8537 (saved to results/autogaze_deep_finetune/cycle1/best.pt)
+[done] vs r/filter-head-retrain cycle 2 (L3-frozen attn-pool, val_auc=0.8473): Δ=+0.0064
