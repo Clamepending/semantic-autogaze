@@ -1,0 +1,58 @@
+[diag] loading text + COCO ann...
+loading annotations into memory...
+Done (t=0.22s)
+creating index...
+index created!
+[diag] Q=80 categories
+[diag] 5000 cached images
+[diag] preloading L3 features into memory...
+preload:   0%|          | 0/5000 [00:00<?, ?it/s]preload:   8%|▊         | 422/5000 [00:00<00:01, 4214.26it/s]preload:  18%|█▊        | 891/5000 [00:00<00:00, 4492.99it/s]preload:  27%|██▋       | 1342/5000 [00:00<00:00, 4499.17it/s]preload:  36%|███▌      | 1805/5000 [00:00<00:00, 4549.42it/s]preload:  45%|████▌     | 2264/5000 [00:00<00:00, 4563.20it/s]preload:  55%|█████▍    | 2732/5000 [00:00<00:00, 4602.17it/s]preload:  64%|██████▍   | 3193/5000 [00:00<00:00, 4469.42it/s]preload:  73%|███████▎  | 3664/5000 [00:00<00:00, 4543.54it/s]preload:  83%|████████▎ | 4127/5000 [00:00<00:00, 4568.18it/s]preload:  92%|█████████▏| 4589/5000 [00:01<00:00, 4583.72it/s]preload: 100%|██████████| 5000/5000 [00:01<00:00, 4546.20it/s]
+[diag] preloaded 5000 feats in 1.1s
+[diag] image-level pos_rate (per-pair) = 0.0366
+[diag] BCE pos_weight = 26.34
+[diag] split: train=4000 val=1000
+[diag] head params: 148354
+/Users/mark/code/semantic-autogaze/scripts/autogaze_probe/train_filter_head.py:194: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+  loss_sum += float(loss); nb += 1
+[ep 00] loss=1.3390  val_auc=0.7247  val_ap=0.1941
+[ep 01] loss=1.1348  val_auc=0.7395  val_ap=0.2058
+[ep 02] loss=1.1224  val_auc=0.7463  val_ap=0.2099
+[ep 03] loss=1.1043  val_auc=0.7640  val_ap=0.2135
+[ep 04] loss=1.0751  val_auc=0.7884  val_ap=0.2146
+[ep 05] loss=1.0432  val_auc=0.7998  val_ap=0.2236
+[ep 06] loss=1.0189  val_auc=0.8063  val_ap=0.2268
+[ep 07] loss=0.9925  val_auc=0.8122  val_ap=0.2360
+[ep 08] loss=0.9776  val_auc=0.8134  val_ap=0.2456
+[ep 09] loss=0.9642  val_auc=0.8116  val_ap=0.2443
+[ep 10] loss=0.9547  val_auc=0.8100  val_ap=0.2473
+[ep 11] loss=0.9373  val_auc=0.8146  val_ap=0.2471
+[ep 12] loss=0.9170  val_auc=0.8151  val_ap=0.2528
+[ep 13] loss=0.9060  val_auc=0.8026  val_ap=0.2493
+[ep 14] loss=0.8893  val_auc=0.8053  val_ap=0.2487
+[ep 15] loss=0.8728  val_auc=0.8042  val_ap=0.2443
+[ep 16] loss=0.8561  val_auc=0.8068  val_ap=0.2460
+[ep 17] loss=0.8379  val_auc=0.7943  val_ap=0.2372
+[ep 18] loss=0.8259  val_auc=0.8059  val_ap=0.2351
+[ep 19] loss=0.8174  val_auc=0.8025  val_ap=0.2452
+[ep 20] loss=0.8033  val_auc=0.8064  val_ap=0.2361
+[ep 21] loss=0.7896  val_auc=0.8024  val_ap=0.2305
+[ep 22] loss=0.7768  val_auc=0.8004  val_ap=0.2089
+[ep 23] loss=0.7637  val_auc=0.7958  val_ap=0.2333
+[ep 24] loss=0.7501  val_auc=0.8005  val_ap=0.2112
+[ep 25] loss=0.7454  val_auc=0.8037  val_ap=0.2237
+[ep 26] loss=0.7302  val_auc=0.8025  val_ap=0.2070
+[ep 27] loss=0.7304  val_auc=0.7998  val_ap=0.2246
+[ep 28] loss=0.7152  val_auc=0.7996  val_ap=0.2346
+[ep 29] loss=0.6908  val_auc=0.7971  val_ap=0.2319
+[ep 30] loss=0.6775  val_auc=0.7935  val_ap=0.2234
+[ep 31] loss=0.6806  val_auc=0.7952  val_ap=0.2247
+[ep 32] loss=0.6644  val_auc=0.7902  val_ap=0.2238
+[ep 33] loss=0.6596  val_auc=0.7948  val_ap=0.2263
+[ep 34] loss=0.6514  val_auc=0.7871  val_ap=0.2234
+[ep 35] loss=0.6417  val_auc=0.7947  val_ap=0.2138
+[ep 36] loss=0.6391  val_auc=0.7954  val_ap=0.2076
+[ep 37] loss=0.6310  val_auc=0.7968  val_ap=0.2226
+[ep 38] loss=0.6212  val_auc=0.7874  val_ap=0.2128
+[ep 39] loss=0.6172  val_auc=0.7909  val_ap=0.2047
+[done] best val_auc=0.8151 (saved to results/filter_head_retrain/best.pt)

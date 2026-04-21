@@ -1,0 +1,25 @@
+[diag] loading head + clip_text + COCO ann...
+loading annotations into memory...
+Done (t=0.28s)
+creating index...
+index created!
+[diag] val-holdout: 1000 images (seed-0 split, no overlap with train)
+filter eval:   0%|          | 0/1000 [00:00<?, ?it/s]filter eval:   2%|▏         | 21/1000 [00:00<00:04, 202.47it/s]filter eval:   5%|▍         | 46/1000 [00:00<00:04, 221.43it/s]filter eval:   7%|▋         | 69/1000 [00:00<00:04, 211.68it/s]filter eval:   9%|▉         | 91/1000 [00:00<00:04, 209.06it/s]filter eval:  11%|█         | 112/1000 [00:00<00:04, 190.71it/s]filter eval:  13%|█▎        | 132/1000 [00:00<00:04, 181.30it/s]filter eval:  15%|█▌        | 151/1000 [00:00<00:04, 183.14it/s]filter eval:  17%|█▋        | 172/1000 [00:00<00:04, 190.66it/s]filter eval:  19%|█▉        | 192/1000 [00:00<00:04, 186.60it/s]filter eval:  21%|██        | 211/1000 [00:01<00:04, 179.79it/s]filter eval:  23%|██▎       | 234/1000 [00:01<00:03, 191.81it/s]filter eval:  25%|██▌       | 254/1000 [00:01<00:04, 183.91it/s]filter eval:  32%|███▏      | 319/1000 [00:01<00:02, 312.98it/s]filter eval:  38%|███▊      | 383/1000 [00:01<00:01, 403.58it/s]filter eval:  45%|████▌     | 452/1000 [00:01<00:01, 485.10it/s]filter eval:  52%|█████▏    | 517/1000 [00:01<00:00, 532.19it/s]filter eval:  58%|█████▊    | 585/1000 [00:01<00:00, 573.08it/s]filter eval:  65%|██████▌   | 652/1000 [00:01<00:00, 601.06it/s]filter eval:  72%|███████▏  | 715/1000 [00:02<00:00, 607.62it/s]filter eval:  78%|███████▊  | 784/1000 [00:02<00:00, 629.60it/s]filter eval:  85%|████████▍ | 848/1000 [00:02<00:00, 625.70it/s]filter eval:  92%|█████████▏| 915/1000 [00:02<00:00, 638.43it/s]filter eval:  98%|█████████▊| 980/1000 [00:02<00:00, 636.29it/s]filter eval: 100%|██████████| 1000/1000 [00:02<00:00, 402.29it/s]
+[diag] eval took 2.5s (32036 pairs/s)
+[diag] pairs: 80000, pos: 2948 (3.69%), neg: 77052
+
+[summary]
+  baseline (always run 118K) = 93.6 ms/query
+  filter-only (no 118K)     = 12.4 ms/query
+  random baseline ROC-AUC = 0.5  AP = 0.0369
+
+  reduction         ROC      AP           r=90%           r=95%           r=99%
+  max            0.8151  0.2528       1.53x@52%       1.24x@67%       0.99x@88%
+  mean           0.7500  0.1913       1.31x@63%       1.15x@73%       0.97x@90%
+  top5_mean      0.7899  0.2026       1.46x@55%       1.24x@67%       0.99x@88%
+  top10_mean     0.7785  0.1974       1.42x@57%       1.24x@67%       0.99x@88%
+  logit_max      0.8151  0.2528       1.51x@53%       1.24x@67%       0.99x@88%
+  logit_mean     0.7340  0.1884       1.24x@67%       1.10x@78%       0.95x@92%
+  head_image     0.8151  0.2528       1.51x@53%       1.24x@67%       0.99x@88%
+
+[diag] wrote summary to results/filter_head_retrain/filter_eval_val.json
