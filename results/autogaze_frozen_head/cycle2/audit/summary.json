@@ -1,0 +1,162 @@
+[
+  {
+    "idx": 0,
+    "img_id": 70229,
+    "cat": "bench",
+    "out": "results/autogaze_frozen_head/cycle2/audit/000_70229_bench.png",
+    "max_frozen": 0.239215686917305,
+    "max_118k": 0.9935382008552551
+  },
+  {
+    "idx": 1,
+    "img_id": 141821,
+    "cat": "bowl",
+    "out": "results/autogaze_frozen_head/cycle2/audit/001_141821_bowl.png",
+    "max_frozen": 0.3921568691730499,
+    "max_118k": 0.999850869178772
+  },
+  {
+    "idx": 2,
+    "img_id": 185472,
+    "cat": "train",
+    "out": "results/autogaze_frozen_head/cycle2/audit/002_185472_train.png",
+    "max_frozen": 0.6705882549285889,
+    "max_118k": 0.9993070363998413
+  },
+  {
+    "idx": 3,
+    "img_id": 532058,
+    "cat": "bed",
+    "out": "results/autogaze_frozen_head/cycle2/audit/003_532058_bed.png",
+    "max_frozen": 0.8627451062202454,
+    "max_118k": 0.990197479724884
+  },
+  {
+    "idx": 4,
+    "img_id": 274272,
+    "cat": "bus",
+    "out": "results/autogaze_frozen_head/cycle2/audit/004_274272_bus.png",
+    "max_frozen": 0.7803921699523926,
+    "max_118k": 0.9995471835136414
+  },
+  {
+    "idx": 5,
+    "img_id": 52007,
+    "cat": "person",
+    "out": "results/autogaze_frozen_head/cycle2/audit/005_52007_person.png",
+    "max_frozen": 0.4901960790157318,
+    "max_118k": 0.9997609257698059
+  },
+  {
+    "idx": 6,
+    "img_id": 173091,
+    "cat": "apple",
+    "out": "results/autogaze_frozen_head/cycle2/audit/006_173091_apple.png",
+    "max_frozen": 0.2705882489681244,
+    "max_118k": 0.9988719820976257
+  },
+  {
+    "idx": 7,
+    "img_id": 278353,
+    "cat": "sheep",
+    "out": "results/autogaze_frozen_head/cycle2/audit/007_278353_sheep.png",
+    "max_frozen": 0.6509804129600525,
+    "max_118k": 0.9998093843460083
+  },
+  {
+    "idx": 8,
+    "img_id": 184321,
+    "cat": "train",
+    "out": "results/autogaze_frozen_head/cycle2/audit/008_184321_train.png",
+    "max_frozen": 0.6980392336845398,
+    "max_118k": 0.9971270561218262
+  },
+  {
+    "idx": 9,
+    "img_id": 74058,
+    "cat": "bicycle",
+    "out": "results/autogaze_frozen_head/cycle2/audit/009_74058_bicycle.png",
+    "max_frozen": 0.4117647111415863,
+    "max_118k": 0.9991511702537537
+  },
+  {
+    "idx": 10,
+    "img_id": 30504,
+    "cat": "skis",
+    "out": "results/autogaze_frozen_head/cycle2/audit/010_30504_skis.png",
+    "max_frozen": 0.3294117748737335,
+    "max_118k": 0.987156331539154
+  },
+  {
+    "idx": 11,
+    "img_id": 268378,
+    "cat": "chair",
+    "out": "results/autogaze_frozen_head/cycle2/audit/011_268378_chair.png",
+    "max_frozen": 0.14901961386203766,
+    "max_118k": 0.9994094967842102
+  },
+  {
+    "idx": 12,
+    "img_id": 343466,
+    "cat": "oven",
+    "out": "results/autogaze_frozen_head/cycle2/audit/012_343466_oven.png",
+    "max_frozen": 0.4431372582912445,
+    "max_118k": 0.9942232370376587
+  },
+  {
+    "idx": 13,
+    "img_id": 217400,
+    "cat": "train",
+    "out": "results/autogaze_frozen_head/cycle2/audit/013_217400_train.png",
+    "max_frozen": 0.7568627595901489,
+    "max_118k": 0.9984987378120422
+  },
+  {
+    "idx": 14,
+    "img_id": 401244,
+    "cat": "frisbee",
+    "out": "results/autogaze_frozen_head/cycle2/audit/014_401244_frisbee.png",
+    "max_frozen": 0.25882354378700256,
+    "max_118k": 0.9999385476112366
+  },
+  {
+    "idx": 15,
+    "img_id": 488166,
+    "cat": "fork",
+    "out": "results/autogaze_frozen_head/cycle2/audit/015_488166_fork.png",
+    "max_frozen": 0.1882352977991104,
+    "max_118k": 0.9960269927978516
+  },
+  {
+    "idx": 16,
+    "img_id": 348481,
+    "cat": "remote",
+    "out": "results/autogaze_frozen_head/cycle2/audit/016_348481_remote.png",
+    "max_frozen": 0.43921568989753723,
+    "max_118k": 0.9865188002586365
+  },
+  {
+    "idx": 17,
+    "img_id": 259830,
+    "cat": "person",
+    "out": "results/autogaze_frozen_head/cycle2/audit/017_259830_person.png",
+    "max_frozen": 0.501960813999176,
+    "max_118k": 0.9995865225791931
+  },
+  {
+    "idx": 18,
+    "img_id": 17436,
+    "cat": "person",
+    "out": "results/autogaze_frozen_head/cycle2/audit/018_17436_person.png",
+    "max_frozen": 0.3803921639919281,
+    "max_118k": 0.999426543712616
+  },
+  {
+    "idx": 19,
+    "img_id": 231125,
+    "cat": "person",
+    "out": "results/autogaze_frozen_head/cycle2/audit/019_231125_person.png",
+    "max_frozen": 0.5921568870544434,
+    "max_118k": 0.999326229095459
+  }
+]
