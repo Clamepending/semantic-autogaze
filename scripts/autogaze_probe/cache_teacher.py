@@ -128,12 +128,13 @@ def main():
         nv = cache_dir / f"{img_id}.pt"
         if not nv.exists():
             continue
-        if out.exists():
-            heatmaps = torch.load(out, weights_only=True)
-            sidecar[img_id] = sorted(heatmaps.keys())
-            continue
         cats = sorted(get_image_categories(coco, img_id).keys())
         if not cats:
+            continue
+        if out.exists():
+            # Teacher file was written with exactly these COCO cats; skip
+            # the torch.load to avoid per-file network-volume latency on resume.
+            sidecar[img_id] = cats
             continue
         native_obj = torch.load(nv, map_location="cpu", weights_only=True)
         heatmaps = {}
