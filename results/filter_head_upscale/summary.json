@@ -1,0 +1,218 @@
+{
+  "head_ckpt": "results/filter_head_upscale/best.pt",
+  "tie_band": 0.05,
+  "wins": 0,
+  "losses": 19,
+  "ties": 1,
+  "skipped": 0,
+  "summary_line": "0W/19L/1T (skipped 0)",
+  "per_pair": [
+    {
+      "idx": 0,
+      "img_id": 70229,
+      "cat": "bench",
+      "out": "results/filter_head_upscale/audit/000_70229_bench_L.png",
+      "iou_filter": 0.10661938049650478,
+      "iou_icon": 0.7027512075911182,
+      "delta": -0.5961318270946134,
+      "verdict": "L"
+    },
+    {
+      "idx": 1,
+      "img_id": 141821,
+      "cat": "bowl",
+      "out": "results/filter_head_upscale/audit/001_141821_bowl_L.png",
+      "iou_filter": 0.0320554926387316,
+      "iou_icon": 0.7102910405174053,
+      "delta": -0.6782355478786737,
+      "verdict": "L"
+    },
+    {
+      "idx": 2,
+      "img_id": 185472,
+      "cat": "train",
+      "out": "results/filter_head_upscale/audit/002_185472_train_L.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.8558574453069866,
+      "delta": -0.8558574453069866,
+      "verdict": "L"
+    },
+    {
+      "idx": 3,
+      "img_id": 532058,
+      "cat": "bed",
+      "out": "results/filter_head_upscale/audit/003_532058_bed_L.png",
+      "iou_filter": 0.3946351291102239,
+      "iou_icon": 0.6298485329188694,
+      "delta": -0.23521340380864553,
+      "verdict": "L"
+    },
+    {
+      "idx": 4,
+      "img_id": 274272,
+      "cat": "bus",
+      "out": "results/filter_head_upscale/audit/004_274272_bus_L.png",
+      "iou_filter": 0.35098824540404505,
+      "iou_icon": 0.9134461111051289,
+      "delta": -0.5624578657010838,
+      "verdict": "L"
+    },
+    {
+      "idx": 5,
+      "img_id": 52007,
+      "cat": "person",
+      "out": "results/filter_head_upscale/audit/005_52007_person_L.png",
+      "iou_filter": 0.039967755715092805,
+      "iou_icon": 0.5770392749244713,
+      "delta": -0.5370715192093785,
+      "verdict": "L"
+    },
+    {
+      "idx": 6,
+      "img_id": 173091,
+      "cat": "apple",
+      "out": "results/filter_head_upscale/audit/006_173091_apple_L.png",
+      "iou_filter": 0.022742360899287675,
+      "iou_icon": 0.8408536160122743,
+      "delta": -0.8181112551129865,
+      "verdict": "L"
+    },
+    {
+      "idx": 7,
+      "img_id": 278353,
+      "cat": "sheep",
+      "out": "results/filter_head_upscale/audit/007_278353_sheep_L.png",
+      "iou_filter": 0.17092539771441712,
+      "iou_icon": 0.9294412438116723,
+      "delta": -0.7585158460972552,
+      "verdict": "L"
+    },
+    {
+      "idx": 8,
+      "img_id": 184321,
+      "cat": "train",
+      "out": "results/filter_head_upscale/audit/008_184321_train_L.png",
+      "iou_filter": 0.011463628673302395,
+      "iou_icon": 0.891516871649322,
+      "delta": -0.8800532429760196,
+      "verdict": "L"
+    },
+    {
+      "idx": 9,
+      "img_id": 74058,
+      "cat": "bicycle",
+      "out": "results/filter_head_upscale/audit/009_74058_bicycle_L.png",
+      "iou_filter": 0.03924362513729332,
+      "iou_icon": 0.6670963306694165,
+      "delta": -0.6278527055321232,
+      "verdict": "L"
+    },
+    {
+      "idx": 10,
+      "img_id": 30504,
+      "cat": "skis",
+      "out": "results/filter_head_upscale/audit/010_30504_skis_L.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.4930747922437673,
+      "delta": -0.4930747922437673,
+      "verdict": "L"
+    },
+    {
+      "idx": 11,
+      "img_id": 268378,
+      "cat": "chair",
+      "out": "results/filter_head_upscale/audit/011_268378_chair_L.png",
+      "iou_filter": 0.017253872707043618,
+      "iou_icon": 0.7259209942299156,
+      "delta": -0.708667121522872,
+      "verdict": "L"
+    },
+    {
+      "idx": 12,
+      "img_id": 343466,
+      "cat": "oven",
+      "out": "results/filter_head_upscale/audit/012_343466_oven_L.png",
+      "iou_filter": 0.0006931316950220542,
+      "iou_icon": 0.735120511559272,
+      "delta": -0.73442737986425,
+      "verdict": "L"
+    },
+    {
+      "idx": 13,
+      "img_id": 217400,
+      "cat": "train",
+      "out": "results/filter_head_upscale/audit/013_217400_train_L.png",
+      "iou_filter": 0.16105677308610714,
+      "iou_icon": 0.8289906839793406,
+      "delta": -0.6679339108932335,
+      "verdict": "L"
+    },
+    {
+      "idx": 14,
+      "img_id": 401244,
+      "cat": "frisbee",
+      "out": "results/filter_head_upscale/audit/014_401244_frisbee_L.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.6669484361792054,
+      "delta": -0.6669484361792054,
+      "verdict": "L"
+    },
+    {
+      "idx": 15,
+      "img_id": 488166,
+      "cat": "fork",
+      "out": "results/filter_head_upscale/audit/015_488166_fork_L.png",
+      "iou_filter": 0.027090370166126698,
+      "iou_icon": 0.2833530106257379,
+      "delta": -0.2562626404596112,
+      "verdict": "L"
+    },
+    {
+      "idx": 16,
+      "img_id": 348481,
+      "cat": "remote",
+      "out": "results/filter_head_upscale/audit/016_348481_remote_T.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.0,
+      "delta": 0.0,
+      "verdict": "T"
+    },
+    {
+      "idx": 17,
+      "img_id": 259830,
+      "cat": "person",
+      "out": "results/filter_head_upscale/audit/017_259830_person_L.png",
+      "iou_filter": 0.00805514705882353,
+      "iou_icon": 0.6911034746086292,
+      "delta": -0.6830483275498057,
+      "verdict": "L"
+    },
+    {
+      "idx": 18,
+      "img_id": 17436,
+      "cat": "person",
+      "out": "results/filter_head_upscale/audit/018_17436_person_L.png",
+      "iou_filter": 0.015927208466790976,
+      "iou_icon": 0.5692771084337349,
+      "delta": -0.553349899966944,
+      "verdict": "L"
+    },
+    {
+      "idx": 19,
+      "img_id": 231125,
+      "cat": "person",
+      "out": "results/filter_head_upscale/audit/019_231125_person_L.png",
+      "iou_filter": 0.147409522441969,
+      "iou_icon": 0.8046409126263936,
+      "delta": -0.6572313901844246,
+      "verdict": "L"
+    }
+  ],
+  "bench_summary_ms": {
+    "total_ms_mean": 6.229514069651486,
+    "total_ms_p50": 6.154604096082039,
+    "total_ms_p95": 6.954722681839485,
+    "autogaze_ms_mean": 5.600668941187905,
+    "head_ms_mean": 0.6288451284635812
+  }
+}
