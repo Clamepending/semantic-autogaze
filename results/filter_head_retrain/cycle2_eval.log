@@ -1,0 +1,25 @@
+[diag] loading head + clip_text + COCO ann...
+loading annotations into memory...
+Done (t=0.30s)
+creating index...
+index created!
+[diag] val-holdout: 1000 images (seed-0 split, no overlap with train)
+filter eval:   0%|          | 0/1000 [00:00<?, ?it/s]filter eval:   2%|▏         | 16/1000 [00:00<00:06, 159.33it/s]filter eval:   4%|▍         | 38/1000 [00:00<00:04, 193.34it/s]filter eval:   6%|▌         | 58/1000 [00:00<00:04, 194.16it/s]filter eval:   8%|▊         | 78/1000 [00:00<00:04, 193.09it/s]filter eval:  10%|▉         | 98/1000 [00:00<00:04, 188.96it/s]filter eval:  12%|█▏        | 117/1000 [00:00<00:05, 172.30it/s]filter eval:  14%|█▎        | 136/1000 [00:00<00:04, 177.30it/s]filter eval:  15%|█▌        | 154/1000 [00:00<00:04, 177.20it/s]filter eval:  18%|█▊        | 175/1000 [00:00<00:04, 186.98it/s]filter eval:  19%|█▉        | 194/1000 [00:01<00:04, 185.19it/s]filter eval:  21%|██▏       | 213/1000 [00:01<00:04, 177.93it/s]filter eval:  24%|██▎       | 235/1000 [00:01<00:04, 190.00it/s]filter eval:  26%|██▌       | 255/1000 [00:01<00:04, 183.19it/s]filter eval:  28%|██▊       | 279/1000 [00:01<00:03, 196.29it/s]filter eval:  30%|███       | 303/1000 [00:01<00:03, 208.64it/s]filter eval:  33%|███▎      | 329/1000 [00:01<00:03, 222.82it/s]filter eval:  35%|███▌      | 352/1000 [00:01<00:03, 212.59it/s]filter eval:  38%|███▊      | 380/1000 [00:01<00:02, 228.81it/s]filter eval:  41%|████      | 406/1000 [00:02<00:02, 235.90it/s]filter eval:  43%|████▎     | 430/1000 [00:02<00:02, 225.90it/s]filter eval:  45%|████▌     | 454/1000 [00:02<00:02, 229.65it/s]filter eval:  48%|████▊     | 478/1000 [00:02<00:02, 218.82it/s]filter eval:  51%|█████     | 506/1000 [00:02<00:02, 234.62it/s]filter eval:  54%|█████▍    | 542/1000 [00:02<00:01, 268.63it/s]filter eval:  58%|█████▊    | 579/1000 [00:02<00:01, 296.12it/s]filter eval:  61%|██████    | 609/1000 [00:02<00:01, 292.43it/s]filter eval:  64%|██████▍   | 639/1000 [00:02<00:01, 277.01it/s]filter eval:  67%|██████▋   | 672/1000 [00:03<00:01, 289.23it/s]filter eval:  70%|███████   | 702/1000 [00:03<00:01, 226.37it/s]filter eval:  73%|███████▎  | 727/1000 [00:03<00:01, 221.18it/s]filter eval:  75%|███████▌  | 751/1000 [00:03<00:01, 201.71it/s]filter eval:  77%|███████▋  | 774/1000 [00:03<00:01, 206.70it/s]filter eval:  80%|███████▉  | 796/1000 [00:03<00:01, 186.92it/s]filter eval:  82%|████████▏ | 816/1000 [00:03<00:01, 181.26it/s]filter eval:  84%|████████▎ | 835/1000 [00:03<00:00, 179.02it/s]filter eval:  85%|████████▌ | 854/1000 [00:04<00:00, 171.74it/s]filter eval:  88%|████████▊ | 885/1000 [00:04<00:00, 205.03it/s]filter eval:  91%|█████████ | 907/1000 [00:04<00:00, 190.24it/s]filter eval:  93%|█████████▎| 927/1000 [00:04<00:00, 191.97it/s]filter eval:  95%|█████████▍| 949/1000 [00:04<00:00, 197.69it/s]filter eval:  97%|█████████▋| 970/1000 [00:04<00:00, 196.55it/s]filter eval:  99%|█████████▉| 994/1000 [00:04<00:00, 207.52it/s]filter eval: 100%|██████████| 1000/1000 [00:04<00:00, 209.77it/s]
+[diag] eval took 4.8s (16727 pairs/s)
+[diag] pairs: 80000, pos: 2948 (3.69%), neg: 77052
+
+[summary]
+  baseline (always run 118K) = 93.6 ms/query
+  filter-only (no 118K)     = 12.4 ms/query
+  random baseline ROC-AUC = 0.5  AP = 0.0369
+
+  reduction         ROC      AP           r=90%           r=95%           r=99%
+  max            0.7842  0.1193       1.46x@55%       1.19x@70%       0.97x@90%
+  mean           0.8342  0.2577       1.67x@47%       1.40x@58%       1.05x@82%
+  top5_mean      0.8175  0.1774       1.51x@53%       1.27x@65%       1.01x@86%
+  top10_mean     0.8313  0.2157       1.60x@49%       1.31x@63%       1.03x@84%
+  logit_max      0.7842  0.1193       1.46x@55%       1.19x@71%       0.97x@89%
+  logit_mean     0.8202  0.2588       1.56x@51%       1.27x@65%       1.03x@84%
+  head_image     0.8473  0.2873       1.66x@47%       1.38x@59%       1.05x@82%
+
+[diag] wrote summary to results/filter_head_retrain/filter_eval_val.json

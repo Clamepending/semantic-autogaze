@@ -35,8 +35,11 @@ from tqdm import tqdm
 
 
 class ImageLevelFilterHead(nn.Module):
-    def __init__(self, patch_dim=192, text_dim=512, proj_dim=128, hidden=256):
+    def __init__(self, patch_dim=192, text_dim=512, proj_dim=128, hidden=256,
+                 aggregator="max", attn_temp=4.0):
         super().__init__()
+        self.aggregator = aggregator
+        self.attn_temp_init = attn_temp
         self.patch_proj = nn.Sequential(
             nn.Linear(patch_dim, hidden),
             nn.LayerNorm(hidden),
@@ -46,6 +49,9 @@ class ImageLevelFilterHead(nn.Module):
         self.text_proj = nn.Linear(text_dim, proj_dim, bias=False)
         self.scale = nn.Parameter(torch.tensor(10.0))
         self.bias = nn.Parameter(torch.tensor(0.0))
+        if aggregator == "attn":
+            # learnable inverse-temperature for attention softmax over patches
+            self.attn_log_temp = nn.Parameter(torch.log(torch.tensor(attn_temp)))
 
     def patch_logits(self, patches, text):
         # patches: (B, N, patch_dim) ; text: (Q, text_dim) -> (B, Q, N)
@@ -53,17 +59,27 @@ class ImageLevelFilterHead(nn.Module):
         zt = F.normalize(self.text_proj(text), dim=-1)
         return torch.einsum("bnd,qd->bqn", zp, zt) * self.scale + self.bias
 
-    def image_logits(self, patches, text, reduction="max"):
+    def image_logits(self, patches, text, reduction=None):
+        red = reduction or self.aggregator
         log = self.patch_logits(patches, text)  # (B, Q, N)
-        if reduction == "max":
+        if red == "max":
             return log.max(dim=-1).values
-        if reduction == "mean":
+        if red == "mean":
             return log.mean(dim=-1)
-        if reduction == "topk":
-            k = max(1, log.shape[-1] // 20)  # top-5%
+        if red == "topk":
+            k = max(1, log.shape[-1] // 20)
             top, _ = log.topk(k, dim=-1)
             return top.mean(dim=-1)
-        raise ValueError(reduction)
+        if red == "attn":
+            # text-conditioned soft attention over patches.
+            # Use log itself (cosine_sim * scale + bias) divided by a learnable temp
+            # as the attention logits; weighted sum produces a per-(image,query) score.
+            # For aggregation we sum the soft-weighted logits — equivalent to a softmax-weighted
+            # mean of patch_logits, which strictly interpolates between max (low temp) and mean (high temp).
+            t = torch.exp(self.attn_log_temp)
+            w = F.softmax(log / t, dim=-1)  # (B, Q, N)
+            return (w * log).sum(dim=-1)
+        raise ValueError(red)
 
 
 def roc_auc(scores: np.ndarray, labels: np.ndarray) -> float:
@@ -104,7 +120,8 @@ def main():
     p.add_argument("--ann", default="annotations/instances_val2017.json")
     p.add_argument("--out-dir", default="results/filter_head_retrain")
     p.add_argument("--device", default="cpu")
-    p.add_argument("--reduction", default="max", choices=["max", "mean", "topk"])
+    p.add_argument("--reduction", default="max", choices=["max", "mean", "topk", "attn"])
+    p.add_argument("--ckpt-name", default="best.pt")
     p.add_argument("--proj-dim", type=int, default=128)
     p.add_argument("--hidden", type=int, default=256)
     p.add_argument("--batch-size", type=int, default=128)
@@ -168,6 +185,7 @@ def main():
     head = ImageLevelFilterHead(
         patch_dim=192, text_dim=512,
         proj_dim=args.proj_dim, hidden=args.hidden,
+        aggregator=args.reduction,
     ).to(device)
     n_params = sum(p.numel() for p in head.parameters())
     print(f"[diag] head params: {n_params}")
@@ -177,7 +195,7 @@ def main():
 
     history = []
     best_auc = -1.0
-    best_path = out_dir / "best.pt"
+    best_path = out_dir / args.ckpt_name
 
     for epoch in range(args.epochs):
         head.train()
@@ -213,7 +231,8 @@ def main():
             torch.save({
                 "state_dict": head.state_dict(),
                 "config": {"patch_dim": 192, "text_dim": 512,
-                           "proj_dim": args.proj_dim, "hidden": args.hidden},
+                           "proj_dim": args.proj_dim, "hidden": args.hidden,
+                           "aggregator": args.reduction},
                 "epoch": epoch, "val_auc": auc, "val_ap": ap,
                 "reduction": args.reduction,
             }, best_path)

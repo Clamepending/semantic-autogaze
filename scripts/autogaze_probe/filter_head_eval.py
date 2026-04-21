@@ -24,8 +24,10 @@ from tqdm import tqdm
 
 
 class ImageLevelFilterHead(nn.Module):
-    def __init__(self, patch_dim=192, text_dim=512, proj_dim=128, hidden=256):
+    def __init__(self, patch_dim=192, text_dim=512, proj_dim=128, hidden=256,
+                 aggregator="max", attn_temp=4.0):
         super().__init__()
+        self.aggregator = aggregator
         self.patch_proj = nn.Sequential(
             nn.Linear(patch_dim, hidden),
             nn.LayerNorm(hidden),
@@ -35,11 +37,28 @@ class ImageLevelFilterHead(nn.Module):
         self.text_proj = nn.Linear(text_dim, proj_dim, bias=False)
         self.scale = nn.Parameter(torch.tensor(10.0))
         self.bias = nn.Parameter(torch.tensor(0.0))
+        if aggregator == "attn":
+            self.attn_log_temp = nn.Parameter(torch.log(torch.tensor(attn_temp)))
 
     def patch_logits(self, patches, text):
         zp = F.normalize(self.patch_proj(patches), dim=-1)
         zt = F.normalize(self.text_proj(text), dim=-1)
         return torch.einsum("bnd,qd->bqn", zp, zt) * self.scale + self.bias
+
+    def head_image_score(self, log):
+        if self.aggregator == "max":
+            return log.max(dim=-1).values
+        if self.aggregator == "mean":
+            return log.mean(dim=-1)
+        if self.aggregator == "attn":
+            t = torch.exp(self.attn_log_temp)
+            w = F.softmax(log / t, dim=-1)
+            return (w * log).sum(dim=-1)
+        if self.aggregator == "topk":
+            k = max(1, log.shape[-1] // 20)
+            top, _ = log.topk(k, dim=-1)
+            return top.mean(dim=-1)
+        raise ValueError(self.aggregator)
 
 
 def load_head(ckpt: str, device):
@@ -109,7 +128,7 @@ def main():
             all_scores["top10_mean"][i] = sorted_p[:, :10].mean(dim=1).cpu().numpy()
             all_scores["logit_max"][i] = logits1.max(dim=1).values.cpu().numpy()
             all_scores["logit_mean"][i] = logits1.mean(dim=1).cpu().numpy()
-            all_scores["head_image"][i] = logits1.max(dim=1).values.cpu().numpy()  # same as logit_max here (max-pool training)
+            all_scores["head_image"][i] = head.head_image_score(logits1.unsqueeze(0))[0].cpu().numpy()
             ann_ids = coco.getAnnIds(imgIds=img_id, iscrowd=None)
             present = {coco.anns[a]["category_id"] for a in ann_ids}
             for c in present:
