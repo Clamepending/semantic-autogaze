@@ -1,0 +1,218 @@
+{
+  "head_ckpt": "results/filter_head_retrain/best_attn.pt",
+  "tie_band": 0.05,
+  "wins": 0,
+  "losses": 19,
+  "ties": 1,
+  "skipped": 0,
+  "summary_line": "0W/19L/1T (skipped 0)",
+  "per_pair": [
+    {
+      "idx": 0,
+      "img_id": 70229,
+      "cat": "bench",
+      "out": "results/filter_head_direct_qual/audit/000_70229_bench_L.png",
+      "iou_filter": 0.11604890039231007,
+      "iou_icon": 0.7027512075911182,
+      "delta": -0.5867023071988081,
+      "verdict": "L"
+    },
+    {
+      "idx": 1,
+      "img_id": 141821,
+      "cat": "bowl",
+      "out": "results/filter_head_direct_qual/audit/001_141821_bowl_L.png",
+      "iou_filter": 0.039728818322326824,
+      "iou_icon": 0.7102910405174053,
+      "delta": -0.6705622221950785,
+      "verdict": "L"
+    },
+    {
+      "idx": 2,
+      "img_id": 185472,
+      "cat": "train",
+      "out": "results/filter_head_direct_qual/audit/002_185472_train_L.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.8558574453069866,
+      "delta": -0.8558574453069866,
+      "verdict": "L"
+    },
+    {
+      "idx": 3,
+      "img_id": 532058,
+      "cat": "bed",
+      "out": "results/filter_head_direct_qual/audit/003_532058_bed_L.png",
+      "iou_filter": 0.3454140792438314,
+      "iou_icon": 0.6298485329188694,
+      "delta": -0.28443445367503806,
+      "verdict": "L"
+    },
+    {
+      "idx": 4,
+      "img_id": 274272,
+      "cat": "bus",
+      "out": "results/filter_head_direct_qual/audit/004_274272_bus_L.png",
+      "iou_filter": 0.379076022466577,
+      "iou_icon": 0.9134461111051289,
+      "delta": -0.5343700886385518,
+      "verdict": "L"
+    },
+    {
+      "idx": 5,
+      "img_id": 52007,
+      "cat": "person",
+      "out": "results/filter_head_direct_qual/audit/005_52007_person_L.png",
+      "iou_filter": 0.03945372807464991,
+      "iou_icon": 0.5770392749244713,
+      "delta": -0.5375855468498214,
+      "verdict": "L"
+    },
+    {
+      "idx": 6,
+      "img_id": 173091,
+      "cat": "apple",
+      "out": "results/filter_head_direct_qual/audit/006_173091_apple_L.png",
+      "iou_filter": 0.0025575171580265034,
+      "iou_icon": 0.8408536160122743,
+      "delta": -0.8382960988542477,
+      "verdict": "L"
+    },
+    {
+      "idx": 7,
+      "img_id": 278353,
+      "cat": "sheep",
+      "out": "results/filter_head_direct_qual/audit/007_278353_sheep_L.png",
+      "iou_filter": 0.17951105937136205,
+      "iou_icon": 0.9294412438116723,
+      "delta": -0.7499301844403102,
+      "verdict": "L"
+    },
+    {
+      "idx": 8,
+      "img_id": 184321,
+      "cat": "train",
+      "out": "results/filter_head_direct_qual/audit/008_184321_train_L.png",
+      "iou_filter": 0.007473102132395809,
+      "iou_icon": 0.891516871649322,
+      "delta": -0.8840437695169262,
+      "verdict": "L"
+    },
+    {
+      "idx": 9,
+      "img_id": 74058,
+      "cat": "bicycle",
+      "out": "results/filter_head_direct_qual/audit/009_74058_bicycle_L.png",
+      "iou_filter": 0.025149071891281523,
+      "iou_icon": 0.6670963306694165,
+      "delta": -0.641947258778135,
+      "verdict": "L"
+    },
+    {
+      "idx": 10,
+      "img_id": 30504,
+      "cat": "skis",
+      "out": "results/filter_head_direct_qual/audit/010_30504_skis_L.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.4930747922437673,
+      "delta": -0.4930747922437673,
+      "verdict": "L"
+    },
+    {
+      "idx": 11,
+      "img_id": 268378,
+      "cat": "chair",
+      "out": "results/filter_head_direct_qual/audit/011_268378_chair_L.png",
+      "iou_filter": 0.01743904232317236,
+      "iou_icon": 0.7259209942299156,
+      "delta": -0.7084819519067432,
+      "verdict": "L"
+    },
+    {
+      "idx": 12,
+      "img_id": 343466,
+      "cat": "oven",
+      "out": "results/filter_head_direct_qual/audit/012_343466_oven_L.png",
+      "iou_filter": 0.006996524602158405,
+      "iou_icon": 0.735120511559272,
+      "delta": -0.7281239869571137,
+      "verdict": "L"
+    },
+    {
+      "idx": 13,
+      "img_id": 217400,
+      "cat": "train",
+      "out": "results/filter_head_direct_qual/audit/013_217400_train_L.png",
+      "iou_filter": 0.15400107525964107,
+      "iou_icon": 0.8289906839793406,
+      "delta": -0.6749896087196996,
+      "verdict": "L"
+    },
+    {
+      "idx": 14,
+      "img_id": 401244,
+      "cat": "frisbee",
+      "out": "results/filter_head_direct_qual/audit/014_401244_frisbee_L.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.6669484361792054,
+      "delta": -0.6669484361792054,
+      "verdict": "L"
+    },
+    {
+      "idx": 15,
+      "img_id": 488166,
+      "cat": "fork",
+      "out": "results/filter_head_direct_qual/audit/015_488166_fork_L.png",
+      "iou_filter": 0.03587403828949723,
+      "iou_icon": 0.2833530106257379,
+      "delta": -0.2474789723362407,
+      "verdict": "L"
+    },
+    {
+      "idx": 16,
+      "img_id": 348481,
+      "cat": "remote",
+      "out": "results/filter_head_direct_qual/audit/016_348481_remote_T.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.0,
+      "delta": 0.0,
+      "verdict": "T"
+    },
+    {
+      "idx": 17,
+      "img_id": 259830,
+      "cat": "person",
+      "out": "results/filter_head_direct_qual/audit/017_259830_person_L.png",
+      "iou_filter": 0.008060243977809496,
+      "iou_icon": 0.6911034746086292,
+      "delta": -0.6830432306308197,
+      "verdict": "L"
+    },
+    {
+      "idx": 18,
+      "img_id": 17436,
+      "cat": "person",
+      "out": "results/filter_head_direct_qual/audit/018_17436_person_L.png",
+      "iou_filter": 0.01594523399134931,
+      "iou_icon": 0.5692771084337349,
+      "delta": -0.5533318744423856,
+      "verdict": "L"
+    },
+    {
+      "idx": 19,
+      "img_id": 231125,
+      "cat": "person",
+      "out": "results/filter_head_direct_qual/audit/019_231125_person_L.png",
+      "iou_filter": 0.1425870856963335,
+      "iou_icon": 0.8046409126263936,
+      "delta": -0.6620538269300601,
+      "verdict": "L"
+    }
+  ],
+  "bench_summary_ms": {
+    "total_ms_mean": 16.916702587826876,
+    "total_ms_p50": 16.21557295002276,
+    "total_ms_p95": 23.500498525972937,
+    "autogaze_ms_mean": 16.178871735552093,
+    "head_ms_mean": 0.737830852274783
+  }
+}
