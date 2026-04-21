@@ -1,0 +1,207 @@
+{
+  "args": {
+    "layer_cache_dir": "results/autogaze_probe/features_gaze_layers_val",
+    "teacher_cache_dir": "results/autogaze_probe/teacher_14x14_val",
+    "clip_text": "results/icon_student_B_native_train/clip_text_embeddings.pt",
+    "data_dir": "data/coco",
+    "ann": "annotations/instances_val2017.json",
+    "out_dir": "results/multitask_bce_mse",
+    "device": "cpu",
+    "proj_dim": 128,
+    "hidden": 256,
+    "patch_thresh": 0.25,
+    "w_bce": 1.0,
+    "w_mse": 1.0,
+    "batch_size": 256,
+    "epochs": 20,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "n_val_imgs": 1000,
+    "seed": 0
+  },
+  "n_params": 148355,
+  "best_val_per_patch_auroc": 0.8090709029529932,
+  "pos_rate": 0.17180542647838593,
+  "history": [
+    {
+      "epoch": 0,
+      "train_loss": 1.4086438943358028,
+      "train_bce": 1.224966519019183,
+      "train_mse": 0.18367736457901843,
+      "val_per_patch_auroc": 0.7333102579799148,
+      "val_mse_vs_teacher": 0.12455054372549057,
+      "val_max_prob_mean": 0.5596538186073303
+    },
+    {
+      "epoch": 1,
+      "train_loss": 1.1484916455605452,
+      "train_bce": 1.0042451970717485,
+      "train_mse": 0.1442464414764853,
+      "val_per_patch_auroc": 0.7596492778900137,
+      "val_mse_vs_teacher": 0.14468927681446075,
+      "val_max_prob_mean": 0.6538581252098083
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.1127357027109932,
+      "train_bce": 0.97052861662472,
+      "train_mse": 0.14220709397512324,
+      "val_per_patch_auroc": 0.7781166967979296,
+      "val_mse_vs_teacher": 0.15206941962242126,
+      "val_max_prob_mean": 0.6917151808738708
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.0868239648201887,
+      "train_bce": 0.9486594322849723,
+      "train_mse": 0.13816452398896217,
+      "val_per_patch_auroc": 0.7823008633727278,
+      "val_mse_vs_teacher": 0.1352705955505371,
+      "val_max_prob_mean": 0.696262776851654
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.0656648734036613,
+      "train_bce": 0.9296287736471962,
+      "train_mse": 0.136036093620693,
+      "val_per_patch_auroc": 0.7901969120557495,
+      "val_mse_vs_teacher": 0.12549299001693726,
+      "val_max_prob_mean": 0.6700049638748169
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.0522535530959858,
+      "train_bce": 0.9172684006831225,
+      "train_mse": 0.1349851605208481,
+      "val_per_patch_auroc": 0.7951276524686035,
+      "val_mse_vs_teacher": 0.14376389980316162,
+      "val_max_prob_mean": 0.7198410630226135
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.0469033840824575,
+      "train_bce": 0.9125792314024532,
+      "train_mse": 0.13432414939298348,
+      "val_per_patch_auroc": 0.7988166254495828,
+      "val_mse_vs_teacher": 0.14637358486652374,
+      "val_max_prob_mean": 0.7183285355567932
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.0362617724082048,
+      "train_bce": 0.9035816841265735,
+      "train_mse": 0.1326800988000982,
+      "val_per_patch_auroc": 0.8013799819417287,
+      "val_mse_vs_teacher": 0.12145282328128815,
+      "val_max_prob_mean": 0.7131774425506592
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.0348363746615017,
+      "train_bce": 0.9024205768809599,
+      "train_mse": 0.13241578704294035,
+      "val_per_patch_auroc": 0.7971787762299123,
+      "val_mse_vs_teacher": 0.169749453663826,
+      "val_max_prob_mean": 0.7619271874427795
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.0264350929680992,
+      "train_bce": 0.8937170400339014,
+      "train_mse": 0.132718053591602,
+      "val_per_patch_auroc": 0.8035134675503922,
+      "val_mse_vs_teacher": 0.15480256080627441,
+      "val_max_prob_mean": 0.7486699819564819
+    },
+    {
+      "epoch": 10,
+      "train_loss": 1.0259820853962618,
+      "train_bce": 0.8939184090670418,
+      "train_mse": 0.13206367369960337,
+      "val_per_patch_auroc": 0.803714814472107,
+      "val_mse_vs_teacher": 0.11190055310726166,
+      "val_max_prob_mean": 0.6935905814170837
+    },
+    {
+      "epoch": 11,
+      "train_loss": 1.0197214379030115,
+      "train_bce": 0.8886402985628914,
+      "train_mse": 0.13108113254694378,
+      "val_per_patch_auroc": 0.8010571773973651,
+      "val_mse_vs_teacher": 0.11818422377109528,
+      "val_max_prob_mean": 0.7167786359786987
+    },
+    {
+      "epoch": 12,
+      "train_loss": 1.0101108498433058,
+      "train_bce": 0.8803931281847113,
+      "train_mse": 0.12971772253513336,
+      "val_per_patch_auroc": 0.8062631336533534,
+      "val_mse_vs_teacher": 0.11507686227560043,
+      "val_max_prob_mean": 0.7232303023338318
+    },
+    {
+      "epoch": 13,
+      "train_loss": 1.0024951521088095,
+      "train_bce": 0.8731549136778888,
+      "train_mse": 0.1293402397457291,
+      "val_per_patch_auroc": 0.8058746487422831,
+      "val_mse_vs_teacher": 0.12912701070308685,
+      "val_max_prob_mean": 0.735588014125824
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.9977396411054275,
+      "train_bce": 0.8693287477773779,
+      "train_mse": 0.12841088894535513,
+      "val_per_patch_auroc": 0.8071802126980445,
+      "val_mse_vs_teacher": 0.12601999938488007,
+      "val_max_prob_mean": 0.7438789010047913
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.9976318373399622,
+      "train_bce": 0.8689644389292773,
+      "train_mse": 0.12866739687674186,
+      "val_per_patch_auroc": 0.807416307187546,
+      "val_mse_vs_teacher": 0.14555785059928894,
+      "val_max_prob_mean": 0.7656008005142212
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.9933290499098161,
+      "train_bce": 0.8652367206180797,
+      "train_mse": 0.1280923203072127,
+      "val_per_patch_auroc": 0.8074390173028367,
+      "val_mse_vs_teacher": 0.12271757423877716,
+      "val_max_prob_mean": 0.7475888133049011
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.9936831260428709,
+      "train_bce": 0.8652703919831444,
+      "train_mse": 0.12841273712761261,
+      "val_per_patch_auroc": 0.8072148922281837,
+      "val_mse_vs_teacher": 0.11568139493465424,
+      "val_max_prob_mean": 0.7251319885253906
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.9918603809440837,
+      "train_bce": 0.8644915188060087,
+      "train_mse": 0.127368862138075,
+      "val_per_patch_auroc": 0.8090709029529932,
+      "val_mse_vs_teacher": 0.1296623796224594,
+      "val_max_prob_mean": 0.7403966188430786
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.9950212187626782,
+      "train_bce": 0.8667474003399119,
+      "train_mse": 0.12827382105238297,
+      "val_per_patch_auroc": 0.8052950657865587,
+      "val_mse_vs_teacher": 0.13297532498836517,
+      "val_max_prob_mean": 0.7624508738517761
+    }
+  ]
+}
