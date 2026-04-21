@@ -109,6 +109,42 @@ class ProbeDataset(Dataset):
         return {"patches": patches, "query": query, "target": target}
 
 
+class BundleDataset(Dataset):
+    """Dataset backed by pre-packed bundle .pt files.
+
+    Each bundle file is a dict {img_id: (patches_fp16 [N,D], teacher_dict)}
+    where teacher_dict is {cat_id: (14,14) fp16}. Build by reading all bundle
+    files into a single in-RAM dict at startup, then __getitem__ is pure RAM.
+    """
+    def __init__(self, bundle_glob: str, clip_text: dict):
+        import glob as _glob
+        from tqdm import tqdm as _tqdm
+        self.clip_text = clip_text
+        self.cache = {}
+        files = sorted(_glob.glob(bundle_glob))
+        if not files:
+            raise FileNotFoundError(f"no bundle files matched: {bundle_glob}")
+        for fp in _tqdm(files, desc=f"load-bundles({len(files)})"):
+            chunk = torch.load(fp, weights_only=False, map_location="cpu")
+            self.cache.update(chunk)
+            del chunk
+        self.pairs = []
+        for img_id, (_patches, teach) in self.cache.items():
+            for cat_id in teach.keys():
+                self.pairs.append((int(img_id), int(cat_id)))
+        print(f"[bundle-load] {len(self.cache)} images, {len(self.pairs)} pairs", flush=True)
+
+    def __len__(self):
+        return len(self.pairs)
+
+    def __getitem__(self, idx):
+        img_id, cat_id = self.pairs[idx]
+        patches, teach = self.cache[img_id]
+        target = teach[cat_id].float().reshape(-1)
+        query = self.clip_text[str(cat_id)].float()
+        return {"patches": patches.float(), "query": query, "target": target}
+
+
 def _auroc(y, s):
     order = np.argsort(s)
     ranks = np.empty_like(order, dtype=np.float64)
@@ -174,54 +210,83 @@ def main():
     p.add_argument("--preload", action="store_true",
                    help="Load all features+teachers into RAM at startup. "
                         "Use on Modal Volumes where per-file latency dominates.")
+    p.add_argument("--bundle-glob", default=None,
+                   help="Glob of pre-packed bundle .pt files (each "
+                        "{img_id: (features_fp16, teacher_dict_fp16)}). "
+                        "Replaces --feature-dir / --teacher-dir.")
+    p.add_argument("--val-bundle-glob", default=None,
+                   help="Same as --bundle-glob for validation set.")
     args = p.parse_args()
 
     rng = random.Random(args.seed)
     torch.manual_seed(args.seed)
     device = torch.device(args.device)
     out_dir = Path(args.out_dir); out_dir.mkdir(parents=True, exist_ok=True)
-
-    feature_dir = Path(args.feature_dir)
-    teacher_dir = Path(args.teacher_dir)
-    with open(teacher_dir / "_sidecar.json") as f:
-        sidecar = json.load(f)
     clip_text = torch.load(args.clip_text, map_location="cpu", weights_only=True)
 
-    image_ids = [int(k) for k in sidecar.keys() if (feature_dir / f"{k}.pt").exists()]
-    rng.shuffle(image_ids)
-
-    if args.val_feature_dir and args.val_teacher_dir:
-        val_feature_dir = Path(args.val_feature_dir)
-        val_teacher_dir = Path(args.val_teacher_dir)
-        with open(val_teacher_dir / "_sidecar.json") as f:
-            val_sidecar = json.load(f)
-        val_ids = [int(k) for k in val_sidecar.keys()
-                   if (val_feature_dir / f"{k}.pt").exists()]
-        train_ids = image_ids
-        train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text,
-                                preload=args.preload)
-        val_ds = ProbeDataset(val_ids, val_sidecar, val_feature_dir, val_teacher_dir, clip_text,
-                              preload=args.preload)
+    if args.bundle_glob:
+        if not args.val_bundle_glob:
+            raise ValueError("--bundle-glob requires --val-bundle-glob")
+        train_ds = BundleDataset(args.bundle_glob, clip_text)
+        val_ds = BundleDataset(args.val_bundle_glob, clip_text)
+        n_train_imgs = len(train_ds.cache)
+        n_val_imgs = len(val_ds.cache)
+        print(f"[diag] {len(train_ds)} train pairs / {len(val_ds)} val pairs "
+              f"(over {n_train_imgs}/{n_val_imgs} images)")
+        nw = 0
+        train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
+                                  num_workers=nw, drop_last=True,
+                                  persistent_workers=False)
+        val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False,
+                                num_workers=nw,
+                                persistent_workers=False)
+        _bundle_path = True
     else:
-        n_train = int(0.8 * len(image_ids))
-        train_ids, val_ids = image_ids[:n_train], image_ids[n_train:]
-        train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text,
-                                preload=args.preload)
-        val_ds = ProbeDataset(val_ids, sidecar, feature_dir, teacher_dir, clip_text,
-                              preload=args.preload)
-    print(f"[diag] {len(train_ds)} train pairs / {len(val_ds)} val pairs "
-          f"(over {len(train_ids)}/{len(val_ids)} images)")
+        _bundle_path = False
 
-    # When preloaded, __getitem__ is pure-RAM dict lookup; multi-worker forking
-    # would copy the giant cache (CoW saves us in theory but glibc fragments it).
-    # 0 workers is fastest in practice once I/O is removed.
-    nw = 0 if args.preload else args.num_workers
-    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
-                              num_workers=nw, drop_last=True,
-                              persistent_workers=nw > 0)
-    val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False,
-                            num_workers=nw,
-                            persistent_workers=nw > 0)
+    if _bundle_path:
+        pass  # loaders already built above
+    else:
+        feature_dir = Path(args.feature_dir)
+        teacher_dir = Path(args.teacher_dir)
+        with open(teacher_dir / "_sidecar.json") as f:
+            sidecar = json.load(f)
+        image_ids = [int(k) for k in sidecar.keys() if (feature_dir / f"{k}.pt").exists()]
+        rng.shuffle(image_ids)
+
+    if not _bundle_path:
+        if args.val_feature_dir and args.val_teacher_dir:
+            val_feature_dir = Path(args.val_feature_dir)
+            val_teacher_dir = Path(args.val_teacher_dir)
+            with open(val_teacher_dir / "_sidecar.json") as f:
+                val_sidecar = json.load(f)
+            val_ids = [int(k) for k in val_sidecar.keys()
+                       if (val_feature_dir / f"{k}.pt").exists()]
+            train_ids = image_ids
+            train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text,
+                                    preload=args.preload)
+            val_ds = ProbeDataset(val_ids, val_sidecar, val_feature_dir, val_teacher_dir, clip_text,
+                                  preload=args.preload)
+        else:
+            n_train = int(0.8 * len(image_ids))
+            train_ids, val_ids = image_ids[:n_train], image_ids[n_train:]
+            train_ds = ProbeDataset(train_ids, sidecar, feature_dir, teacher_dir, clip_text,
+                                    preload=args.preload)
+            val_ds = ProbeDataset(val_ids, sidecar, feature_dir, teacher_dir, clip_text,
+                                  preload=args.preload)
+        print(f"[diag] {len(train_ds)} train pairs / {len(val_ds)} val pairs "
+              f"(over {len(train_ids)}/{len(val_ids)} images)")
+
+        # When preloaded, __getitem__ is pure-RAM dict lookup; multi-worker forking
+        # would copy the giant cache (CoW saves us in theory but glibc fragments it).
+        # 0 workers is fastest in practice once I/O is removed.
+        nw = 0 if args.preload else args.num_workers
+        train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
+                                  num_workers=nw, drop_last=True,
+                                  persistent_workers=nw > 0)
+        val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False,
+                                num_workers=nw,
+                                persistent_workers=nw > 0)
 
     head = BilinearCosineHead().to(device)
     n_params = sum(p.numel() for p in head.parameters())

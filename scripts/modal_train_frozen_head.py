@@ -75,6 +75,8 @@ TEACH_TRAIN = f"{RESULTS_PATH}/autogaze_probe/teacher_14x14_train"
 TEACH_VAL = f"{RESULTS_PATH}/autogaze_probe/teacher_14x14_val"
 CACHE_TRAIN_DV2 = f"{RESULTS_PATH}/dinov2_train_native"
 CACHE_VAL_DV2 = f"{RESULTS_PATH}/dinov2_val_native"
+BUNDLE_DIR = f"{RESULTS_PATH}/autogaze_probe/bundles_v2"
+N_BUNDLE_CHUNKS = 16
 RUN_NAME = "autogaze_frozen_head/cycle2"
 OUT_DIR = f"{RESULTS_PATH}/{RUN_NAME}"
 
@@ -123,6 +125,70 @@ def _setup():
         os.makedirs(os.path.dirname(link), exist_ok=True)
         if not os.path.lexists(link):
             os.symlink(target, link)
+
+
+@app.function(
+    cpu=2,
+    memory=4096,
+    volumes={RESULTS_PATH: results_vol},
+    timeout=2 * 3600,
+)
+def bundle_chunk(chunk_idx: int, n_chunks: int, img_ids: list,
+                 feat_dir: str, teach_dir: str, out_path: str,
+                 split: str) -> int:
+    """Read this container's slice of (feature, teacher) per-image files
+    from the Modal Volume and pack them into a single bundle file.
+
+    Spawned as part of a parallel .starmap() across N_BUNDLE_CHUNKS containers
+    so the per-file open latency on Modal Volumes (~250ms single-container,
+    ~5 it/s saturating point) is shared across many network connections.
+    Round-robin slicing (img_ids[i::n_chunks]) gives uniform coverage.
+    """
+    import os
+    import time
+    import torch
+    from concurrent.futures import ThreadPoolExecutor
+    from pathlib import Path
+
+    if os.path.exists(out_path):
+        n = sum(1 for _ in torch.load(out_path, weights_only=False, map_location="cpu"))
+        print(f"[bundle:{split}:{chunk_idx}] exists ({n} imgs), skipping", flush=True)
+        return n
+
+    chunk = img_ids[chunk_idx::n_chunks]
+    print(f"[bundle:{split}:{chunk_idx}] {len(chunk)} imgs assigned", flush=True)
+    fd = Path(feat_dir); td = Path(teach_dir)
+    bundle = {}
+    t0 = time.time()
+
+    def _load(img_id):
+        fp = fd / f"{img_id}.pt"
+        tp = td / f"{img_id}.pt"
+        if not fp.exists() or not tp.exists():
+            return img_id, None
+        try:
+            f = torch.load(fp, weights_only=True).half()
+            t = torch.load(tp, weights_only=True)
+            teach = {int(k): v.half() for k, v in t.items()}
+            return img_id, (f, teach)
+        except Exception as e:
+            print(f"[bundle:{split}:{chunk_idx}] load fail {img_id}: {e}", flush=True)
+            return img_id, None
+
+    with ThreadPoolExecutor(max_workers=16) as ex:
+        for i, (img_id, val) in enumerate(ex.map(_load, chunk)):
+            if val is not None:
+                bundle[int(img_id)] = val
+            if (i + 1) % 1000 == 0:
+                rate = (i + 1) / max(time.time() - t0, 1e-9)
+                print(f"[bundle:{split}:{chunk_idx}] {i+1}/{len(chunk)} ({rate:.1f}/s)", flush=True)
+
+    print(f"[bundle:{split}:{chunk_idx}] writing {len(bundle)} imgs to {out_path}", flush=True)
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    torch.save(bundle, out_path)
+    results_vol.commit()
+    print(f"[bundle:{split}:{chunk_idx}] done in {time.time()-t0:.1f}s", flush=True)
+    return len(bundle)
 
 
 @app.function(
@@ -231,47 +297,52 @@ def cycle2(skip_features: bool = False, skip_teacher: bool = False):
         n = len(os.listdir(d)) if os.path.isdir(d) else 0
         print(f"[count] {d}: {n} files", flush=True)
 
-    # Bulk-copy from network volume to ephemeral SSD before training.
-    # Modal Volume's per-file random-access latency made the in-process
-    # preload (113K * ~250ms) project ~7 hr; tar streaming uses sequential
-    # I/O which is ~10-50x faster for many small files.
-    LOCAL_FEAT_TRAIN = "/tmp/sa/features_gaze_train"
-    LOCAL_FEAT_VAL = "/tmp/sa/features_gaze_val"
-    LOCAL_TEACH_TRAIN = "/tmp/sa/teacher_14x14_train"
-    LOCAL_TEACH_VAL = "/tmp/sa/teacher_14x14_val"
-    os.makedirs("/tmp/sa", exist_ok=True)
-    for src, dst in [
-        (FEAT_VAL, LOCAL_FEAT_VAL),
-        (TEACH_VAL, LOCAL_TEACH_VAL),
-        (FEAT_TRAIN, LOCAL_FEAT_TRAIN),
-        (TEACH_TRAIN, LOCAL_TEACH_TRAIN),
-    ]:
-        if os.path.isdir(dst) and len(os.listdir(dst)) > 100:
-            print(f"[copy] {dst} already populated, skipping", flush=True)
-            continue
-        os.makedirs(dst, exist_ok=True)
-        # tar->untar pipe: single sequential read on the volume, single write
-        # on the SSD. Skip permissions/owner bits to avoid spurious errors.
-        _stream(
-            f"tar -C {os.path.dirname(src)} -cf - {os.path.basename(src)} "
-            f"| tar -C {os.path.dirname(dst)} -xf -"
-        )
-        n = len(os.listdir(dst))
-        print(f"[copy] {dst}: {n} files", flush=True)
+    # Bundle phase: spawn N parallel CPU containers to read per-image files
+    # from the volume in parallel and pack them into N chunk files. This
+    # bypasses the single-container ~5 it/s read cap by sharing the work
+    # across many independent volume-client connections.
+    from pycocotools.coco import COCO
+    coco_val = COCO("data/coco/annotations/instances_val2017.json")
+    coco_train = COCO("data/coco/annotations/instances_train2017.json")
+    val_ids = sorted(coco_val.getImgIds())
+    train_ids = sorted(coco_train.getImgIds())
+    print(f"[bundle] val_ids={len(val_ids)} train_ids={len(train_ids)}", flush=True)
 
+    bundle_dir_val = f"{BUNDLE_DIR}/val"
+    bundle_dir_train = f"{BUNDLE_DIR}/train"
+    os.makedirs(bundle_dir_val, exist_ok=True)
+    os.makedirs(bundle_dir_train, exist_ok=True)
+    results_vol.commit()
+
+    # Val: small, single chunk (1 container).
+    val_args = [(0, 1, val_ids, FEAT_VAL, TEACH_VAL,
+                 f"{bundle_dir_val}/chunk_0.pt", "val")]
+    # Train: N chunks, fanned out.
+    train_args = [
+        (i, N_BUNDLE_CHUNKS, train_ids, FEAT_TRAIN, TEACH_TRAIN,
+         f"{bundle_dir_train}/chunk_{i}.pt", "train")
+        for i in range(N_BUNDLE_CHUNKS)
+    ]
+
+    print(f"[bundle] dispatching {len(val_args) + len(train_args)} bundle jobs", flush=True)
+    counts = list(bundle_chunk.starmap(val_args + train_args))
+    print(f"[bundle] all chunks done; counts={counts}", flush=True)
+    results_vol.reload()
+
+    # Now run training: T4 container reads ~17 large bundle files (instead of
+    # 226K small per-image files) and trains in-RAM.
+    bundle_train_glob = f"{bundle_dir_train}/chunk_*.pt"
+    bundle_val_glob = f"{bundle_dir_val}/chunk_*.pt"
     _stream(
         "python -u scripts/autogaze_probe/train_frozen_head.py "
-        f"--feature-dir {LOCAL_FEAT_TRAIN} "
-        f"--teacher-dir {LOCAL_TEACH_TRAIN} "
-        f"--val-feature-dir {LOCAL_FEAT_VAL} "
-        f"--val-teacher-dir {LOCAL_TEACH_VAL} "
+        f"--bundle-glob '{bundle_train_glob}' "
+        f"--val-bundle-glob '{bundle_val_glob}' "
         f"--clip-text {clip_text} "
         f"--out-dir {OUT_DIR} "
         "--device cuda "
         "--n-epochs 10 "
         "--batch-size 256 "
         "--num-workers 0 "
-        "--preload "
         "--lr 1e-3"
     )
     results_vol.commit()
