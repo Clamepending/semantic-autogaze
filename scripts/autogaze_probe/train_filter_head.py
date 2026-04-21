@@ -122,6 +122,9 @@ def main():
     p.add_argument("--device", default="cpu")
     p.add_argument("--reduction", default="max", choices=["max", "mean", "topk", "attn"])
     p.add_argument("--ckpt-name", default="best.pt")
+    p.add_argument("--layers", default="3",
+                   help="Comma-separated layer indices to concat along feature dim. "
+                        "Default '3' = L3-only (192-d). '0,1,2,3' = concat all 4 (768-d).")
     p.add_argument("--proj-dim", type=int, default=128)
     p.add_argument("--hidden", type=int, default=256)
     p.add_argument("--batch-size", type=int, default=128)
@@ -151,13 +154,20 @@ def main():
     cached_imgs = sorted(int(p.stem) for p in layer_cache.glob("*.pt"))
     print(f"[diag] {len(cached_imgs)} cached images")
 
-    print("[diag] preloading L3 features into memory...")
+    layer_idx = [int(x) for x in args.layers.split(",")]
+    patch_dim = 192 * len(layer_idx)
+    print(f"[diag] layers={layer_idx} → patch_dim={patch_dim}")
+
+    print(f"[diag] preloading {layer_idx} features into memory...")
     t0 = time.time()
-    feats = torch.zeros((len(cached_imgs), 196, 192), dtype=torch.float32)
+    feats = torch.zeros((len(cached_imgs), 196, patch_dim), dtype=torch.float32)
     labels = torch.zeros((len(cached_imgs), Q), dtype=torch.float32)
     for i, img_id in enumerate(tqdm(cached_imgs, desc="preload")):
         stack = torch.load(layer_cache / f"{img_id}.pt", weights_only=True)
-        feats[i] = stack[3].float()
+        if len(layer_idx) == 1:
+            feats[i] = stack[layer_idx[0]].float()
+        else:
+            feats[i] = torch.cat([stack[k].float() for k in layer_idx], dim=-1)
         ann_ids = coco.getAnnIds(imgIds=img_id, iscrowd=None)
         for a in ann_ids:
             c = coco.anns[a]["category_id"]
@@ -183,7 +193,7 @@ def main():
     labels_val = labels[val_idx].to(device)
 
     head = ImageLevelFilterHead(
-        patch_dim=192, text_dim=512,
+        patch_dim=patch_dim, text_dim=512,
         proj_dim=args.proj_dim, hidden=args.hidden,
         aggregator=args.reduction,
     ).to(device)
@@ -230,11 +240,12 @@ def main():
             best_auc = auc
             torch.save({
                 "state_dict": head.state_dict(),
-                "config": {"patch_dim": 192, "text_dim": 512,
+                "config": {"patch_dim": patch_dim, "text_dim": 512,
                            "proj_dim": args.proj_dim, "hidden": args.hidden,
                            "aggregator": args.reduction},
                 "epoch": epoch, "val_auc": auc, "val_ap": ap,
                 "reduction": args.reduction,
+                "layers": layer_idx,
             }, best_path)
 
     print(f"[done] best val_auc={best_auc:.4f} (saved to {best_path})")

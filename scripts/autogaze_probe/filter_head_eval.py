@@ -66,7 +66,8 @@ def load_head(ckpt: str, device):
     head = ImageLevelFilterHead(**raw["config"]).to(device)
     head.load_state_dict(raw["state_dict"])
     head.eval()
-    return head, raw
+    layers = raw.get("layers", [3])
+    return head, raw, layers
 
 
 def main():
@@ -89,7 +90,8 @@ def main():
     layer_cache = Path(args.layer_cache_dir)
 
     print("[diag] loading head + clip_text + COCO ann...")
-    head, raw = load_head(args.head_ckpt, device)
+    head, raw, layer_idx = load_head(args.head_ckpt, device)
+    print(f"[diag] head layers={layer_idx}")
     clip_text = torch.load(args.clip_text, map_location="cpu", weights_only=True)
     coco = COCO(os.path.join(args.data_dir, args.ann))
 
@@ -117,7 +119,10 @@ def main():
     with torch.inference_mode():
         for i, img_id in enumerate(tqdm(eval_imgs, desc="filter eval")):
             stack = torch.load(layer_cache / f"{img_id}.pt", weights_only=True)
-            patches = stack[3].float().unsqueeze(0).to(device)
+            if len(layer_idx) == 1:
+                patches = stack[layer_idx[0]].float().unsqueeze(0).to(device)
+            else:
+                patches = torch.cat([stack[k].float() for k in layer_idx], dim=-1).unsqueeze(0).to(device)
             logits = head.patch_logits(patches, text_mat)  # (1, Q, 196)
             probs = torch.sigmoid(logits)[0]              # (Q, 196)
             logits1 = logits[0]                            # (Q, 196)
