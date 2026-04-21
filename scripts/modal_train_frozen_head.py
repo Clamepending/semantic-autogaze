@@ -231,12 +231,40 @@ def cycle2(skip_features: bool = False, skip_teacher: bool = False):
         n = len(os.listdir(d)) if os.path.isdir(d) else 0
         print(f"[count] {d}: {n} files", flush=True)
 
+    # Bulk-copy from network volume to ephemeral SSD before training.
+    # Modal Volume's per-file random-access latency made the in-process
+    # preload (113K * ~250ms) project ~7 hr; tar streaming uses sequential
+    # I/O which is ~10-50x faster for many small files.
+    LOCAL_FEAT_TRAIN = "/tmp/sa/features_gaze_train"
+    LOCAL_FEAT_VAL = "/tmp/sa/features_gaze_val"
+    LOCAL_TEACH_TRAIN = "/tmp/sa/teacher_14x14_train"
+    LOCAL_TEACH_VAL = "/tmp/sa/teacher_14x14_val"
+    os.makedirs("/tmp/sa", exist_ok=True)
+    for src, dst in [
+        (FEAT_VAL, LOCAL_FEAT_VAL),
+        (TEACH_VAL, LOCAL_TEACH_VAL),
+        (FEAT_TRAIN, LOCAL_FEAT_TRAIN),
+        (TEACH_TRAIN, LOCAL_TEACH_TRAIN),
+    ]:
+        if os.path.isdir(dst) and len(os.listdir(dst)) > 100:
+            print(f"[copy] {dst} already populated, skipping", flush=True)
+            continue
+        os.makedirs(dst, exist_ok=True)
+        # tar->untar pipe: single sequential read on the volume, single write
+        # on the SSD. Skip permissions/owner bits to avoid spurious errors.
+        _stream(
+            f"tar -C {os.path.dirname(src)} -cf - {os.path.basename(src)} "
+            f"| tar -C {os.path.dirname(dst)} -xf -"
+        )
+        n = len(os.listdir(dst))
+        print(f"[copy] {dst}: {n} files", flush=True)
+
     _stream(
         "python -u scripts/autogaze_probe/train_frozen_head.py "
-        f"--feature-dir {FEAT_TRAIN} "
-        f"--teacher-dir {TEACH_TRAIN} "
-        f"--val-feature-dir {FEAT_VAL} "
-        f"--val-teacher-dir {TEACH_VAL} "
+        f"--feature-dir {LOCAL_FEAT_TRAIN} "
+        f"--teacher-dir {LOCAL_TEACH_TRAIN} "
+        f"--val-feature-dir {LOCAL_FEAT_VAL} "
+        f"--val-teacher-dir {LOCAL_TEACH_VAL} "
         f"--clip-text {clip_text} "
         f"--out-dir {OUT_DIR} "
         "--device cuda "
