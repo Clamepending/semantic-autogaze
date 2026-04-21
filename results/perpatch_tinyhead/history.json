@@ -1,0 +1,178 @@
+{
+  "args": {
+    "layer_cache_dir": "results/autogaze_probe/features_gaze_layers_val",
+    "teacher_cache_dir": "results/autogaze_probe/teacher_14x14_val",
+    "clip_text": "results/icon_student_B_native_train/clip_text_embeddings.pt",
+    "data_dir": "data/coco",
+    "ann": "annotations/instances_val2017.json",
+    "out_dir": "results/perpatch_tinyhead",
+    "device": "cpu",
+    "ckpt_name": "best.pt",
+    "proj_dim": 128,
+    "n_heads": 4,
+    "ff_dim": 256,
+    "n_layers": 1,
+    "neg_per_image": 5,
+    "batch_size": 32,
+    "epochs": 30,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "n_val": 1000,
+    "seed": 0
+  },
+  "n_params": 222722,
+  "best_val_auc": 0.8838090571682452,
+  "teach_mean": 0.13795015937578864,
+  "history": [
+    {
+      "epoch": 0,
+      "train_loss": 1.0837831673798737,
+      "val_auc": 0.8483127501547572
+    },
+    {
+      "epoch": 1,
+      "train_loss": 0.9518338501453399,
+      "val_auc": 0.863178567161835
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.9179513469890311,
+      "val_auc": 0.865514085572189
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.8819823207678619,
+      "val_auc": 0.8764417961699261
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.8639241693196473,
+      "val_auc": 0.8757162368362927
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.8387828060874233,
+      "val_auc": 0.8794476544372578
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.8273787390302729,
+      "val_auc": 0.8827453169586701
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.8156666724770157,
+      "val_auc": 0.8798226221342175
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.801520973443985,
+      "val_auc": 0.8831553533683277
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.7822600656085544,
+      "val_auc": 0.8775964229674212
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.7747265023213846,
+      "val_auc": 0.8838090571682452
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.7581721332338122,
+      "val_auc": 0.8730785068396909
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.7425894481164438,
+      "val_auc": 0.8809033144583207
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.7370731823974186,
+      "val_auc": 0.8787523440226908
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.727793323552167,
+      "val_auc": 0.8775337770229792
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.7100419490425675,
+      "val_auc": 0.883714842803033
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.6971702924481145,
+      "val_auc": 0.8814243317027718
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.694124577442805,
+      "val_auc": 0.8768111218446517
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.6883021935268685,
+      "val_auc": 0.8795888966199896
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.6659121957090166,
+      "val_auc": 0.883472795587571
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.6577789702901133,
+      "val_auc": 0.8804537695253439
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.6385959596545608,
+      "val_auc": 0.8772295197720696
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.6304879697384658,
+      "val_auc": 0.8805688976469697
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.6191312352816264,
+      "val_auc": 0.87496513271069
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.6028956535789701,
+      "val_auc": 0.8662522547018964
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.5985430299131959,
+      "val_auc": 0.8776494863539704
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.5964964304809217,
+      "val_auc": 0.8777118704645587
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.5699663430452346,
+      "val_auc": 0.8790151560293725
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.5615998657765212,
+      "val_auc": 0.8793182572060294
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.5466361942114654,
+      "val_auc": 0.8724429502333024
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "head_ckpt": "results/perpatch_tinyhead/best.pt",
+  "tie_band": 0.05,
+  "wins": 1,
+  "losses": 18,
+  "ties": 1,
+  "skipped": 0,
+  "summary_line": "1W/18L/1T (skipped 0)",
+  "per_pair": [
+    {
+      "idx": 0,
+      "img_id": 70229,
+      "cat": "bench",
+      "out": "results/perpatch_tinyhead/audit/000_70229_bench_L.png",
+      "iou_filter": 0.02554042703682419,
+      "iou_icon": 0.7027512075911182,
+      "delta": -0.677210780554294,
+      "verdict": "L"
+    },
+    {
+      "idx": 1,
+      "img_id": 141821,
+      "cat": "bowl",
+      "out": "results/perpatch_tinyhead/audit/001_141821_bowl_L.png",
+      "iou_filter": 0.027218694437388873,
+      "iou_icon": 0.7102910405174053,
+      "delta": -0.6830723460800164,
+      "verdict": "L"
+    },
+    {
+      "idx": 2,
+      "img_id": 185472,
+      "cat": "train",
+      "out": "results/perpatch_tinyhead/audit/002_185472_train_L.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.8558574453069866,
+      "delta": -0.8558574453069866,
+      "verdict": "L"
+    },
+    {
+      "idx": 3,
+      "img_id": 532058,
+      "cat": "bed",
+      "out": "results/perpatch_tinyhead/audit/003_532058_bed_W.png",
+      "iou_filter": 0.9117024739583334,
+      "iou_icon": 0.6298485329188694,
+      "delta": 0.28185394103946393,
+      "verdict": "W"
+    },
+    {
+      "idx": 4,
+      "img_id": 274272,
+      "cat": "bus",
+      "out": "results/perpatch_tinyhead/audit/004_274272_bus_L.png",
+      "iou_filter": 0.30972807261467056,
+      "iou_icon": 0.9134461111051289,
+      "delta": -0.6037180384904584,
+      "verdict": "L"
+    },
+    {
+      "idx": 5,
+      "img_id": 52007,
+      "cat": "person",
+      "out": "results/perpatch_tinyhead/audit/005_52007_person_L.png",
+      "iou_filter": 0.041847463434868074,
+      "iou_icon": 0.5770392749244713,
+      "delta": -0.5351918114896032,
+      "verdict": "L"
+    },
+    {
+      "idx": 6,
+      "img_id": 173091,
+      "cat": "apple",
+      "out": "results/perpatch_tinyhead/audit/006_173091_apple_L.png",
+      "iou_filter": 0.05233410176189692,
+      "iou_icon": 0.8408536160122743,
+      "delta": -0.7885195142503774,
+      "verdict": "L"
+    },
+    {
+      "idx": 7,
+      "img_id": 278353,
+      "cat": "sheep",
+      "out": "results/perpatch_tinyhead/audit/007_278353_sheep_L.png",
+      "iou_filter": 0.3840145302795241,
+      "iou_icon": 0.9294412438116723,
+      "delta": -0.5454267135321482,
+      "verdict": "L"
+    },
+    {
+      "idx": 8,
+      "img_id": 184321,
+      "cat": "train",
+      "out": "results/perpatch_tinyhead/audit/008_184321_train_L.png",
+      "iou_filter": 0.05278988641439241,
+      "iou_icon": 0.891516871649322,
+      "delta": -0.8387269852349296,
+      "verdict": "L"
+    },
+    {
+      "idx": 9,
+      "img_id": 74058,
+      "cat": "bicycle",
+      "out": "results/perpatch_tinyhead/audit/009_74058_bicycle_L.png",
+      "iou_filter": 0.06529425780319276,
+      "iou_icon": 0.6670963306694165,
+      "delta": -0.6018020728662238,
+      "verdict": "L"
+    },
+    {
+      "idx": 10,
+      "img_id": 30504,
+      "cat": "skis",
+      "out": "results/perpatch_tinyhead/audit/010_30504_skis_L.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.4930747922437673,
+      "delta": -0.4930747922437673,
+      "verdict": "L"
+    },
+    {
+      "idx": 11,
+      "img_id": 268378,
+      "cat": "chair",
+      "out": "results/perpatch_tinyhead/audit/011_268378_chair_L.png",
+      "iou_filter": 0.01623931242724422,
+      "iou_icon": 0.7259209942299156,
+      "delta": -0.7096816818026714,
+      "verdict": "L"
+    },
+    {
+      "idx": 12,
+      "img_id": 343466,
+      "cat": "oven",
+      "out": "results/perpatch_tinyhead/audit/012_343466_oven_L.png",
+      "iou_filter": 0.08720249707374171,
+      "iou_icon": 0.735120511559272,
+      "delta": -0.6479180144855303,
+      "verdict": "L"
+    },
+    {
+      "idx": 13,
+      "img_id": 217400,
+      "cat": "train",
+      "out": "results/perpatch_tinyhead/audit/013_217400_train_L.png",
+      "iou_filter": 0.43498835525233825,
+      "iou_icon": 0.8289906839793406,
+      "delta": -0.39400232872700236,
+      "verdict": "L"
+    },
+    {
+      "idx": 14,
+      "img_id": 401244,
+      "cat": "frisbee",
+      "out": "results/perpatch_tinyhead/audit/014_401244_frisbee_L.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.6669484361792054,
+      "delta": -0.6669484361792054,
+      "verdict": "L"
+    },
+    {
+      "idx": 15,
+      "img_id": 488166,
+      "cat": "fork",
+      "out": "results/perpatch_tinyhead/audit/015_488166_fork_L.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.2833530106257379,
+      "delta": -0.2833530106257379,
+      "verdict": "L"
+    },
+    {
+      "idx": 16,
+      "img_id": 348481,
+      "cat": "remote",
+      "out": "results/perpatch_tinyhead/audit/016_348481_remote_T.png",
+      "iou_filter": 0.0,
+      "iou_icon": 0.0,
+      "delta": 0.0,
+      "verdict": "T"
+    },
+    {
+      "idx": 17,
+      "img_id": 259830,
+      "cat": "person",
+      "out": "results/perpatch_tinyhead/audit/017_259830_person_L.png",
+      "iou_filter": 0.00805514705882353,
+      "iou_icon": 0.6911034746086292,
+      "delta": -0.6830483275498057,
+      "verdict": "L"
+    },
+    {
+      "idx": 18,
+      "img_id": 17436,
+      "cat": "person",
+      "out": "results/perpatch_tinyhead/audit/018_17436_person_L.png",
+      "iou_filter": 0.023154335475766577,
+      "iou_icon": 0.5692771084337349,
+      "delta": -0.5461227729579683,
+      "verdict": "L"
+    },
+    {
+      "idx": 19,
+      "img_id": 231125,
+      "cat": "person",
+      "out": "results/perpatch_tinyhead/audit/019_231125_person_L.png",
+      "iou_filter": 0.15171714164419964,
+      "iou_icon": 0.8046409126263936,
+      "delta": -0.652923770982194,
+      "verdict": "L"
+    }
+  ],
+  "bench_summary_ms": {
+    "total_ms_mean": 12.539188689610455,
+    "total_ms_p50": 12.54661039711209,
+    "total_ms_p95": 14.600182193680666,
+    "autogaze_ms_mean": 11.365863976971013,
+    "head_ms_mean": 1.1733247126394417
+  }
+}
