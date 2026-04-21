@@ -1,0 +1,45 @@
+[diag] loading COCO + text...
+loading annotations into memory...
+Done (t=0.22s)
+creating index...
+index created!
+[diag] loading AutoGaze + IconStudent-118K...
+[diag] 20 audit pairs
+[diag] 20 usable audit bundles
+
+=== frozen_cycle1 (bilinear_cosine) ===
+  frozen_cycle1: 1W/18L/1T = (W+T)/n = 2/20 | head_ms mean=0.04 p95=0.05
+
+=== frozen_cycle2 (bilinear_cosine) ===
+  frozen_cycle2: 0W/19L/1T = (W+T)/n = 1/20 | head_ms mean=0.04 p95=0.05
+
+=== filter_attn (filter_head) ===
+  filter_attn: 0W/19L/1T = (W+T)/n = 1/20 | head_ms mean=0.15 p95=0.16
+
+=== perpatch_tinyhead (perpatch_tinyhead) ===
+/Users/mark/code/semantic-autogaze/scripts/criterion_bootstrap/audit_all.py:102: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.transformer = nn.TransformerEncoder(layer, num_layers=n_layers)
+  perpatch_tinyhead: 1W/18L/1T = (W+T)/n = 2/20 | head_ms mean=0.39 p95=0.43
+
+=== upscale_28 (filter_head_upscale) ===
+  upscale_28: 0W/19L/1T = (W+T)/n = 1/20 | head_ms mean=0.38 p95=0.44
+
+=== deep_finetune (deep_finetune) ===
+  deep_finetune: 0W/19L/1T = (W+T)/n = 1/20 | head_ms mean=3.17 p95=3.40
+[WARN] skipping teacher_mse — missing ckpt results/teacher_mse_distill/best.pt
+[WARN] skipping coco_mask_distill — missing ckpt results/coco_mask_distill/best.pt
+
+=== multitask_bce_mse (filter_head) ===
+  multitask_bce_mse: 1W/18L/1T = (W+T)/n = 2/20 | head_ms mean=0.16 p95=0.17
+
+[done] wrote results/criterion_bootstrap/audit_all.json
+
+=== SUMMARY ===
+head                      W+T/n    head_ms   clears ≥6/20    clears ≤5ms
+frozen_cycle1            2/20       0.04ms            no           YES
+frozen_cycle2            1/20       0.04ms            no           YES
+filter_attn              1/20       0.15ms            no           YES
+perpatch_tinyhead        2/20       0.39ms            no           YES
+upscale_28               1/20       0.38ms            no           YES
+deep_finetune            1/20       3.17ms            no           YES
+multitask_bce_mse        2/20       0.16ms            no           YES
