@@ -1,0 +1,16 @@
+Pre-decoder vs post-decoder paired flip (per-question, per-config):
+config               pre=post    pre_win   post_win    net pre   both_correct   both_wrong
+Intersect 30%             116          3          3         +0             29           87
+Intersect 10%             117          4          1         +3             28           89
+Semantic 10%              117          4          1         +3             28           89
+Semantic 2%               115          4          3         +1             27           88
+Thresh 0.005              111          8          3         +5             35           76
+Thresh 0.01               102         13          7         +6             29           73
+Thresh 0.02               114          4          4         +0             26           88
+Thresh 0.05               112          4          6         -2             27           85
+
+[sanity] AutoGaze only head-independent control: pre=post on 122/122 questions (expect ≈all; reflects NVILA run-to-run determinism)
+         pre-only-correct: 0  post-only-correct: 0
+
+Aggregate across 8 filter configs (n=122 × 8 = 976 question-config pairs):
+  identical: 904/976  pre-decoder win: 44  post-decoder win: 28  net pre: +16
