@@ -170,12 +170,13 @@ def main(args):
     clip_tokenizer = open_clip.get_tokenizer("ViT-B-16")
     clip_model = clip_model.to(device).eval()
 
-    print("[setup] Loading SemanticAutoGazeWrapper...")
+    print(f"[setup] Loading SemanticAutoGazeWrapper (hidden_source={args.hidden_source})...")
     wrapper = SemanticAutoGazeWrapper(
         autogaze_model_name=args.autogaze_model,
         head_ckpt=args.ckpt,
         head_type=args.head_type,
         device=str(device),
+        hidden_source=args.hidden_source,
     )
     torch.cuda.empty_cache()
     free_mb = torch.cuda.mem_get_info(device)[0] / 1024**2
@@ -301,5 +302,7 @@ if __name__ == "__main__":
     p.add_argument("--device", default="cuda:0")
     p.add_argument("--output_dir", default="results/hlvid_subset")
     p.add_argument("--query_mode", default="stem", choices=["stem", "np", "hybrid"])
+    p.add_argument("--hidden_source", default="post_decoder", choices=["post_decoder", "pre_decoder"],
+                   help="Which AutoGaze stage's features feed the semantic head. 'post_decoder' = LLaMA decoder output (default, matches bighead_warmrestart ckpt). 'pre_decoder' = CNN+connector output (matches distill_predecoder ckpt).")
     args = p.parse_args()
     main(args)

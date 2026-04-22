@@ -62,13 +62,17 @@ class SemanticAutoGazeWrapper(torch.nn.Module):
         use_flash_attn: bool = False,
         grid_size: int = 14,
         num_frames: int = 16,
+        hidden_source: str = "post_decoder",
         **head_kwargs,
     ):
         super().__init__()
+        if hidden_source not in ("post_decoder", "pre_decoder"):
+            raise ValueError(f"hidden_source must be 'post_decoder' or 'pre_decoder', got {hidden_source!r}")
         self.device = torch.device(device)
         self.grid_size = grid_size
         self.num_frames = num_frames
         self.patches_per_frame = grid_size * grid_size  # 196
+        self.hidden_source = hidden_source
 
         # Load AutoGaze
         self.autogaze = AutoGaze.from_pretrained(
@@ -108,13 +112,16 @@ class SemanticAutoGazeWrapper(torch.nn.Module):
         )
         video_resized = rearrange(video_resized, '(b t) c h w -> b t c h w', b=B)
 
-        # Forward through vision model + connector + decoder
+        # Forward through vision model + connector
         vision_features, _ = gaze_model.vision_model(video_resized)
         vision_features = vision_features.transpose(1, 2)
         vision_features = rearrange(vision_features, 'b t c h w -> b t (h w) c')
         vision_features = gaze_model.connector(vision_features)
 
         B2, T2, N, C = vision_features.shape
+        if self.hidden_source == "pre_decoder":
+            return vision_features.reshape(B2, T2 * N, C)
+
         inputs_embeds = vision_features.reshape(B2, T2 * N, C)
         attention_mask = torch.ones(B2, T2 * N, device=self.device, dtype=torch.long)
         decoder_outputs = gaze_model.gaze_decoder.model(
