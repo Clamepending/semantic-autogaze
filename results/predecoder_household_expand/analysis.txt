@@ -1,0 +1,48 @@
+HLVid sweep analysis  n=122  file=results/predecoder_household_expand/tier3_full_sweep/hlvid_subset.json
+
+config                        acc              95% CI    lat_s     n
+AutoGaze only               0.418  [0.328, 0.500]    12.04   122
+Intersect 30%               0.262  [0.189, 0.344]    15.93   122
+Intersect 10%               0.262  [0.189, 0.344]    16.56   122
+Semantic 10%                0.262  [0.189, 0.344]    16.52   122
+Semantic 2%                 0.254  [0.180, 0.336]    16.71   122
+Thresh 0.005                0.352  [0.270, 0.434]    16.97   122
+Thresh 0.01                 0.344  [0.262, 0.426]    17.42   122
+Thresh 0.02                 0.246  [0.172, 0.320]    17.46   122
+Thresh 0.05                 0.254  [0.180, 0.336]    17.38   122
+
+Flip analysis vs 'AutoGaze only':
+config                     win (0->1)  lose (1->0)    net
+Intersect 30%                      10           29    -19
+Intersect 10%                       8           27    -19
+Semantic 10%                        8           27    -19
+Semantic 2%                        10           30    -20
+Thresh 0.005                        7           15     -8
+Thresh 0.01                        12           21     -9
+Thresh 0.02                         7           28    -21
+Thresh 0.05                        10           30    -20
+
+Per-category accuracy:
+config                               av     household
+AutoGaze only                   -/-      0.418 (51/122)
+Intersect 30%                   -/-      0.262 (32/122)
+Intersect 10%                   -/-      0.262 (32/122)
+Semantic 10%                    -/-      0.262 (32/122)
+Semantic 2%                     -/-      0.254 (31/122)
+Thresh 0.005                    -/-      0.352 (43/122)
+Thresh 0.01                     -/-      0.344 (42/122)
+Thresh 0.02                     -/-      0.246 (30/122)
+Thresh 0.05                     -/-      0.254 (31/122)
+
+Verdict notes (for result doc):
+  baseline ('AutoGaze only') = 0.418 95% CI [0.328, 0.500]
+  Intersect 30%              0.262  [0.189,0.344]  -> REGRESSION (CI below baseline)
+  Intersect 10%              0.262  [0.189,0.344]  -> REGRESSION (CI below baseline)
+  Semantic 10%               0.262  [0.189,0.344]  -> REGRESSION (CI below baseline)
+  Semantic 2%                0.254  [0.180,0.336]  -> REGRESSION (CI below baseline)
+  Thresh 0.005               0.352  [0.270,0.434]  -> worse but CI overlaps
+  Thresh 0.01                0.344  [0.262,0.426]  -> worse but CI overlaps
+  Thresh 0.02                0.246  [0.172,0.320]  -> REGRESSION (CI below baseline)
+  Thresh 0.05                0.254  [0.180,0.336]  -> REGRESSION (CI below baseline)
+
+  decisive regressions: 6/8   ties (CI overlap): 2/8
