@@ -1,0 +1,266 @@
+{
+  "semantic_topk": [
+    {
+      "budget_fraction": 0.02,
+      "score_retention": 0.1002669557929039,
+      "score_retention_std": 0.11222171783447266,
+      "topk_gt_overlap": 0.17174731182795697,
+      "n_valid_samples": 3600,
+      "tokens": 62
+    },
+    {
+      "budget_fraction": 0.05,
+      "score_retention": 0.19730910658836365,
+      "score_retention_std": 0.16348665952682495,
+      "topk_gt_overlap": 0.26318198005698007,
+      "n_valid_samples": 3600,
+      "tokens": 156
+    },
+    {
+      "budget_fraction": 0.1,
+      "score_retention": 0.3152921497821808,
+      "score_retention_std": 0.19853191077709198,
+      "topk_gt_overlap": 0.3542917997870074,
+      "n_valid_samples": 3600,
+      "tokens": 313
+    },
+    {
+      "budget_fraction": 0.15,
+      "score_retention": 0.40564432740211487,
+      "score_retention_std": 0.21024277806282043,
+      "topk_gt_overlap": 0.41781323877068555,
+      "n_valid_samples": 3600,
+      "tokens": 470
+    },
+    {
+      "budget_fraction": 0.2,
+      "score_retention": 0.47979211807250977,
+      "score_retention_std": 0.21088549494743347,
+      "topk_gt_overlap": 0.46856946659578236,
+      "n_valid_samples": 3600,
+      "tokens": 627
+    },
+    {
+      "budget_fraction": 0.3,
+      "score_retention": 0.5988370180130005,
+      "score_retention_std": 0.198489710688591,
+      "topk_gt_overlap": 0.5511971040189125,
+      "n_valid_samples": 3600,
+      "tokens": 940
+    },
+    {
+      "budget_fraction": 0.5,
+      "score_retention": 0.7704181671142578,
+      "score_retention_std": 0.151118665933609,
+      "topk_gt_overlap": 0.6841836734693877,
+      "n_valid_samples": 3600,
+      "tokens": 1568
+    },
+    {
+      "budget_fraction": 0.75,
+      "score_retention": 0.9123106598854065,
+      "score_retention_std": 0.07735515385866165,
+      "topk_gt_overlap": 0.829542115457294,
+      "n_valid_samples": 3600,
+      "tokens": 2352
+    }
+  ],
+  "semantic_per_frame": [
+    {
+      "budget_fraction": 0.02,
+      "score_retention": 0.057386551052331924,
+      "score_retention_std": 0.055165018886327744,
+      "topk_gt_overlap": 0.09329301075268817,
+      "n_valid_samples": 3600,
+      "tokens": 62
+    },
+    {
+      "budget_fraction": 0.05,
+      "score_retention": 0.1501172035932541,
+      "score_retention_std": 0.11518288403749466,
+      "topk_gt_overlap": 0.19345085470085469,
+      "n_valid_samples": 3600,
+      "tokens": 156
+    },
+    {
+      "budget_fraction": 0.1,
+      "score_retention": 0.26864755153656006,
+      "score_retention_std": 0.16186301410198212,
+      "topk_gt_overlap": 0.29347089101881435,
+      "n_valid_samples": 3600,
+      "tokens": 313
+    },
+    {
+      "budget_fraction": 0.15,
+      "score_retention": 0.36205175518989563,
+      "score_retention_std": 0.18145404756069183,
+      "topk_gt_overlap": 0.3638829787234042,
+      "n_valid_samples": 3600,
+      "tokens": 470
+    },
+    {
+      "budget_fraction": 0.2,
+      "score_retention": 0.4399695098400116,
+      "score_retention_std": 0.18918314576148987,
+      "topk_gt_overlap": 0.4206016303384724,
+      "n_valid_samples": 3600,
+      "tokens": 627
+    },
+    {
+      "budget_fraction": 0.3,
+      "score_retention": 0.56113600730896,
+      "score_retention_std": 0.18546567857265472,
+      "topk_gt_overlap": 0.5076412529550828,
+      "n_valid_samples": 3600,
+      "tokens": 940
+    },
+    {
+      "budget_fraction": 0.5,
+      "score_retention": 0.7464063167572021,
+      "score_retention_std": 0.1454688161611557,
+      "topk_gt_overlap": 0.6586676232993198,
+      "n_valid_samples": 3600,
+      "tokens": 1568
+    },
+    {
+      "budget_fraction": 0.75,
+      "score_retention": 0.9005714058876038,
+      "score_retention_std": 0.07554206252098083,
+      "topk_gt_overlap": 0.8193511432350717,
+      "n_valid_samples": 3600,
+      "tokens": 2352
+    }
+  ],
+  "random": [
+    {
+      "budget_fraction": 0.02,
+      "score_retention": 0.020090226083993912,
+      "score_retention_std": 0.00971624068915844,
+      "topk_gt_overlap": 0.01961469534050179,
+      "n_valid_samples": 3600,
+      "tokens": 62
+    },
+    {
+      "budget_fraction": 0.05,
+      "score_retention": 0.05022050812840462,
+      "score_retention_std": 0.015305313281714916,
+      "topk_gt_overlap": 0.050299145299145295,
+      "n_valid_samples": 3600,
+      "tokens": 156
+    },
+    {
+      "budget_fraction": 0.1,
+      "score_retention": 0.10034384578466415,
+      "score_retention_std": 0.025214217603206635,
+      "topk_gt_overlap": 0.09918441604543839,
+      "n_valid_samples": 3600,
+      "tokens": 313
+    },
+    {
+      "budget_fraction": 0.15,
+      "score_retention": 0.15063290297985077,
+      "score_retention_std": 0.025343431159853935,
+      "topk_gt_overlap": 0.15009810874704493,
+      "n_valid_samples": 3600,
+      "tokens": 470
+    },
+    {
+      "budget_fraction": 0.2,
+      "score_retention": 0.19963549077510834,
+      "score_retention_std": 0.02652168646454811,
+      "topk_gt_overlap": 0.199568491936913,
+      "n_valid_samples": 3600,
+      "tokens": 627
+    },
+    {
+      "budget_fraction": 0.3,
+      "score_retention": 0.2995365858078003,
+      "score_retention_std": 0.030902843922376633,
+      "topk_gt_overlap": 0.29977157210401895,
+      "n_valid_samples": 3600,
+      "tokens": 940
+    },
+    {
+      "budget_fraction": 0.5,
+      "score_retention": 0.4997890293598175,
+      "score_retention_std": 0.03398701921105385,
+      "topk_gt_overlap": 0.4997330286281179,
+      "n_valid_samples": 3600,
+      "tokens": 1568
+    },
+    {
+      "budget_fraction": 0.75,
+      "score_retention": 0.7490489482879639,
+      "score_retention_std": 0.029551707208156586,
+      "topk_gt_overlap": 0.7498900462962964,
+      "n_valid_samples": 3600,
+      "tokens": 2352
+    }
+  ],
+  "oracle": [
+    {
+      "budget_fraction": 0.02,
+      "score_retention": 0.29546329379081726,
+      "score_retention_std": 0.19055619835853577,
+      "topk_gt_overlap": 1.0,
+      "n_valid_samples": 3600,
+      "tokens": 62
+    },
+    {
+      "budget_fraction": 0.05,
+      "score_retention": 0.4432428777217865,
+      "score_retention_std": 0.21222829818725586,
+      "topk_gt_overlap": 1.0,
+      "n_valid_samples": 3600,
+      "tokens": 156
+    },
+    {
+      "budget_fraction": 0.1,
+      "score_retention": 0.5737742781639099,
+      "score_retention_std": 0.20573784410953522,
+      "topk_gt_overlap": 1.0,
+      "n_valid_samples": 3600,
+      "tokens": 313
+    },
+    {
+      "budget_fraction": 0.15,
+      "score_retention": 0.6551507115364075,
+      "score_retention_std": 0.1900295615196228,
+      "topk_gt_overlap": 1.0,
+      "n_valid_samples": 3600,
+      "tokens": 470
+    },
+    {
+      "budget_fraction": 0.2,
+      "score_retention": 0.7141997814178467,
+      "score_retention_std": 0.1731424480676651,
+      "topk_gt_overlap": 1.0,
+      "n_valid_samples": 3600,
+      "tokens": 627
+    },
+    {
+      "budget_fraction": 0.3,
+      "score_retention": 0.7972217202186584,
+      "score_retention_std": 0.1408301591873169,
+      "topk_gt_overlap": 1.0,
+      "n_valid_samples": 3600,
+      "tokens": 940
+    },
+    {
+      "budget_fraction": 0.5,
+      "score_retention": 0.8974823951721191,
+      "score_retention_std": 0.08521934598684311,
+      "topk_gt_overlap": 1.0,
+      "n_valid_samples": 3600,
+      "tokens": 1568
+    },
+    {
+      "budget_fraction": 0.75,
+      "score_retention": 0.9663140177726746,
+      "score_retention_std": 0.033256009221076965,
+      "topk_gt_overlap": 1.0,
+      "n_valid_samples": 3600,
+      "tokens": 2352
+    }
+  ]
+}
