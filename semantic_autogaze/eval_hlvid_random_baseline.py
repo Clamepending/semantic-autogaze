@@ -174,6 +174,16 @@ def main(args):
         per_sample_all.extend([{"config": cfg["name"], **r} for r in rows])
         print(f"\n  => {cfg['name']}: acc={acc:.3f} ({correct}/{total})  avg_lat={avg_lat:.2f}s")
 
+        # Checkpoint after each config so a kill mid-sweep doesn't lose prior configs.
+        ckpt_path = os.path.join(args.output_dir, "hlvid_subset.json")
+        with open(ckpt_path, "w") as f:
+            json.dump({"summary": {k: {kk: vv for kk, vv in v.items() if kk != "rows"}
+                                   for k, v in all_results.items()},
+                       "per_sample": per_sample_all,
+                       "n_samples": len(samples),
+                       "partial": cfg["name"] != configs[-1]["name"]}, f, indent=2)
+        print(f"[checkpoint] {ckpt_path}  ({len(all_results)}/{len(configs)} configs complete)")
+
     print(f"\n{'=' * 60}\n[SUMMARY] HLVid household random-baseline (n={len(samples)})\n{'=' * 60}")
     print(f"  Reference: r/autogaze-aware-filter-train Intersect 50% CLIP filter = 33/122 = 0.270")
     print(f"  Reference: r/autogaze-aware-filter-train Intersect 75% CLIP filter = 33/122 = 0.270")
