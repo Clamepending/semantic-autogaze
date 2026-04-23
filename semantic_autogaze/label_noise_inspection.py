@@ -23,9 +23,9 @@ PARQUET_PATH = "/home/ogata/.cache/huggingface/hub/datasets--bfshi--HLVid/snapsh
 VIDEO_DIR = Path("/home/ogata/semantic-autogaze/hlvid_videos/extracted_household/videos")
 AUDIT_PATH = Path("/home/ogata/semantic-autogaze/results/label_noise_audit/audit.json")
 OUT_DIR = Path("/home/ogata/semantic-autogaze/results/label_noise_audit/inspection")
-FRAME_FRACTIONS = (0.1, 0.35, 0.65, 0.9)
-TARGET_FRAME_W = 640
-TARGET_FRAME_H = 360
+FRAME_FRACTIONS = (0.05, 0.2, 0.35, 0.5, 0.65, 0.8, 0.95)
+TARGET_FRAME_W = 960
+TARGET_FRAME_H = 540
 
 
 def sample_frames(video_path: Path) -> list[np.ndarray]:
@@ -61,34 +61,33 @@ def draw_text(img: np.ndarray, text: str, org: tuple[int, int],
 
 
 def build_montage(frames: list[np.ndarray], entry: dict) -> np.ndarray:
-    # 2x2 grid of frames (4*TARGET_FRAME_W x 1*TARGET_FRAME_H or 2x2 layout).
-    # Use 2x2 layout: grid is (2*TARGET_FRAME_W) x (2*TARGET_FRAME_H).
-    # Above grid: caption strip of height 260.
-    cap_h = 280
-    grid_w = 2 * TARGET_FRAME_W
-    grid_h = 2 * TARGET_FRAME_H
+    # 4x2 grid = 8 cells; we have 7 frames, last cell gets caption overlay repeated.
+    cols, rows = 4, 2
+    cap_h = 260
+    grid_w = cols * TARGET_FRAME_W
+    grid_h = rows * TARGET_FRAME_H
     total_w = grid_w
     total_h = cap_h + grid_h
     canvas = np.zeros((total_h, total_w, 3), dtype=np.uint8)
     canvas[:cap_h, :] = (30, 30, 30)
 
-    # Place frames or black if missing.
-    resized = []
-    for i in range(4):
+    for i in range(cols * rows):
         if i < len(frames):
-            resized.append(resize_to(frames[i], TARGET_FRAME_W, TARGET_FRAME_H))
+            img = resize_to(frames[i], TARGET_FRAME_W, TARGET_FRAME_H)
+            frac = FRAME_FRACTIONS[i] if i < len(FRAME_FRACTIONS) else 0.0
         else:
-            resized.append(np.zeros((TARGET_FRAME_H, TARGET_FRAME_W, 3), dtype=np.uint8))
-
-    # Layout: tl, tr, bl, br for fracs 0.1, 0.35, 0.65, 0.9.
-    positions = [(0, 0), (TARGET_FRAME_W, 0), (0, TARGET_FRAME_H), (TARGET_FRAME_W, TARGET_FRAME_H)]
-    for (x, y), img, frac in zip(positions, resized, FRAME_FRACTIONS):
+            img = np.zeros((TARGET_FRAME_H, TARGET_FRAME_W, 3), dtype=np.uint8)
+            frac = 0.0
+        col = i % cols
+        row = i // cols
+        x = col * TARGET_FRAME_W
+        y = row * TARGET_FRAME_H
         canvas[cap_h + y:cap_h + y + TARGET_FRAME_H, x:x + TARGET_FRAME_W] = img
-        draw_text(canvas, f"t={frac:.2f}", (x + 8, cap_h + y + 24))
+        draw_text(canvas, f"t={frac:.2f}", (x + 8, cap_h + y + 28), scale=0.8, thick=2)
 
     # Caption overlay.
     draw_text(canvas, f"qid={entry['qid']}   gt={entry['gt']}   top={entry['top_letter']}={entry['top_count']}/36  ent={entry['entropy']:.2f}",
-              (12, 28), scale=0.7, thick=2)
+              (12, 32), scale=0.9, thick=2)
     stem_full = entry.get("stem", "").strip()
     # wrap stem to ~80 chars/line
     stem_lines = []
@@ -103,7 +102,7 @@ def build_montage(frames: list[np.ndarray], entry: dict) -> np.ndarray:
         stem_lines.append(cur)
     for i, ln in enumerate(stem_lines[:2]):
         draw_text(canvas, f"Q: {ln}" if i == 0 else f"   {ln}",
-                  (12, 60 + i * 22), scale=0.55)
+                  (12, 72 + i * 28), scale=0.72, thick=1)
 
     # Choices.
     dist = entry.get("dist", {})
@@ -112,8 +111,8 @@ def build_montage(frames: list[np.ndarray], entry: dict) -> np.ndarray:
         v = dist.get(L, 0)
         marker = " * gt     " if L == entry["gt"] else (" ! top    " if L == entry["top_letter"] else "         ")
         color = (120, 255, 120) if L == entry["gt"] else ((120, 120, 255) if L == entry["top_letter"] else (200, 200, 200))
-        txt = f"{marker} {L}. {ch[:70]}  ({v} votes)"
-        draw_text(canvas, txt, (12, 110 + i * 22), scale=0.5, color=color)
+        txt = f"{marker} {L}. {ch[:90]}  ({v} votes)"
+        draw_text(canvas, txt, (12, 140 + i * 28), scale=0.68, thick=1, color=color)
 
     return canvas
 
