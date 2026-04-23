@@ -1,0 +1,40 @@
+========================================================================
+rich_features_router :: CLIP-L text + video + lengths -> LOO per-config LR
+========================================================================
+matrix: 122 questions × 36 configs
+features: video-onehot (21) + qlen (1) + choice-len (2) + CLIP-L (768) = 792 dims
+CLIP model: openai/clip-vit-large-patch14
+
+-- Baselines --
+  random config (mean)     : 36.33 / 122
+  best fixed config        : 51 / 122  [budget_sweep::vanilla tile=0.20 thumb=0.75]
+  oracle                   : 77 / 122
+  cheap-router (prior)     : 47 / 122
+  video-cond router (prior): 42 / 122
+  individual-vs-oracle gap : 26
+
+-- Rich-features LOO router --
+  router correct           : 51 / 122
+  vs best fixed            : +0
+  vs oracle (% gap closed) : 0.00%
+  vs cheap-router          : +4
+  qs router>best-fixed     : +3
+  qs best-fixed>router     : -3
+  net                      : +0
+
+-- Video-conditional router (reproduction of cheap variant) --
+  router correct           : 42 / 122
+
+-- Router chosen-config histogram --
+   42  budget_sweep::vanilla tile=0.20 thumb=0.75
+   33  vanilla_m1::gaze_t=0.2,th=0.75,mt=1
+   18  raw_m1::gaze_t=1.0,th=1.0,mt=1
+   11  budget_sweep::scaled 0.5 tile=0.10 thumb=0.375
+    7  predecoder::Thresh 0.01
+    4  subsel_probe::Intersect 25% random
+    2  budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375
+    1  predecoder::Thresh 0.005
+    1  budget_sweep::scaled 0.3 tile=0.06 thumb=0.225
+    1  aware_filter::Intersect 50%
+    1  predecoder::Thresh 0.05
+    1  aware_filter::Intersect 10% (sanity)

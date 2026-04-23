@@ -1,0 +1,43 @@
+{
+  "n_questions": 122,
+  "n_configs": 36,
+  "features": {
+    "video": 21,
+    "clip": 768,
+    "total": 792
+  },
+  "baselines": {
+    "random_mean": 36.333333333333336,
+    "best_fixed": 51,
+    "best_fixed_config": "budget_sweep::vanilla tile=0.20 thumb=0.75",
+    "oracle": 77,
+    "cheap_router_prior": 47,
+    "video_cond_router_prior": 42
+  },
+  "rich_router": {
+    "correct": 51,
+    "vs_best_fixed": 0,
+    "vs_cheap_router": 4,
+    "pct_gap_closed": 0.0,
+    "qs_router_beats_best": 3,
+    "qs_best_beats_router": 3
+  },
+  "video_cond_router": {
+    "correct": 42,
+    "vs_best_fixed": -9
+  },
+  "chosen_config_hist": {
+    "budget_sweep::vanilla tile=0.20 thumb=0.75": 42,
+    "predecoder::Thresh 0.01": 7,
+    "budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375": 2,
+    "vanilla_m1::gaze_t=0.2,th=0.75,mt=1": 33,
+    "raw_m1::gaze_t=1.0,th=1.0,mt=1": 18,
+    "predecoder::Thresh 0.005": 1,
+    "budget_sweep::scaled 0.3 tile=0.06 thumb=0.225": 1,
+    "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375": 11,
+    "subsel_probe::Intersect 25% random": 4,
+    "aware_filter::Intersect 50%": 1,
+    "predecoder::Thresh 0.05": 1,
+    "aware_filter::Intersect 10% (sanity)": 1
+  }
+}
