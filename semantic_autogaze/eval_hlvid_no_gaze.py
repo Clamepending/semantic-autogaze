@@ -42,14 +42,17 @@ def main(args):
     torch.manual_seed(42)
     os.makedirs(args.output_dir, exist_ok=True)
 
-    print("[setup] Loading NVILA-8B-HD-Video (4-bit NF4) with gazing_ratio=1.0 (AutoGaze bypassed)...")
+    gaze_desc = f"gazing_ratio_tile={args.gazing_ratio_tile}, gazing_ratio_thumbnail={args.gazing_ratio_thumbnail}"
+    bypass = (args.gazing_ratio_tile == 1.0 and args.gazing_ratio_thumbnail == 1.0)
+    print(f"[setup] Loading NVILA-8B-HD-Video (4-bit NF4) with {gaze_desc} "
+          f"(AutoGaze {'bypassed' if bypass else 'active'}), max_tiles={args.max_tiles}...")
     processor = AutoProcessor.from_pretrained(
         args.model_path,
         num_video_frames=args.num_frames,
         num_video_frames_thumbnail=args.num_frames_thumbnail,
         max_tiles_video=args.max_tiles,
-        gazing_ratio_tile=1.0,        # <-- keep all tile patches (no AutoGaze selection)
-        gazing_ratio_thumbnail=1.0,   # <-- keep all thumbnail patches (no AutoGaze selection)
+        gazing_ratio_tile=args.gazing_ratio_tile,
+        gazing_ratio_thumbnail=args.gazing_ratio_thumbnail,
         task_loss_requirement_tile=0.6,
         task_loss_requirement_thumbnail=0.6,
         max_batch_size_autogaze=8,
@@ -114,14 +117,19 @@ def main(args):
     print(f"  Reference: vanilla AutoGaze = 51/122 = 0.418 (NVILA deterministic across 4+ runs)")
     print(f"  Raw NVILA (no AutoGaze):  acc={acc:.3f} ({correct}/{total})  avg_lat={avg_lat:.2f}s")
 
+    cfg_name = f"gaze_t={args.gazing_ratio_tile},th={args.gazing_ratio_thumbnail},mt={args.max_tiles}"
     result = {
-        "config": {"name": "no-gaze (gazing_ratio=1.0)", "gazing_ratio_tile": 1.0,
-                   "gazing_ratio_thumbnail": 1.0},
+        "config": {"name": cfg_name,
+                   "gazing_ratio_tile": args.gazing_ratio_tile,
+                   "gazing_ratio_thumbnail": args.gazing_ratio_thumbnail,
+                   "max_tiles": args.max_tiles,
+                   "num_frames": args.num_frames,
+                   "num_frames_thumbnail": args.num_frames_thumbnail},
         "accuracy": acc, "correct": correct, "total": total,
         "avg_latency_s": avg_lat,
     }
-    all_results = {"no-gaze (gazing_ratio=1.0)": result}
-    per_sample = [{"config": "no-gaze (gazing_ratio=1.0)", **r} for r in rows]
+    all_results = {cfg_name: result}
+    per_sample = [{"config": cfg_name, **r} for r in rows]
     with open(os.path.join(args.output_dir, "hlvid_subset.json"), "w") as f:
         json.dump({"summary": all_results, "per_sample": per_sample,
                    "n_samples": len(samples)}, f, indent=2)
@@ -135,6 +143,10 @@ if __name__ == "__main__":
     p.add_argument("--num_frames", type=int, default=32)
     p.add_argument("--num_frames_thumbnail", type=int, default=16)
     p.add_argument("--max_tiles", type=int, default=4)
+    p.add_argument("--gazing_ratio_tile", type=float, default=1.0,
+                   help="1.0 = bypass AutoGaze for tile patches; 0.20 = vanilla AutoGaze.")
+    p.add_argument("--gazing_ratio_thumbnail", type=float, default=1.0,
+                   help="1.0 = bypass AutoGaze for thumbnail patches; 0.75 = vanilla AutoGaze.")
     p.add_argument("--device", default="cuda:0")
     p.add_argument("--output_dir", default="results/nvila_no_gaze_baseline")
     p.add_argument("--query_mode", default="stem", choices=["stem", "np", "hybrid"])
