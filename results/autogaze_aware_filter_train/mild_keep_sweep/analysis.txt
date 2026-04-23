@@ -1,0 +1,58 @@
+
+=== MILD-KEEP FILTER SWEEP (n=122) ===
+
+  [Intersect 75%                 ] acc=0.270 (33/122)  95% CI [0.197, 0.352]
+  [Intersect 50%                 ] acc=0.270 (33/122)  95% CI [0.197, 0.352]
+  [Intersect 25%                 ] acc=0.246 (30/122)  95% CI [0.172, 0.328]
+  [Semantic 75%                  ] acc=0.270 (33/122)  95% CI [0.197, 0.352]
+  [Semantic 50%                  ] acc=0.270 (33/122)  95% CI [0.197, 0.352]
+  [Intersect 10% (sanity)        ] acc=0.238 (29/122)  95% CI [0.164, 0.320]
+
+=== AUTO-GAZE ONLY GAZE-BUDGET SWEEP (n=122) ===
+
+  [vanilla tile=0.20 thumb=0.75  ] acc=0.418 (51/122)  95% CI [0.328, 0.500]
+  [scaled 0.5 tile=0.10 thumb=0.375] acc=0.402 (49/122)  95% CI [0.320, 0.492]
+  [scaled 0.3 tile=0.06 thumb=0.225] acc=0.369 (45/122)  95% CI [0.279, 0.459]
+  [scaled 0.1 tile=0.02 thumb=0.075] acc=0.328 (40/122)  95% CI [0.246, 0.410]
+  [scaled 0.05 tile=0.01 thumb=0.0375] acc=0.287 (35/122)  95% CI [0.213, 0.377]
+
+=== SANITY CHECK: Intersect 10 % reproduces r/hlvid-household-expand? ===
+
+  [Intersect 10% (sanity)        ] acc=0.238 (29/122)  95% CI [0.164, 0.320]
+  (expected: 29/122 = 0.238 from r/hlvid-household-expand)
+
+=== CROSS-COMPARISON — MILD-KEEP FILTER vs MATCHED AUTOGAZE-ONLY BUDGET ===
+
+Paired flip: (positive net → filter beats matched AutoGaze-only budget;
+             negative → budget beats filter at matched count)
+
+  FILTER='Intersect 75%'   (acc=0.270)
+  BUDGET='vanilla tile=0.20 thumb=0.75'   (acc=0.418)
+     filter_only_correct=9  budget_only_correct=27  both_ok=24  both_wrong=62  (shared=122)
+     verdict: BUDGET BEATS MATCHED FILTER (-18) — filter choice dominated at this keep
+
+  FILTER='Intersect 50%'   (acc=0.270)
+  BUDGET='scaled 0.5 tile=0.10 thumb=0.375'   (acc=0.402)
+     filter_only_correct=9  budget_only_correct=25  both_ok=24  both_wrong=64  (shared=122)
+     verdict: BUDGET BEATS MATCHED FILTER (-16) — filter choice dominated at this keep
+
+  FILTER='Intersect 25%'   (acc=0.246)
+  BUDGET='scaled 0.3 tile=0.06 thumb=0.225'   (acc=0.369)
+     filter_only_correct=9  budget_only_correct=24  both_ok=21  both_wrong=68  (shared=122)
+     verdict: BUDGET BEATS MATCHED FILTER (-15) — filter choice dominated at this keep
+
+  FILTER='Semantic 75%'   (acc=0.270)
+  BUDGET='vanilla tile=0.20 thumb=0.75'   (acc=0.418)
+     filter_only_correct=9  budget_only_correct=27  both_ok=24  both_wrong=62  (shared=122)
+     verdict: BUDGET BEATS MATCHED FILTER (-18) — filter choice dominated at this keep
+
+  FILTER='Semantic 50%'   (acc=0.270)
+  BUDGET='scaled 0.5 tile=0.10 thumb=0.375'   (acc=0.402)
+     filter_only_correct=9  budget_only_correct=25  both_ok=24  both_wrong=64  (shared=122)
+     verdict: BUDGET BEATS MATCHED FILTER (-16) — filter choice dominated at this keep
+
+  FILTER='Intersect 10% (sanity)'   (acc=0.238)
+  BUDGET='scaled 0.1 tile=0.02 thumb=0.075'   (acc=0.328)
+     filter_only_correct=6  budget_only_correct=17  both_ok=23  both_wrong=76  (shared=122)
+     verdict: BUDGET BEATS MATCHED FILTER (-11) — filter choice dominated at this keep
+
