@@ -97,6 +97,7 @@ def _shrink_unit_batch(
     semantic_keep_ratio,
     score_threshold,
     score_log=None,
+    score_log_full=None,
 ):
     """Physically shrink K (the gazing-position dimension) for a batch of items
     that share the same per-frame budget.
@@ -132,6 +133,8 @@ def _shrink_unit_batch(
         query_emb_b = query_emb.expand(B, -1)
         scores = wrapper.semantic_filter.get_scores(hidden, query_emb_b)  # (B, T*N_full)
     score_dev = scores.device
+    if score_log_full is not None:
+        score_log_full.append(scores.detach().float().cpu().reshape(-1))
 
     # ---- Per-frame: figure out kept *original-grid* indices for each item ----
     frame_offsets = torch.zeros(T + 1, dtype=torch.long)
@@ -238,6 +241,7 @@ def patch_processor_with_semantic_filter(
         query_emb = get_clip_text_embedding(q, clip_model, clip_tokenizer, device)
 
         score_log = [] if log_score_dist else None
+        score_log_full = [] if log_score_dist else None
 
         # Cross-video per-frame max trackers (NVILA asserts num_gazing_each_frame
         # is identical across all videos for tiles and for thumbnails). We compute
@@ -262,6 +266,7 @@ def patch_processor_with_semantic_filter(
                 semantic_keep_ratio=semantic_keep_ratio,
                 score_threshold=score_threshold,
                 score_log=score_log,
+                score_log_full=score_log_full,
             )
             per_video_tile_results.append((new_pos_t, new_pad_t, new_kt_t))
 
@@ -286,6 +291,7 @@ def patch_processor_with_semantic_filter(
                     semantic_keep_ratio=semantic_keep_ratio,
                     score_threshold=score_threshold,
                     score_log=score_log,
+                    score_log_full=score_log_full,
                 )
                 per_video_thumb_results.append((new_pos_th, new_pad_th, new_kt_th))
             else:
@@ -328,9 +334,15 @@ def patch_processor_with_semantic_filter(
         if log_score_dist and score_log:
             allscores = torch.cat(score_log)
             qs = torch.quantile(allscores, torch.tensor([0.10, 0.50, 0.90, 0.99]))
-            print(f"  [score-dist] n={len(allscores)} "
+            print(f"  [score-dist gazed-subset] n={len(allscores)} "
                   f"p10={qs[0]:.3f} p50={qs[1]:.3f} p90={qs[2]:.3f} p99={qs[3]:.3f} "
                   f"max={allscores.max():.3f}")
+        if log_score_dist and score_log_full:
+            allfull = torch.cat(score_log_full)
+            qsf = torch.quantile(allfull, torch.tensor([0.10, 0.50, 0.90, 0.99]))
+            print(f"  [score-dist full-grid]    n={len(allfull)} "
+                  f"p10={qsf[0]:.3f} p50={qsf[1]:.3f} p90={qsf[2]:.3f} p99={qsf[3]:.3f} "
+                  f"max={allfull.max():.3f}")
 
         return gazing_info
 
