@@ -1,0 +1,6667 @@
+{
+  "summary": {
+    "Intersect 75%": {
+      "config": {
+        "name": "Intersect 75%",
+        "mode": "intersect",
+        "keep_ratio": 0.75,
+        "thr": null
+      },
+      "accuracy": 0.27049180327868855,
+      "correct": 33,
+      "total": 122,
+      "avg_latency_s": 18.243926482407765
+    },
+    "Intersect 50%": {
+      "config": {
+        "name": "Intersect 50%",
+        "mode": "intersect",
+        "keep_ratio": 0.5,
+        "thr": null
+      },
+      "accuracy": 0.27049180327868855,
+      "correct": 33,
+      "total": 122,
+      "avg_latency_s": 17.91577800797474
+    },
+    "Intersect 25%": {
+      "config": {
+        "name": "Intersect 25%",
+        "mode": "intersect",
+        "keep_ratio": 0.25,
+        "thr": null
+      },
+      "accuracy": 0.2459016393442623,
+      "correct": 30,
+      "total": 122,
+      "avg_latency_s": 17.744973947631376
+    },
+    "Semantic 75%": {
+      "config": {
+        "name": "Semantic 75%",
+        "mode": "semantic_only",
+        "keep_ratio": 0.75,
+        "thr": null
+      },
+      "accuracy": 0.27049180327868855,
+      "correct": 33,
+      "total": 122,
+      "avg_latency_s": 17.658928701352064
+    },
+    "Semantic 50%": {
+      "config": {
+        "name": "Semantic 50%",
+        "mode": "semantic_only",
+        "keep_ratio": 0.5,
+        "thr": null
+      },
+      "accuracy": 0.27049180327868855,
+      "correct": 33,
+      "total": 122,
+      "avg_latency_s": 17.25622669278766
+    },
+    "Intersect 10% (sanity)": {
+      "config": {
+        "name": "Intersect 10% (sanity)",
+        "mode": "intersect",
+        "keep_ratio": 0.1,
+        "thr": null
+      },
+      "accuracy": 0.23770491803278687,
+      "correct": 29,
+      "total": 122,
+      "avg_latency_s": 17.62539163648464
+    }
+  },
+  "per_sample": [
+    {
+      "config": "Intersect 75%",
+      "question_id": 8,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.63674730999628,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 9,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.126331462000962,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 10,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.292265964031685,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 11,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.701609648996964,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 12,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 17.386190650984645,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 13,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.423986809968483,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 14,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.466981127974577,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 15,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.36092705099145,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 16,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.381926636968274,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 17,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.994045544008259,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 18,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.02252790197963,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 19,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.826365447952412,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 20,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.496367660991382,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 21,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.553006115020253,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 22,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.019713793008123,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 23,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.489625799003989,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 24,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.937366459984332,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 25,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.471740938024595,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 26,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.338929368997924,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 27,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.943031220987905,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 28,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.162152797973249,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 29,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.228207596985158,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 30,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.028671502019279,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 31,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.803683381003793,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 32,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.507393125037197,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 33,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.51348974800203,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 34,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.87395745899994,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 35,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.76076692400966,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 36,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.043130817008205,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 37,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.115494452998973,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 38,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.293214786972385,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 39,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 15.9051670699846,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 40,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.214171389990952,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 41,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.31587353895884,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 42,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.448762103973422,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 43,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.508329258009326,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 44,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.21772127604345,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 45,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.57801075698808,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 46,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.171003633993678,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 47,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.014002298994455,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 48,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.789980724977795,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 49,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 17.14867778500775,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 50,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.304354100022465,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 51,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 17.075615689973347,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 52,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.49954865098698,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 53,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.07454699103255,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 54,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.545271639013663,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 55,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.81654912000522,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 56,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.723593682982028,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 57,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.694419011007994,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 58,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.511852374009322,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 59,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.856761275965255,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 60,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 19.469941548013594,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 61,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.51191216299776,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 62,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 19.16446854599053,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 63,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.87060633301735,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 64,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 19.019417413976043,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 65,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 19.128159887972288,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 66,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.138911097019445,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 67,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.516754701035097,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 68,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.499427389993798,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 69,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 18.564491099037696,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 70,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 18.910356662992854,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 71,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.733644103980623,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 72,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.44859294797061,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 73,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 19.902619533997495,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 74,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 20.373704097990412,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 75,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.164781357976608,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 76,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.29034574603429,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 77,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.237809791986365,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 78,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 19.293361335992813,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 113,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.244628785992973,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 114,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.267923599050846,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 115,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 20.686492159962654,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 116,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.87146335898433,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 117,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.549083181016613,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 118,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.855363180977292,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 119,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 20.50960756704444,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 120,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.070920669008046,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 121,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 20.856287567003164,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 122,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 21.189271825016476,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 123,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.3465963259805,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 124,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 20.699040548992343,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 125,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 22.120555753994267,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 151,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.539791132032406,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 152,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.824819837987889,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 153,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.830981362028979,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 154,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.00275917997351,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 155,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.32146178500261,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 156,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.778997050016187,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 157,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.371633842994925,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 158,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.206488816998899,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 159,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.47259059298085,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 160,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.953038043982815,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 177,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.73310179100372,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 178,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 22.71952779602725,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 191,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.797499540960416,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 192,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.690235603018664,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 197,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 22.573946555959992,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 245,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.25497806398198,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 246,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 21.534639549034182,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 247,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 22.17555079900194,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 248,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 23.216544619994238,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 249,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 23.057438438001554,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 250,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.804283260018565,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 251,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 18.049643171019852,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 252,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.522530853981152,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 253,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.54095179302385,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 254,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.494652141002007,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 255,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 17.804293208988383,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 256,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.11930584697984,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 257,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.51855333003914,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 258,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.37294229696272,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 259,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 17.47048811794957,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 260,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 17.324665607942734,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 261,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.538020041014533,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 262,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.427562436030712,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 263,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 23.8931478279992,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 264,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 24.666008563013747,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 265,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 25.65817041398259,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 266,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 25.157878429046832,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 75%",
+      "question_id": 267,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 25.219306957966182,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 8,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.409368395979982,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 9,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.565155853983015,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 10,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.433423268026672,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 11,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.666723255999386,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 12,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.961889058991801,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 13,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.721863010025118,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 14,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.465179487946443,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 15,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.651353197987191,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 16,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.385961842024699,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 17,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.88281502603786,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 18,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.424297687015496,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 19,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.581236305995844,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 20,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.808004504011478,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 21,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.739969746035058,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 22,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.903401950025,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 23,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.08492918399861,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 24,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.010236561007332,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 25,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.73568930698093,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 26,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.503195574972779,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 27,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.311904617003165,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 28,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.658215403032955,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 29,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.293995132029522,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 30,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.39669722301187,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 31,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.026455466984771,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 32,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.271105194988195,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 33,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.255199572013225,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 34,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.40449444000842,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 35,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.548381226952188,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 36,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.558424457034562,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 37,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.166767276998144,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 38,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 17.58740012301132,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 39,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 15.737751103006303,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 40,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.18923276598798,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 41,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 15.701675777963828,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 42,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.811570668010972,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 43,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.18305692001013,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 44,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.479405178979505,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 45,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.45417899498716,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 46,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.559614992002025,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 47,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.438510826032143,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 48,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.332098382990807,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 49,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.633344011963345,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 50,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.680174824025016,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 51,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 17.855503619997762,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 52,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.520400601031724,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 53,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.11875699099619,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 54,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.56984322099015,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 55,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 18.369088489038404,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 56,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.420009416993707,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 57,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.185498537961394,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 58,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.348613670037594,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 59,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.523497882008087,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 60,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.800853641005233,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 61,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.924524260975886,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 62,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.298979114973918,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 63,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.67437817301834,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 64,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.93236389895901,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 65,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 18.3016673620441,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 66,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 19.28954668599181,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 67,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 19.49238896497991,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 68,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.664883785007987,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 69,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 19.18858601001557,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 70,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 19.50936934101628,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 71,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.704069088969845,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 72,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.7076370799914,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 73,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 19.178705174999777,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 74,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.65368424798362,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 75,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.301975868991576,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 76,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.508143739018124,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 77,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 19.634940764983185,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 78,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.438966529036406,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 113,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.909467172983568,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 114,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.41084630897967,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 115,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 20.40534961502999,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 116,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.67338649899466,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 117,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.303125235950574,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 118,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.706640240969136,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 119,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 20.019832177029457,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 120,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.49895264499355,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 121,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 20.5094836440403,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 122,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 20.134007240994833,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 123,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.20589993504109,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 124,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 20.275200472970027,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 125,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.310614092973992,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 151,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.383055404003244,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 152,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.571529752982315,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 153,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.040955406031571,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 154,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.004069709975738,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 155,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.623702034994494,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 156,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.035017389978748,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 157,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.205215581983794,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 158,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.06339724297868,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 159,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.45103186997585,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 160,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.945266744995024,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 177,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.794382308027707,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 178,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 23.360132691974286,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 191,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 23.69512139604194,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 192,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 22.45399491704302,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 197,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 22.60973206203198,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 245,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 22.485402731981594,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 246,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 23.546082153974567,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 247,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 22.120688526018057,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 248,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 23.908147335983813,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 249,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 23.244372784974985,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 250,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 22.767702613957226,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 251,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.835029156995006,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 252,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.267243604001123,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 253,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.025567219010554,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 254,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 17.044170540990308,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 255,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 18.7666048030369,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 256,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.788169867999386,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 257,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.959225339000113,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 258,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.393458615988493,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 259,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 17.374495872994885,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 260,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 17.341559874999803,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 261,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.046976607001852,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 262,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 18.181615527020767,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 263,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 25.205209913954604,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 264,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.422480856010225,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 265,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.552585010998882,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 266,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.882337492948864,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 50%",
+      "question_id": 267,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 25.235156772017945,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 8,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.400253198982682,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 9,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.45311458100332,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 10,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.502304661029484,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 11,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.606917058990803,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 12,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.60722355300095,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 13,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.11596276803175,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 14,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.601972365984693,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 15,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.282834387966432,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 16,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.897536351985764,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 17,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.292613676982,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 18,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.635702452040277,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 19,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.46555362502113,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 20,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.97502292698482,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 21,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.263305820990354,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 22,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.01907179702539,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 23,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.829442312999163,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 24,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.506304165988695,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 25,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.804407346993685,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 26,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.99594109802274,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 27,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.823637584981043,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 28,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.954236110963393,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 29,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.501410998986103,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 30,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.797580448968802,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 31,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.93051994300913,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 32,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.257301684003323,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 33,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.735206948011182,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 34,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.150907011993695,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 35,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.689514095021877,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 36,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.504441963974386,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 37,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.394477452035062,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 38,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.963408359966706,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 39,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.81267656997079,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 40,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.201386795961298,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 41,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.296370111987926,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 42,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.16371989500476,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 43,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.810719372006133,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 44,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.970329928037245,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 45,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.30182519298978,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 46,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.371268551039975,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 47,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.995695187011734,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 48,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.634405343036633,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 49,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.490721829992253,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 50,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.290024895977695,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 51,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 17.47753607702907,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 52,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.714981681026984,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 53,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.893428726994898,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 54,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.352649346983526,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 55,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.0096324129845,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 56,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.14893631899031,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 57,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.188830328988843,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 58,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.145814709016122,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 59,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.511969739978667,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 60,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 20.93841321900254,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 61,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.57687057700241,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 62,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.547613578033634,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 63,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.51822164503392,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 64,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.277500450029038,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 65,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 17.788728824991267,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 66,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.10597112303367,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 67,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 19.63161272299476,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 68,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.759126087999903,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 69,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 18.86221917596413,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 70,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 18.966269909986295,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 71,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.696685186994728,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 72,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 20.17582568799844,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 73,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 19.64862114202697,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 74,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.213085477997083,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 75,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.693673614994623,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 76,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.93821068300167,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 77,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.635842685005628,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 78,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 21.00948214001255,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 113,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 22.112633985001594,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 114,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.41430687502725,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 115,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 21.001558339048643,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 116,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.39495818101568,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 117,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.56331046798732,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 118,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.467681873007677,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 119,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 21.58012969198171,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 120,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.84209719899809,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 121,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 22.752799308975227,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 122,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 21.16249258600874,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 123,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.370361278008204,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 124,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 20.72849833202781,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 125,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.853488113963977,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 151,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.28754717396805,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 152,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.13293620699551,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 153,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.923362192988861,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 154,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.465781906037591,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 155,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.426887552952394,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 156,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.435045519960113,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 157,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.795591272995807,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 158,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.448649245023262,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 159,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.712241614994127,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 160,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.91197758394992,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 177,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.478930923971348,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 178,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 22.08830957696773,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 191,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 23.070154688030016,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 192,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 22.280044422019273,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 197,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 22.255434839986265,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 245,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 22.157116809044965,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 246,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 23.452743375033606,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 247,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.806647933030035,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 248,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 21.93629163701553,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 249,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 22.02415369299706,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 250,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.982000804971904,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 251,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.24344473797828,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 252,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.453131732996553,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 253,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.354948708962183,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 254,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.208210410026368,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 255,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.280140656977892,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 256,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.822098954988178,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 257,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.394927558954805,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 258,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.501583671022672,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 259,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.960354594048113,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 260,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.63067524699727,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 261,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 18.771473324974068,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 262,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.20783464598935,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 263,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 24.375064129009843,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 264,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.092886970029213,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 265,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.626498218043707,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 266,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 26.098372617037967,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 25%",
+      "question_id": 267,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 24.82398652995471,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 8,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.869923373975325,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 9,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.907193530001678,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 10,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.000503529037815,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 11,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.196227159991395,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 12,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.145656634995248,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 13,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.420705655997153,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 14,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.821211421047337,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 15,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.249725132947788,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 16,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.383273757994175,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 17,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.897483540989924,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 18,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.647022916004062,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 19,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.018758875026833,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 20,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.094243870000355,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 21,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.128148868971039,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 22,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.195066782005597,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 23,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.781621963018551,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 24,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.396403900987934,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 25,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.208465959993191,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 26,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.29649486899143,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 27,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.44984638603637,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 28,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.2875368000241,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 29,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.694193525996525,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 30,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.654415622993838,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 31,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.677445242996328,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 32,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.440527505008504,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 33,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.713002188014798,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 34,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.006744229001924,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 35,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.916199524013791,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 36,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.277054715028498,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 37,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.914421973982826,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 38,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.264269886014517,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 39,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 15.773882860026788,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 40,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.059541873983108,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 41,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 15.636962555989157,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 42,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.73212366498774,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 43,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.686938326980453,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 44,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.767690793029033,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 45,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.78705489099957,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 46,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.882750225951895,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 47,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.117708734993357,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 48,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.291325327998493,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 49,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.305883907014504,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 50,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.359190234041307,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 51,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.24390028300695,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 52,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.556598271010444,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 53,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.157666242972482,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 54,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.598108374979347,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 55,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.9316900690319,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 56,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.946750647970475,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 57,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.21840825403342,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 58,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.109574643953238,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 59,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.11458216700703,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 60,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.991718032979406,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 61,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.228965399961453,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 62,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 19.152268129982986,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 63,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.37578401900828,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 64,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.382132240047213,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 65,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 17.728438067017123,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 66,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 19.191794882994145,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 67,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.868642375979107,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 68,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.181012460030615,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 69,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 19.65584373800084,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 70,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 19.356880663021002,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 71,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.905655919981655,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 72,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.01033598202048,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 73,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 19.563485125021543,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 74,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.665899504965637,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 75,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.09976633801125,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 76,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.944978718995117,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 77,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.913050164992455,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 78,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 20.195892179966904,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 113,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.811841182003263,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 114,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.039453890000004,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 115,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 21.25250696699368,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 116,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.973124288022518,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 117,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.259393582004122,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 118,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.208067022031173,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 119,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 21.020015949965455,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 120,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 22.14354032999836,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 121,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 20.490017351985443,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 122,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 21.011007152032107,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 123,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.756756165006664,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 124,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 21.752341831976082,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 125,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.928151787957177,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 151,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.605163255997468,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 152,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.049099491967354,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 153,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.60308177699335,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 154,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.20461197604891,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 155,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.511425543983933,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 156,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.321469114976935,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 157,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.871704634977505,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 158,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.457503647019621,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 159,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.560925832018256,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 160,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.79517133597983,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 177,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.681618190952577,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 178,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 22.389435757009778,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 191,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.464647406945005,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 192,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 22.963348219986074,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 197,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 23.493331842008047,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 245,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 23.169075693003833,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 246,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 22.5609717630432,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 247,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.56646111002192,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 248,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 23.382225609966554,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 249,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 24.561424497980624,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 250,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.47432800102979,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 251,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.45617931400193,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 252,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.378671924991067,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 253,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.24118373199599,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 254,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.18136357300682,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 255,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 17.202683812007308,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 256,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.898436175950337,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 257,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.04356215399457,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 258,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.141575820045546,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 259,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.61818570899777,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 260,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.81038267404074,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 261,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.942867980978917,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 262,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.013859574042726,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 263,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 24.486521830025595,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 264,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 23.63181094097672,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 265,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 26.306812831026036,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 266,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.461468460969627,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 75%",
+      "question_id": 267,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 24.595827221986838,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 8,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.490110974002164,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 9,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.538817431952339,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 10,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.712242113018874,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 11,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.797291216964368,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 12,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.860519722977187,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 13,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.054363887989894,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 14,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.347792998014484,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 15,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.022633638989646,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 16,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.590557168005034,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 17,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.101581919007003,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 18,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.31997924199095,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 19,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.19524069398176,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 20,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.08251568704145,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 21,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.25820623000618,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 22,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.598993960011285,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 23,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.456823643005919,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 24,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.164859838027041,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 25,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.079038628959097,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 26,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.550623249961063,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 27,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.360180048039183,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 28,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.166038056020625,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 29,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.538283431029413,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 30,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.24497302097734,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 31,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.565893409017008,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 32,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.08312984299846,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 33,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.94391379604349,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 34,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.708183510985691,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 35,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.752513860003091,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 36,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.135389964969363,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 37,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.073303862998728,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 38,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.280417786038015,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 39,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.14821089297766,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 40,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.414620785973966,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 41,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 15.739246352983173,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 42,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.875516542000696,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 43,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.59352704900084,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 44,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.330958689039107,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 45,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.470837758970447,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 46,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.03820174903376,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 47,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.071436863974668,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 48,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.006597237021197,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 49,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.643058937974274,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 50,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.23922568699345,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 51,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 17.1878545859945,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 52,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.871946364000905,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 53,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.126490941969678,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 54,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.9366246110294,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 55,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.29096983902855,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 56,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.9267728329869,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 57,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.597286299976986,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 58,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.76874626497738,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 59,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.071867696009576,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 60,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.39461364800809,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 61,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.94201547896955,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 62,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.261745396011975,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 63,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.576752360968385,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 64,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.52506816398818,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 65,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 18.546964662964456,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 66,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 19.206797191000078,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 67,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.97357855498558,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 68,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.487203810014762,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 69,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 18.676101843011566,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 70,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 18.187490024021827,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 71,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.80083919398021,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 72,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.830582195951138,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 73,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 18.583793952013366,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 74,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.307395785988774,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 75,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.10260818101233,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 76,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.16043054603506,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 77,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 19.784277587023098,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 78,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.417317204992287,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 113,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.30397810699651,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 114,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.247229911969043,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 115,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 20.876566468039528,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 116,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.744606135995127,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 117,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.552041540970095,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 118,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.07319570297841,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 119,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 19.80118547595339,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 120,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.82478381000692,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 121,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 20.426416964037344,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 122,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 19.043091166007798,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 123,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.06274239398772,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 124,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.4806669120444,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 125,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.555235702020582,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 151,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.961614894040395,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 152,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.1405998429982,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 153,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.325456297025084,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 154,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.218601808010135,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 155,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.3861968810088,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 156,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.915497569018044,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 157,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.514910224999767,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 158,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.842921440023929,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 159,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.99828163802158,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 160,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.112888737989124,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 177,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.037097996042576,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 178,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 21.73895602399716,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 191,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.740161817986518,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 192,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.827417212014552,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 197,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.613704713992774,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 245,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.330410289985593,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 246,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 21.032421841984615,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 247,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.13332335301675,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 248,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 20.819592725019902,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 249,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 21.499834119982552,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 250,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.73029014299391,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 251,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.980292050982825,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 252,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.077861319994554,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 253,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.587237505998928,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 254,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 15.957504253019579,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 255,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.28515473700827,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 256,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.528461633017287,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 257,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.26857089297846,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 258,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.837425314995926,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 259,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 15.631371121038683,
+      "response": "B."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 260,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.461112529970706,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 261,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 18.858319218968973,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 262,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.879762796044815,
+      "response": "A."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 263,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 22.77747149899369,
+      "response": "D."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 264,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 23.536975875031203,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 265,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.203299815009814,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 266,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 27.597935424011666,
+      "response": "C."
+    },
+    {
+      "config": "Semantic 50%",
+      "question_id": 267,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 24.688994075986557,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 8,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.547904753009789,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 9,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.235764773038682,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 10,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.209849744976964,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 11,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.47199507401092,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 12,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.415585801994894,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 13,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.556510389025789,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 14,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.803278731997125,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 15,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.235965161002241,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 16,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.83887376502389,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 17,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.470085095032118,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 18,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.176840825995896,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 19,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.326598840998486,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 20,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.23944662505528,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 21,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.759330471977592,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 22,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.256740823038854,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 23,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.15910561295459,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 24,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.451835006999318,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 25,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.161015669000335,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 26,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.417431194044184,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 27,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.55491898197215,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 28,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.691372200963087,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 29,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.392271718010306,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 30,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.865304728969932,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 31,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.999935981002636,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 32,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.813055032980628,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 33,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.730153559008613,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 34,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.082885664014611,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 35,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.724703947023954,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 36,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.413796473003458,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 37,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.298320911999326,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 38,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.492946757003665,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 39,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 15.33953900000779,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 40,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.134486787952483,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 41,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.45060023100814,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 42,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.615721903042868,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 43,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.771295276994351,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 44,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.705318859021645,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 45,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.030957208015025,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 46,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.788880615960807,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 47,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.07198992598569,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 48,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.44187903299462,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 49,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.870010184997227,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 50,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.290981747966725,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 51,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.650764527963474,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 52,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.59712627204135,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 53,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.395058963971678,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 54,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.42754258500645,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 55,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.49868428404443,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 56,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.772773851000238,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 57,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.697067446017172,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 58,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.799655259994324,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 59,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.150147465988994,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 60,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.3147655929788,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 61,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.995830298983492,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 62,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.674738153989892,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 63,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.581643250014167,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 64,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.208191306039225,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 65,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 17.45202635898022,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 66,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.33153282199055,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 67,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.89461948699318,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 68,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.334272190986667,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 69,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 19.345809290010948,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 70,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 18.01218619896099,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 71,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.979488904995378,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 72,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.932934332988225,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 73,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 18.239738603995647,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 74,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.85555540700443,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 75,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.894060587044805,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 76,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.936381548992358,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 77,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.788641994004138,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 78,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 19.58844300400233,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 113,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.221997380955145,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 114,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.518797158962116,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 115,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 20.69663193897577,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 116,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.722311637015082,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 117,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.78370648197597,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 118,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.270302607037593,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 119,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 21.0983673070441,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 120,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.02580557798501,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 121,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 20.65806661400711,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 122,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 22.218458884977736,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 123,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.79164779401617,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 124,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 20.801108440966345,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 125,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.905813306977507,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 151,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.10683726001298,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 152,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.333605125022586,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 153,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.963113735022489,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 154,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.785341623006389,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 155,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.617036623996682,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 156,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.859181131992955,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 157,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.582373559009284,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 158,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.717249720997643,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 159,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.614034525002353,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 160,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.093165080994368,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 177,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 23.29412960796617,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 178,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 23.54459816799499,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 191,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.569991905998904,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 192,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.807369535032194,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 197,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 23.98176626500208,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 245,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 23.072137687006034,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 246,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 24.417342297034338,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 247,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.10688045399729,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 248,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 22.905011210998055,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 249,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 25.301871101022698,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 250,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.675070316996425,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 251,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.6697731220047,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 252,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.480959364038426,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 253,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.97524716699263,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 254,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 15.932270944991615,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 255,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.683456965954974,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 256,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.84010363498237,
+      "response": "A."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 257,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.68876668898156,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 258,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.199548781034537,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 259,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 18.353514802001882,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 260,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 17.454832040995825,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 261,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.860312008997425,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 262,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.789367603021674,
+      "response": "B."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 263,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 26.717490701004863,
+      "response": "D."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 264,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.922678801056463,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 265,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 26.69947302399669,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 266,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 24.7346414179774,
+      "response": "C."
+    },
+    {
+      "config": "Intersect 10% (sanity)",
+      "question_id": 267,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 27.57905544003006,
+      "response": "A."
+    }
+  ],
+  "n_samples": 122
+}
