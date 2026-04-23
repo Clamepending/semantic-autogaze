@@ -26,7 +26,7 @@ PARQUET_PATH = "/home/ogata/.cache/huggingface/hub/datasets--bfshi--HLVid/snapsh
 VIDEO_DIR = Path("/home/ogata/semantic-autogaze/hlvid_videos/extracted_household/videos")
 AUDIT_PATH = Path("/home/ogata/semantic-autogaze/results/label_noise_audit/audit.json")
 OUT_DIR = Path("/home/ogata/semantic-autogaze/results/label_noise_audit/fullres_probe")
-N_FRAMES = 20
+N_FRAMES = 8
 
 PROBE_QIDS = ["8", "153", "257", "258"]
 

@@ -1,0 +1,273 @@
+{
+  "8": {
+    "gt": "C",
+    "top": "B",
+    "verdicts": [
+      "UNKNOWN_UNCLEAR",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT"
+    ],
+    "counts": {
+      "UNKNOWN_UNCLEAR": 1,
+      "UNKNOWN_ABSENT": 7
+    },
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.0625,
+        "first": "UNKNOWN_UNCLEAR",
+        "raw": "UNKNOWN_UNCLEAR: I can see a red/maroon pack on top of the shelf with white text, but it does not appear green, and the text is not legible at this resolution."
+      },
+      {
+        "frame": 1,
+        "frac": 0.1875,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: The only pack visible on top of the shelf has a red background (\"RASPBERRY LEAF\"), not green \u2014 no green-background pack is in this frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.3125,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No shelf with a green-backgrounded pack is visible in this kitchen/living room frame."
+      },
+      {
+        "frame": 3,
+        "frac": 0.4375,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No pack with green background and white text is visible on any shelf in this frame."
+      },
+      {
+        "frame": 4,
+        "frac": 0.5625,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: The pack on top of the shelf appears red/pink with white text, not green; no green-background pack is visible in this frame."
+      },
+      {
+        "frame": 5,
+        "frac": 0.6875,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows bowls of noodles on a counter with a person stirring \u2014 no shelf or pack with green/white text is visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.8125,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a man on a street corner with trees and traffic; there is no shelf or pack visible."
+      },
+      {
+        "frame": 7,
+        "frac": 0.9375,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: The frame shows an outdoor street scene with a person, no shelf or pack is visible."
+      }
+    ]
+  },
+  "153": {
+    "gt": "C",
+    "top": "A",
+    "verdicts": [
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT"
+    ],
+    "counts": {
+      "UNKNOWN_ABSENT": 8
+    },
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.0625,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a \"Wabi Sabi\" interior design mood board with vases, a bedroom, and plants \u2014 no bathroom mirror is visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.1875,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No bathroom mirror is visible in this frame; it shows a dining table with a vase, teapot, and cups."
+      },
+      {
+        "frame": 2,
+        "frac": 0.3125,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a dining/living area with a stone counter and lamp; no bathroom mirror is visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.4375,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a living room with a coffee table, not a bathroom mirror."
+      },
+      {
+        "frame": 4,
+        "frac": 0.5625,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a dining/kitchen area with a vase of red leaves and no bathroom mirror visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.6875,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a living room with a tree and furniture; no bathroom or mirror is visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.8125,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a kitchen/living area with pendant lights, not a bathroom mirror."
+      },
+      {
+        "frame": 7,
+        "frac": 0.9375,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a living room with a window and vase, not a bathroom mirror."
+      }
+    ]
+  },
+  "257": {
+    "gt": "B",
+    "top": "C",
+    "verdicts": [
+      "UNKNOWN_UNCLEAR",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT"
+    ],
+    "counts": {
+      "UNKNOWN_UNCLEAR": 1,
+      "UNKNOWN_ABSENT": 7
+    },
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.0625,
+        "first": "UNKNOWN_UNCLEAR",
+        "raw": "UNKNOWN_UNCLEAR: An outlet-like fixture is visible on the left wall but at this resolution the hole shapes cannot be discerned."
+      },
+      {
+        "frame": 1,
+        "frac": 0.1875,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No electrical outlet is visible in this frame; it shows a dining room with a table and chairs."
+      },
+      {
+        "frame": 2,
+        "frac": 0.3125,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No electrical outlet is visible in this kitchen frame; only pendant lamps, cabinets, backsplash, and a faucet are shown."
+      },
+      {
+        "frame": 3,
+        "frac": 0.4375,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No electrical outlet is visible in this frame."
+      },
+      {
+        "frame": 4,
+        "frac": 0.5625,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No electrical outlet is visible in this living room frame."
+      },
+      {
+        "frame": 5,
+        "frac": 0.6875,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No electrical outlet is visible in this frame \u2014 only a pendant lamp, textured wall, and decorative vases."
+      },
+      {
+        "frame": 6,
+        "frac": 0.8125,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a bathroom with a round mirror and faucets, no electrical outlet is visible."
+      },
+      {
+        "frame": 7,
+        "frac": 0.9375,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No electrical outlet is visible in this bedroom scene."
+      }
+    ]
+  },
+  "258": {
+    "gt": "C",
+    "top": "B",
+    "verdicts": [
+      "UNKNOWN_UNCLEAR",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT",
+      "UNKNOWN_ABSENT"
+    ],
+    "counts": {
+      "UNKNOWN_UNCLEAR": 1,
+      "UNKNOWN_ABSENT": 7
+    },
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.0625,
+        "first": "UNKNOWN_UNCLEAR",
+        "raw": "UNKNOWN_UNCLEAR: A sink area is visible on the right with some dark bottles, but the image resolution is too low to discern the color of a soap bottle."
+      },
+      {
+        "frame": 1,
+        "frac": 0.1875,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a dining room with a table and chairs \u2014 no sink or soap bottle is visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.3125,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No soap bottle is visible by the sink in this frame; only a faucet and countertop area are shown."
+      },
+      {
+        "frame": 3,
+        "frac": 0.4375,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No soap bottle is visible by the sink in this frame."
+      },
+      {
+        "frame": 4,
+        "frac": 0.5625,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a living room with a couch, coffee table, and TV \u2014 there is no sink or soap bottle visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.6875,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This frame shows a textured stone wall with a hanging pendant lamp and decorative vases \u2014 no sink or soap bottle is visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.8125,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: No soap bottle is visible by the sink in this frame."
+      },
+      {
+        "frame": 7,
+        "frac": 0.9375,
+        "first": "UNKNOWN_ABSENT",
+        "raw": "UNKNOWN_ABSENT: This is a bedroom scene with no sink or soap bottle visible."
+      }
+    ]
+  }
+}
