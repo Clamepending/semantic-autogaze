@@ -111,13 +111,29 @@ def main() -> None:
         for q in df["question"].tolist()
     ], dtype=np.float32)
 
-    # --- CLIP-L text embeddings ---
+    # --- CLIP-L text embeddings: stem + concatenated choices ---
     print(f"[clip] encoding {len(stems)} stems with {CLIP_MODEL}...")
-    X_clip = clip_encode(stems)  # shape (122, 768)
-    print(f"[clip] done, shape {X_clip.shape}, norm-mean={np.linalg.norm(X_clip, axis=1).mean():.2f}")
+    X_clip_stem = clip_encode(stems)  # shape (122, 768)
 
-    # L2-normalize CLIP embeddings so LR sees unit vectors (matches CLIP contrastive).
-    X_clip = X_clip / (np.linalg.norm(X_clip, axis=1, keepdims=True) + 1e-8)
+    choice_texts = [" | ".join(parse_choices(q)) for q in df["question"].tolist()]
+    print(f"[clip] encoding {len(choice_texts)} choice-concats...")
+    X_clip_choices = clip_encode(choice_texts)  # shape (122, 768)
+
+    # Full-question text (stem + choices) for a single combined embedding.
+    full_texts = [f"{s}  {c}" for s, c in zip(stems, choice_texts)]
+    print(f"[clip] encoding {len(full_texts)} full stems+choices...")
+    X_clip_full = clip_encode(full_texts)  # shape (122, 768)
+
+    print(f"[clip] done. stem_norm={np.linalg.norm(X_clip_stem, axis=1).mean():.2f} "
+          f"full_norm={np.linalg.norm(X_clip_full, axis=1).mean():.2f}")
+
+    # L2-normalize each.
+    X_clip_stem = X_clip_stem / (np.linalg.norm(X_clip_stem, axis=1, keepdims=True) + 1e-8)
+    X_clip_choices = X_clip_choices / (np.linalg.norm(X_clip_choices, axis=1, keepdims=True) + 1e-8)
+    X_clip_full = X_clip_full / (np.linalg.norm(X_clip_full, axis=1, keepdims=True) + 1e-8)
+
+    # Keep the combined feature set as the default router (stem + choices + full).
+    X_clip = np.hstack([X_clip_stem, X_clip_choices, X_clip_full])  # (122, 2304)
 
     X = np.hstack([X_video, q_len, choice_lens, X_clip])
     print(f"[features] X shape: {X.shape} "
@@ -196,7 +212,7 @@ def main() -> None:
     w("rich_features_router :: CLIP-L text + video + lengths -> LOO per-config LR")
     w("=" * 72)
     w(f"matrix: {N} questions × {len(configs)} configs")
-    w(f"features: video-onehot ({X_video.shape[1]}) + qlen (1) + choice-len (2) + CLIP-L ({X_clip.shape[1]}) = {X.shape[1]} dims")
+    w(f"features: video-onehot ({X_video.shape[1]}) + qlen (1) + choice-len (2) + CLIP-L stem+choices+full ({X_clip.shape[1]}) = {X.shape[1]} dims")
     w(f"CLIP model: {CLIP_MODEL}")
     w("")
     w("-- Baselines --")

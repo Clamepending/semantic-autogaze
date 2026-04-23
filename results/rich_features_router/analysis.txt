@@ -2,7 +2,7 @@
 rich_features_router :: CLIP-L text + video + lengths -> LOO per-config LR
 ========================================================================
 matrix: 122 questions × 36 configs
-features: video-onehot (21) + qlen (1) + choice-len (2) + CLIP-L (768) = 792 dims
+features: video-onehot (21) + qlen (1) + choice-len (2) + CLIP-L stem+choices+full (2304) = 2328 dims
 CLIP model: openai/clip-vit-large-patch14
 
 -- Baselines --
@@ -14,27 +14,28 @@ CLIP model: openai/clip-vit-large-patch14
   individual-vs-oracle gap : 26
 
 -- Rich-features LOO router --
-  router correct           : 51 / 122
-  vs best fixed            : +0
-  vs oracle (% gap closed) : 0.00%
-  vs cheap-router          : +4
+  router correct           : 47 / 122
+  vs best fixed            : -4
+  vs oracle (% gap closed) : -15.38%
+  vs cheap-router          : +0
   qs router>best-fixed     : +3
-  qs best-fixed>router     : -3
-  net                      : +0
+  qs best-fixed>router     : -7
+  net                      : -4
 
 -- Video-conditional router (reproduction of cheap variant) --
   router correct           : 42 / 122
 
 -- Router chosen-config histogram --
-   42  budget_sweep::vanilla tile=0.20 thumb=0.75
-   33  vanilla_m1::gaze_t=0.2,th=0.75,mt=1
-   18  raw_m1::gaze_t=1.0,th=1.0,mt=1
-   11  budget_sweep::scaled 0.5 tile=0.10 thumb=0.375
-    7  predecoder::Thresh 0.01
-    4  subsel_probe::Intersect 25% random
+   43  budget_sweep::vanilla tile=0.20 thumb=0.75
+   28  vanilla_m1::gaze_t=0.2,th=0.75,mt=1
+   17  budget_sweep::scaled 0.5 tile=0.10 thumb=0.375
+   13  raw_m1::gaze_t=1.0,th=1.0,mt=1
+   10  predecoder::Thresh 0.01
     2  budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375
-    1  predecoder::Thresh 0.005
+    2  predecoder::Thresh 0.005
+    2  subsel_probe::Intersect 25% random
     1  budget_sweep::scaled 0.3 tile=0.06 thumb=0.225
+    1  hh_expand::Thresh 0.05
     1  aware_filter::Intersect 50%
     1  predecoder::Thresh 0.05
     1  aware_filter::Intersect 10% (sanity)
