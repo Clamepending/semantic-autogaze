@@ -1,0 +1,76 @@
+======================================================================
+RANDOM CURVE on HLVid household n=122
+======================================================================
+  [vanilla (100 %) AutoGaze-only ] acc=0.418 (51/122)  95% CI [0.328, 0.500]
+  [Intersect 90 % random         ] acc=0.295 (36/122)  95% CI [0.213, 0.377]
+  [Intersect 75 % random         ] acc=0.279 (34/122)  95% CI [0.197, 0.361]
+  [Intersect 50 % random         ] acc=0.279 (34/122)  95% CI [0.205, 0.361]
+  [Intersect 25 % random         ] acc=0.270 (33/122)  95% CI [0.197, 0.352]
+  [Intersect 10 % random         ] acc=0.262 (32/122)  95% CI [0.189, 0.344]
+
+======================================================================
+CLIP BIGHEAD (r/autogaze-aware-filter-train) for matched keep
+======================================================================
+  [Intersect 75 % CLIP           ] acc=0.270 (33/122)  95% CI [0.197, 0.352]
+  [Intersect 50 % CLIP           ] acc=0.270 (33/122)  95% CI [0.197, 0.352]
+  [Intersect 25 % CLIP           ] acc=0.246 (30/122)  95% CI [0.172, 0.328]
+  [Intersect 10 % CLIP (sanity)  ] acc=0.238 (29/122)  95% CI [0.164, 0.320]
+
+======================================================================
+AUTOGAZE-ONLY BUDGET (r/filter-token-count-ablation) for matched count
+======================================================================
+  [scale 1.0 (vanilla)           ] acc=0.418 (51/122)  95% CI [0.328, 0.500]
+  [scale 0.5                     ] acc=0.402 (49/122)  95% CI [0.320, 0.492]
+  [scale 0.1                     ] acc=0.328 (40/122)  95% CI [0.246, 0.410]
+
+======================================================================
+DECISIVE PAIRED-FLIP COMPARISONS
+======================================================================
+
+[Intersect 90 % random  vs  vanilla AutoGaze]
+  A = 'Intersect 90% random'   36/122
+  B = 'vanilla'   51/122
+     A_only=8  B_only=23  both_ok=28  both_wrong=63  shared=122
+     verdict: B BEATS A (-15)
+
+[Intersect 90 % random  vs  Intersect 75 % random]
+  A = 'Intersect 90% random'   36/122
+  B = 'Intersect 75% random'   34/122
+     A_only=5  B_only=3  both_ok=31  both_wrong=83  shared=122
+     verdict: A BEATS B (+2)
+
+[Intersect 90 % random  vs  Intersect 50 % random]
+  A = 'Intersect 90% random'   36/122
+  B = 'Intersect 50% random'   34/122
+     A_only=6  B_only=4  both_ok=30  both_wrong=82  shared=122
+     verdict: A BEATS B (+2)
+
+[Intersect 25 % random  vs  Intersect 25 % CLIP]
+  A = 'Intersect 25% random'   33/122
+  B = 'Intersect 25% CLIP'   30/122
+     A_only=6  B_only=3  both_ok=27  both_wrong=86  shared=122
+     verdict: A BEATS B (+3)
+
+[Intersect 10 % random  vs  Intersect 10 % CLIP]
+  A = 'Intersect 10% random'   32/122
+  B = 'Intersect 10% CLIP'   29/122
+     A_only=5  B_only=2  both_ok=27  both_wrong=88  shared=122
+     verdict: A BEATS B (+3)
+
+[Intersect 10 % random  vs  Intersect 25 % random]
+  A = 'Intersect 10% random'   32/122
+  B = 'Intersect 25% random'   33/122
+     A_only=4  B_only=5  both_ok=28  both_wrong=85  shared=122
+     verdict: A ~= B (within 1-sample noise; net -1)
+
+[Intersect 25 % random  vs  Intersect 50 % random]
+  A = 'Intersect 25% random'   33/122
+  B = 'Intersect 50% random'   34/122
+     A_only=5  B_only=6  both_ok=28  both_wrong=83  shared=122
+     verdict: A ~= B (within 1-sample noise; net -1)
+
+[Intersect 10 % random  vs  AutoGaze scale 0.1 (matched ~10 % keep)]
+  A = 'Intersect 10% random'   32/122
+  B = 'AutoGaze scale 0.1'   40/122
+     A_only=10  B_only=18  both_ok=22  both_wrong=72  shared=122
+     verdict: B BEATS A (-8)
