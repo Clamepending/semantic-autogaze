@@ -1,0 +1,542 @@
+{
+  "n_qids": 122,
+  "n_configs": 36,
+  "best_fixed_cfg": "budget_sweep::vanilla tile=0.20 thumb=0.75",
+  "best_fixed_correct": 51,
+  "oracle_total": 77,
+  "config_acc": [
+    {
+      "cfg": "budget_sweep::vanilla tile=0.20 thumb=0.75",
+      "correct": 51,
+      "total": 122
+    },
+    {
+      "cfg": "hh_expand::AutoGaze only",
+      "correct": 51,
+      "total": 122
+    },
+    {
+      "cfg": "predecoder::AutoGaze only",
+      "correct": 51,
+      "total": 122
+    },
+    {
+      "cfg": "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375",
+      "correct": 49,
+      "total": 122
+    },
+    {
+      "cfg": "vanilla_m1::gaze_t=0.2,th=0.75,mt=1",
+      "correct": 49,
+      "total": 122
+    },
+    {
+      "cfg": "raw_m1::gaze_t=1.0,th=1.0,mt=1",
+      "correct": 47,
+      "total": 122
+    },
+    {
+      "cfg": "budget_sweep::scaled 0.3 tile=0.06 thumb=0.225",
+      "correct": 45,
+      "total": 122
+    },
+    {
+      "cfg": "predecoder::Thresh 0.005",
+      "correct": 43,
+      "total": 122
+    },
+    {
+      "cfg": "predecoder::Thresh 0.01",
+      "correct": 42,
+      "total": 122
+    },
+    {
+      "cfg": "budget_sweep::scaled 0.1 tile=0.02 thumb=0.075",
+      "correct": 40,
+      "total": 122
+    },
+    {
+      "cfg": "hh_expand::Thresh 0.005",
+      "correct": 38,
+      "total": 122
+    },
+    {
+      "cfg": "hh_expand::Thresh 0.01",
+      "correct": 36,
+      "total": 122
+    },
+    {
+      "cfg": "subsel_probe::Intersect 90% random",
+      "correct": 36,
+      "total": 122
+    },
+    {
+      "cfg": "budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375",
+      "correct": 35,
+      "total": 122
+    },
+    {
+      "cfg": "filter_vs_rand::Intersect 50% random",
+      "correct": 34,
+      "total": 122
+    },
+    {
+      "cfg": "filter_vs_rand::Intersect 75% random",
+      "correct": 34,
+      "total": 122
+    },
+    {
+      "cfg": "aware_filter::Intersect 50%",
+      "correct": 33,
+      "total": 122
+    },
+    {
+      "cfg": "aware_filter::Intersect 75%",
+      "correct": 33,
+      "total": 122
+    },
+    {
+      "cfg": "aware_filter::Semantic 50%",
+      "correct": 33,
+      "total": 122
+    },
+    {
+      "cfg": "aware_filter::Semantic 75%",
+      "correct": 33,
+      "total": 122
+    },
+    {
+      "cfg": "hh_expand::Thresh 0.05",
+      "correct": 33,
+      "total": 122
+    },
+    {
+      "cfg": "subsel_probe::Intersect 25% random",
+      "correct": 33,
+      "total": 122
+    },
+    {
+      "cfg": "hh_expand::Intersect 30%",
+      "correct": 32,
+      "total": 122
+    },
+    {
+      "cfg": "predecoder::Intersect 10%",
+      "correct": 32,
+      "total": 122
+    },
+    {
+      "cfg": "predecoder::Intersect 30%",
+      "correct": 32,
+      "total": 122
+    },
+    {
+      "cfg": "predecoder::Semantic 10%",
+      "correct": 32,
+      "total": 122
+    },
+    {
+      "cfg": "subsel_probe::Intersect 10% random",
+      "correct": 32,
+      "total": 122
+    },
+    {
+      "cfg": "predecoder::Semantic 2%",
+      "correct": 31,
+      "total": 122
+    },
+    {
+      "cfg": "predecoder::Thresh 0.05",
+      "correct": 31,
+      "total": 122
+    },
+    {
+      "cfg": "aware_filter::Intersect 25%",
+      "correct": 30,
+      "total": 122
+    },
+    {
+      "cfg": "hh_expand::Semantic 2%",
+      "correct": 30,
+      "total": 122
+    },
+    {
+      "cfg": "hh_expand::Thresh 0.02",
+      "correct": 30,
+      "total": 122
+    },
+    {
+      "cfg": "predecoder::Thresh 0.02",
+      "correct": 30,
+      "total": 122
+    },
+    {
+      "cfg": "aware_filter::Intersect 10% (sanity)",
+      "correct": 29,
+      "total": 122
+    },
+    {
+      "cfg": "hh_expand::Intersect 10%",
+      "correct": 29,
+      "total": 122
+    },
+    {
+      "cfg": "hh_expand::Semantic 10%",
+      "correct": 29,
+      "total": 122
+    }
+  ],
+  "ensembles": [
+    {
+      "name": "top3_by_acc",
+      "k": 3,
+      "correct": 51,
+      "total": 122,
+      "accuracy": 0.4180327868852459,
+      "vs_best_plus": 0,
+      "vs_best_minus": 0,
+      "vs_best_net": 0,
+      "vs_best_both": 51,
+      "configs": [
+        "budget_sweep::vanilla tile=0.20 thumb=0.75",
+        "hh_expand::AutoGaze only",
+        "predecoder::AutoGaze only"
+      ]
+    },
+    {
+      "name": "top5_by_acc",
+      "k": 5,
+      "correct": 51,
+      "total": 122,
+      "accuracy": 0.4180327868852459,
+      "vs_best_plus": 0,
+      "vs_best_minus": 0,
+      "vs_best_net": 0,
+      "vs_best_both": 51,
+      "configs": [
+        "budget_sweep::vanilla tile=0.20 thumb=0.75",
+        "hh_expand::AutoGaze only",
+        "predecoder::AutoGaze only",
+        "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375",
+        "vanilla_m1::gaze_t=0.2,th=0.75,mt=1"
+      ]
+    },
+    {
+      "name": "top7_by_acc",
+      "k": 7,
+      "correct": 49,
+      "total": 122,
+      "accuracy": 0.4016393442622951,
+      "vs_best_plus": 0,
+      "vs_best_minus": 2,
+      "vs_best_net": -2,
+      "vs_best_both": 49,
+      "configs": [
+        "budget_sweep::vanilla tile=0.20 thumb=0.75",
+        "hh_expand::AutoGaze only",
+        "predecoder::AutoGaze only",
+        "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375",
+        "vanilla_m1::gaze_t=0.2,th=0.75,mt=1",
+        "raw_m1::gaze_t=1.0,th=1.0,mt=1",
+        "budget_sweep::scaled 0.3 tile=0.06 thumb=0.225"
+      ]
+    },
+    {
+      "name": "top9_by_acc",
+      "k": 9,
+      "correct": 47,
+      "total": 122,
+      "accuracy": 0.38524590163934425,
+      "vs_best_plus": 0,
+      "vs_best_minus": 4,
+      "vs_best_net": -4,
+      "vs_best_both": 47,
+      "configs": [
+        "budget_sweep::vanilla tile=0.20 thumb=0.75",
+        "hh_expand::AutoGaze only",
+        "predecoder::AutoGaze only",
+        "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375",
+        "vanilla_m1::gaze_t=0.2,th=0.75,mt=1",
+        "raw_m1::gaze_t=1.0,th=1.0,mt=1",
+        "budget_sweep::scaled 0.3 tile=0.06 thumb=0.225",
+        "predecoder::Thresh 0.005",
+        "predecoder::Thresh 0.01"
+      ]
+    },
+    {
+      "name": "top11_by_acc",
+      "k": 11,
+      "correct": 46,
+      "total": 122,
+      "accuracy": 0.3770491803278688,
+      "vs_best_plus": 1,
+      "vs_best_minus": 6,
+      "vs_best_net": -5,
+      "vs_best_both": 45,
+      "configs": [
+        "budget_sweep::vanilla tile=0.20 thumb=0.75",
+        "hh_expand::AutoGaze only",
+        "predecoder::AutoGaze only",
+        "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375",
+        "vanilla_m1::gaze_t=0.2,th=0.75,mt=1",
+        "raw_m1::gaze_t=1.0,th=1.0,mt=1",
+        "budget_sweep::scaled 0.3 tile=0.06 thumb=0.225",
+        "predecoder::Thresh 0.005",
+        "predecoder::Thresh 0.01",
+        "budget_sweep::scaled 0.1 tile=0.02 thumb=0.075",
+        "hh_expand::Thresh 0.005"
+      ]
+    },
+    {
+      "name": "top15_by_acc",
+      "k": 15,
+      "correct": 43,
+      "total": 122,
+      "accuracy": 0.3524590163934426,
+      "vs_best_plus": 4,
+      "vs_best_minus": 12,
+      "vs_best_net": -8,
+      "vs_best_both": 39,
+      "configs": [
+        "budget_sweep::vanilla tile=0.20 thumb=0.75",
+        "hh_expand::AutoGaze only",
+        "predecoder::AutoGaze only",
+        "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375",
+        "vanilla_m1::gaze_t=0.2,th=0.75,mt=1",
+        "raw_m1::gaze_t=1.0,th=1.0,mt=1",
+        "budget_sweep::scaled 0.3 tile=0.06 thumb=0.225",
+        "predecoder::Thresh 0.005",
+        "predecoder::Thresh 0.01",
+        "budget_sweep::scaled 0.1 tile=0.02 thumb=0.075",
+        "hh_expand::Thresh 0.005",
+        "hh_expand::Thresh 0.01",
+        "subsel_probe::Intersect 90% random",
+        "budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375",
+        "filter_vs_rand::Intersect 50% random"
+      ]
+    },
+    {
+      "name": "top21_by_acc",
+      "k": 21,
+      "correct": 42,
+      "total": 122,
+      "accuracy": 0.3442622950819672,
+      "vs_best_plus": 7,
+      "vs_best_minus": 16,
+      "vs_best_net": -9,
+      "vs_best_both": 35,
+      "configs": [
+        "budget_sweep::vanilla tile=0.20 thumb=0.75",
+        "hh_expand::AutoGaze only",
+        "predecoder::AutoGaze only",
+        "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375",
+        "vanilla_m1::gaze_t=0.2,th=0.75,mt=1",
+        "raw_m1::gaze_t=1.0,th=1.0,mt=1",
+        "budget_sweep::scaled 0.3 tile=0.06 thumb=0.225",
+        "predecoder::Thresh 0.005",
+        "predecoder::Thresh 0.01",
+        "budget_sweep::scaled 0.1 tile=0.02 thumb=0.075",
+        "hh_expand::Thresh 0.005",
+        "hh_expand::Thresh 0.01",
+        "subsel_probe::Intersect 90% random",
+        "budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375",
+        "filter_vs_rand::Intersect 50% random",
+        "filter_vs_rand::Intersect 75% random",
+        "aware_filter::Intersect 50%",
+        "aware_filter::Intersect 75%",
+        "aware_filter::Semantic 50%",
+        "aware_filter::Semantic 75%",
+        "hh_expand::Thresh 0.05"
+      ]
+    },
+    {
+      "name": "top36_by_acc",
+      "k": 36,
+      "correct": 31,
+      "total": 122,
+      "accuracy": 0.2540983606557377,
+      "vs_best_plus": 7,
+      "vs_best_minus": 27,
+      "vs_best_net": -20,
+      "vs_best_both": 24,
+      "configs": [
+        "budget_sweep::vanilla tile=0.20 thumb=0.75",
+        "hh_expand::AutoGaze only",
+        "predecoder::AutoGaze only",
+        "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375",
+        "vanilla_m1::gaze_t=0.2,th=0.75,mt=1",
+        "raw_m1::gaze_t=1.0,th=1.0,mt=1",
+        "budget_sweep::scaled 0.3 tile=0.06 thumb=0.225",
+        "predecoder::Thresh 0.005",
+        "predecoder::Thresh 0.01",
+        "budget_sweep::scaled 0.1 tile=0.02 thumb=0.075",
+        "hh_expand::Thresh 0.005",
+        "hh_expand::Thresh 0.01",
+        "subsel_probe::Intersect 90% random",
+        "budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375",
+        "filter_vs_rand::Intersect 50% random",
+        "filter_vs_rand::Intersect 75% random",
+        "aware_filter::Intersect 50%",
+        "aware_filter::Intersect 75%",
+        "aware_filter::Semantic 50%",
+        "aware_filter::Semantic 75%",
+        "hh_expand::Thresh 0.05",
+        "subsel_probe::Intersect 25% random",
+        "hh_expand::Intersect 30%",
+        "predecoder::Intersect 10%",
+        "predecoder::Intersect 30%",
+        "predecoder::Semantic 10%",
+        "subsel_probe::Intersect 10% random",
+        "predecoder::Semantic 2%",
+        "predecoder::Thresh 0.05",
+        "aware_filter::Intersect 25%",
+        "hh_expand::Semantic 2%",
+        "hh_expand::Thresh 0.02",
+        "predecoder::Thresh 0.02",
+        "aware_filter::Intersect 10% (sanity)",
+        "hh_expand::Intersect 10%",
+        "hh_expand::Semantic 10%"
+      ]
+    },
+    {
+      "name": "tag=aware_filter",
+      "k": 6,
+      "correct": 31,
+      "total": 122,
+      "accuracy": 0.2540983606557377,
+      "vs_best_plus": 9,
+      "vs_best_minus": 29,
+      "vs_best_net": -20,
+      "vs_best_both": 22,
+      "configs": [
+        "aware_filter::Intersect 10% (sanity)",
+        "aware_filter::Intersect 25%",
+        "aware_filter::Intersect 50%",
+        "aware_filter::Intersect 75%",
+        "aware_filter::Semantic 50%",
+        "aware_filter::Semantic 75%"
+      ]
+    },
+    {
+      "name": "tag=budget_sweep",
+      "k": 5,
+      "correct": 44,
+      "total": 122,
+      "accuracy": 0.36065573770491804,
+      "vs_best_plus": 3,
+      "vs_best_minus": 10,
+      "vs_best_net": -7,
+      "vs_best_both": 41,
+      "configs": [
+        "budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375",
+        "budget_sweep::scaled 0.1 tile=0.02 thumb=0.075",
+        "budget_sweep::scaled 0.3 tile=0.06 thumb=0.225",
+        "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375",
+        "budget_sweep::vanilla tile=0.20 thumb=0.75"
+      ]
+    },
+    {
+      "name": "tag=filter_vs_rand",
+      "k": 2,
+      "correct": 35,
+      "total": 122,
+      "accuracy": 0.28688524590163933,
+      "vs_best_plus": 10,
+      "vs_best_minus": 26,
+      "vs_best_net": -16,
+      "vs_best_both": 25,
+      "configs": [
+        "filter_vs_rand::Intersect 50% random",
+        "filter_vs_rand::Intersect 75% random"
+      ]
+    },
+    {
+      "name": "tag=hh_expand",
+      "k": 9,
+      "correct": 28,
+      "total": 122,
+      "accuracy": 0.22950819672131148,
+      "vs_best_plus": 6,
+      "vs_best_minus": 29,
+      "vs_best_net": -23,
+      "vs_best_both": 22,
+      "configs": [
+        "hh_expand::AutoGaze only",
+        "hh_expand::Intersect 10%",
+        "hh_expand::Intersect 30%",
+        "hh_expand::Semantic 10%",
+        "hh_expand::Semantic 2%",
+        "hh_expand::Thresh 0.005",
+        "hh_expand::Thresh 0.01",
+        "hh_expand::Thresh 0.02",
+        "hh_expand::Thresh 0.05"
+      ]
+    },
+    {
+      "name": "tag=predecoder",
+      "k": 9,
+      "correct": 32,
+      "total": 122,
+      "accuracy": 0.26229508196721313,
+      "vs_best_plus": 9,
+      "vs_best_minus": 28,
+      "vs_best_net": -19,
+      "vs_best_both": 23,
+      "configs": [
+        "predecoder::AutoGaze only",
+        "predecoder::Intersect 10%",
+        "predecoder::Intersect 30%",
+        "predecoder::Semantic 10%",
+        "predecoder::Semantic 2%",
+        "predecoder::Thresh 0.005",
+        "predecoder::Thresh 0.01",
+        "predecoder::Thresh 0.02",
+        "predecoder::Thresh 0.05"
+      ]
+    },
+    {
+      "name": "tag=raw_m1",
+      "k": 1,
+      "correct": 47,
+      "total": 122,
+      "accuracy": 0.38524590163934425,
+      "vs_best_plus": 6,
+      "vs_best_minus": 10,
+      "vs_best_net": -4,
+      "vs_best_both": 41,
+      "configs": [
+        "raw_m1::gaze_t=1.0,th=1.0,mt=1"
+      ]
+    },
+    {
+      "name": "tag=subsel_probe",
+      "k": 3,
+      "correct": 30,
+      "total": 122,
+      "accuracy": 0.2459016393442623,
+      "vs_best_plus": 9,
+      "vs_best_minus": 30,
+      "vs_best_net": -21,
+      "vs_best_both": 21,
+      "configs": [
+        "subsel_probe::Intersect 10% random",
+        "subsel_probe::Intersect 25% random",
+        "subsel_probe::Intersect 90% random"
+      ]
+    },
+    {
+      "name": "tag=vanilla_m1",
+      "k": 1,
+      "correct": 49,
+      "total": 122,
+      "accuracy": 0.4016393442622951,
+      "vs_best_plus": 6,
+      "vs_best_minus": 8,
+      "vs_best_net": -2,
+      "vs_best_both": 43,
+      "configs": [
+        "vanilla_m1::gaze_t=0.2,th=0.75,mt=1"
+      ]
+    }
+  ]
+}

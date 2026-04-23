@@ -1,0 +1,28 @@
+========================================================================
+Test-time-ensemble-vote simulation on 36 × 122 prediction matrix
+========================================================================
+  n_qids          122
+  n_configs       36
+  best_fixed_cfg  budget_sweep::vanilla tile=0.20 thumb=0.75
+  best_fixed      51/122 (0.418)
+  oracle_total    77/122 (0.631) (any config correct)
+
+Top-k by-acc ensembles:
+  top3_by_acc           51/122 (0.418)  +0/-0 net 0
+  top5_by_acc           51/122 (0.418)  +0/-0 net 0
+  top7_by_acc           49/122 (0.402)  +0/-2 net -2
+  top9_by_acc           47/122 (0.385)  +0/-4 net -4
+  top11_by_acc          46/122 (0.377)  +1/-6 net -5
+  top15_by_acc          43/122 (0.352)  +4/-12 net -8
+  top21_by_acc          42/122 (0.344)  +7/-16 net -9
+  top36_by_acc          31/122 (0.254)  +7/-27 net -20
+
+Tag-group ensembles:
+  tag=aware_filter               k= 6   31/122 (0.254)  +9/-29 net -20
+  tag=budget_sweep               k= 5   44/122 (0.361)  +3/-10 net -7
+  tag=filter_vs_rand             k= 2   35/122 (0.287)  +10/-26 net -16
+  tag=hh_expand                  k= 9   28/122 (0.230)  +6/-29 net -23
+  tag=predecoder                 k= 9   32/122 (0.262)  +9/-28 net -19
+  tag=raw_m1                     k= 1   47/122 (0.385)  +6/-10 net -4
+  tag=subsel_probe               k= 3   30/122 (0.246)  +9/-30 net -21
+  tag=vanilla_m1                 k= 1   49/122 (0.402)  +6/-8 net -2
