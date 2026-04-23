@@ -1,0 +1,42 @@
+
+=== RANDOM BASELINE (n=122) ===
+
+  [Intersect 50% random          ] acc=0.279 (34/122)  95% CI [0.205, 0.361]
+  [Intersect 75% random          ] acc=0.279 (34/122)  95% CI [0.197, 0.361]
+
+=== CLIP BIGHEAD FILTER (r/autogaze-aware-filter-train reference) ===
+
+  [Intersect 50%                 ] acc=0.270 (33/122)  95% CI [0.197, 0.352]
+  [Intersect 75%                 ] acc=0.270 (33/122)  95% CI [0.197, 0.352]
+
+=== AUTOGAZE-ONLY BUDGET SWEEP (r/filter-token-count-ablation reference) ===
+
+  [vanilla tile=0.20 thumb=0.75  ] acc=0.418 (51/122)  95% CI [0.328, 0.500]
+  [scaled 0.5 tile=0.10 thumb=0.375] acc=0.402 (49/122)  95% CI [0.320, 0.492]
+
+=== DECISIVE COMPARISONS ===
+
+
+[Random 50 %  vs  CLIP 50 %  (r/autogaze-aware-filter-train)]
+  A = 'Intersect 50% random'   (acc=0.279 = 34/122)
+  B = 'Intersect 50% CLIP'   (acc=0.270 = 33/122)
+     A_only_correct=5  B_only_correct=4  both_ok=29  both_wrong=84  (shared=122)
+     verdict: A ~= B (within 1-sample noise)
+
+[Random 75 %  vs  CLIP 75 %  (r/autogaze-aware-filter-train)]
+  A = 'Intersect 75% random'   (acc=0.279 = 34/122)
+  B = 'Intersect 75% CLIP'   (acc=0.270 = 33/122)
+     A_only_correct=3  B_only_correct=2  both_ok=31  both_wrong=86  (shared=122)
+     verdict: A ~= B (within 1-sample noise)
+
+[Random 50 %  vs  AutoGaze scale 0.5  (matched count)]
+  A = 'Intersect 50% random'   (acc=0.279 = 34/122)
+  B = 'AutoGaze scale 0.5'   (acc=0.402 = 49/122)
+     A_only_correct=11  B_only_correct=26  both_ok=23  both_wrong=62  (shared=122)
+     verdict: B BEATS A (-15)
+
+[Random 75 %  vs  vanilla AutoGaze  (matched count = 100 % of AutoGaze set)]
+  A = 'Intersect 75% random'   (acc=0.279 = 34/122)
+  B = 'vanilla AutoGaze'   (acc=0.418 = 51/122)
+     A_only_correct=9  B_only_correct=26  both_ok=25  both_wrong=62  (shared=122)
+     verdict: B BEATS A (-17)
