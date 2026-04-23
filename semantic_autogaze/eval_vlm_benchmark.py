@@ -97,6 +97,7 @@ def _shrink_unit_batch(
     semantic_keep_ratio,
     score_threshold,
     score_log=None,
+    random_scoring=False,
 ):
     """Physically shrink K (the gazing-position dimension) for a batch of items
     that share the same per-frame budget.
@@ -128,9 +129,12 @@ def _shrink_unit_batch(
     unit_videos_dev = unit_videos.to(device)
     with torch.inference_mode():
         hidden = wrapper.extract_hidden_states(unit_videos_dev)  # (B, T*N_full, C)
-        # Broadcast query_emb to batch
-        query_emb_b = query_emb.expand(B, -1)
-        scores = wrapper.semantic_filter.get_scores(hidden, query_emb_b)  # (B, T*N_full)
+        if random_scoring:
+            scores = torch.rand(hidden.shape[0], hidden.shape[1], device=hidden.device)
+        else:
+            # Broadcast query_emb to batch
+            query_emb_b = query_emb.expand(B, -1)
+            scores = wrapper.semantic_filter.get_scores(hidden, query_emb_b)  # (B, T*N_full)
     score_dev = scores.device
 
     # ---- Per-frame: figure out kept *original-grid* indices for each item ----
@@ -203,6 +207,7 @@ def patch_processor_with_semantic_filter(
     score_threshold: Optional[float] = None,
     filter_thumbnails: bool = True,
     log_score_dist: bool = False,
+    random_scoring: bool = False,
 ):
     """
     Monkey-patch the NVILA processor to inject semantic filtering after AutoGaze.
@@ -262,6 +267,7 @@ def patch_processor_with_semantic_filter(
                 semantic_keep_ratio=semantic_keep_ratio,
                 score_threshold=score_threshold,
                 score_log=score_log,
+                random_scoring=random_scoring,
             )
             per_video_tile_results.append((new_pos_t, new_pad_t, new_kt_t))
 
@@ -286,6 +292,7 @@ def patch_processor_with_semantic_filter(
                     semantic_keep_ratio=semantic_keep_ratio,
                     score_threshold=score_threshold,
                     score_log=score_log,
+                    random_scoring=random_scoring,
                 )
                 per_video_thumb_results.append((new_pos_th, new_pad_th, new_kt_th))
             else:
