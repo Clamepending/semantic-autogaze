@@ -1,0 +1,306 @@
+========================================================================
+Label-noise audit on 36×122 predicted-letter matrix
+========================================================================
+  n_qids                               122
+  n_configs                            36
+  n_universal_fail                     45
+  n_universal_success                  14
+  n_variable                           63
+  n_convergent_wrong_fail              40
+  n_near_success_variable              4
+  corrected_ceiling_upper_bound        91
+  best_fixed_accuracy                  51
+
+Convergent-wrong (top non-gt letter ≥ 28/36 = 78%): 40
+------------------------------------------------------------------------
+qid=8 gt=C('ORGANIC') top=B=36/36 ent=-0.00
+  Q: What does the white text say on the green background of the pack on the top of the shelf?
+  [ ] A. NATURAL  (0 votes)
+  [!] B. VEGGIE  (36 votes)
+  [*] C. ORGANIC  (0 votes)
+  [ ] D. HERBAL  (0 votes)
+
+qid=10 gt=C('ARAMEL DIEM') top=A=36/36 ent=-0.00
+  Q: What text is visible on the dark blue and black packet placed on the brown wooden chair?
+  [!] A. ARAMEL DENIM  (36 votes)
+  [ ] B. ARAMEL DREAM  (0 votes)
+  [*] C. ARAMEL DIEM  (0 votes)
+  [ ] D. ARAMEL DEAN  (0 votes)
+
+qid=11 gt=A('MacBook Air') top=C=36/36 ent=-0.00
+  Q: What device name is displayed in white text below the partially visible screen?
+  [*] A. MacBook Air  (0 votes)
+  [ ] B. Chromebook  (0 votes)
+  [!] C. MacBook  (36 votes)
+  [ ] D. MacBook Pro  (0 votes)
+
+qid=14 gt=B('L j T') top=D=33/36 ent=0.41
+  Q: What does the white text on the black screen read?
+  [ ] A. I J T  (3 votes)
+  [*] B. L j T  (0 votes)
+  [ ] C. I J Y  (0 votes)
+  [!] D. L j Y  (33 votes)
+
+qid=17 gt=A('S and P') top=D=35/36 ent=0.18
+  Q: What does the black text on the yellow cover say?
+  [*] A. S and P  (0 votes)
+  [ ] B. S + P  (1 votes)
+  [ ] C. S / P  (0 votes)
+  [!] D. S & P  (35 votes)
+
+qid=28 gt=C('SHU GL') top=D=30/36 ent=0.76
+  Q: What does the white text say on the black object?
+  [ ] A. SHO GL  (5 votes)
+  [ ] B. SHA GL  (1 votes)
+  [*] C. SHU GL  (0 votes)
+  [!] D. SHI GL  (30 votes)
+
+qid=33 gt=D('START') top=C=36/36 ent=-0.00
+  Q: What does the red text on the grey button say?
+  [ ] A. ENTER  (0 votes)
+  [ ] B. BEGIN  (0 votes)
+  [!] C. RESET  (36 votes)
+  [*] D. START  (0 votes)
+
+qid=37 gt=A('CPU_OPT') top=B=36/36 ent=-0.00
+  Q: What does the white text say on the motherboard?
+  [*] A. CPU_OPT  (0 votes)
+  [!] B. CPU_FAN  (36 votes)
+  [ ] C. GPU_FAN  (0 votes)
+  [ ] D. GPU_OPT  (0 votes)
+
+qid=42 gt=A('REV') top=D=36/36 ent=-0.00
+  Q: What is the white text on the black computer RAM?
+  [*] A. REV  (0 votes)
+  [ ] B. DDR  (0 votes)
+  [ ] C. VER  (0 votes)
+  [!] D. ECC  (36 votes)
+
+qid=43 gt=A('START') top=C=36/36 ent=-0.00
+  Q: What does the black text on the gray button say?
+  [*] A. START  (0 votes)
+  [ ] B. ENTER  (0 votes)
+  [!] C. POWER  (36 votes)
+  [ ] D. BEGIN  (0 votes)
+
+qid=48 gt=A('B06EBFC B68C') top=B=35/36 ent=0.18
+  Q: What does the black text on the pink barcode read?
+  [*] A. B06EBFC B68C  (0 votes)
+  [!] B. B06EBFD B68C  (35 votes)
+  [ ] C. B06EBFC B69C  (0 votes)
+  [ ] D. B06EBFD B69C  (1 votes)
+
+qid=50 gt=B('F1') top=D=36/36 ent=-0.00
+  Q: What does the black text say on the blue surface?
+  [ ] A. F8  (0 votes)
+  [*] B. F1  (0 votes)
+  [ ] C. F5  (0 votes)
+  [!] D. F7  (36 votes)
+
+qid=56 gt=C('Fan 4') top=D=36/36 ent=-0.00
+  Q: What does the purple text say on the brown screen display?
+  [ ] A. Fan 5  (0 votes)
+  [ ] B. Fan 7  (0 votes)
+  [*] C. Fan 4  (0 votes)
+  [!] D. Fan 6  (36 votes)
+
+qid=59 gt=D('SHUR') top=B=36/36 ent=-0.00
+  Q: What does the white text say on the black background with 2 antennas?
+  [ ] A. BOSE  (0 votes)
+  [!] B. RODE  (36 votes)
+  [ ] C. SONY  (0 votes)
+  [*] D. SHUR  (0 votes)
+
+qid=60 gt=A('X7') top=D=34/36 ent=0.31
+  Q: What does the brown text say on the black speaker?
+  [*] A. X7  (0 votes)
+  [ ] B. X8  (0 votes)
+  [ ] C. X6  (2 votes)
+  [!] D. X5  (34 votes)
+
+qid=62 gt=A('ONE TWO THREE FOUR') top=D=36/36 ent=-0.00
+  Q: What numbers are displayed on the white text with a black background located at the bottom right side?
+  [*] A. ONE TWO THREE FOUR  (0 votes)
+  [ ] B. ZERO ONE TWO THREE  (0 votes)
+  [ ] C. FOUR FIVE SIX SEVEN  (0 votes)
+  [!] D. TWO THREE FOUR FIVE  (36 votes)
+
+qid=67 gt=B('OU') top=D=36/36 ent=-0.00
+  Q: What does the white text say on the black screen?
+  [ ] A. OY  (0 votes)
+  [*] B. OU  (0 votes)
+  [ ] C. OV  (0 votes)
+  [!] D. OP  (36 votes)
+
+qid=71 gt=C('10, 5, OU, 5') top=B=35/36 ent=0.18
+  Q: What are the white text lines on the left side of the black section of the bottom screen reading?
+  [ ] A. 10, 10, OU, 10  (1 votes)
+  [!] B. 10, 10, OU, 5  (35 votes)
+  [*] C. 10, 5, OU, 5  (0 votes)
+  [ ] D. 5, 5, OU, 10  (0 votes)
+
+qid=74 gt=D('NVIDIA G-SYNC HDR') top=B=36/36 ent=-0.00
+  Q: What is the white text on the side of the black monitor screen?
+  [ ] A. NVIDIA G-SYNC ULTIMATE  (0 votes)
+  [!] B. NVIDIA G-SYNC ULTRA  (36 votes)
+  [ ] C. NVIDIA G-SYNC PRO  (0 votes)
+  [*] D. NVIDIA G-SYNC HDR  (0 votes)
+
+qid=113 gt=D('KOBALT') top=A=36/36 ent=-0.00
+  Q: What does the gray text say on the white object?
+  [!] A. KIDGID  (36 votes)
+  [ ] B. DEWALT  (0 votes)
+  [ ] C. RIDGID  (0 votes)
+  [*] D. KOBALT  (0 votes)
+
+qid=114 gt=C('Haut Parleur Actit, Altavos Ac') top=A=31/36 ent=0.58
+  Q: What are the five lines of black text at the bottom of the white box?
+  [!] A. Haut-Parleur Actif, Altavoz Activo, Akti  (31 votes)
+  [ ] B. Haut Parleur Actif, Altavoces Activos, A  (5 votes)
+  [*] C. Haut Parleur Actit, Altavos Activo, Akti  (0 votes)
+  [ ] D. Haut Parleur Actif, Altavoz Activo, Akti  (0 votes)
+
+qid=117 gt=A('OWN CELEBRATES') top=C=32/36 ent=0.50
+  Q: What does the orange background on the black text of the TV read?
+  [*] A. OWN CELEBRATES  (0 votes)
+  [ ] B. OWN PREMIERES  (4 votes)
+  [!] C. OWN PRESENTS  (32 votes)
+  [ ] D. OWN SPECIALS  (0 votes)
+
+qid=118 gt=B('Favorite Talk Show Entertainme') top=A=31/36 ent=0.58
+  Q: What is written on the white text displayed on the TV with a brown background?
+  [!] A. Local Evening News Report  (31 votes)
+  [*] B. Favorite Talk Show Entertainment  (0 votes)
+  [ ] C. Late Night Comedy Hour  (5 votes)
+  [ ] D. Prime Time Movie Feature  (0 votes)
+
+qid=120 gt=B('Hi-Fi') top=C=31/36 ent=0.68
+  Q: What does the white text on the black book say?
+  [ ] A. Lo-Fi  (1 votes)
+  [*] B. Hi-Fi  (0 votes)
+  [!] C. Li-Fi  (31 votes)
+  [ ] D. Wi-Fi  (4 votes)
+
+qid=125 gt=D('COLOR PURPLE') top=A=36/36 ent=-0.00
+  Q: What is displayed in the fourth movie tab?
+  [!] A. BOHEMIAN RHAPSODY  (36 votes)
+  [ ] B. ANNIE  (0 votes)
+  [ ] C. LITTLE WOMEN  (0 votes)
+  [*] D. COLOR PURPLE  (0 votes)
+
+qid=151 gt=B('ARCHITECTURAL') top=A=36/36 ent=-0.00
+  Q: What is the text on the white watermark?
+  [!] A. ARCHITECTONIC  (36 votes)
+  [*] B. ARCHITECTURAL  (0 votes)
+  [ ] C. CONSTRUCTION  (0 votes)
+  [ ] D. INFRASTRUCTURE  (0 votes)
+
+qid=153 gt=C('5') top=A=36/36 ent=-0.00
+  Q: How many spikes are visible in the bathroom mirror?
+  [!] A. 3  (36 votes)
+  [ ] B. 4  (0 votes)
+  [*] C. 5  (0 votes)
+  [ ] D. 2  (0 votes)
+
+qid=154 gt=B('SUCRE') top=C=36/36 ent=-0.00
+  Q: What is written in white text on the black book?
+  [ ] A. SOUS  (0 votes)
+  [*] B. SUCRE  (0 votes)
+  [!] C. SABLE  (36 votes)
+  [ ] D. SEL  (0 votes)
+
+qid=155 gt=B('PICASSO BLACK') top=C=36/36 ent=-0.00
+  Q: What does the white text say on the black book?
+  [ ] A. MODERN DESIGN  (0 votes)
+  [*] B. PICASSO BLACK  (0 votes)
+  [!] C. PICASSO BLUE  (36 votes)
+  [ ] D. CLASSIC BLACK  (0 votes)
+
+qid=158 gt=B('Rozen') top=C=36/36 ent=-0.00
+  Q: What is written on the white soap label?
+  [ ] A. Frozen  (0 votes)
+  [*] B. Rozen  (0 votes)
+  [!] C. Rasen  (36 votes)
+  [ ] D. Rizen  (0 votes)
+
+qid=160 gt=B('ARCHITECTURAL DESIGN') top=D=34/36 ent=0.31
+  Q: What does the gray text against the brown and gray backdrop say?
+  [ ] A. PROJECT DRAWINGS  (2 votes)
+  [*] B. ARCHITECTURAL DESIGN  (0 votes)
+  [ ] C. STRUCTURAL PLANNING  (0 votes)
+  [!] D. ARCHITECTURE STUDIO  (34 votes)
+
+qid=191 gt=A('Frigidaire') top=C=36/36 ent=-0.00
+  Q: What is written on the black text located on the silver section of the oven?
+  [*] A. Frigidaire  (0 votes)
+  [ ] B. Electrolux  (0 votes)
+  [!] C. KitchenAid  (36 votes)
+  [ ] D. Whirlpool  (0 votes)
+
+qid=247 gt=A('VILA HERMANOS EST.1884 VETIVER') top=C=36/36 ent=-0.00
+  Q: What is written on the black glass candle?
+  [*] A. VILA HERMANOS EST.1884 VETIVER & SALT WO  (0 votes)
+  [ ] B. VILA HERMANOS EST.1884 VETIVER & SEA SAL  (0 votes)
+  [!] C. VILA HERMANOS EST.1884 VETIVER & DRIFT W  (36 votes)
+  [ ] D. VILA HERMANOS EST.1884 VETIVER & CEDAR W  (0 votes)
+
+qid=252 gt=B('GUCCI') top=C=33/36 ent=0.41
+  Q: What is written on the gray bag?
+  [ ] A. CHANEL  (3 votes)
+  [*] B. GUCCI  (0 votes)
+  [!] C. HERMES  (33 votes)
+  [ ] D. DIOR  (0 votes)
+
+qid=253 gt=C('GREECE') top=D=34/36 ent=0.31
+  Q: What is written in black text on the white book?
+  [ ] A. SPAIN  (0 votes)
+  [ ] B. PORTUGAL  (2 votes)
+  [*] C. GREECE  (0 votes)
+  [!] D. ITALY  (34 votes)
+
+qid=256 gt=D('Scott Wheeler') top=A=36/36 ent=-0.00
+  Q: What name is written in the credits on the TV?
+  [!] A. Sam Winter  (36 votes)
+  [ ] B. Brian Woller  (0 votes)
+  [ ] C. Bruce Wagner  (0 votes)
+  [*] D. Scott Wheeler  (0 votes)
+
+qid=257 gt=B('Rectangle') top=C=36/36 ent=-0.00
+  Q: What shape is each hole in the electrical outlet?
+  [ ] A. Oval  (0 votes)
+  [*] B. Rectangle  (0 votes)
+  [!] C. Circle  (36 votes)
+  [ ] D. Square  (0 votes)
+
+qid=258 gt=C('Yellow') top=B=36/36 ent=-0.00
+  Q: What color is the soap bottle by the sink?
+  [ ] A. Red  (0 votes)
+  [!] B. Blue  (36 votes)
+  [*] C. Yellow  (0 votes)
+  [ ] D. Purple  (0 votes)
+
+qid=265 gt=D('4:32') top=C=36/36 ent=-0.00
+  Q: What time is shown on the open microwave?
+  [ ] A. 1:41  (0 votes)
+  [ ] B. 4:11  (0 votes)
+  [!] C. 1:14  (36 votes)
+  [*] D. 4:32  (0 votes)
+
+qid=266 gt=D('NO REFUND') top=C=32/36 ent=0.50
+  Q: What is written in white text on the black board above the bed?
+  [ ] A. LIVE LAUGH  (4 votes)
+  [ ] B. ON SALE  (0 votes)
+  [!] C. PRINCETON  (32 votes)
+  [*] D. NO REFUND  (0 votes)
+
+Near-universal-success variables (≥ 34/36 correct): 4
+------------------------------------------------------------------------
+qid=44 gt=D correct=34/36 dist={'D': 34, 'A': 2}
+qid=70 gt=A correct=34/36 dist={'A': 34, 'B': 2}
+qid=122 gt=D correct=34/36 dist={'D': 34, 'C': 2}
+qid=152 gt=C correct=34/36 dist={'C': 34, 'D': 2}
+
+Universal-success pattern audit (14 qids):
+  gt_letter == C:         5/14
+  gt choice dominates by length (> 1.5x next): 0/14
+  gt choice words appear in stem: 0/14

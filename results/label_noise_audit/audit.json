@@ -1,0 +1,2738 @@
+{
+  "summary": {
+    "n_qids": 122,
+    "n_configs": 36,
+    "n_universal_fail": 45,
+    "n_universal_success": 14,
+    "n_variable": 63,
+    "n_convergent_wrong_fail": 40,
+    "n_near_success_variable": 4,
+    "corrected_ceiling_upper_bound": 91,
+    "best_fixed_accuracy": 51
+  },
+  "fail_audit": [
+    {
+      "qid": "8",
+      "gt": "C",
+      "gt_choice": "ORGANIC",
+      "stem": "What does the white text say on the green background of the pack on the top of the shelf?",
+      "choices": {
+        "A": "NATURAL",
+        "B": "VEGGIE",
+        "C": "ORGANIC",
+        "D": "HERBAL"
+      },
+      "dist": {
+        "B": 36
+      },
+      "top_letter": "B",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "10",
+      "gt": "C",
+      "gt_choice": "ARAMEL DIEM",
+      "stem": "What text is visible on the dark blue and black packet placed on the brown wooden chair?",
+      "choices": {
+        "A": "ARAMEL DENIM",
+        "B": "ARAMEL DREAM",
+        "C": "ARAMEL DIEM",
+        "D": "ARAMEL DEAN"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "11",
+      "gt": "A",
+      "gt_choice": "MacBook Air",
+      "stem": "What device name is displayed in white text below the partially visible screen?",
+      "choices": {
+        "A": "MacBook Air",
+        "B": "Chromebook",
+        "C": "MacBook",
+        "D": "MacBook Pro"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "14",
+      "gt": "B",
+      "gt_choice": "L j T",
+      "stem": "What does the white text on the black screen read?",
+      "choices": {
+        "A": "I J T",
+        "B": "L j T",
+        "C": "I J Y",
+        "D": "L j Y"
+      },
+      "dist": {
+        "D": 33,
+        "A": 3
+      },
+      "top_letter": "D",
+      "top_count": 33,
+      "top_pct": 0.9166666666666666,
+      "entropy": 0.41381685030363374,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "17",
+      "gt": "A",
+      "gt_choice": "S and P",
+      "stem": "What does the black text on the yellow cover say?",
+      "choices": {
+        "A": "S and P",
+        "B": "S + P",
+        "C": "S / P",
+        "D": "S & P"
+      },
+      "dist": {
+        "D": 35,
+        "B": 1
+      },
+      "top_letter": "D",
+      "top_count": 35,
+      "top_pct": 0.9722222222222222,
+      "entropy": 0.18312206830137276,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "28",
+      "gt": "C",
+      "gt_choice": "SHU GL",
+      "stem": "What does the white text say on the black object?",
+      "choices": {
+        "A": "SHO GL",
+        "B": "SHA GL",
+        "C": "SHU GL",
+        "D": "SHI GL"
+      },
+      "dist": {
+        "D": 30,
+        "A": 5,
+        "B": 1
+      },
+      "top_letter": "D",
+      "top_count": 30,
+      "top_pct": 0.8333333333333334,
+      "entropy": 0.7583594919230799,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "33",
+      "gt": "D",
+      "gt_choice": "START",
+      "stem": "What does the red text on the grey button say?",
+      "choices": {
+        "A": "ENTER",
+        "B": "BEGIN",
+        "C": "RESET",
+        "D": "START"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "37",
+      "gt": "A",
+      "gt_choice": "CPU_OPT",
+      "stem": "What does the white text say on the motherboard?",
+      "choices": {
+        "A": "CPU_OPT",
+        "B": "CPU_FAN",
+        "C": "GPU_FAN",
+        "D": "GPU_OPT"
+      },
+      "dist": {
+        "B": 36
+      },
+      "top_letter": "B",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "42",
+      "gt": "A",
+      "gt_choice": "REV",
+      "stem": "What is the white text on the black computer RAM?",
+      "choices": {
+        "A": "REV",
+        "B": "DDR",
+        "C": "VER",
+        "D": "ECC"
+      },
+      "dist": {
+        "D": 36
+      },
+      "top_letter": "D",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "43",
+      "gt": "A",
+      "gt_choice": "START",
+      "stem": "What does the black text on the gray button say?",
+      "choices": {
+        "A": "START",
+        "B": "ENTER",
+        "C": "POWER",
+        "D": "BEGIN"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "48",
+      "gt": "A",
+      "gt_choice": "B06EBFC B68C",
+      "stem": "What does the black text on the pink barcode read?",
+      "choices": {
+        "A": "B06EBFC B68C",
+        "B": "B06EBFD B68C",
+        "C": "B06EBFC B69C",
+        "D": "B06EBFD B69C"
+      },
+      "dist": {
+        "B": 35,
+        "D": 1
+      },
+      "top_letter": "B",
+      "top_count": 35,
+      "top_pct": 0.9722222222222222,
+      "entropy": 0.18312206830137276,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "50",
+      "gt": "B",
+      "gt_choice": "F1",
+      "stem": "What does the black text say on the blue surface?",
+      "choices": {
+        "A": "F8",
+        "B": "F1",
+        "C": "F5",
+        "D": "F7"
+      },
+      "dist": {
+        "D": 36
+      },
+      "top_letter": "D",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "53",
+      "gt": "B",
+      "gt_choice": "MONITOR",
+      "stem": "What does the white text say on the black digital mixer?",
+      "choices": {
+        "A": "MASTER",
+        "B": "MONITOR",
+        "C": "CHANNEL",
+        "D": "OUTPUTS"
+      },
+      "dist": {
+        "A": 26,
+        "D": 10
+      },
+      "top_letter": "A",
+      "top_count": 26,
+      "top_pct": 0.7222222222222222,
+      "entropy": 0.8524051786494786,
+      "is_convergent_wrong": false
+    },
+    {
+      "qid": "54",
+      "gt": "D",
+      "gt_choice": "DL3",
+      "stem": "What does the white text on the black amplifier say?",
+      "choices": {
+        "A": "DL6",
+        "B": "DL5",
+        "C": "DL8",
+        "D": "DL3"
+      },
+      "dist": {
+        "C": 18,
+        "A": 16,
+        "B": 2
+      },
+      "top_letter": "C",
+      "top_count": 18,
+      "top_pct": 0.5,
+      "entropy": 1.2516291673878228,
+      "is_convergent_wrong": false
+    },
+    {
+      "qid": "56",
+      "gt": "C",
+      "gt_choice": "Fan 4",
+      "stem": "What does the purple text say on the brown screen display?",
+      "choices": {
+        "A": "Fan 5",
+        "B": "Fan 7",
+        "C": "Fan 4",
+        "D": "Fan 6"
+      },
+      "dist": {
+        "D": 36
+      },
+      "top_letter": "D",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "57",
+      "gt": "B",
+      "gt_choice": "CREATIVE",
+      "stem": "What does the yellow text on the speaker read?",
+      "choices": {
+        "A": "MARSHALL",
+        "B": "CREATIVE",
+        "C": "LOGITECH",
+        "D": "INFINITY"
+      },
+      "dist": {
+        "C": 21,
+        "A": 15
+      },
+      "top_letter": "C",
+      "top_count": 21,
+      "top_pct": 0.5833333333333334,
+      "entropy": 0.9798687566511528,
+      "is_convergent_wrong": false
+    },
+    {
+      "qid": "59",
+      "gt": "D",
+      "gt_choice": "SHUR",
+      "stem": "What does the white text say on the black background with 2 antennas?",
+      "choices": {
+        "A": "BOSE",
+        "B": "RODE",
+        "C": "SONY",
+        "D": "SHUR"
+      },
+      "dist": {
+        "B": 36
+      },
+      "top_letter": "B",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "60",
+      "gt": "A",
+      "gt_choice": "X7",
+      "stem": "What does the brown text say on the black speaker?",
+      "choices": {
+        "A": "X7",
+        "B": "X8",
+        "C": "X6",
+        "D": "X5"
+      },
+      "dist": {
+        "D": 34,
+        "C": 2
+      },
+      "top_letter": "D",
+      "top_count": 34,
+      "top_pct": 0.9444444444444444,
+      "entropy": 0.3095434291503252,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "62",
+      "gt": "A",
+      "gt_choice": "ONE TWO THREE FOUR",
+      "stem": "What numbers are displayed on the white text with a black background located at the bottom right side?",
+      "choices": {
+        "A": "ONE TWO THREE FOUR",
+        "B": "ZERO ONE TWO THREE",
+        "C": "FOUR FIVE SIX SEVEN",
+        "D": "TWO THREE FOUR FIVE"
+      },
+      "dist": {
+        "D": 36
+      },
+      "top_letter": "D",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "67",
+      "gt": "B",
+      "gt_choice": "OU",
+      "stem": "What does the white text say on the black screen?",
+      "choices": {
+        "A": "OY",
+        "B": "OU",
+        "C": "OV",
+        "D": "OP"
+      },
+      "dist": {
+        "D": 36
+      },
+      "top_letter": "D",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "71",
+      "gt": "C",
+      "gt_choice": "10, 5, OU, 5",
+      "stem": "What are the white text lines on the left side of the black section of the bottom screen reading?",
+      "choices": {
+        "A": "10, 10, OU, 10",
+        "B": "10, 10, OU, 5",
+        "C": "10, 5, OU, 5",
+        "D": "5, 5, OU, 10"
+      },
+      "dist": {
+        "B": 35,
+        "A": 1
+      },
+      "top_letter": "B",
+      "top_count": 35,
+      "top_pct": 0.9722222222222222,
+      "entropy": 0.18312206830137276,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "72",
+      "gt": "C",
+      "gt_choice": "Pre Fader",
+      "stem": "What does the black text on the white button read?",
+      "choices": {
+        "A": "Pre Listen",
+        "B": "Post Listen",
+        "C": "Pre Fader",
+        "D": "Post Fader"
+      },
+      "dist": {
+        "A": 23,
+        "D": 13
+      },
+      "top_letter": "A",
+      "top_count": 23,
+      "top_pct": 0.6388888888888888,
+      "entropy": 0.943601631299382,
+      "is_convergent_wrong": false
+    },
+    {
+      "qid": "74",
+      "gt": "D",
+      "gt_choice": "NVIDIA G-SYNC HDR",
+      "stem": "What is the white text on the side of the black monitor screen?",
+      "choices": {
+        "A": "NVIDIA G-SYNC ULTIMATE",
+        "B": "NVIDIA G-SYNC ULTRA",
+        "C": "NVIDIA G-SYNC PRO",
+        "D": "NVIDIA G-SYNC HDR"
+      },
+      "dist": {
+        "B": 36
+      },
+      "top_letter": "B",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "113",
+      "gt": "D",
+      "gt_choice": "KOBALT",
+      "stem": "What does the gray text say on the white object?",
+      "choices": {
+        "A": "KIDGID",
+        "B": "DEWALT",
+        "C": "RIDGID",
+        "D": "KOBALT"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "114",
+      "gt": "C",
+      "gt_choice": "Haut Parleur Actit, Altavos Activo, Aktiv Lautsprecher, Attivo, Ativo",
+      "stem": "What are the five lines of black text at the bottom of the white box?",
+      "choices": {
+        "A": "Haut-Parleur Actif, Altavoz Activo, Aktiv Lautsprecher, Altoparlante Attivo, Alto-falante Ativo",
+        "B": "Haut Parleur Actif, Altavoces Activos, Aktivlautsprecher, Altoparlanti Attivi, Altifalante Ativo",
+        "C": "Haut Parleur Actit, Altavos Activo, Aktiv Lautsprecher, Attivo, Ativo",
+        "D": "Haut Parleur Actif, Altavoz Activo, Aktiv-Lautsprecher, Altoparlante Attivo, Altifalantes Ativos"
+      },
+      "dist": {
+        "A": 31,
+        "B": 5
+      },
+      "top_letter": "A",
+      "top_count": 31,
+      "top_pct": 0.8611111111111112,
+      "entropy": 0.5813214987637028,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "117",
+      "gt": "A",
+      "gt_choice": "OWN CELEBRATES",
+      "stem": "What does the orange background on the black text of the TV read?",
+      "choices": {
+        "A": "OWN CELEBRATES",
+        "B": "OWN PREMIERES",
+        "C": "OWN PRESENTS",
+        "D": "OWN SPECIALS"
+      },
+      "dist": {
+        "C": 32,
+        "B": 4
+      },
+      "top_letter": "C",
+      "top_count": 32,
+      "top_pct": 0.8888888888888888,
+      "entropy": 0.5032583347756457,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "118",
+      "gt": "B",
+      "gt_choice": "Favorite Talk Show Entertainment",
+      "stem": "What is written on the white text displayed on the TV with a brown background?",
+      "choices": {
+        "A": "Local Evening News Report",
+        "B": "Favorite Talk Show Entertainment",
+        "C": "Late Night Comedy Hour",
+        "D": "Prime Time Movie Feature"
+      },
+      "dist": {
+        "A": 31,
+        "C": 5
+      },
+      "top_letter": "A",
+      "top_count": 31,
+      "top_pct": 0.8611111111111112,
+      "entropy": 0.5813214987637028,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "120",
+      "gt": "B",
+      "gt_choice": "Hi-Fi",
+      "stem": "What does the white text on the black book say?",
+      "choices": {
+        "A": "Lo-Fi",
+        "B": "Hi-Fi",
+        "C": "Li-Fi",
+        "D": "Wi-Fi"
+      },
+      "dist": {
+        "C": 31,
+        "D": 4,
+        "A": 1
+      },
+      "top_letter": "C",
+      "top_count": 31,
+      "top_pct": 0.8611111111111112,
+      "entropy": 0.6815892897202809,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "125",
+      "gt": "D",
+      "gt_choice": "COLOR PURPLE",
+      "stem": "What is displayed in the fourth movie tab?",
+      "choices": {
+        "A": "BOHEMIAN RHAPSODY",
+        "B": "ANNIE",
+        "C": "LITTLE WOMEN",
+        "D": "COLOR PURPLE"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "151",
+      "gt": "B",
+      "gt_choice": "ARCHITECTURAL",
+      "stem": "What is the text on the white watermark?",
+      "choices": {
+        "A": "ARCHITECTONIC",
+        "B": "ARCHITECTURAL",
+        "C": "CONSTRUCTION",
+        "D": "INFRASTRUCTURE"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "153",
+      "gt": "C",
+      "gt_choice": "5",
+      "stem": "How many spikes are visible in the bathroom mirror?",
+      "choices": {
+        "A": "3",
+        "B": "4",
+        "C": "5",
+        "D": "2"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "154",
+      "gt": "B",
+      "gt_choice": "SUCRE",
+      "stem": "What is written in white text on the black book?",
+      "choices": {
+        "A": "SOUS",
+        "B": "SUCRE",
+        "C": "SABLE",
+        "D": "SEL"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "155",
+      "gt": "B",
+      "gt_choice": "PICASSO BLACK",
+      "stem": "What does the white text say on the black book?",
+      "choices": {
+        "A": "MODERN DESIGN",
+        "B": "PICASSO BLACK",
+        "C": "PICASSO BLUE",
+        "D": "CLASSIC BLACK"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "158",
+      "gt": "B",
+      "gt_choice": "Rozen",
+      "stem": "What is written on the white soap label?",
+      "choices": {
+        "A": "Frozen",
+        "B": "Rozen",
+        "C": "Rasen",
+        "D": "Rizen"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "160",
+      "gt": "B",
+      "gt_choice": "ARCHITECTURAL DESIGN",
+      "stem": "What does the gray text against the brown and gray backdrop say?",
+      "choices": {
+        "A": "PROJECT DRAWINGS",
+        "B": "ARCHITECTURAL DESIGN",
+        "C": "STRUCTURAL PLANNING",
+        "D": "ARCHITECTURE STUDIO"
+      },
+      "dist": {
+        "D": 34,
+        "A": 2
+      },
+      "top_letter": "D",
+      "top_count": 34,
+      "top_pct": 0.9444444444444444,
+      "entropy": 0.3095434291503252,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "191",
+      "gt": "A",
+      "gt_choice": "Frigidaire",
+      "stem": "What is written on the black text located on the silver section of the oven?",
+      "choices": {
+        "A": "Frigidaire",
+        "B": "Electrolux",
+        "C": "KitchenAid",
+        "D": "Whirlpool"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "247",
+      "gt": "A",
+      "gt_choice": "VILA HERMANOS EST.1884 VETIVER & SALT WOOD",
+      "stem": "What is written on the black glass candle?",
+      "choices": {
+        "A": "VILA HERMANOS EST.1884 VETIVER & SALT WOOD",
+        "B": "VILA HERMANOS EST.1884 VETIVER & SEA SALT",
+        "C": "VILA HERMANOS EST.1884 VETIVER & DRIFT WOOD",
+        "D": "VILA HERMANOS EST.1884 VETIVER & CEDAR WOOD"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "252",
+      "gt": "B",
+      "gt_choice": "GUCCI",
+      "stem": "What is written on the gray bag?",
+      "choices": {
+        "A": "CHANEL",
+        "B": "GUCCI",
+        "C": "HERMES",
+        "D": "DIOR"
+      },
+      "dist": {
+        "C": 33,
+        "A": 3
+      },
+      "top_letter": "C",
+      "top_count": 33,
+      "top_pct": 0.9166666666666666,
+      "entropy": 0.41381685030363374,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "253",
+      "gt": "C",
+      "gt_choice": "GREECE",
+      "stem": "What is written in black text on the white book?",
+      "choices": {
+        "A": "SPAIN",
+        "B": "PORTUGAL",
+        "C": "GREECE",
+        "D": "ITALY"
+      },
+      "dist": {
+        "D": 34,
+        "B": 2
+      },
+      "top_letter": "D",
+      "top_count": 34,
+      "top_pct": 0.9444444444444444,
+      "entropy": 0.3095434291503252,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "256",
+      "gt": "D",
+      "gt_choice": "Scott Wheeler",
+      "stem": "What name is written in the credits on the TV?",
+      "choices": {
+        "A": "Sam Winter",
+        "B": "Brian Woller",
+        "C": "Bruce Wagner",
+        "D": "Scott Wheeler"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "257",
+      "gt": "B",
+      "gt_choice": "Rectangle",
+      "stem": "What shape is each hole in the electrical outlet?",
+      "choices": {
+        "A": "Oval",
+        "B": "Rectangle",
+        "C": "Circle",
+        "D": "Square"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "258",
+      "gt": "C",
+      "gt_choice": "Yellow",
+      "stem": "What color is the soap bottle by the sink?",
+      "choices": {
+        "A": "Red",
+        "B": "Blue",
+        "C": "Yellow",
+        "D": "Purple"
+      },
+      "dist": {
+        "B": 36
+      },
+      "top_letter": "B",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "264",
+      "gt": "D",
+      "gt_choice": "Sea Salt",
+      "stem": "What is written on the orange soap bottle?",
+      "choices": {
+        "A": "Clean Linen",
+        "B": "Lemon Verbena",
+        "C": "Cotton",
+        "D": "Sea Salt"
+      },
+      "dist": {
+        "C": 22,
+        "B": 14
+      },
+      "top_letter": "C",
+      "top_count": 22,
+      "top_pct": 0.6111111111111112,
+      "entropy": 0.964078764808229,
+      "is_convergent_wrong": false
+    },
+    {
+      "qid": "265",
+      "gt": "D",
+      "gt_choice": "4:32",
+      "stem": "What time is shown on the open microwave?",
+      "choices": {
+        "A": "1:41",
+        "B": "4:11",
+        "C": "1:14",
+        "D": "4:32"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "266",
+      "gt": "D",
+      "gt_choice": "NO REFUND",
+      "stem": "What is written in white text on the black board above the bed?",
+      "choices": {
+        "A": "LIVE LAUGH",
+        "B": "ON SALE",
+        "C": "PRINCETON",
+        "D": "NO REFUND"
+      },
+      "dist": {
+        "C": 32,
+        "A": 4
+      },
+      "top_letter": "C",
+      "top_count": 32,
+      "top_pct": 0.8888888888888888,
+      "entropy": 0.5032583347756457,
+      "is_convergent_wrong": true
+    }
+  ],
+  "succ_audit": [
+    {
+      "qid": "21",
+      "gt": "C",
+      "gt_choice": "7, 8, and 9",
+      "stem": "What numbers are displayed on the black telephone?",
+      "choices": {
+        "A": "1, 2, and 3",
+        "B": "2, 5, and 8",
+        "C": "7, 8, and 9",
+        "D": "1, 4, and 7"
+      },
+      "gt_letter_is_modal_C": true,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "49",
+      "gt": "B",
+      "gt_choice": "2280",
+      "stem": "What numbers are displayed on the white display on the black surface?",
+      "choices": {
+        "A": "2180",
+        "B": "2280",
+        "C": "2680",
+        "D": "2080"
+      },
+      "gt_letter_is_modal_C": false,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "65",
+      "gt": "C",
+      "gt_choice": "DSD, USB, OPT, COAX, UNBAL, BAL",
+      "stem": "What are the white texts displayed on the black electronic device?",
+      "choices": {
+        "A": "PCM, USB, OPT, COAX, UNBAL, BAL",
+        "B": "DSD, USB, OPT, AES, RCA, XLR",
+        "C": "DSD, USB, OPT, COAX, UNBAL, BAL",
+        "D": "PCM, USB, OPT, AES, RCA, XLR"
+      },
+      "gt_letter_is_modal_C": true,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "69",
+      "gt": "D",
+      "gt_choice": "1, 2, 3, 4, 5, 6",
+      "stem": "What numbers are displayed on the white surface of the black screen?",
+      "choices": {
+        "A": "2, 3, 4, 5, 6, 7",
+        "B": "1, 2, 3, 4, 5, 7",
+        "C": "0, 1, 2, 3, 4, 5",
+        "D": "1, 2, 3, 4, 5, 6"
+      },
+      "gt_letter_is_modal_C": false,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "73",
+      "gt": "B",
+      "gt_choice": "1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6",
+      "stem": "What numbers are displayed on the white twelve lines in the center tab?",
+      "choices": {
+        "A": "4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3",
+        "B": "1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6",
+        "C": "6, 5, 4, 3, 2, 1, 6, 5, 4, 3, 2, 1",
+        "D": "2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6, 7"
+      },
+      "gt_letter_is_modal_C": false,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "119",
+      "gt": "D",
+      "gt_choice": "Jane Edwards",
+      "stem": "What is written on the yellow book?",
+      "choices": {
+        "A": "King Charles",
+        "B": "Jane Goodall",
+        "C": "King Edward",
+        "D": "Jane Edwards"
+      },
+      "gt_letter_is_modal_C": false,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "159",
+      "gt": "B",
+      "gt_choice": "WOMAN UNLEASHED",
+      "stem": "What is written in white on the brown book?",
+      "choices": {
+        "A": "ANIMAL UNINJURED",
+        "B": "WOMAN UNLEASHED",
+        "C": "MEN UNHINDERED",
+        "D": "DOG UNLEASHED"
+      },
+      "gt_letter_is_modal_C": false,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "178",
+      "gt": "D",
+      "gt_choice": "MOHOLY NAGY",
+      "stem": "What does the black text say on the framed art?",
+      "choices": {
+        "A": "HERBERT BAYER",
+        "B": "WALTER GROPIUS",
+        "C": "LUCIA MOHOLY",
+        "D": "MOHOLY NAGY"
+      },
+      "gt_letter_is_modal_C": false,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "248",
+      "gt": "C",
+      "gt_choice": "SONOS",
+      "stem": "What does the black text on the black rectangular object say?",
+      "choices": {
+        "A": "DENON",
+        "B": "ONKYO",
+        "C": "SONOS",
+        "D": "VIZIO"
+      },
+      "gt_letter_is_modal_C": true,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "249",
+      "gt": "B",
+      "gt_choice": "D.FOREMAN 13 ATT",
+      "stem": "What is written in white text along the bottom of the television screen?",
+      "choices": {
+        "A": "ATT F.DOORMAN",
+        "B": "D.FOREMAN 13 ATT",
+        "C": "D.FOURMAN 15 ATT",
+        "D": "ATTENTION FOREMEN"
+      },
+      "gt_letter_is_modal_C": false,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "255",
+      "gt": "C",
+      "gt_choice": "NIKI BRANTMARK",
+      "stem": "What is written in white text on the brown book?",
+      "choices": {
+        "A": "NICKI BRENTMARK",
+        "B": "NIKI BRENTMARK",
+        "C": "NIKI BRANTMARK",
+        "D": "NIKKI BRANTMARK"
+      },
+      "gt_letter_is_modal_C": true,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "259",
+      "gt": "B",
+      "gt_choice": "Belgian Modern",
+      "stem": "What is written in black text on the light beige book?",
+      "choices": {
+        "A": "Modern Italian",
+        "B": "Belgian Modern",
+        "C": "Belgian Serif",
+        "D": "Italian Sans"
+      },
+      "gt_letter_is_modal_C": false,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "260",
+      "gt": "C",
+      "gt_choice": "PRIMARY COLORS",
+      "stem": "What is the title of the top white book on the brown table?",
+      "choices": {
+        "A": "COLOR WHEEL",
+        "B": "PRIMARY FASHION",
+        "C": "PRIMARY COLORS",
+        "D": "FASHION GUIDE"
+      },
+      "gt_letter_is_modal_C": true,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    },
+    {
+      "qid": "261",
+      "gt": "D",
+      "gt_choice": "Red",
+      "stem": "What color is the stamp next to the black Chinese text?",
+      "choices": {
+        "A": "Black",
+        "B": "Blue",
+        "C": "White",
+        "D": "Red"
+      },
+      "gt_letter_is_modal_C": false,
+      "gt_dominant_length": false,
+      "gt_in_stem": false
+    }
+  ],
+  "var_audit": [
+    {
+      "qid": "9",
+      "gt": "C",
+      "c_correct": 2,
+      "c_total": 36,
+      "entropy": 0.9444885341662053,
+      "dist": {
+        "D": 28,
+        "B": 6,
+        "C": 2
+      }
+    },
+    {
+      "qid": "12",
+      "gt": "A",
+      "c_correct": 19,
+      "c_total": 36,
+      "entropy": 0.997772472089982,
+      "dist": {
+        "A": 19,
+        "D": 17
+      }
+    },
+    {
+      "qid": "13",
+      "gt": "A",
+      "c_correct": 19,
+      "c_total": 36,
+      "entropy": 0.997772472089982,
+      "dist": {
+        "A": 19,
+        "C": 17
+      }
+    },
+    {
+      "qid": "15",
+      "gt": "C",
+      "c_correct": 24,
+      "c_total": 36,
+      "entropy": 0.9182958340544896,
+      "dist": {
+        "C": 24,
+        "B": 12
+      }
+    },
+    {
+      "qid": "16",
+      "gt": "D",
+      "c_correct": 26,
+      "c_total": 36,
+      "entropy": 0.9826817324242788,
+      "dist": {
+        "D": 26,
+        "A": 9,
+        "C": 1
+      }
+    },
+    {
+      "qid": "18",
+      "gt": "A",
+      "c_correct": 12,
+      "c_total": 36,
+      "entropy": 1.3516441151533924,
+      "dist": {
+        "D": 20,
+        "A": 12,
+        "C": 4
+      }
+    },
+    {
+      "qid": "19",
+      "gt": "B",
+      "c_correct": 15,
+      "c_total": 36,
+      "entropy": 0.9798687566511528,
+      "dist": {
+        "D": 21,
+        "B": 15
+      }
+    },
+    {
+      "qid": "20",
+      "gt": "A",
+      "c_correct": 1,
+      "c_total": 36,
+      "entropy": 0.3650989847058807,
+      "dist": {
+        "C": 34,
+        "D": 1,
+        "A": 1
+      }
+    },
+    {
+      "qid": "22",
+      "gt": "C",
+      "c_correct": 11,
+      "c_total": 36,
+      "entropy": 0.8879763195151349,
+      "dist": {
+        "D": 25,
+        "C": 11
+      }
+    },
+    {
+      "qid": "23",
+      "gt": "B",
+      "c_correct": 14,
+      "c_total": 36,
+      "entropy": 0.964078764808229,
+      "dist": {
+        "C": 22,
+        "B": 14
+      }
+    },
+    {
+      "qid": "24",
+      "gt": "A",
+      "c_correct": 11,
+      "c_total": 36,
+      "entropy": 0.8879763195151349,
+      "dist": {
+        "C": 25,
+        "A": 11
+      }
+    },
+    {
+      "qid": "25",
+      "gt": "B",
+      "c_correct": 5,
+      "c_total": 36,
+      "entropy": 0.5813214987637028,
+      "dist": {
+        "C": 31,
+        "B": 5
+      }
+    },
+    {
+      "qid": "26",
+      "gt": "C",
+      "c_correct": 9,
+      "c_total": 36,
+      "entropy": 0.8112781244591328,
+      "dist": {
+        "A": 27,
+        "C": 9
+      }
+    },
+    {
+      "qid": "27",
+      "gt": "B",
+      "c_correct": 13,
+      "c_total": 36,
+      "entropy": 1.1084468918352364,
+      "dist": {
+        "D": 22,
+        "B": 13,
+        "C": 1
+      }
+    },
+    {
+      "qid": "29",
+      "gt": "D",
+      "c_correct": 16,
+      "c_total": 36,
+      "entropy": 0.9910760598382222,
+      "dist": {
+        "A": 20,
+        "D": 16
+      }
+    },
+    {
+      "qid": "30",
+      "gt": "C",
+      "c_correct": 12,
+      "c_total": 36,
+      "entropy": 0.9182958340544896,
+      "dist": {
+        "A": 24,
+        "C": 12
+      }
+    },
+    {
+      "qid": "31",
+      "gt": "D",
+      "c_correct": 1,
+      "c_total": 36,
+      "entropy": 0.9826817324242788,
+      "dist": {
+        "C": 26,
+        "B": 9,
+        "D": 1
+      }
+    },
+    {
+      "qid": "32",
+      "gt": "D",
+      "c_correct": 1,
+      "c_total": 36,
+      "entropy": 1.1084963161181902,
+      "dist": {
+        "B": 26,
+        "C": 8,
+        "A": 1,
+        "D": 1
+      }
+    },
+    {
+      "qid": "34",
+      "gt": "D",
+      "c_correct": 4,
+      "c_total": 36,
+      "entropy": 0.8030717273241024,
+      "dist": {
+        "C": 30,
+        "D": 4,
+        "B": 2
+      }
+    },
+    {
+      "qid": "35",
+      "gt": "C",
+      "c_correct": 4,
+      "c_total": 36,
+      "entropy": 0.5032583347756457,
+      "dist": {
+        "D": 32,
+        "C": 4
+      }
+    },
+    {
+      "qid": "36",
+      "gt": "A",
+      "c_correct": 11,
+      "c_total": 36,
+      "entropy": 0.8879763195151349,
+      "dist": {
+        "C": 25,
+        "A": 11
+      }
+    },
+    {
+      "qid": "38",
+      "gt": "C",
+      "c_correct": 16,
+      "c_total": 36,
+      "entropy": 0.9910760598382222,
+      "dist": {
+        "B": 20,
+        "C": 16
+      }
+    },
+    {
+      "qid": "39",
+      "gt": "A",
+      "c_correct": 25,
+      "c_total": 36,
+      "entropy": 1.1769280792542194,
+      "dist": {
+        "A": 25,
+        "D": 7,
+        "C": 4
+      }
+    },
+    {
+      "qid": "40",
+      "gt": "C",
+      "c_correct": 2,
+      "c_total": 36,
+      "entropy": 0.3095434291503252,
+      "dist": {
+        "D": 34,
+        "C": 2
+      }
+    },
+    {
+      "qid": "41",
+      "gt": "B",
+      "c_correct": 26,
+      "c_total": 36,
+      "entropy": 0.8524051786494786,
+      "dist": {
+        "B": 26,
+        "C": 10
+      }
+    },
+    {
+      "qid": "44",
+      "gt": "D",
+      "c_correct": 34,
+      "c_total": 36,
+      "entropy": 0.3095434291503252,
+      "dist": {
+        "D": 34,
+        "A": 2
+      }
+    },
+    {
+      "qid": "45",
+      "gt": "C",
+      "c_correct": 12,
+      "c_total": 36,
+      "entropy": 0.9182958340544896,
+      "dist": {
+        "D": 24,
+        "C": 12
+      }
+    },
+    {
+      "qid": "46",
+      "gt": "C",
+      "c_correct": 9,
+      "c_total": 36,
+      "entropy": 0.8112781244591328,
+      "dist": {
+        "D": 27,
+        "C": 9
+      }
+    },
+    {
+      "qid": "47",
+      "gt": "D",
+      "c_correct": 28,
+      "c_total": 36,
+      "entropy": 0.7642045065086203,
+      "dist": {
+        "D": 28,
+        "C": 8
+      }
+    },
+    {
+      "qid": "51",
+      "gt": "A",
+      "c_correct": 28,
+      "c_total": 36,
+      "entropy": 0.9444885341662053,
+      "dist": {
+        "A": 28,
+        "D": 6,
+        "C": 2
+      }
+    },
+    {
+      "qid": "52",
+      "gt": "D",
+      "c_correct": 5,
+      "c_total": 36,
+      "entropy": 0.5813214987637028,
+      "dist": {
+        "C": 31,
+        "D": 5
+      }
+    },
+    {
+      "qid": "55",
+      "gt": "D",
+      "c_correct": 31,
+      "c_total": 36,
+      "entropy": 0.5813214987637028,
+      "dist": {
+        "D": 31,
+        "A": 5
+      }
+    },
+    {
+      "qid": "58",
+      "gt": "C",
+      "c_correct": 5,
+      "c_total": 36,
+      "entropy": 0.976300951603057,
+      "dist": {
+        "B": 28,
+        "C": 5,
+        "A": 3
+      }
+    },
+    {
+      "qid": "61",
+      "gt": "C",
+      "c_correct": 7,
+      "c_total": 36,
+      "entropy": 1.4680151384214595,
+      "dist": {
+        "B": 22,
+        "C": 7,
+        "D": 6,
+        "A": 1
+      }
+    },
+    {
+      "qid": "63",
+      "gt": "B",
+      "c_correct": 3,
+      "c_total": 36,
+      "entropy": 0.7717313035490734,
+      "dist": {
+        "C": 31,
+        "B": 3,
+        "D": 1,
+        "A": 1
+      }
+    },
+    {
+      "qid": "64",
+      "gt": "C",
+      "c_correct": 1,
+      "c_total": 36,
+      "entropy": 0.93406140885519,
+      "dist": {
+        "D": 29,
+        "B": 5,
+        "A": 1,
+        "C": 1
+      }
+    },
+    {
+      "qid": "66",
+      "gt": "A",
+      "c_correct": 16,
+      "c_total": 36,
+      "entropy": 0.9910760598382222,
+      "dist": {
+        "D": 20,
+        "A": 16
+      }
+    },
+    {
+      "qid": "68",
+      "gt": "B",
+      "c_correct": 4,
+      "c_total": 36,
+      "entropy": 0.5032583347756457,
+      "dist": {
+        "A": 32,
+        "B": 4
+      }
+    },
+    {
+      "qid": "70",
+      "gt": "A",
+      "c_correct": 34,
+      "c_total": 36,
+      "entropy": 0.3095434291503252,
+      "dist": {
+        "A": 34,
+        "B": 2
+      }
+    },
+    {
+      "qid": "75",
+      "gt": "A",
+      "c_correct": 12,
+      "c_total": 36,
+      "entropy": 1.1941737342569119,
+      "dist": {
+        "C": 22,
+        "A": 12,
+        "D": 2
+      }
+    },
+    {
+      "qid": "76",
+      "gt": "C",
+      "c_correct": 7,
+      "c_total": 36,
+      "entropy": 1.002329251086288,
+      "dist": {
+        "B": 27,
+        "C": 7,
+        "D": 2
+      }
+    },
+    {
+      "qid": "77",
+      "gt": "B",
+      "c_correct": 12,
+      "c_total": 36,
+      "entropy": 1.0848840292766133,
+      "dist": {
+        "C": 23,
+        "B": 12,
+        "A": 1
+      }
+    },
+    {
+      "qid": "78",
+      "gt": "D",
+      "c_correct": 25,
+      "c_total": 36,
+      "entropy": 1.0222670655189308,
+      "dist": {
+        "D": 25,
+        "B": 10,
+        "A": 1
+      }
+    },
+    {
+      "qid": "115",
+      "gt": "A",
+      "c_correct": 17,
+      "c_total": 36,
+      "entropy": 0.997772472089982,
+      "dist": {
+        "B": 19,
+        "A": 17
+      }
+    },
+    {
+      "qid": "116",
+      "gt": "C",
+      "c_correct": 3,
+      "c_total": 36,
+      "entropy": 0.41381685030363374,
+      "dist": {
+        "A": 33,
+        "C": 3
+      }
+    },
+    {
+      "qid": "121",
+      "gt": "A",
+      "c_correct": 29,
+      "c_total": 36,
+      "entropy": 0.710676853856123,
+      "dist": {
+        "A": 29,
+        "C": 7
+      }
+    },
+    {
+      "qid": "122",
+      "gt": "D",
+      "c_correct": 34,
+      "c_total": 36,
+      "entropy": 0.3095434291503252,
+      "dist": {
+        "D": 34,
+        "C": 2
+      }
+    },
+    {
+      "qid": "123",
+      "gt": "D",
+      "c_correct": 6,
+      "c_total": 36,
+      "entropy": 1.0000440897217608,
+      "dist": {
+        "C": 28,
+        "D": 6,
+        "B": 1,
+        "A": 1
+      }
+    },
+    {
+      "qid": "124",
+      "gt": "C",
+      "c_correct": 7,
+      "c_total": 36,
+      "entropy": 0.710676853856123,
+      "dist": {
+        "B": 29,
+        "C": 7
+      }
+    },
+    {
+      "qid": "152",
+      "gt": "C",
+      "c_correct": 34,
+      "c_total": 36,
+      "entropy": 0.3095434291503252,
+      "dist": {
+        "C": 34,
+        "D": 2
+      }
+    },
+    {
+      "qid": "156",
+      "gt": "C",
+      "c_correct": 16,
+      "c_total": 36,
+      "entropy": 0.9910760598382222,
+      "dist": {
+        "A": 20,
+        "C": 16
+      }
+    },
+    {
+      "qid": "157",
+      "gt": "A",
+      "c_correct": 3,
+      "c_total": 36,
+      "entropy": 0.41381685030363374,
+      "dist": {
+        "D": 33,
+        "A": 3
+      }
+    },
+    {
+      "qid": "177",
+      "gt": "C",
+      "c_correct": 7,
+      "c_total": 36,
+      "entropy": 0.710676853856123,
+      "dist": {
+        "D": 29,
+        "C": 7
+      }
+    },
+    {
+      "qid": "192",
+      "gt": "D",
+      "c_correct": 6,
+      "c_total": 36,
+      "entropy": 0.6500224216483541,
+      "dist": {
+        "A": 30,
+        "D": 6
+      }
+    },
+    {
+      "qid": "197",
+      "gt": "B",
+      "c_correct": 6,
+      "c_total": 36,
+      "entropy": 0.8257243385804642,
+      "dist": {
+        "D": 29,
+        "B": 6,
+        "A": 1
+      }
+    },
+    {
+      "qid": "245",
+      "gt": "C",
+      "c_correct": 5,
+      "c_total": 36,
+      "entropy": 0.5813214987637028,
+      "dist": {
+        "A": 31,
+        "C": 5
+      }
+    },
+    {
+      "qid": "246",
+      "gt": "C",
+      "c_correct": 2,
+      "c_total": 36,
+      "entropy": 1.167267423822269,
+      "dist": {
+        "B": 23,
+        "A": 11,
+        "C": 2
+      }
+    },
+    {
+      "qid": "250",
+      "gt": "B",
+      "c_correct": 1,
+      "c_total": 36,
+      "entropy": 0.18312206830137276,
+      "dist": {
+        "C": 35,
+        "B": 1
+      }
+    },
+    {
+      "qid": "251",
+      "gt": "A",
+      "c_correct": 24,
+      "c_total": 36,
+      "entropy": 1.134969974603941,
+      "dist": {
+        "A": 24,
+        "D": 10,
+        "B": 2
+      }
+    },
+    {
+      "qid": "254",
+      "gt": "A",
+      "c_correct": 18,
+      "c_total": 36,
+      "entropy": 1.0,
+      "dist": {
+        "A": 18,
+        "C": 18
+      }
+    },
+    {
+      "qid": "262",
+      "gt": "A",
+      "c_correct": 11,
+      "c_total": 36,
+      "entropy": 1.0562347841557007,
+      "dist": {
+        "B": 24,
+        "A": 11,
+        "D": 1
+      }
+    },
+    {
+      "qid": "263",
+      "gt": "A",
+      "c_correct": 1,
+      "c_total": 36,
+      "entropy": 0.6815892897202809,
+      "dist": {
+        "D": 31,
+        "C": 4,
+        "A": 1
+      }
+    },
+    {
+      "qid": "267",
+      "gt": "B",
+      "c_correct": 2,
+      "c_total": 36,
+      "entropy": 0.8785058532996345,
+      "dist": {
+        "A": 29,
+        "C": 5,
+        "B": 2
+      }
+    }
+  ],
+  "convergent_wrong_candidates": [
+    {
+      "qid": "8",
+      "gt": "C",
+      "gt_choice": "ORGANIC",
+      "stem": "What does the white text say on the green background of the pack on the top of the shelf?",
+      "choices": {
+        "A": "NATURAL",
+        "B": "VEGGIE",
+        "C": "ORGANIC",
+        "D": "HERBAL"
+      },
+      "dist": {
+        "B": 36
+      },
+      "top_letter": "B",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "10",
+      "gt": "C",
+      "gt_choice": "ARAMEL DIEM",
+      "stem": "What text is visible on the dark blue and black packet placed on the brown wooden chair?",
+      "choices": {
+        "A": "ARAMEL DENIM",
+        "B": "ARAMEL DREAM",
+        "C": "ARAMEL DIEM",
+        "D": "ARAMEL DEAN"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "11",
+      "gt": "A",
+      "gt_choice": "MacBook Air",
+      "stem": "What device name is displayed in white text below the partially visible screen?",
+      "choices": {
+        "A": "MacBook Air",
+        "B": "Chromebook",
+        "C": "MacBook",
+        "D": "MacBook Pro"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "14",
+      "gt": "B",
+      "gt_choice": "L j T",
+      "stem": "What does the white text on the black screen read?",
+      "choices": {
+        "A": "I J T",
+        "B": "L j T",
+        "C": "I J Y",
+        "D": "L j Y"
+      },
+      "dist": {
+        "D": 33,
+        "A": 3
+      },
+      "top_letter": "D",
+      "top_count": 33,
+      "top_pct": 0.9166666666666666,
+      "entropy": 0.41381685030363374,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "17",
+      "gt": "A",
+      "gt_choice": "S and P",
+      "stem": "What does the black text on the yellow cover say?",
+      "choices": {
+        "A": "S and P",
+        "B": "S + P",
+        "C": "S / P",
+        "D": "S & P"
+      },
+      "dist": {
+        "D": 35,
+        "B": 1
+      },
+      "top_letter": "D",
+      "top_count": 35,
+      "top_pct": 0.9722222222222222,
+      "entropy": 0.18312206830137276,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "28",
+      "gt": "C",
+      "gt_choice": "SHU GL",
+      "stem": "What does the white text say on the black object?",
+      "choices": {
+        "A": "SHO GL",
+        "B": "SHA GL",
+        "C": "SHU GL",
+        "D": "SHI GL"
+      },
+      "dist": {
+        "D": 30,
+        "A": 5,
+        "B": 1
+      },
+      "top_letter": "D",
+      "top_count": 30,
+      "top_pct": 0.8333333333333334,
+      "entropy": 0.7583594919230799,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "33",
+      "gt": "D",
+      "gt_choice": "START",
+      "stem": "What does the red text on the grey button say?",
+      "choices": {
+        "A": "ENTER",
+        "B": "BEGIN",
+        "C": "RESET",
+        "D": "START"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "37",
+      "gt": "A",
+      "gt_choice": "CPU_OPT",
+      "stem": "What does the white text say on the motherboard?",
+      "choices": {
+        "A": "CPU_OPT",
+        "B": "CPU_FAN",
+        "C": "GPU_FAN",
+        "D": "GPU_OPT"
+      },
+      "dist": {
+        "B": 36
+      },
+      "top_letter": "B",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "42",
+      "gt": "A",
+      "gt_choice": "REV",
+      "stem": "What is the white text on the black computer RAM?",
+      "choices": {
+        "A": "REV",
+        "B": "DDR",
+        "C": "VER",
+        "D": "ECC"
+      },
+      "dist": {
+        "D": 36
+      },
+      "top_letter": "D",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "43",
+      "gt": "A",
+      "gt_choice": "START",
+      "stem": "What does the black text on the gray button say?",
+      "choices": {
+        "A": "START",
+        "B": "ENTER",
+        "C": "POWER",
+        "D": "BEGIN"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "48",
+      "gt": "A",
+      "gt_choice": "B06EBFC B68C",
+      "stem": "What does the black text on the pink barcode read?",
+      "choices": {
+        "A": "B06EBFC B68C",
+        "B": "B06EBFD B68C",
+        "C": "B06EBFC B69C",
+        "D": "B06EBFD B69C"
+      },
+      "dist": {
+        "B": 35,
+        "D": 1
+      },
+      "top_letter": "B",
+      "top_count": 35,
+      "top_pct": 0.9722222222222222,
+      "entropy": 0.18312206830137276,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "50",
+      "gt": "B",
+      "gt_choice": "F1",
+      "stem": "What does the black text say on the blue surface?",
+      "choices": {
+        "A": "F8",
+        "B": "F1",
+        "C": "F5",
+        "D": "F7"
+      },
+      "dist": {
+        "D": 36
+      },
+      "top_letter": "D",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "56",
+      "gt": "C",
+      "gt_choice": "Fan 4",
+      "stem": "What does the purple text say on the brown screen display?",
+      "choices": {
+        "A": "Fan 5",
+        "B": "Fan 7",
+        "C": "Fan 4",
+        "D": "Fan 6"
+      },
+      "dist": {
+        "D": 36
+      },
+      "top_letter": "D",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "59",
+      "gt": "D",
+      "gt_choice": "SHUR",
+      "stem": "What does the white text say on the black background with 2 antennas?",
+      "choices": {
+        "A": "BOSE",
+        "B": "RODE",
+        "C": "SONY",
+        "D": "SHUR"
+      },
+      "dist": {
+        "B": 36
+      },
+      "top_letter": "B",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "60",
+      "gt": "A",
+      "gt_choice": "X7",
+      "stem": "What does the brown text say on the black speaker?",
+      "choices": {
+        "A": "X7",
+        "B": "X8",
+        "C": "X6",
+        "D": "X5"
+      },
+      "dist": {
+        "D": 34,
+        "C": 2
+      },
+      "top_letter": "D",
+      "top_count": 34,
+      "top_pct": 0.9444444444444444,
+      "entropy": 0.3095434291503252,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "62",
+      "gt": "A",
+      "gt_choice": "ONE TWO THREE FOUR",
+      "stem": "What numbers are displayed on the white text with a black background located at the bottom right side?",
+      "choices": {
+        "A": "ONE TWO THREE FOUR",
+        "B": "ZERO ONE TWO THREE",
+        "C": "FOUR FIVE SIX SEVEN",
+        "D": "TWO THREE FOUR FIVE"
+      },
+      "dist": {
+        "D": 36
+      },
+      "top_letter": "D",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "67",
+      "gt": "B",
+      "gt_choice": "OU",
+      "stem": "What does the white text say on the black screen?",
+      "choices": {
+        "A": "OY",
+        "B": "OU",
+        "C": "OV",
+        "D": "OP"
+      },
+      "dist": {
+        "D": 36
+      },
+      "top_letter": "D",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "71",
+      "gt": "C",
+      "gt_choice": "10, 5, OU, 5",
+      "stem": "What are the white text lines on the left side of the black section of the bottom screen reading?",
+      "choices": {
+        "A": "10, 10, OU, 10",
+        "B": "10, 10, OU, 5",
+        "C": "10, 5, OU, 5",
+        "D": "5, 5, OU, 10"
+      },
+      "dist": {
+        "B": 35,
+        "A": 1
+      },
+      "top_letter": "B",
+      "top_count": 35,
+      "top_pct": 0.9722222222222222,
+      "entropy": 0.18312206830137276,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "74",
+      "gt": "D",
+      "gt_choice": "NVIDIA G-SYNC HDR",
+      "stem": "What is the white text on the side of the black monitor screen?",
+      "choices": {
+        "A": "NVIDIA G-SYNC ULTIMATE",
+        "B": "NVIDIA G-SYNC ULTRA",
+        "C": "NVIDIA G-SYNC PRO",
+        "D": "NVIDIA G-SYNC HDR"
+      },
+      "dist": {
+        "B": 36
+      },
+      "top_letter": "B",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "113",
+      "gt": "D",
+      "gt_choice": "KOBALT",
+      "stem": "What does the gray text say on the white object?",
+      "choices": {
+        "A": "KIDGID",
+        "B": "DEWALT",
+        "C": "RIDGID",
+        "D": "KOBALT"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "114",
+      "gt": "C",
+      "gt_choice": "Haut Parleur Actit, Altavos Activo, Aktiv Lautsprecher, Attivo, Ativo",
+      "stem": "What are the five lines of black text at the bottom of the white box?",
+      "choices": {
+        "A": "Haut-Parleur Actif, Altavoz Activo, Aktiv Lautsprecher, Altoparlante Attivo, Alto-falante Ativo",
+        "B": "Haut Parleur Actif, Altavoces Activos, Aktivlautsprecher, Altoparlanti Attivi, Altifalante Ativo",
+        "C": "Haut Parleur Actit, Altavos Activo, Aktiv Lautsprecher, Attivo, Ativo",
+        "D": "Haut Parleur Actif, Altavoz Activo, Aktiv-Lautsprecher, Altoparlante Attivo, Altifalantes Ativos"
+      },
+      "dist": {
+        "A": 31,
+        "B": 5
+      },
+      "top_letter": "A",
+      "top_count": 31,
+      "top_pct": 0.8611111111111112,
+      "entropy": 0.5813214987637028,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "117",
+      "gt": "A",
+      "gt_choice": "OWN CELEBRATES",
+      "stem": "What does the orange background on the black text of the TV read?",
+      "choices": {
+        "A": "OWN CELEBRATES",
+        "B": "OWN PREMIERES",
+        "C": "OWN PRESENTS",
+        "D": "OWN SPECIALS"
+      },
+      "dist": {
+        "C": 32,
+        "B": 4
+      },
+      "top_letter": "C",
+      "top_count": 32,
+      "top_pct": 0.8888888888888888,
+      "entropy": 0.5032583347756457,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "118",
+      "gt": "B",
+      "gt_choice": "Favorite Talk Show Entertainment",
+      "stem": "What is written on the white text displayed on the TV with a brown background?",
+      "choices": {
+        "A": "Local Evening News Report",
+        "B": "Favorite Talk Show Entertainment",
+        "C": "Late Night Comedy Hour",
+        "D": "Prime Time Movie Feature"
+      },
+      "dist": {
+        "A": 31,
+        "C": 5
+      },
+      "top_letter": "A",
+      "top_count": 31,
+      "top_pct": 0.8611111111111112,
+      "entropy": 0.5813214987637028,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "120",
+      "gt": "B",
+      "gt_choice": "Hi-Fi",
+      "stem": "What does the white text on the black book say?",
+      "choices": {
+        "A": "Lo-Fi",
+        "B": "Hi-Fi",
+        "C": "Li-Fi",
+        "D": "Wi-Fi"
+      },
+      "dist": {
+        "C": 31,
+        "D": 4,
+        "A": 1
+      },
+      "top_letter": "C",
+      "top_count": 31,
+      "top_pct": 0.8611111111111112,
+      "entropy": 0.6815892897202809,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "125",
+      "gt": "D",
+      "gt_choice": "COLOR PURPLE",
+      "stem": "What is displayed in the fourth movie tab?",
+      "choices": {
+        "A": "BOHEMIAN RHAPSODY",
+        "B": "ANNIE",
+        "C": "LITTLE WOMEN",
+        "D": "COLOR PURPLE"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "151",
+      "gt": "B",
+      "gt_choice": "ARCHITECTURAL",
+      "stem": "What is the text on the white watermark?",
+      "choices": {
+        "A": "ARCHITECTONIC",
+        "B": "ARCHITECTURAL",
+        "C": "CONSTRUCTION",
+        "D": "INFRASTRUCTURE"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "153",
+      "gt": "C",
+      "gt_choice": "5",
+      "stem": "How many spikes are visible in the bathroom mirror?",
+      "choices": {
+        "A": "3",
+        "B": "4",
+        "C": "5",
+        "D": "2"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "154",
+      "gt": "B",
+      "gt_choice": "SUCRE",
+      "stem": "What is written in white text on the black book?",
+      "choices": {
+        "A": "SOUS",
+        "B": "SUCRE",
+        "C": "SABLE",
+        "D": "SEL"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "155",
+      "gt": "B",
+      "gt_choice": "PICASSO BLACK",
+      "stem": "What does the white text say on the black book?",
+      "choices": {
+        "A": "MODERN DESIGN",
+        "B": "PICASSO BLACK",
+        "C": "PICASSO BLUE",
+        "D": "CLASSIC BLACK"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "158",
+      "gt": "B",
+      "gt_choice": "Rozen",
+      "stem": "What is written on the white soap label?",
+      "choices": {
+        "A": "Frozen",
+        "B": "Rozen",
+        "C": "Rasen",
+        "D": "Rizen"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "160",
+      "gt": "B",
+      "gt_choice": "ARCHITECTURAL DESIGN",
+      "stem": "What does the gray text against the brown and gray backdrop say?",
+      "choices": {
+        "A": "PROJECT DRAWINGS",
+        "B": "ARCHITECTURAL DESIGN",
+        "C": "STRUCTURAL PLANNING",
+        "D": "ARCHITECTURE STUDIO"
+      },
+      "dist": {
+        "D": 34,
+        "A": 2
+      },
+      "top_letter": "D",
+      "top_count": 34,
+      "top_pct": 0.9444444444444444,
+      "entropy": 0.3095434291503252,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "191",
+      "gt": "A",
+      "gt_choice": "Frigidaire",
+      "stem": "What is written on the black text located on the silver section of the oven?",
+      "choices": {
+        "A": "Frigidaire",
+        "B": "Electrolux",
+        "C": "KitchenAid",
+        "D": "Whirlpool"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "247",
+      "gt": "A",
+      "gt_choice": "VILA HERMANOS EST.1884 VETIVER & SALT WOOD",
+      "stem": "What is written on the black glass candle?",
+      "choices": {
+        "A": "VILA HERMANOS EST.1884 VETIVER & SALT WOOD",
+        "B": "VILA HERMANOS EST.1884 VETIVER & SEA SALT",
+        "C": "VILA HERMANOS EST.1884 VETIVER & DRIFT WOOD",
+        "D": "VILA HERMANOS EST.1884 VETIVER & CEDAR WOOD"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "252",
+      "gt": "B",
+      "gt_choice": "GUCCI",
+      "stem": "What is written on the gray bag?",
+      "choices": {
+        "A": "CHANEL",
+        "B": "GUCCI",
+        "C": "HERMES",
+        "D": "DIOR"
+      },
+      "dist": {
+        "C": 33,
+        "A": 3
+      },
+      "top_letter": "C",
+      "top_count": 33,
+      "top_pct": 0.9166666666666666,
+      "entropy": 0.41381685030363374,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "253",
+      "gt": "C",
+      "gt_choice": "GREECE",
+      "stem": "What is written in black text on the white book?",
+      "choices": {
+        "A": "SPAIN",
+        "B": "PORTUGAL",
+        "C": "GREECE",
+        "D": "ITALY"
+      },
+      "dist": {
+        "D": 34,
+        "B": 2
+      },
+      "top_letter": "D",
+      "top_count": 34,
+      "top_pct": 0.9444444444444444,
+      "entropy": 0.3095434291503252,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "256",
+      "gt": "D",
+      "gt_choice": "Scott Wheeler",
+      "stem": "What name is written in the credits on the TV?",
+      "choices": {
+        "A": "Sam Winter",
+        "B": "Brian Woller",
+        "C": "Bruce Wagner",
+        "D": "Scott Wheeler"
+      },
+      "dist": {
+        "A": 36
+      },
+      "top_letter": "A",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "257",
+      "gt": "B",
+      "gt_choice": "Rectangle",
+      "stem": "What shape is each hole in the electrical outlet?",
+      "choices": {
+        "A": "Oval",
+        "B": "Rectangle",
+        "C": "Circle",
+        "D": "Square"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "258",
+      "gt": "C",
+      "gt_choice": "Yellow",
+      "stem": "What color is the soap bottle by the sink?",
+      "choices": {
+        "A": "Red",
+        "B": "Blue",
+        "C": "Yellow",
+        "D": "Purple"
+      },
+      "dist": {
+        "B": 36
+      },
+      "top_letter": "B",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "265",
+      "gt": "D",
+      "gt_choice": "4:32",
+      "stem": "What time is shown on the open microwave?",
+      "choices": {
+        "A": "1:41",
+        "B": "4:11",
+        "C": "1:14",
+        "D": "4:32"
+      },
+      "dist": {
+        "C": 36
+      },
+      "top_letter": "C",
+      "top_count": 36,
+      "top_pct": 1.0,
+      "entropy": -0.0,
+      "is_convergent_wrong": true
+    },
+    {
+      "qid": "266",
+      "gt": "D",
+      "gt_choice": "NO REFUND",
+      "stem": "What is written in white text on the black board above the bed?",
+      "choices": {
+        "A": "LIVE LAUGH",
+        "B": "ON SALE",
+        "C": "PRINCETON",
+        "D": "NO REFUND"
+      },
+      "dist": {
+        "C": 32,
+        "A": 4
+      },
+      "top_letter": "C",
+      "top_count": 32,
+      "top_pct": 0.8888888888888888,
+      "entropy": 0.5032583347756457,
+      "is_convergent_wrong": true
+    }
+  ],
+  "near_success_variables": [
+    {
+      "qid": "44",
+      "gt": "D",
+      "c_correct": 34,
+      "c_total": 36,
+      "entropy": 0.3095434291503252,
+      "dist": {
+        "D": 34,
+        "A": 2
+      }
+    },
+    {
+      "qid": "70",
+      "gt": "A",
+      "c_correct": 34,
+      "c_total": 36,
+      "entropy": 0.3095434291503252,
+      "dist": {
+        "A": 34,
+        "B": 2
+      }
+    },
+    {
+      "qid": "122",
+      "gt": "D",
+      "c_correct": 34,
+      "c_total": 36,
+      "entropy": 0.3095434291503252,
+      "dist": {
+        "D": 34,
+        "C": 2
+      }
+    },
+    {
+      "qid": "152",
+      "gt": "C",
+      "c_correct": 34,
+      "c_total": 36,
+      "entropy": 0.3095434291503252,
+      "dist": {
+        "C": 34,
+        "D": 2
+      }
+    }
+  ]
+}
