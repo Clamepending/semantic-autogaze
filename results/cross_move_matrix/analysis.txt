@@ -1,0 +1,85 @@
+========================================================================
+cross_move_matrix :: HLVid household subset (n=122)
+========================================================================
+sources loaded   : 8 files
+configs covered  : 36
+questions covered: 122
+
+-- Universal failure / success / ensemble ceiling --
+universal FAIL (wrong in all configs)    : 45 / 122
+universal SUCCESS (correct in all configs): 14 / 122
+ensemble ceiling (correct in >=1 config)  : 77 / 122
+variable (1..n-1 configs correct)         : 63 / 122
+
+-- Per-question correct-count histogram (x = #configs correct) --
+    0 configs correct : 45 questions
+    1 configs correct : 6 questions
+    2 configs correct : 4 questions
+    3 configs correct : 3 questions
+    4 configs correct : 3 questions
+    5 configs correct : 4 questions
+    6 configs correct : 3 questions
+    7 configs correct : 4 questions
+    9 configs correct : 2 questions
+   11 configs correct : 4 questions
+   12 configs correct : 5 questions
+   13 configs correct : 1 questions
+   14 configs correct : 1 questions
+   15 configs correct : 1 questions
+   16 configs correct : 4 questions
+   17 configs correct : 1 questions
+   18 configs correct : 1 questions
+   19 configs correct : 2 questions
+   24 configs correct : 2 questions
+   25 configs correct : 2 questions
+   26 configs correct : 2 questions
+   28 configs correct : 2 questions
+   29 configs correct : 1 questions
+   31 configs correct : 1 questions
+   34 configs correct : 4 questions
+   36 configs correct : 14 questions
+
+-- Per-config total correct (higher = stronger individual config) --
+   51 / 122  budget_sweep::vanilla tile=0.20 thumb=0.75
+   51 / 122  hh_expand::AutoGaze only
+   51 / 122  predecoder::AutoGaze only
+   49 / 122  budget_sweep::scaled 0.5 tile=0.10 thumb=0.375
+   49 / 122  vanilla_m1::gaze_t=0.2,th=0.75,mt=1
+   47 / 122  raw_m1::gaze_t=1.0,th=1.0,mt=1
+   45 / 122  budget_sweep::scaled 0.3 tile=0.06 thumb=0.225
+   43 / 122  predecoder::Thresh 0.005
+   42 / 122  predecoder::Thresh 0.01
+   40 / 122  budget_sweep::scaled 0.1 tile=0.02 thumb=0.075
+   38 / 122  hh_expand::Thresh 0.005
+   36 / 122  hh_expand::Thresh 0.01
+   36 / 122  subsel_probe::Intersect 90% random
+   35 / 122  budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375
+   34 / 122  filter_vs_rand::Intersect 50% random
+   34 / 122  filter_vs_rand::Intersect 75% random
+   33 / 122  aware_filter::Intersect 75%
+   33 / 122  aware_filter::Intersect 50%
+   33 / 122  aware_filter::Semantic 75%
+   33 / 122  aware_filter::Semantic 50%
+   33 / 122  hh_expand::Thresh 0.05
+   33 / 122  subsel_probe::Intersect 25% random
+   32 / 122  hh_expand::Intersect 30%
+   32 / 122  predecoder::Intersect 30%
+   32 / 122  predecoder::Intersect 10%
+   32 / 122  predecoder::Semantic 10%
+   32 / 122  subsel_probe::Intersect 10% random
+   31 / 122  predecoder::Semantic 2%
+   31 / 122  predecoder::Thresh 0.05
+   30 / 122  aware_filter::Intersect 25%
+   30 / 122  hh_expand::Semantic 2%
+   30 / 122  hh_expand::Thresh 0.02
+   30 / 122  predecoder::Thresh 0.02
+   29 / 122  aware_filter::Intersect 10% (sanity)
+   29 / 122  hh_expand::Intersect 10%
+   29 / 122  hh_expand::Semantic 10%
+
+-- Per-config UNIQUE-correct (qids only this config gets) --
+    3  raw_m1::gaze_t=1.0,th=1.0,mt=1
+    1  predecoder::Thresh 0.01
+    1  vanilla_m1::gaze_t=0.2,th=0.75,mt=1
+    1  budget_sweep::scaled 0.3 tile=0.06 thumb=0.225
+

@@ -39,9 +39,11 @@ SOURCES: list[tuple[str, str, str]] = [
 def load_rows(ref: str, path: str) -> list[dict]:
     raw = subprocess.check_output(["git", "show", f"{ref}:{path}"], text=True)
     data = json.loads(raw)
-    # All files use either a list-of-dicts at top level or {"samples":[...]}.
-    if isinstance(data, dict) and "samples" in data:
-        return data["samples"]
+    if isinstance(data, dict):
+        for k in ("per_sample", "samples", "results", "rows"):
+            if k in data and isinstance(data[k], list):
+                return data[k]
+        raise AssertionError(f"no list field in {ref}:{path} (keys={list(data.keys())})")
     assert isinstance(data, list), f"unexpected shape in {ref}:{path}"
     return data
 
