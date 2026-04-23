@@ -1,0 +1,25 @@
+[load] raw @ m1:     47/122 correct
+[load] vanilla @ m1: 49/122 correct
+  vanilla @ m4 reference: loaded 'vanilla tile=0.20 thumb=0.75' from 3b49755:results/filter_token_count_ablation/gaze_budget_sweep/hlvid_subset.json (51/122)
+[load] vanilla @ m4 (git:3b49755:results/filter_token_count_ablation/gaze_budget_sweep/hlvid_subset.json::vanilla tile=0.20 thumb=0.75): 51/122 correct
+
+=== A vs B — raw @ m1 vs vanilla @ m1 (PRIMARY: AutoGaze selection contribution at matched tiling) ===
+  raw@m1: 47/122 (38.5%)
+  vanilla@m1: 49/122 (40.2%)
+  paired-flip: raw@m1 only=9  vanilla@m1 only=11  both_ok=38  both_wrong=64
+  net (A - B): -2   agreement: 83.6%
+  verdict: vanilla@m1 BEATS raw@m1 (+2 for B)
+
+=== A vs C — raw @ m1 vs vanilla @ m4 (cross-tiling: no-gaze cheap substrate vs reference) ===
+  raw@m1: 47/122 (38.5%)
+  vanilla@m4: 51/122 (41.8%)
+  paired-flip: raw@m1 only=6  vanilla@m4 only=10  both_ok=41  both_wrong=65
+  net (A - B): -4   agreement: 86.9%
+  verdict: vanilla@m4 BEATS raw@m1 (+4 for B)
+
+=== B vs C — vanilla @ m1 vs vanilla @ m4 (pure tile-resolution cost) ===
+  vanilla@m1: 49/122 (40.2%)
+  vanilla@m4: 51/122 (41.8%)
+  paired-flip: vanilla@m1 only=6  vanilla@m4 only=8  both_ok=43  both_wrong=65
+  net (A - B): -2   agreement: 88.5%
+  verdict: vanilla@m4 BEATS vanilla@m1 (+2 for B)
