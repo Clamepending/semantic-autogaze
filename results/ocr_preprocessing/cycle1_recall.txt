@@ -1,0 +1,55 @@
+========================================================================
+Cycle 1 — EasyOCR recall on 40 universal-fail OCR-like questions
+========================================================================
+
+  n_ocr_fails                  40
+  gt_match_rate                0.050
+  unique_gt_rate               0.050
+  ambiguous_gt_rate            0.000
+  no_match_rate                0.925
+  gt_matches_absolute          2
+  unique_gt_absolute           2
+  ambiguous_gt_absolute        0
+  no_match_absolute            37
+
+Per-question detail:
+  qid=  8  gt=C ('ORGANIC') ABCD=0000 dets=7 -> no_match
+  qid= 10  gt=C ('ARAMEL DIEM') ABCD=0000 dets=7 -> no_match
+  qid= 11  gt=A ('MacBook Air') ABCD=0000 dets=7 -> no_match
+  qid= 14  gt=B ('L j T') ABCD=0000 dets=10 -> no_match
+  qid= 17  gt=A ('S and P') ABCD=0000 dets=10 -> no_match
+  qid= 28  gt=C ('SHU GL') ABCD=0000 dets=18 -> no_match
+  qid= 33  gt=D ('START') ABCD=0000 dets=18 -> no_match
+  qid= 37  gt=A ('CPU_OPT') ABCD=0000 dets=18 -> no_match
+  qid= 42  gt=A ('REV') ABCD=0000 dets=18 -> no_match
+  qid= 43  gt=A ('START') ABCD=0000 dets=18 -> no_match
+  qid= 48  gt=A ('B06EBFC B68C') ABCD=0000 dets=18 -> no_match
+  qid= 50  gt=B ('F1') ABCD=0000 dets=54 -> no_match
+  qid= 53  gt=B ('MONITOR') ABCD=0000 dets=54 -> no_match
+  qid= 54  gt=D ('DL3') ABCD=0000 dets=54 -> no_match
+  qid= 56  gt=C ('Fan 4') ABCD=0000 dets=54 -> no_match
+  qid= 57  gt=B ('CREATIVE') ABCD=0000 dets=54 -> no_match
+  qid= 59  gt=D ('SHUR') ABCD=0000 dets=54 -> no_match
+  qid= 60  gt=A ('X7') ABCD=0000 dets=54 -> no_match
+  qid= 62  gt=A ('ONE TWO THREE FOUR') ABCD=0000 dets=54 -> no_match
+  qid= 67  gt=B ('OU') ABCD=0100 dets=15 -> unique_gt
+  qid= 71  gt=C ('10, 5, OU, 5') ABCD=0000 dets=15 -> no_match
+  qid= 72  gt=C ('Pre Fader') ABCD=0000 dets=15 -> no_match
+  qid= 74  gt=D ('NVIDIA G-SYNC HDR') ABCD=0000 dets=15 -> no_match
+  qid=113  gt=D ('KOBALT') ABCD=0000 dets=2 -> no_match
+  qid=114  gt=C ('Haut Parleur Actit, Altavos Ac') ABCD=0000 dets=1 -> no_match
+  qid=117  gt=A ('OWN CELEBRATES') ABCD=0000 dets=42 -> no_match
+  qid=118  gt=B ('Favorite Talk Show Entertainme') ABCD=0100 dets=42 -> unique_gt
+  qid=120  gt=B ('Hi-Fi') ABCD=0000 dets=42 -> no_match
+  qid=151  gt=B ('ARCHITECTURAL') ABCD=0000 dets=5 -> no_match
+  qid=154  gt=B ('SUCRE') ABCD=0010 dets=29 -> unique_wrong
+  qid=155  gt=B ('PICASSO BLACK') ABCD=0000 dets=29 -> no_match
+  qid=158  gt=B ('Rozen') ABCD=0000 dets=10 -> no_match
+  qid=160  gt=B ('ARCHITECTURAL DESIGN') ABCD=0000 dets=7 -> no_match
+  qid=191  gt=A ('Frigidaire') ABCD=0000 dets=61 -> no_match
+  qid=247  gt=A ('VILA HERMANOS EST.1884 VETIVER') ABCD=0000 dets=42 -> no_match
+  qid=252  gt=B ('GUCCI') ABCD=0000 dets=29 -> no_match
+  qid=253  gt=C ('GREECE') ABCD=0000 dets=4 -> no_match
+  qid=256  gt=D ('Scott Wheeler') ABCD=0000 dets=7 -> no_match
+  qid=264  gt=D ('Sea Salt') ABCD=0000 dets=61 -> no_match
+  qid=266  gt=D ('NO REFUND') ABCD=0000 dets=7 -> no_match
