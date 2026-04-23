@@ -42,6 +42,26 @@ KEYWORD_PATTERNS = {
 }
 
 
+OCR_PATTERNS = [
+    r"\bwhat does.*\b(say|read|write|display)\b",
+    r"\bwhat.*(text|writing|word|letter|number|digit|name|label|sign|symbol|logo)\b",
+    r"\bwhat is.*(displayed|visible|written|printed|shown).*text\b",
+    r"\btext.*(on|visible|displayed|written|printed|shown|read|say|reads)\b",
+    r"\bwritten on\b",
+    r"\bsays\b",
+    r"\b(brand|model|title|name).*(on|label|visible|displayed)\b",
+    r"\b(logo|icon)\b",
+]
+
+
+def is_ocr(q_text: str) -> bool:
+    s = q_text.lower()
+    for p in OCR_PATTERNS:
+        if re.search(p, s):
+            return True
+    return False
+
+
 def parse_stem(q_text: str) -> str:
     lines = q_text.split("\n")
     stem_lines = []
@@ -132,6 +152,8 @@ def main() -> None:
             if re.match(r"^\d+$", txt) or txt in numeric_words:
                 numeric_answers += 1
 
+        ocr_count = sum(1 for q in sub["question"].tolist() if is_ocr(q))
+
         return {
             "n": len(subset_qids),
             "video_counts": dict(video_counts.most_common()),
@@ -145,6 +167,8 @@ def main() -> None:
             "choice_max_mean": float(np.mean(choice_max)) if choice_max else 0.0,
             "numeric_answers": numeric_answers,
             "numeric_pct": numeric_answers / max(1, len(subset_qids)),
+            "ocr_count": ocr_count,
+            "ocr_pct": ocr_count / max(1, len(subset_qids)),
         }
 
     fail = slice_subset(universal_fail_qids)
@@ -181,6 +205,7 @@ def main() -> None:
         w(f"  stem len mean/median/max: {s['stem_len_mean']:.1f} / {s['stem_len_median']:.1f} / {s['stem_len_max']}")
         w(f"  choice len mean / max-choice mean: {s['choice_len_mean']:.1f} / {s['choice_max_mean']:.1f}")
         w(f"  numeric answers: {s['numeric_answers']} / {s['n']} ({s['numeric_pct']:.2%})")
+        w(f"  OCR-like stems:  {s['ocr_count']} / {s['n']} ({s['ocr_pct']:.2%})")
         w("")
 
     report("ALL-122 (baseline)", allq)
@@ -195,6 +220,7 @@ def main() -> None:
             return f"{a/b:.2f}x" if b else "-"
         return f"  {label:28s} fail={f_val:.2f}  succ={s_val:.2f}  all={a_val:.2f}  fail-lift={ratio(f_val, a_val):>6s}  succ-lift={ratio(s_val, a_val):>6s}"
     w(axis_row("numeric-answer rate", fail["numeric_pct"], succ["numeric_pct"], allq["numeric_pct"]))
+    w(axis_row("OCR-like rate", fail["ocr_pct"], succ["ocr_pct"], allq["ocr_pct"]))
     w(axis_row("stem-len mean", fail["stem_len_mean"], succ["stem_len_mean"], allq["stem_len_mean"]))
     w(axis_row("max-choice-len mean", fail["choice_max_mean"], succ["choice_max_mean"], allq["choice_max_mean"]))
 

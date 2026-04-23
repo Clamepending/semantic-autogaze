@@ -1,0 +1,118 @@
+========================================================================
+universal_fail_analysis :: 45 / 122 universal-fail vs 14 universal-success vs 63 variable
+========================================================================
+matrix: 122 qids x 36 configs
+universal-fail: 45  universal-succ: 14  variable: 63
+
+-- ALL-122 (baseline) (n=122) --
+  top 5 videos:
+     30  clip_household_video_14_000.mp4  
+     14  clip_household_video_14_002.mp4  
+     13  clip_household_video_14_001.mp4  
+     12  clip_household_video_17_000.mp4  
+      8  clip_household_video_0_001.mp4  
+  gt-letter split: {'C': 36, 'B': 30, 'A': 29, 'D': 27}
+  top keyword tags: {'color': 103, 'object': 32, 'ordering': 3, 'counting': 3, 'attribute': 1}
+  untagged stems: 9 / 122
+  stem len mean/median/max: 55.1 / 50.0 / 102
+  choice len mean / max-choice mean: 9.7 / 10.6
+  numeric answers: 6 / 122 (4.92%)
+  OCR-like stems:  103 / 122 (84.43%)
+
+-- UNIVERSAL-FAIL (45) (n=45) --
+  top 5 videos:
+      8  clip_household_video_14_001.mp4  (lift vs all 0.18 / 0.11 = 1.67x)
+      6  clip_household_video_14_000.mp4  (lift vs all 0.13 / 0.25 = 0.54x)
+      5  clip_household_video_17_000.mp4  (lift vs all 0.11 / 0.10 = 1.13x)
+      4  clip_household_video_14_002.mp4  (lift vs all 0.09 / 0.11 = 0.77x)
+      3  clip_household_video_0_000.mp4  (lift vs all 0.07 / 0.03 = 2.03x)
+  gt-letter split: {'B': 14, 'A': 11, 'C': 10, 'D': 10}
+  top keyword tags: {'color': 36, 'object': 13, 'counting': 1, 'attribute': 1}
+  untagged stems: 4 / 45
+  stem len mean/median/max: 55.7 / 49.0 / 102
+  choice len mean / max-choice mean: 10.7 / 11.8
+  numeric answers: 1 / 45 (2.22%)
+  OCR-like stems:  40 / 45 (88.89%)
+
+-- UNIVERSAL-SUCC (14) (n=14) --
+  top 5 videos:
+      3  clip_household_video_14_002.mp4  (lift vs all 0.21 / 0.11 = 1.87x)
+      2  clip_household_video_14_000.mp4  (lift vs all 0.14 / 0.25 = 0.58x)
+      2  clip_household_video_17_000.mp4  (lift vs all 0.14 / 0.10 = 1.45x)
+      2  clip_household_video_19_006.mp4  (lift vs all 0.14 / 0.02 = 5.81x)
+      1  clip_household_video_19_004.mp4  (lift vs all 0.07 / 0.02 = 2.90x)
+  gt-letter split: {'C': 5, 'B': 5, 'D': 4}
+  top keyword tags: {'color': 14, 'object': 6, 'ordering': 1}
+  untagged stems: 0 / 14
+  stem len mean/median/max: 57.0 / 57.0 / 72
+  choice len mean / max-choice mean: 14.2 / 14.9
+  numeric answers: 1 / 14 (7.14%)
+  OCR-like stems:  9 / 14 (64.29%)
+
+-- VARIABLE (63) (n=63) --
+  top 5 videos:
+     22  clip_household_video_14_000.mp4  (lift vs all 0.35 / 0.25 = 1.42x)
+      7  clip_household_video_14_002.mp4  (lift vs all 0.11 / 0.11 = 0.97x)
+      6  clip_household_video_0_001.mp4  (lift vs all 0.10 / 0.07 = 1.45x)
+      5  clip_household_video_14_001.mp4  (lift vs all 0.08 / 0.11 = 0.74x)
+      5  clip_household_video_17_000.mp4  (lift vs all 0.08 / 0.10 = 0.81x)
+  gt-letter split: {'C': 21, 'A': 18, 'D': 13, 'B': 11}
+  top keyword tags: {'color': 53, 'object': 13, 'ordering': 2, 'counting': 2}
+  untagged stems: 5 / 63
+  stem len mean/median/max: 54.2 / 50.0 / 88
+  choice len mean / max-choice mean: 8.0 / 8.8
+  numeric answers: 4 / 63 (6.35%)
+  OCR-like stems:  54 / 63 (85.71%)
+
+-- Axis lifts (fail vs all, succ vs all) --
+  numeric-answer rate          fail=0.02  succ=0.07  all=0.05  fail-lift= 0.45x  succ-lift= 1.45x
+  OCR-like rate                fail=0.89  succ=0.64  all=0.84  fail-lift= 1.05x  succ-lift= 0.76x
+  stem-len mean                fail=55.69  succ=57.00  all=55.09  fail-lift= 1.01x  succ-lift= 1.03x
+  max-choice-len mean          fail=11.78  succ=14.93  all=10.58  fail-lift= 1.11x  succ-lift= 1.41x
+
+-- Keyword-tag frequency rates (subset) --
+  counting     fail=2.22%  succ=0.00%  all=2.46%  fail-lift=0.90x  succ-lift=0.00x
+  color        fail=80.00%  succ=100.00%  all=84.43%  fail-lift=0.95x  succ-lift=1.18x
+  action       fail=0.00%  succ=0.00%  all=0.00%  fail-lift=0.00x  succ-lift=0.00x
+  object       fail=28.89%  succ=42.86%  all=26.23%  fail-lift=1.10x  succ-lift=1.63x
+  location     fail=0.00%  succ=0.00%  all=0.00%  fail-lift=0.00x  succ-lift=0.00x
+  person       fail=0.00%  succ=0.00%  all=0.00%  fail-lift=0.00x  succ-lift=0.00x
+  attribute    fail=2.22%  succ=0.00%  all=0.82%  fail-lift=2.71x  succ-lift=0.00x
+  ordering     fail=0.00%  succ=7.14%  all=2.46%  fail-lift=0.00x  succ-lift=2.90x
+  yesno        fail=0.00%  succ=0.00%  all=0.00%  fail-lift=0.00x  succ-lift=0.00x
+
+-- Video concentration test --
+  total unique videos across 122: 21
+  top-3-video share  all=46.72%  fail=42.22%  succ=50.00%
+
+-- Sample of 5 universal-fail questions --
+  qid=8 video=clip_household_video_0_000.mp4 gt=C
+    stem: What does the white text say on the green background of the pack on the top of the shelf?
+      A. NATURAL
+      B. VEGGIE
+    * C. ORGANIC
+      D. HERBAL
+  qid=10 video=clip_household_video_0_000.mp4 gt=C
+    stem: What text is visible on the dark blue and black packet placed on the brown wooden chair?
+      A. ARAMEL DENIM
+      B. ARAMEL DREAM
+    * C. ARAMEL DIEM
+      D. ARAMEL DEAN
+  qid=11 video=clip_household_video_0_000.mp4 gt=A
+    stem: What device name is displayed in white text below the partially visible screen?
+    * A. MacBook Air
+      B. Chromebook
+      C. MacBook
+      D. MacBook Pro
+  qid=14 video=clip_household_video_0_001.mp4 gt=B
+    stem: What does the white text on the black screen read?
+      A. I J T
+    * B. L j T
+      C. I J Y
+      D. L j Y
+  qid=17 video=clip_household_video_0_001.mp4 gt=A
+    stem: What does the black text on the yellow cover say?
+    * A. S and P
+      B. S + P
+      C. S / P
+      D. S & P
