@@ -19,6 +19,17 @@
     "qs_router_beats_best": 5,
     "qs_best_beats_router": 9
   },
+  "video_conditional_router": {
+    "correct": 42,
+    "vs_best_fixed": -9,
+    "pct_gap_closed": -0.34615384615384615,
+    "fallbacks": 2
+  },
+  "combined_router": {
+    "correct": 46,
+    "vs_best_fixed": -5,
+    "pct_gap_closed": -0.19230769230769232
+  },
   "chosen_config_hist": {
     "budget_sweep::vanilla tile=0.20 thumb=0.75": 34,
     "predecoder::Thresh 0.01": 11,

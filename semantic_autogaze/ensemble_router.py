@@ -189,6 +189,39 @@ def main() -> None:
         if bc and not rc:
             right_best_wrong_router += 1
 
+    # --- Video-conditional best-config router ---
+    # For each held-out question, the router picks the config with the
+    # highest training-set accuracy *among that question's video's other
+    # questions*. Fallback: global best-fixed if the video has only 1
+    # question (can't LOO within the video).
+    vid_chosen_correct = np.zeros(N, dtype=np.int32)
+    vid_fallback = 0
+    for i in range(N):
+        v = video_ids[i]
+        peer_mask = np.array([vid == v for vid in video_ids])
+        peer_mask[i] = False
+        if peer_mask.sum() == 0:
+            # Single-question video: fall back to global best.
+            vid_fallback += 1
+            chosen_j = int(per_config_correct.argmax())
+        else:
+            chosen_j = int(Y[peer_mask].sum(axis=0).argmax())
+        vid_chosen_correct[i] = Y[i, chosen_j]
+    vid_router_correct = int(vid_chosen_correct.sum())
+
+    # --- Combined router: video-conditional if video has ≥3 peers, else LR ---
+    combo_chosen_correct = np.zeros(N, dtype=np.int32)
+    for i in range(N):
+        v = video_ids[i]
+        peer_mask = np.array([vid == v for vid in video_ids])
+        peer_mask[i] = False
+        if peer_mask.sum() >= 3:
+            chosen_j = int(Y[peer_mask].sum(axis=0).argmax())
+        else:
+            chosen_j = int(scores_by_config[i].argmax())
+        combo_chosen_correct[i] = Y[i, chosen_j]
+    combo_router_correct = int(combo_chosen_correct.sum())
+
     # --- Output ---
     lines: list[str] = []
 
@@ -208,13 +241,24 @@ def main() -> None:
     w(f"  oracle (any config right): {oracle} / {N}")
     w(f"  individual-vs-oracle gap : {oracle - best_fixed} points")
     w("")
-    w("-- LOO router --")
+    w("-- LOO router (LR, question-level features) --")
     w(f"  router correct          : {router_correct} / {N}")
     w(f"  vs best fixed           : {router_correct - best_fixed:+d}")
     w(f"  vs oracle (% gap closed): {(router_correct - best_fixed) / max(1, oracle - best_fixed):.2%}")
     w(f"  qs router>best-fixed    : +{wrong_best_right_router}")
     w(f"  qs best-fixed>router    : -{right_best_wrong_router}")
     w(f"  net                     : {wrong_best_right_router - right_best_wrong_router:+d}")
+    w("")
+    w("-- Video-conditional best-config router (LOO within video) --")
+    w(f"  router correct          : {vid_router_correct} / {N}")
+    w(f"  vs best fixed           : {vid_router_correct - best_fixed:+d}")
+    w(f"  vs oracle (% gap closed): {(vid_router_correct - best_fixed) / max(1, oracle - best_fixed):.2%}")
+    w(f"  single-question-video fallbacks: {vid_fallback}")
+    w("")
+    w("-- Combined router (video-conditional where ≥3 peers, else LR) --")
+    w(f"  router correct          : {combo_router_correct} / {N}")
+    w(f"  vs best fixed           : {combo_router_correct - best_fixed:+d}")
+    w(f"  vs oracle (% gap closed): {(combo_router_correct - best_fixed) / max(1, oracle - best_fixed):.2%}")
     w("")
     w("-- Router's chosen-config distribution --")
     for c, n in sorted(chosen_config_hist.items(), key=lambda kv: -kv[1]):
@@ -246,6 +290,17 @@ def main() -> None:
             "pct_gap_closed": (router_correct - best_fixed) / max(1, oracle - best_fixed),
             "qs_router_beats_best": wrong_best_right_router,
             "qs_best_beats_router": right_best_wrong_router,
+        },
+        "video_conditional_router": {
+            "correct": vid_router_correct,
+            "vs_best_fixed": vid_router_correct - best_fixed,
+            "pct_gap_closed": (vid_router_correct - best_fixed) / max(1, oracle - best_fixed),
+            "fallbacks": vid_fallback,
+        },
+        "combined_router": {
+            "correct": combo_router_correct,
+            "vs_best_fixed": combo_router_correct - best_fixed,
+            "pct_gap_closed": (combo_router_correct - best_fixed) / max(1, oracle - best_fixed),
         },
         "chosen_config_hist": dict(chosen_config_hist),
         "per_video": per_video_stats,

@@ -10,13 +10,24 @@ features: video-one-hot (21) + qlen (1) + choice-len (2) + TF-IDF (200) = 224 di
   oracle (any config right): 77 / 122
   individual-vs-oracle gap : 26 points
 
--- LOO router --
+-- LOO router (LR, question-level features) --
   router correct          : 47 / 122
   vs best fixed           : -4
   vs oracle (% gap closed): -15.38%
   qs router>best-fixed    : +5
   qs best-fixed>router    : -9
   net                     : -4
+
+-- Video-conditional best-config router (LOO within video) --
+  router correct          : 42 / 122
+  vs best fixed           : -9
+  vs oracle (% gap closed): -34.62%
+  single-question-video fallbacks: 2
+
+-- Combined router (video-conditional where ≥3 peers, else LR) --
+  router correct          : 46 / 122
+  vs best fixed           : -5
+  vs oracle (% gap closed): -19.23%
 
 -- Router's chosen-config distribution --
    34  budget_sweep::vanilla tile=0.20 thumb=0.75
