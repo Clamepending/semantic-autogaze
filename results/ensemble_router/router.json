@@ -1,0 +1,172 @@
+{
+  "n_questions": 122,
+  "n_configs": 36,
+  "features": {
+    "video_onehot": 21,
+    "tfidf": 200,
+    "total_dim": 224
+  },
+  "baselines": {
+    "random_mean": 36.333333333333336,
+    "best_fixed": 51,
+    "best_fixed_config": "budget_sweep::vanilla tile=0.20 thumb=0.75",
+    "oracle": 77
+  },
+  "router": {
+    "correct": 47,
+    "vs_best_fixed": -4,
+    "pct_gap_closed": -0.15384615384615385,
+    "qs_router_beats_best": 5,
+    "qs_best_beats_router": 9
+  },
+  "chosen_config_hist": {
+    "budget_sweep::vanilla tile=0.20 thumb=0.75": 34,
+    "predecoder::Thresh 0.01": 11,
+    "predecoder::Intersect 30%": 2,
+    "budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375": 4,
+    "filter_vs_rand::Intersect 75% random": 1,
+    "budget_sweep::scaled 0.1 tile=0.02 thumb=0.075": 1,
+    "vanilla_m1::gaze_t=0.2,th=0.75,mt=1": 21,
+    "raw_m1::gaze_t=1.0,th=1.0,mt=1": 12,
+    "predecoder::Thresh 0.005": 4,
+    "budget_sweep::scaled 0.3 tile=0.06 thumb=0.225": 4,
+    "predecoder::Thresh 0.05": 1,
+    "filter_vs_rand::Intersect 50% random": 3,
+    "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375": 12,
+    "hh_expand::Thresh 0.05": 2,
+    "aware_filter::Intersect 50%": 1,
+    "hh_expand::Thresh 0.01": 1,
+    "subsel_probe::Intersect 25% random": 5,
+    "predecoder::Intersect 10%": 1,
+    "aware_filter::Intersect 10% (sanity)": 1,
+    "subsel_probe::Intersect 90% random": 1
+  },
+  "per_video": {
+    "clip_household_video_0_000.mp4": {
+      "n": 4,
+      "oracle": 1,
+      "router": 0,
+      "best_fixed": 1
+    },
+    "clip_household_video_0_001.mp4": {
+      "n": 8,
+      "oracle": 6,
+      "router": 5,
+      "best_fixed": 6
+    },
+    "clip_household_video_11_000.mp4": {
+      "n": 2,
+      "oracle": 2,
+      "router": 2,
+      "best_fixed": 2
+    },
+    "clip_household_video_11_002.mp4": {
+      "n": 1,
+      "oracle": 1,
+      "router": 1,
+      "best_fixed": 1
+    },
+    "clip_household_video_14_000.mp4": {
+      "n": 30,
+      "oracle": 24,
+      "router": 13,
+      "best_fixed": 16
+    },
+    "clip_household_video_14_001.mp4": {
+      "n": 13,
+      "oracle": 5,
+      "router": 2,
+      "best_fixed": 4
+    },
+    "clip_household_video_14_002.mp4": {
+      "n": 14,
+      "oracle": 10,
+      "router": 6,
+      "best_fixed": 8
+    },
+    "clip_household_video_14_003.mp4": {
+      "n": 2,
+      "oracle": 2,
+      "router": 1,
+      "best_fixed": 2
+    },
+    "clip_household_video_16_000.mp4": {
+      "n": 1,
+      "oracle": 0,
+      "router": 0,
+      "best_fixed": 0
+    },
+    "clip_household_video_16_001.mp4": {
+      "n": 3,
+      "oracle": 2,
+      "router": 1,
+      "best_fixed": 2
+    },
+    "clip_household_video_17_000.mp4": {
+      "n": 12,
+      "oracle": 7,
+      "router": 5,
+      "best_fixed": 6
+    },
+    "clip_household_video_17_001.mp4": {
+      "n": 2,
+      "oracle": 2,
+      "router": 1,
+      "best_fixed": 2
+    },
+    "clip_household_video_19_000.mp4": {
+      "n": 4,
+      "oracle": 2,
+      "router": 2,
+      "best_fixed": 2
+    },
+    "clip_household_video_19_001.mp4": {
+      "n": 3,
+      "oracle": 0,
+      "router": 0,
+      "best_fixed": 0
+    },
+    "clip_household_video_19_002.mp4": {
+      "n": 2,
+      "oracle": 1,
+      "router": 1,
+      "best_fixed": 1
+    },
+    "clip_household_video_19_003.mp4": {
+      "n": 4,
+      "oracle": 3,
+      "router": 1,
+      "best_fixed": 2
+    },
+    "clip_household_video_19_004.mp4": {
+      "n": 3,
+      "oracle": 1,
+      "router": 1,
+      "best_fixed": 1
+    },
+    "clip_household_video_19_005.mp4": {
+      "n": 3,
+      "oracle": 1,
+      "router": 1,
+      "best_fixed": 1
+    },
+    "clip_household_video_19_006.mp4": {
+      "n": 3,
+      "oracle": 3,
+      "router": 3,
+      "best_fixed": 3
+    },
+    "clip_household_video_4_000.mp4": {
+      "n": 4,
+      "oracle": 2,
+      "router": 1,
+      "best_fixed": 2
+    },
+    "clip_household_video_9_000.mp4": {
+      "n": 4,
+      "oracle": 2,
+      "router": 0,
+      "best_fixed": 2
+    }
+  }
+}

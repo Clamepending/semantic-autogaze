@@ -1,0 +1,65 @@
+========================================================================
+ensemble_router :: leave-one-out router bootstrap
+========================================================================
+matrix: 122 questions × 36 configs
+features: video-one-hot (21) + qlen (1) + choice-len (2) + TF-IDF (200) = 224 dims
+
+-- Baselines --
+  random config (mean)    : 36.33 / 122
+  best fixed config       : 51 / 122  [budget_sweep::vanilla tile=0.20 thumb=0.75]
+  oracle (any config right): 77 / 122
+  individual-vs-oracle gap : 26 points
+
+-- LOO router --
+  router correct          : 47 / 122
+  vs best fixed           : -4
+  vs oracle (% gap closed): -15.38%
+  qs router>best-fixed    : +5
+  qs best-fixed>router    : -9
+  net                     : -4
+
+-- Router's chosen-config distribution --
+   34  budget_sweep::vanilla tile=0.20 thumb=0.75
+   21  vanilla_m1::gaze_t=0.2,th=0.75,mt=1
+   12  raw_m1::gaze_t=1.0,th=1.0,mt=1
+   12  budget_sweep::scaled 0.5 tile=0.10 thumb=0.375
+   11  predecoder::Thresh 0.01
+    5  subsel_probe::Intersect 25% random
+    4  budget_sweep::scaled 0.05 tile=0.01 thumb=0.0375
+    4  predecoder::Thresh 0.005
+    4  budget_sweep::scaled 0.3 tile=0.06 thumb=0.225
+    3  filter_vs_rand::Intersect 50% random
+    2  predecoder::Intersect 30%
+    2  hh_expand::Thresh 0.05
+    1  filter_vs_rand::Intersect 75% random
+    1  budget_sweep::scaled 0.1 tile=0.02 thumb=0.075
+    1  predecoder::Thresh 0.05
+    1  aware_filter::Intersect 50%
+    1  hh_expand::Thresh 0.01
+    1  predecoder::Intersect 10%
+    1  aware_filter::Intersect 10% (sanity)
+    1  subsel_probe::Intersect 90% random
+
+-- Per-video router score --
+  video                                                    n  best  router  oracle
+  clip_household_video_0_000.mp4                           4     1       0       1
+  clip_household_video_0_001.mp4                           8     6       5       6
+  clip_household_video_11_000.mp4                          2     2       2       2
+  clip_household_video_11_002.mp4                          1     1       1       1
+  clip_household_video_14_000.mp4                         30    16      13      24
+  clip_household_video_14_001.mp4                         13     4       2       5
+  clip_household_video_14_002.mp4                         14     8       6      10
+  clip_household_video_14_003.mp4                          2     2       1       2
+  clip_household_video_16_000.mp4                          1     0       0       0
+  clip_household_video_16_001.mp4                          3     2       1       2
+  clip_household_video_17_000.mp4                         12     6       5       7
+  clip_household_video_17_001.mp4                          2     2       1       2
+  clip_household_video_19_000.mp4                          4     2       2       2
+  clip_household_video_19_001.mp4                          3     0       0       0
+  clip_household_video_19_002.mp4                          2     1       1       1
+  clip_household_video_19_003.mp4                          4     2       1       3
+  clip_household_video_19_004.mp4                          3     1       1       1
+  clip_household_video_19_005.mp4                          3     1       1       1
+  clip_household_video_19_006.mp4                          3     3       3       3
+  clip_household_video_4_000.mp4                           4     2       1       2
+  clip_household_video_9_000.mp4                           4     2       0       2
