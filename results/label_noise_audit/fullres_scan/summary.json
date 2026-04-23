@@ -1,0 +1,1890 @@
+{
+  "8": {
+    "gt": "C",
+    "top": "B",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO - there is a red pack with white text visible on top of the shelf (appears to read \"RASPBERRY LEAF\"), but no green pack with white text is visible in this frame."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 the pack on the top shelf has a red background with white text (\"RASPBERRY LEAF\"), not a green background."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a man in a kitchen; no shelf with a green pack visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 the pack on the top shelf is red with white text (\"RASPBERRY LEAF\"), not green."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen counter with bowls of food on a digital scale reading 255.5; no shelf or pack visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows cherry blossom trees and sky, no shelf or pack visible."
+      }
+    ]
+  },
+  "10": {
+    "gt": "C",
+    "top": "A",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no brown wooden chair or dark blue/black packet visible; scene is a kitchen with a person standing in it, countertop items (water jug, cutting board, dark packets on counter),"
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen scene with a person at the counter; no brown wooden chair or dark blue/black packet visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen scene with a man in a Harley-Davidson t-shirt; no brown wooden chair or dark blue/black packet visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 no brown wooden chair or dark blue/black packet visible; frame shows a person in a Harley-Davidson shirt in a kitchen."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO - kitchen counter with bowls of food on a digital scale; no brown wooden chair or dark blue/black packet visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows cherry blossom tree branches and sky, no chair or packet visible."
+      }
+    ]
+  },
+  "11": {
+    "gt": "A",
+    "top": "C",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen scene with a person; no partially visible screen with a device name in white text is present."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen scene with a person at the counter; no partially visible screen with a device name in white text is present in this frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 no partially visible screen with a device name in white text; frame shows a man in a Harley-Davidson shirt in a kitchen."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 no partially visible screen with a device name in white text; frame shows a person in a Harley-Davidson shirt in a kitchen."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 a kitchen scale with a bowl of food on it is visible; the scale's display shows \"255\" but no device name in white text is visible below any partially visible screen."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows cherry blossom tree branches against sky, no screen or device visible."
+      }
+    ]
+  },
+  "14": {
+    "gt": "B",
+    "top": "D",
+    "top_count": 33,
+    "counts": {
+      "NO": 5,
+      "YES": 1
+    },
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no black screen with white text visible; frame shows a person holding a clear plastic container in a room with desk lamps and \"12 12\" decor."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 overhead view of a kitchen/living area; no black screen with white text is visible in this frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "YES",
+        "raw": "YES - black calendar/board with white text showing \"2026 April\" and days M T W T F S S with dates 1-30."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 there is a black calendar poster with white text showing \"2024 April\" and day-of-week/date numbers, but no black screen with white text is visible in this frame."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a man in an orange sweatshirt in a living room with a black April 2026 calendar on the wall (white text showing days/dates), but there is no \"black screen\" wit"
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 no black screen with white text is visible; the frame shows a man at a desk with a wall calendar (black background, white day letters/numbers) behind him, but that's a calenda"
+      }
+    ]
+  },
+  "17": {
+    "gt": "A",
+    "top": "D",
+    "top_count": 35,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no yellow cover with black text visible; frame shows a person holding a clear plastic container, a red lamp, and a \"12 12\" sign."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 wide overhead shot of a living room/kitchen; no yellow cover with black text is discernible in this frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a person in a red/orange shirt with a black calendar poster on the wall; no yellow cover with black text visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 no yellow cover with black text visible; frame shows a man in an orange/yellow soccer jersey in a living room with a black April 2024 calendar on the wall."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 no yellow cover with black text visible; frame shows a man in an orange jersey in a living room with a black April 2024 wall calendar."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 no yellow cover with black text visible; frame shows a man at a desk with a black calendar wall art in the background."
+      }
+    ]
+  },
+  "28": {
+    "gt": "C",
+    "top": "D",
+    "top_count": 30,
+    "counts": {
+      "NO": 2,
+      "YES": 4
+    },
+    "classification": "object_present",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no black object with clearly legible white text is visible in this frame (desk setup with monitors, speakers, a Mac Pro tower, and rack gear, but no distinct black object bear"
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 I see a closed laptop on a stand, a black speaker, a cordless phone, and a small device on a notebook, but no visible white text on any black object in this frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "YES",
+        "raw": "YES \u2014 black keyboard base with small white/light text/logo visible on the right side of the keyboard"
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "YES",
+        "raw": "YES \u2014 black mouse on a desk with white overlay text \"Logitech G502 Wireless\" visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "YES",
+        "raw": "YES \u2014 white text \"GEFORCE RTX\" is visible on the black GPU shroud."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "YES",
+        "raw": "YES \u2014 white text \"GEFORCE RTX\" visible on black GPU water block."
+      }
+    ]
+  },
+  "33": {
+    "gt": "D",
+    "top": "C",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, speakers, keyboard, microphone, and a Mac Pro tower; no grey button with red text visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a closed laptop on a stand, speaker, cordless phone, and a small device on a notebook; no grey button with red text is visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a desk setup with keyboard, monitor, speakers, and a small computer; no grey button with red text is visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a desk with two Logitech G502 Wireless mice on a mousepad; no grey button with red text is visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO - interior of a PC case with motherboard, GeForce RTX GPU, water cooling tubes, and a fan; no grey button with red text visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows the interior of a PC case with water cooling tubes, GPUs (GeForce GTX), and cables. There is no grey button with red text visible."
+      }
+    ]
+  },
+  "37": {
+    "gt": "A",
+    "top": "B",
+    "top_count": 36,
+    "counts": {
+      "NO": 4,
+      "YES": 2
+    },
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, keyboard, speakers, microphone, and a Mac Pro tower; no motherboard with visible white text in frame."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 shows a closed laptop on a stand, a speaker, a cordless phone, and a small desktop device on top of the speaker; no motherboard is visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a keyboard, monitor base, speaker, and desk; no motherboard visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO - shows a desk with Logitech G502 Wireless mice on a SteelSeries mousepad; no motherboard visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "YES",
+        "raw": "YES \u2014 motherboard visible with white text \"REPUBLIC OF GAMERS\" on the heatsink/shroud, and \"GEFORCE RTX\" white text on the GPU."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "YES",
+        "raw": "YES \u2014 motherboard visible with white text \"GeForce RTX\" on GPU water blocks and \"EK\" branding."
+      }
+    ]
+  },
+  "42": {
+    "gt": "A",
+    "top": "D",
+    "top_count": 36,
+    "counts": {
+      "NO": 5,
+      "YES": 1
+    },
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 wide shot of a desk setup with monitors, speakers, a Mac Pro tower, and rack gear; no black RAM module with white text is visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a closed laptop on a stand, speaker, cordless phone, and a small device on a notebook; no computer RAM module is visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 desk with keyboard, monitor, speakers, and wooden organizer; no computer RAM module visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 desk scene with Logitech G502 Wireless mouse text overlay, no computer RAM visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "YES",
+        "raw": "YES \u2014 black RAM sticks visible in upper-center motherboard slots with some white/silver text on them (though partially obscured by tubing)."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 I see a PC interior with water-cooling tubes and GeForce GTX graphics cards, but no black RAM stick with white text is visible in this frame."
+      }
+    ]
+  },
+  "43": {
+    "gt": "A",
+    "top": "C",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 wide desk setup with monitors, speakers, Mac Pro tower, keyboard, and rack gear; no gray button with black text legible in frame."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a closed laptop on a stand, a speaker, a cordless phone, and a small device on a notebook; no gray button with visible black text is discernible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 I see a desk with a mechanical keyboard (white keycaps on black body), wooden shelf, speaker, and monitor base. No gray button with black text is visible in this frame."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a desk setup with two Logitech G502 Wireless mice on a mousepad; no gray button with black text is visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a liquid-cooled PC case (motherboard, GeForce RTX GPU, tubing, fan); no gray button with black text visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows interior of a PC case with liquid-cooling tubes, GPUs (GeForce RTX), and cables; no gray button with black text visible."
+      }
+    ]
+  },
+  "48": {
+    "gt": "A",
+    "top": "B",
+    "top_count": 35,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, speakers, mic, and a Mac Pro tower; no pink barcode visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with closed laptop on stand, speaker, cordless phone, and notebook; no pink barcode visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO - desk setup with keyboard, monitor, and speakers; no pink barcode visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a desk with two Logitech G502 wireless mice on a mousepad; no pink barcode visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC case with liquid cooling, GeForce RTX GPU, motherboard, and tubing; no pink barcode visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows the interior of a PC (water-cooling tubes, GPU, cables). No pink barcode is visible."
+      }
+    ]
+  },
+  "50": {
+    "gt": "B",
+    "top": "D",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC case with cables, fans, and liquid-cooling tubing; no blue surface with black text visible in this frame."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a black computer/server tower with small purple/blue backlit LCD displays (not a blue surface with black text). Text on the small screens appears light-colored"
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 I see a black computer tower/server case with two small purple/blue LCD display panels (not clearly blue surfaces with readable black text). The displays appear to show text b"
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 no blue surface with black text is visible in this frame. I see a desk setup with a Mac Pro tower, studio monitors, headphones, a microphone arm, a monitor showing purple/pink"
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows the interior of a dark-colored computer/server chassis (looks like a Mac Pro with Radeon Pro graphics card); no blue surface with black text is visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows internals of a Mac Pro with dark green circuit board and black components; no blue surface with black text is visible."
+      }
+    ]
+  },
+  "56": {
+    "gt": "C",
+    "top": "D",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows the interior of a PC case with cooling fans, tubes, and cables. There is no brown screen display with purple text visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 the display/screen visible is on a black computer case (not brown), and the text on the small displays appears purple on a dark/black background, not on a brown screen."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 I see a black computer tower with two small purple LCD displays (not brown). The screens themselves appear purple/violet, not brown."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 I see a desk setup with a silver Mac Pro tower, speakers, headphones, and a black PC case with small purple-lit displays at the top, but no brown screen display with purple te"
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a computer/server chassis showing fans, PCIe slots, and a Radeon Pro card label; no brown screen display with purple text visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a Mac Pro showing the logic board, ports, and drive bays; no brown screen display with purple text is visible."
+      }
+    ]
+  },
+  "59": {
+    "gt": "D",
+    "top": "B",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC case with fans, cables, and liquid cooling tubing; no device with antennas or white text on black background visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO - I see a black computer/server tower with small purple-lit LCD displays on the front, but no object with 2 antennas is visible in this frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 black computer tower case with two small purple/blue display panels on top, no antennas visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 black tower on the right has two purple/lit display panels at the top, but no visible white text readable in this frame, and no antennas are visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows the interior of a computer/server case with PCIe slots and fans, no black object with 2 antennas visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a Mac Pro showing motherboard, ports, and internal components; no black object with 2 antennas or white text visible."
+      }
+    ]
+  },
+  "60": {
+    "gt": "A",
+    "top": "D",
+    "top_count": 34,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows the interior of a PC case with cooling fans, tubing, and wiring. No black speaker with brown text is visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a black computer/server tower with purple-lit LCD displays, not a black speaker with brown text."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows a black computer tower/server case with purple display panels, not a black speaker with brown text."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 I see a desk setup with monitors, a microphone, headphones, a silver Mac Pro \"cheese grater\" tower, and black speakers/PC tower, but no readable brown text on any black speake"
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 this shows the interior of a computer (looks like a Mac Pro with a Radeon Pro graphics card and PCIe slots), not a black speaker with brown text."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 this shows the interior of a Mac Pro (motherboard, ports, heat sinks); no black speaker with brown text is visible."
+      }
+    ]
+  },
+  "62": {
+    "gt": "A",
+    "top": "D",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no white-text-on-black-background with numbers visible; frame shows PC interior with fans, tubing, and cables."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 the bottom right shows a black computer case with a purple power button and some ports/connectors, but no white-text-on-black-background numeric display is visible there. The "
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 no white-text-on-black-background numbers visible at bottom right; that area shows a door/wall. The only text-like elements are two small purple/blue displays on the black com"
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 bottom right shows a black speaker and a small audio interface/mixer; no visible white-text-on-black-background numbers in that area."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 no white text with numbers on black background visible at bottom right; bottom right shows internal computer hardware components (PCIe slots/cards)."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 the bottom right shows internal Mac Pro hardware (ports, PCIe slots, chassis) with no white-text-on-black-background numbers visible."
+      }
+    ]
+  },
+  "67": {
+    "gt": "B",
+    "top": "D",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows the underside of a desk with an LG monitor edge, a router/modem, and computer peripherals; no black screen with white text is visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 no black screen with white text visible; frame shows PC hardware components (GeForce RTX card, \"Scanner Edition\" labeled device, tubing, cables) inside a case."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 no black screen with white text visible; frame shows a SoundBlaster audio interface on a desk with a small orange/amber digital display (\"0.0\"), speakers, and other gear."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 no black screen with white text visible; frame shows an iPad running an audio mixer app, an LG monitor, a Stream Deck, and a keyboard."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows an audio device/speaker unit with a circular dial, not a black screen with white text."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 no black screen with white text visible; monitors show colorful abstract imagery, not black screens with text."
+      }
+    ]
+  },
+  "71": {
+    "gt": "C",
+    "top": "B",
+    "top_count": 35,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no bottom screen with a black section and white text is visible; the frame shows an LG monitor (showing a purple/pink image), a mouse, cables, and a small device with antennas"
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows computer hardware (GPU/components with tubing and cables), no screen with white text visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 I see an audio interface/amp device with a small digital display showing \"0.0\" in orange, but no visible white text lines on the left side of any black screen section."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO - the bottom screen shown (the Elgato Stream Deck on the right) has icon buttons, not a black section with white text lines on the left. The tablet screen on the left shows a mi"
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 no bottom screen with white text visible; frame shows a speaker/audio device with a dial and small unreadable icons, next to a monitor showing abstract visuals."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO - desk/studio setup with monitors showing abstract visuals, speakers, keyboards, and cables; no bottom screen with a black section containing white text lines is visible."
+      }
+    ]
+  },
+  "74": {
+    "gt": "D",
+    "top": "B",
+    "top_count": 36,
+    "counts": {
+      "YES": 2,
+      "NO": 4
+    },
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "YES",
+        "raw": "YES \u2014 black LG monitor visible with white \"LG\" text on the lower bezel."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows PC internals (GPU labeled \"GEFORCE RTX\", a \"Scorpion Edition\" component, tubing, cables), not a monitor screen."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 no black monitor screen with white text visible; frame shows a small black audio interface/DAC device on a desk with what appears to be a speaker behind it, not a monitor."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "YES",
+        "raw": "YES \u2014 \"LG\" logo visible on the bottom bezel of the black LG monitor in the background."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 I see a black audio amplifier/DAC device (appears to be Beyerdynamic) with a silver knob, sitting next to a monitor showing abstract colorful graphics. There's no visible whit"
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 monitors are visible but their screens show colorful abstract imagery; no black monitor screen with white side text is visible in this frame."
+      }
+    ]
+  },
+  "113": {
+    "gt": "D",
+    "top": "A",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 empty room with white walls, two windows, wood floor, and a partially visible door; no white object with gray text visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a person in a room with boxes and equipment; no white object with gray text is clearly visible or readable."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO - the object in the frame is a brown/cardboard box with dark text (\"WVH\"), not a white object with gray text."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows two people kneeling on a wood floor with a reflective white/clear panel between them; no gray text on a white object is legible in this frame."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 no white object with gray text is visible; the frame shows a person holding a metal track/stud against a wall near a window."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows two people in black t-shirts indoors; no white object with gray text is visible."
+      }
+    ]
+  },
+  "114": {
+    "gt": "C",
+    "top": "A",
+    "top_count": 31,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no white box with black text visible; frame shows a PC tower, monitors, and a person's hair in motion."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a black box on a desk with a small white label, but the label text is too small/blurry to read five lines of black text; no clear white box with legible five lines"
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 I see a desk setup with a PC tower, speaker, monitor, and a person; there is a white box on the left labeled \"KOBALT\" but it has no five lines of black text at the bottom."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a person holding a PC cooling radiator with fans; no white box with black text visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 white pegboard being mounted on wall, no visible text on it"
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows hands typing on a blue/black mechanical keyboard on a wood desk; no white box with black text is visible."
+      }
+    ]
+  },
+  "117": {
+    "gt": "A",
+    "top": "C",
+    "top_count": 32,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows an aloe plant in a green pot on a shelf next to a lamp; no TV with orange-background black text visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 TV on right shows \"Favorite Talk show\" text on dark background with app tiles; no orange background with black text is visible on the TV screen."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 the TV shows a Spotify screen with a purple/blue background and white text (\"Creative Lofi\"), not orange background with black text."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 no TV screen visible; frame shows a white TV stand/cabinet with books, a candle, and a soundbar on top."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 the TV screen in this frame is dark/off with no visible text; there is an orange \"21\" block visible on the shelf but that is not on a TV."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 TV is visible but displays a grid of thumbnails (looks like a streaming app menu), no orange background with black text is legible in this frame."
+      }
+    ]
+  },
+  "118": {
+    "gt": "B",
+    "top": "A",
+    "top_count": 31,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows an aloe plant in a green pot on a white shelf with a lamp; no TV with brown background or white text visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 TV on the right shows a dark/black background with streaming app tiles (\"Favorite Talk show\", \"Below Deck\"), not a brown background with white text."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 TV shows a Spotify interface with a purple/dark blue background, not brown."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO - frame shows a white TV stand/cabinet with books (\"HUMANS\") and a candle on top; no TV screen visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 TV is off/black screen, no brown background or white text visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO - TV is visible on the left showing what appears to be a colorful menu/grid interface (looks like a streaming service homepage with multiple tiles), not a brown background with "
+      }
+    ]
+  },
+  "120": {
+    "gt": "B",
+    "top": "C",
+    "top_count": 31,
+    "counts": {
+      "NO": 5,
+      "YES": 1
+    },
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows an aloe plant in a green pot, a lamp, and a small candle on a white shelf. No black book with white text is visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 I see a stack of books with a blue book reading \"BY DESIGN\" and \"London Interiors\" in white text, but no black book is visible in this frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 no black book with white text is clearly visible; I see a shelf with a flip clock and a book that appears to read \"BY DESIGN\" but it's not a black book with white text."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "YES",
+        "raw": "YES \u2014 black book with white \"HUMANS\" text visible on top of a white cabinet."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO - I see a living room with shelves holding books, a plant, and a TV. There is a book visible on the middle shelf that appears to say \"BY DESIGN\" in white/light text, but it's on"
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with a TV, couch, window, and framed pictures; no black book with white text visible in this frame."
+      }
+    ]
+  },
+  "125": {
+    "gt": "D",
+    "top": "A",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no movie tabs or screen content visible; frame shows an aloe plant in a green pot on a shelf with a lamp and candle."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 TV screen only partially visible showing \"Favorite Talk show\" row with ~2 tiles; a fourth movie tab is not in frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 TV shows a Spotify \"Creative Lofi\" playlist screen, no movie tabs visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 no movie tabs/screen visible; frame shows a white console/TV stand with a candle and books (\"HUMANS\") on top, no display or UI."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows a living room with a large plant, shelves with books/decor, and a TV on the wall. There are no movie tabs or any interface with movie selections visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 the TV shows what looks like a streaming service home screen with rows of content tiles, but individual movie tabs are not distinguishable at this scale/angle, so a specific \""
+      }
+    ]
+  },
+  "151": {
+    "gt": "B",
+    "top": "A",
+    "top_count": 36,
+    "counts": {
+      "YES": 6
+    },
+    "classification": "object_present",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "YES",
+        "raw": "YES \u2014 white watermark in top-right reads \"NEW DRW\""
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "YES",
+        "raw": "YES \u2014 white \"NEW DRW\" watermark visible in the top-right corner."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "YES",
+        "raw": "YES \u2014 white watermark reads \"NEW DRW\" in the top-right corner."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "YES",
+        "raw": "YES \u2014 white \"NEW DRW\" watermark visible in the top-right corner."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "YES",
+        "raw": "YES \u2014 white watermark in top-right corner reads \"NEW DRW\" (appears to be \"NEW DRAW\" or similar logo text)."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "YES",
+        "raw": "YES \u2014 white watermark \"NEW DRW\" visible in top-right corner."
+      }
+    ]
+  },
+  "153": {
+    "gt": "C",
+    "top": "A",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 living room with pendant lights, wall-mounted TV, and decorative shelving; no bathroom mirror visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 outdoor zen rock garden with a person raking gravel, trees, and white spheres; no bathroom or mirror in frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 living room with TV, soundbar, and ambient LED lighting; no bathroom or mirror visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with a black teapot, tray, and branch with dark red leaves on a table; a circular wall mirror is visible in the background but this is a living/lounge area, "
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 living room with a decorative tree and sofa, no bathroom mirror visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 glossy orange furniture/countertop with a decorative branch sculpture, no bathroom mirror visible."
+      }
+    ]
+  },
+  "154": {
+    "gt": "B",
+    "top": "C",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no black book with white text visible; frame shows a beige/wood shelving unit with vases and books, plus a dining table."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 dining room with a round table, bowl, and a shelving unit with some dark books visible but no black book with readable white text is distinguishable in this frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 I see a bedroom scene with pillows, a bed, and a nightstand holding dried flowers and what appears to be a small notebook/book with a pen, but no black book with readable whit"
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO - kitchen scene with no black book visible"
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 shelf has a few books but none clearly black with readable white text at this resolution; the books appear light/neutral toned."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 no black book visible; frame shows wooden cabinetry and a dark door, with \"NEW DRW\" watermark in the corner."
+      }
+    ]
+  },
+  "155": {
+    "gt": "B",
+    "top": "C",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no black book with white text is visible; the frame shows a beige/cream shelving unit with decorative objects (vases, bowls), a pendant lamp, a dining table with chairs, and a"
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 dining room scene with table, chairs, and a shelving unit; no black book with white text is visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 scene is a bedroom with pillows, a nightstand with a vase of dried flowers, and a small notebook/book with a pen on the nightstand; no black book with white text is clearly vi"
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 modern kitchen scene with ovens, sink, and island; no black book visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 no black book with white text visible; the shelf holds a few light-colored books and a decorative object, and a laptop sits on the desk."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows an interior hallway with wooden cabinetry and a dark door; no black book with white text is visible."
+      }
+    ]
+  },
+  "158": {
+    "gt": "B",
+    "top": "C",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows indoor plants/small trees in front of a white wall with a \"NEW DRW\" watermark; no soap or soap label visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 interior room scene with a wooden chair, ribbed glass/wall panels, and a \"NEW DRW\" watermark; no soap or label visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 hallway view into a dining room with table, chairs, and a potted plant; no soap or label visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom scene with sink, mirror, and shower; no white soap with a readable label visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with TV, coffee table, sofa, and floor lamp; no soap or soap label visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 dining room scene with a wooden table, chairs, and a vase with branches; no soap or label visible."
+      }
+    ]
+  },
+  "160": {
+    "gt": "B",
+    "top": "D",
+    "top_count": 34,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom scene with shower on left and sink/mirror on right; no gray text against a brown and gray backdrop is visible (only a small \"NEW DRW\" watermark in the top-right corne"
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows gray pillows on a bench by a window with leaf shadows; no gray text on a brown/gray backdrop visible (only a small \"NEW DRW\" watermark in the top-right corner)."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with a padded headboard, pillows, and a nightstand with a clock and books. No gray text on a brown/gray backdrop is visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 this is a living room scene with white sofas, stone wall panels, and wooden accents. The only visible text is \"NEW DRW\" in white in the top-right corner, not gray text on a br"
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a bedroom with a black TV screen displaying white text credits, a white door, and wooden slatted wardrobe; no gray text on a brown-and-gray backdrop is visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 this is a bedroom scene with a bed, lamps, and nightstands against a brown/gray wall. The only visible text is a \"NEW DRW\" watermark in the top-right corner (white text on the"
+      }
+    ]
+  },
+  "191": {
+    "gt": "A",
+    "top": "C",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows two books (\"Krsna\" and \"Bhagavad Gita As It Is\"), no oven visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a woman in a red patterned dress in a living room with a TV, lamp, and Buddha head decoration; no oven visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO - the oven is visible but only partially on the right edge; no black text on a silver section is legible in this frame."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with a TV, couch, plant, and lamp; no oven visible in this frame."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 overhead breakfast table shot with pancakes, strawberries, bananas, toast, coffee, and a plant; no oven visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with a woman in a red dress, desk, chair, and bed; no oven visible."
+      }
+    ]
+  },
+  "247": {
+    "gt": "A",
+    "top": "C",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no black glass candle visible; scene shows a white/cream candle in a holder, an aloe plant in a green pot, and a lamp on a shelf."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 no black glass candle visible; frame shows a white globe lamp, orange flip clock, books (\"BY DESIGN\", \"London Interiors\"), plants, and a TV screen."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 no black glass candle visible; I see a living room with a wall-mounted TV showing Spotify, white shelves with plants/teal candles/a flip clock, a lamp, and a white media conso"
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO - the candle visible is in an amber/brown glass jar, not black glass. There is a small white label on it but no black glass candle in this frame."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 no black glass candle visible; I see shelves with books, a plant, a round white lamp, a TV, and a chair."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 this is a wide shot of a living room (TV, sofa, window, framed pictures, plants). No black glass candle is visible in this frame."
+      }
+    ]
+  },
+  "252": {
+    "gt": "B",
+    "top": "C",
+    "top_count": 33,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 no gray bag visible; frame shows a furnished room with shelving, decor, and a dining table."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 dining room scene with round table, chairs, bowl with branches, and a cabinet; no gray bag visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with pillows, nightstand, and dried flowers; no gray bag visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen scene with island, sink, and ovens; no gray bag visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 no gray bag visible; the frame shows a desk, chair, shelf with books and a decorative object, window blinds, and a power outlet."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 interior hallway with wood cabinetry and a dark door; no gray bag visible."
+      }
+    ]
+  },
+  "253": {
+    "gt": "C",
+    "top": "D",
+    "top_count": 34,
+    "counts": {
+      "NO": 5,
+      "YES": 1
+    },
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 this is a bathroom scene with a shower, sink, round mirror, and decorative pampas grass. No white book with black text is visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "YES",
+        "raw": "YES \u2014 a white book visible on the coffee table with \"PICASSO BLACK AND WHITE\" in black text."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom scene with fluted glass partition, vanity, candles, and plant; no white book visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom scene with a white freestanding bathtub, wall-mounted toilet, and brick/tile walls; no book visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 no white book visible; scene shows a dining table with two rattan chairs, a plant, and curtains by a window."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 no white book visible; frame shows an office with a window, chair, desk, and shelves."
+      }
+    ]
+  },
+  "256": {
+    "gt": "D",
+    "top": "A",
+    "top_count": 36,
+    "counts": {
+      "NO": 5,
+      "YES": 1
+    },
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom scene with shower and sink, no TV or credits visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 no TV visible; frame shows pillows on a window bench with shadows."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with bed, headboard, nightstand; no TV visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 modern living room with sofas, coffee tables, and stone wall panels; no TV or credits visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "YES",
+        "raw": "YES \u2014 TV on the wall displaying scrolling credits text, though the names are too small to read clearly at this resolution."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with a bed, lamps, and vases; no TV or credits visible."
+      }
+    ]
+  },
+  "257": {
+    "gt": "B",
+    "top": "C",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom scene with wall light fixture, mirror, and towel; no electrical outlet visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 interior room with bookshelves, table, and garden view; no electrical outlet visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 interior dining room scene with a stone table, chairs, and a dome lamp on a wooden cabinet; no electrical outlet visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 wide interior shot of a living/dining room, no electrical outlet visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 dimly lit living room with a wall-mounted TV, sofa, and curtains; no electrical outlet visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with sofas, coffee table, and pendant lights; no electrical outlet visible."
+      }
+    ]
+  },
+  "258": {
+    "gt": "C",
+    "top": "B",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom wall with vertical light fixture, mirror cabinet, and towel visible; no sink or soap bottle in frame."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 interior room with dining table and wooden bookshelves, no sink or soap bottle visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 dining room with stone table, chairs, lamp on credenza; no sink or soap bottle visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows a living/dining room with a sofa, coffee table, dining table, and arched wall niches. No sink or soap bottle is visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows a dimly lit living room with a sectional sofa, wall-mounted TV, and curtains. There is no sink or soap bottle visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows a living room with sofas, a coffee table, and woven pendant lamps. No sink or soap bottle is visible."
+      }
+    ]
+  },
+  "265": {
+    "gt": "D",
+    "top": "C",
+    "top_count": 36,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 outdoor scene of a person standing in front of a house entrance; no microwave visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 a closed microwave is visible mounted above the counter, but it is not open; the person is opening a mini-fridge below the counter instead."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows a bathroom shower with a person in a white shirt; no microwave is visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 ceiling with chandelier, no microwave visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 this is a bathroom scene with a person in a white shirt, a framed poster on the wall, and a towel rack. No microwave is visible in this frame."
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 hallway with pendant light, framed pictures, and a person in a white shirt; no microwave visible."
+      }
+    ]
+  },
+  "266": {
+    "gt": "D",
+    "top": "C",
+    "top_count": 32,
+    "counts": {
+      "NO": 6
+    },
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.08333333333333333,
+        "v": "NO",
+        "raw": "NO \u2014 outdoor scene showing a man in front of a house entrance; no bed or black board visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.25,
+        "v": "NO",
+        "raw": "NO \u2014 kitchenette with microwave, sink, and mini-fridge; no bed or black board visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.4166666666666667,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom with shower, no bed or black board visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.5833333333333334,
+        "v": "NO",
+        "raw": "NO \u2014 ceiling with chandelier, no bed or blackboard visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.75,
+        "v": "NO",
+        "raw": "NO \u2014 no black board with white text above a bed is visible; the frame shows a person in a bathroom doorway with a white/light sign reading \"NEVER LET THE FEAR OF STRIKING OUT GET I"
+      },
+      {
+        "frame": 5,
+        "frac": 0.9166666666666666,
+        "v": "NO",
+        "raw": "NO \u2014 hallway with framed pictures and a person; no bed or black board visible."
+      }
+    ]
+  }
+}
