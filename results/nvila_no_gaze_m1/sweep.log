@@ -1,0 +1,379 @@
+[setup] Loading NVILA-8B-HD-Video (4-bit NF4) with gazing_ratio_tile=1.0, gazing_ratio_thumbnail=1.0 (AutoGaze bypassed), max_tiles=1...
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+AutoGaze loaded successfully in processor
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:04<00:12,  4.33s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:10<00:10,  5.43s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:16<00:05,  5.74s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:16<00:00,  3.57s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:16<00:00,  4.22s/it]
+[setup] NVILA loaded. Free: 17682 MiB
+[data] HLVid subset: 122 QA pairs on 21 videos  (query_mode=stem)
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [1/122] q=8  gt=C  pred=B  X  lat=19.9s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [2/122] q=9  gt=C  pred=D  X  lat=15.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [3/122] q=10  gt=C  pred=A  X  lat=15.8s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [4/122] q=11  gt=A  pred=C  X  lat=14.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [5/122] q=12  gt=A  pred=A  OK  lat=16.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [6/122] q=13  gt=A  pred=A  OK  lat=14.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [7/122] q=14  gt=B  pred=D  X  lat=14.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [8/122] q=15  gt=C  pred=B  X  lat=14.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [9/122] q=16  gt=D  pred=A  X  lat=14.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [10/122] q=17  gt=A  pred=D  X  lat=14.1s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [11/122] q=18  gt=A  pred=A  OK  lat=14.2s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [12/122] q=19  gt=B  pred=D  X  lat=14.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [13/122] q=20  gt=A  pred=C  X  lat=17.2s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [14/122] q=21  gt=C  pred=C  OK  lat=15.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [15/122] q=22  gt=C  pred=D  X  lat=15.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [16/122] q=23  gt=B  pred=B  OK  lat=15.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [17/122] q=24  gt=A  pred=A  OK  lat=16.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [18/122] q=25  gt=B  pred=C  X  lat=15.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [19/122] q=26  gt=C  pred=C  OK  lat=15.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [20/122] q=27  gt=B  pred=B  OK  lat=15.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [21/122] q=28  gt=C  pred=A  X  lat=15.7s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [22/122] q=29  gt=D  pred=D  OK  lat=15.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [23/122] q=30  gt=C  pred=A  X  lat=15.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [24/122] q=31  gt=D  pred=D  OK  lat=15.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [25/122] q=32  gt=D  pred=C  X  lat=15.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [26/122] q=33  gt=D  pred=C  X  lat=15.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [27/122] q=34  gt=D  pred=D  OK  lat=15.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [28/122] q=35  gt=C  pred=D  X  lat=15.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [29/122] q=36  gt=A  pred=A  OK  lat=15.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [30/122] q=37  gt=A  pred=B  X  lat=15.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [31/122] q=38  gt=C  pred=C  OK  lat=15.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [32/122] q=39  gt=A  pred=A  OK  lat=15.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [33/122] q=40  gt=C  pred=D  X  lat=15.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [34/122] q=41  gt=B  pred=C  X  lat=15.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [35/122] q=42  gt=A  pred=D  X  lat=15.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [36/122] q=43  gt=A  pred=C  X  lat=15.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [37/122] q=44  gt=D  pred=D  OK  lat=15.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [38/122] q=45  gt=C  pred=C  OK  lat=15.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [39/122] q=46  gt=C  pred=C  OK  lat=15.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [40/122] q=47  gt=D  pred=D  OK  lat=15.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [41/122] q=48  gt=A  pred=D  X  lat=15.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [42/122] q=49  gt=B  pred=B  OK  lat=15.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [43/122] q=50  gt=B  pred=D  X  lat=16.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [44/122] q=51  gt=A  pred=D  X  lat=14.8s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [45/122] q=52  gt=D  pred=D  OK  lat=15.0s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [46/122] q=53  gt=B  pred=D  X  lat=14.8s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [47/122] q=54  gt=D  pred=A  X  lat=14.9s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [48/122] q=55  gt=D  pred=D  OK  lat=14.7s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [49/122] q=56  gt=C  pred=D  X  lat=15.0s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [50/122] q=57  gt=B  pred=A  X  lat=14.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [51/122] q=58  gt=C  pred=A  X  lat=15.0s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [52/122] q=59  gt=D  pred=B  X  lat=14.7s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [53/122] q=60  gt=A  pred=C  X  lat=14.8s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [54/122] q=61  gt=C  pred=D  X  lat=14.9s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [55/122] q=62  gt=A  pred=D  X  lat=14.7s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [56/122] q=63  gt=B  pred=D  X  lat=16.0s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [57/122] q=64  gt=C  pred=C  OK  lat=14.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [58/122] q=65  gt=C  pred=C  OK  lat=14.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [59/122] q=66  gt=A  pred=D  X  lat=14.0s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [60/122] q=67  gt=B  pred=D  X  lat=14.1s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [61/122] q=68  gt=B  pred=A  X  lat=14.1s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [62/122] q=69  gt=D  pred=D  OK  lat=14.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [63/122] q=70  gt=A  pred=B  X  lat=14.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [64/122] q=71  gt=C  pred=A  X  lat=14.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [65/122] q=72  gt=C  pred=A  X  lat=14.2s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [66/122] q=73  gt=B  pred=B  OK  lat=14.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [67/122] q=74  gt=D  pred=B  X  lat=14.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [68/122] q=75  gt=A  pred=A  OK  lat=14.2s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [69/122] q=76  gt=C  pred=C  OK  lat=14.1s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [70/122] q=77  gt=B  pred=B  OK  lat=17.2s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [71/122] q=78  gt=D  pred=A  X  lat=14.9s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [72/122] q=113  gt=D  pred=A  X  lat=16.7s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [73/122] q=114  gt=C  pred=B  X  lat=17.1s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [74/122] q=115  gt=A  pred=B  X  lat=15.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [75/122] q=116  gt=C  pred=A  X  lat=15.1s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [76/122] q=117  gt=A  pred=B  X  lat=16.7s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [77/122] q=118  gt=B  pred=A  X  lat=14.9s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [78/122] q=119  gt=D  pred=D  OK  lat=15.2s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [79/122] q=120  gt=B  pred=C  X  lat=14.8s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [80/122] q=121  gt=A  pred=C  X  lat=14.8s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [81/122] q=122  gt=D  pred=D  OK  lat=14.8s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [82/122] q=123  gt=D  pred=D  OK  lat=14.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [83/122] q=124  gt=C  pred=C  OK  lat=14.7s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [84/122] q=125  gt=D  pred=A  X  lat=14.8s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [85/122] q=151  gt=B  pred=A  X  lat=9.7s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [86/122] q=152  gt=C  pred=C  OK  lat=8.8s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [87/122] q=153  gt=C  pred=A  X  lat=8.6s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [88/122] q=154  gt=B  pred=C  X  lat=9.9s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [89/122] q=155  gt=B  pred=C  X  lat=8.5s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [90/122] q=156  gt=C  pred=A  X  lat=9.6s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [91/122] q=157  gt=A  pred=A  OK  lat=8.1s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [92/122] q=158  gt=B  pred=C  X  lat=8.0s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [93/122] q=159  gt=B  pred=B  OK  lat=9.6s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [94/122] q=160  gt=B  pred=D  X  lat=8.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [95/122] q=177  gt=C  pred=D  X  lat=17.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [96/122] q=178  gt=D  pred=D  OK  lat=17.3s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [97/122] q=191  gt=A  pred=C  X  lat=16.7s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [98/122] q=192  gt=D  pred=D  OK  lat=14.4s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [99/122] q=197  gt=B  pred=B  OK  lat=17.7s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [100/122] q=245  gt=C  pred=A  X  lat=16.5s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [101/122] q=246  gt=C  pred=A  X  lat=14.7s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [102/122] q=247  gt=A  pred=C  X  lat=15.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [103/122] q=248  gt=C  pred=C  OK  lat=15.2s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [104/122] q=249  gt=B  pred=B  OK  lat=14.9s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [105/122] q=250  gt=B  pred=B  OK  lat=13.2s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [106/122] q=251  gt=A  pred=A  OK  lat=8.6s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [107/122] q=252  gt=B  pred=C  X  lat=8.6s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [108/122] q=253  gt=C  pred=D  X  lat=10.4s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [109/122] q=254  gt=A  pred=C  X  lat=8.4s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [110/122] q=255  gt=C  pred=C  OK  lat=8.1s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [111/122] q=256  gt=D  pred=A  X  lat=8.4s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [112/122] q=257  gt=B  pred=C  X  lat=9.7s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [113/122] q=258  gt=C  pred=B  X  lat=9.0s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [114/122] q=259  gt=B  pred=B  OK  lat=9.2s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [115/122] q=260  gt=C  pred=C  OK  lat=9.8s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [116/122] q=261  gt=D  pred=D  OK  lat=9.0s
+Video tiling: 32 frames @ 1920x1080 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [117/122] q=262  gt=A  pred=D  X  lat=9.1s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [118/122] q=263  gt=A  pred=C  X  lat=14.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [119/122] q=264  gt=D  pred=B  X  lat=14.6s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [120/122] q=265  gt=D  pred=C  X  lat=15.8s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [121/122] q=266  gt=D  pred=A  X  lat=15.9s
+Video tiling: 32 frames @ 3840x2160 → 1 spatial × 2 temporal = 2 tiles, each 16×392×392; 16 thumbnail frames
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+  [122/122] q=267  gt=B  pred=B  OK  lat=15.8s
+
+============================================================
+[SUMMARY] NVILA no-gaze on HLVid household (n=122)
+============================================================
+  Reference: vanilla AutoGaze = 51/122 = 0.418 (NVILA deterministic across 4+ runs)
+  Raw NVILA (no AutoGaze):  acc=0.385 (47/122)  avg_lat=14.14s
+[save] results/nvila_no_gaze_m1/hlvid_subset.json
