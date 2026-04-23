@@ -1,0 +1,48 @@
+========================================================================
+visual_features_router :: CLIP-L IMG + CLIP-L TEXT stem -> LOO per-config LR
+========================================================================
+matrix: 122 questions x 36 configs
+video features: CLIP-L image (1024) per video at frame-fractions (0.25, 0.75)
+text features: CLIP-L text stem (768)
+length features: qlen (1) + choice-len (2) = 3
+
+-- Baselines --
+  random config (mean)      : 36.33 / 122
+  best fixed config         : 51 / 122  [budget_sweep::vanilla tile=0.20 thumb=0.75]
+  oracle                    : 77 / 122
+  cheap-router (prior)      : 47 / 122
+  rich-router stem (prior)  : 51 / 122  [= best-fixed parity]
+  rich-router combo (prior) : 47 / 122
+  individual-vs-oracle gap  : 26
+
+-- LOO router: visual-only (img+len) --
+  feature dim         : 1027
+  router correct      : 49 / 122
+  vs best fixed       : -2
+  paired +/-          : +1  -3  net -2
+  top picks:
+     50  budget_sweep::vanilla tile=0.20 thumb=0.75
+     31  vanilla_m1::gaze_t=0.2,th=0.75,mt=1
+     19  budget_sweep::scaled 0.5 tile=0.10 thumb=0.375
+     15  raw_m1::gaze_t=1.0,th=1.0,mt=1
+      3  subsel_probe::Intersect 25% random
+      2  aware_filter::Intersect 50%
+      1  predecoder::Thresh 0.01
+      1  filter_vs_rand::Intersect 50% random
+
+-- LOO router: visual+text (img+stem+len) --
+  feature dim         : 1795
+  router correct      : 46 / 122
+  vs best fixed       : -5
+  paired +/-          : +1  -6  net -5
+  top picks:
+     50  budget_sweep::vanilla tile=0.20 thumb=0.75
+     30  vanilla_m1::gaze_t=0.2,th=0.75,mt=1
+     16  budget_sweep::scaled 0.5 tile=0.10 thumb=0.375
+     15  raw_m1::gaze_t=1.0,th=1.0,mt=1
+      4  subsel_probe::Intersect 25% random
+      3  predecoder::Thresh 0.01
+      2  aware_filter::Intersect 50%
+      1  predecoder::Thresh 0.005
+      1  filter_vs_rand::Intersect 50% random
+

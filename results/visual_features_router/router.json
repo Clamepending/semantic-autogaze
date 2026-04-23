@@ -1,0 +1,59 @@
+{
+  "n_questions": 122,
+  "n_configs": 36,
+  "baselines": {
+    "random_mean": 36.333333333333336,
+    "best_fixed": 51,
+    "best_fixed_config": "budget_sweep::vanilla tile=0.20 thumb=0.75",
+    "oracle": 77,
+    "cheap_router_prior": 47,
+    "rich_router_stem_prior": 51,
+    "rich_router_combo_prior": 47
+  },
+  "visual_only": {
+    "label": "visual-only (img+len)",
+    "features_dim": 1027,
+    "C": 0.3,
+    "correct": 49,
+    "vs_best_fixed": -2,
+    "paired_wins": 1,
+    "paired_losses": 3,
+    "net": -2,
+    "chosen_hist": {
+      "budget_sweep::vanilla tile=0.20 thumb=0.75": 50,
+      "vanilla_m1::gaze_t=0.2,th=0.75,mt=1": 31,
+      "predecoder::Thresh 0.01": 1,
+      "raw_m1::gaze_t=1.0,th=1.0,mt=1": 15,
+      "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375": 19,
+      "aware_filter::Intersect 50%": 2,
+      "subsel_probe::Intersect 25% random": 3,
+      "filter_vs_rand::Intersect 50% random": 1
+    }
+  },
+  "visual_plus_text": {
+    "label": "visual+text (img+stem+len)",
+    "features_dim": 1795,
+    "C": 0.3,
+    "correct": 46,
+    "vs_best_fixed": -5,
+    "paired_wins": 1,
+    "paired_losses": 6,
+    "net": -5,
+    "chosen_hist": {
+      "budget_sweep::vanilla tile=0.20 thumb=0.75": 50,
+      "vanilla_m1::gaze_t=0.2,th=0.75,mt=1": 30,
+      "predecoder::Thresh 0.01": 3,
+      "raw_m1::gaze_t=1.0,th=1.0,mt=1": 15,
+      "budget_sweep::scaled 0.5 tile=0.10 thumb=0.375": 16,
+      "subsel_probe::Intersect 25% random": 4,
+      "predecoder::Thresh 0.005": 1,
+      "aware_filter::Intersect 50%": 2,
+      "filter_vs_rand::Intersect 50% random": 1
+    }
+  },
+  "frame_fractions": [
+    0.25,
+    0.75
+  ],
+  "clip_model": "openai/clip-vit-large-patch14"
+}
