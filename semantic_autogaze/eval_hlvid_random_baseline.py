@@ -103,9 +103,14 @@ def main(args):
         print("[warn] No HLVid samples matched downloaded videos. Exiting.")
         return
 
+    # Parse comma-separated keep ratios. Default covers the subselection-insensitivity
+    # sweep (r/subselection-insensitivity-probe): 90 %, 25 %, 10 % — the three untested
+    # points across the vanilla (100 %) → attractor (50–75 %) → collapse (< 10 %) curve.
+    keep_ratios = [float(x) for x in args.keep_ratios.split(",")]
     configs = [
-        {"name": "Intersect 50% random", "mode": "intersect", "keep_ratio": 0.5,  "thr": None},
-        {"name": "Intersect 75% random", "mode": "intersect", "keep_ratio": 0.75, "thr": None},
+        {"name": f"Intersect {int(r * 100)}% random", "mode": "intersect",
+         "keep_ratio": r, "thr": None}
+        for r in keep_ratios
     ]
 
     all_results = {}
@@ -199,6 +204,10 @@ if __name__ == "__main__":
     p.add_argument("--autogaze_model", default="nvidia/AutoGaze")
     p.add_argument("--device", default="cuda:0")
     p.add_argument("--output_dir", default="results/filter_vs_random_baseline")
+    p.add_argument("--keep_ratios", default="0.5,0.75",
+                   help="Comma-separated keep ratios for Intersect-mode random sweep. "
+                        "Default 0.5,0.75 reproduces r/filter-vs-random-baseline. "
+                        "For r/subselection-insensitivity-probe use 0.9,0.25,0.1.")
     p.add_argument("--query_mode", default="stem", choices=["stem", "np", "hybrid"])
     args = p.parse_args()
     main(args)
