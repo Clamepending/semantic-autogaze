@@ -1,0 +1,95 @@
+loaded 77 tasks: 14 succ + 63 var = 77 qids × 6 frames = 462 VLM calls
+  [  1/77] qid=  21 set=universal_success cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [  2/77] qid=  49 set=universal_success cls=  object_absent  counts={'NO': 6}
+  [  3/77] qid=  65 set=universal_success cls= object_present  counts={'NO': 1, 'YES': 5}
+  [  4/77] qid=  69 set=universal_success cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [  5/77] qid=  73 set=universal_success cls=  object_absent  counts={'NO': 6}
+  [  6/77] qid= 119 set=universal_success cls=  object_absent  counts={'NO': 6}
+  [  7/77] qid= 159 set=universal_success cls=  object_absent  counts={'NO': 6}
+  [  8/77] qid= 178 set=universal_success cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [  9/77] qid= 248 set=universal_success cls=  object_absent  counts={'NO': 6}
+  [ 10/77] qid= 249 set=universal_success cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 11/77] qid= 255 set=universal_success cls=  object_absent  counts={'NO': 6}
+  [ 12/77] qid= 259 set=universal_success cls=  object_absent  counts={'NO': 6}
+  [ 13/77] qid= 260 set=universal_success cls=  object_absent  counts={'NO': 6}
+  [ 14/77] qid= 261 set=universal_success cls=  object_absent  counts={'NO': 6}
+  [ 15/77] qid=   9 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 16/77] qid=  12 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 17/77] qid=  13 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 18/77] qid=  15 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 19/77] qid=  16 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 20/77] qid=  18 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 21/77] qid=  19 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 22/77] qid=  20 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 23/77] qid=  22 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 24/77] qid=  23 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 25/77] qid=  24 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 26/77] qid=  25 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 27/77] qid=  26 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 28/77] qid=  27 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 29/77] qid=  29 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 30/77] qid=  30 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 31/77] qid=  31 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 32/77] qid=  32 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 33/77] qid=  34 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 34/77] qid=  35 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 35/77] qid=  36 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 36/77] qid=  38 set=        variable cls= object_present  counts={'NO': 2, 'YES': 4}
+  [ 37/77] qid=  39 set=        variable cls=    object_rare  counts={'NO': 4, 'YES': 2}
+  [ 38/77] qid=  40 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 39/77] qid=  41 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 40/77] qid=  44 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 41/77] qid=  45 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 42/77] qid=  46 set=        variable cls= object_present  counts={'NO': 2, 'YES': 4}
+  [ 43/77] qid=  47 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 44/77] qid=  51 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 45/77] qid=  52 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 46/77] qid=  55 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 47/77] qid=  58 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 48/77] qid=  61 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 49/77] qid=  63 set=        variable cls= object_present  counts={'NO': 2, 'YES': 4}
+  [ 50/77] qid=  64 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 51/77] qid=  66 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 52/77] qid=  68 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 53/77] qid=  70 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 54/77] qid=  75 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 55/77] qid=  76 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 56/77] qid=  77 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 57/77] qid=  78 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 58/77] qid= 115 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 59/77] qid= 116 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 60/77] qid= 121 set=        variable cls=    object_rare  counts={'NO': 4, 'YES': 2}
+  [ 61/77] qid= 122 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 62/77] qid= 123 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 63/77] qid= 124 set=        variable cls=    object_rare  counts={'NO': 4, 'YES': 2}
+  [ 64/77] qid= 152 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 65/77] qid= 156 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 66/77] qid= 157 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 67/77] qid= 177 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 68/77] qid= 192 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 69/77] qid= 197 set=        variable cls=    object_rare  counts={'YES': 1, 'NO': 5}
+  [ 70/77] qid= 245 set=        variable cls=    object_rare  counts={'NO': 4, 'YES': 2}
+  [ 71/77] qid= 246 set=        variable cls=    object_rare  counts={'NO': 5, 'YES': 1}
+  [ 72/77] qid= 250 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 73/77] qid= 251 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 74/77] qid= 254 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 75/77] qid= 262 set=        variable cls=  object_absent  counts={'NO': 6}
+  [ 76/77] qid= 263 set=        variable cls=    object_rare  counts={'YES': 1, 'NO': 5}
+  [ 77/77] qid= 267 set=        variable cls=  object_absent  counts={'NO': 6}
+
+=== AGGREGATE ===
+
+  --- universal_success (n=14) ---
+       object_absent:   9/14  (64.3%)  qids=['49', '73', '119', '159', '248', '255', '259', '260', '261']
+         object_rare:   4/14  (28.6%)  qids=['21', '69', '178', '249']
+      object_present:   1/14  (7.1%)  qids=['65']
+
+  --- variable (n=63) ---
+       object_absent:  39/63  (61.9%)  qids=['9', '12', '18', '20', '23', '25', '26', '27', '29', '31', '32', '35', '36', '41', '45', '51', '52', '55', '58', '61', '64', '66', '70', '75', '76', '77', '78', '115', '116', '122', '123', '156', '157', '177', '250', '251', '254', '262', '267']
+         object_rare:  21/63  (33.3%)  qids=['13', '15', '16', '19', '22', '24', '30', '34', '39', '40', '44', '47', '68', '121', '124', '152', '192', '197', '245', '246', '263']
+      object_present:   3/63  (4.8%)  qids=['38', '46', '63']
+
+  --- combined_77 (n=77) ---
+       object_absent:  48/77  (62.3%)  qids=['49', '73', '119', '159', '248', '255', '259', '260', '261', '9', '12', '18', '20', '23', '25', '26', '27', '29', '31', '32', '35', '36', '41', '45', '51', '52', '55', '58', '61', '64', '66', '70', '75', '76', '77', '78', '115', '116', '122', '123', '156', '157', '177', '250', '251', '254', '262', '267']
+         object_rare:  25/77  (32.5%)  qids=['21', '69', '178', '249', '13', '15', '16', '19', '22', '24', '30', '34', '39', '40', '44', '47', '68', '121', '124', '152', '192', '197', '245', '246', '263']
+      object_present:   4/77  (5.2%)  qids=['65', '38', '46', '63']
