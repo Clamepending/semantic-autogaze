@@ -1,0 +1,1260 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+`torch_dtype` is deprecated! Use `dtype` instead!
+[setup] Loading NVILA-8B-HD-Video (4-bit NF4)...
+AutoGaze loaded successfully in processor
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:04<00:13,  4.37s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:10<00:11,  5.56s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:17<00:05,  5.89s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:17<00:00,  3.67s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:17<00:00,  4.33s/it]
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+[setup] NVILA loaded. Free after NVILA: 17701 MiB
+[data] HLVid subset: 95 QA pairs on 37 videos
+
+============================================================
+[budget] vanilla tile=0.20 thumb=0.75
+============================================================
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [1/95] q=79  gt=B  pred=B  OK  lat=14.9s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [10/95] q=88  gt=D  pred=B  X   lat=13.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [20/95] q=107  gt=C  pred=B  X   lat=12.9s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [30/95] q=130  gt=C  pred=A  X   lat=15.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [40/95] q=144  gt=B  pred=C  X   lat=13.2s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [50/95] q=164  gt=A  pred=C  X   lat=14.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [60/95] q=190  gt=A  pred=D  X   lat=12.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [70/95] q=214  gt=B  pred=A  X   lat=12.4s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [80/95] q=224  gt=A  pred=C  X   lat=12.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [90/95] q=234  gt=A  pred=C  X   lat=13.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [95/95] q=239  gt=C  pred=D  X   lat=12.7s
+
+  => vanilla tile=0.20 thumb=0.75: acc=0.389 (37/95)  avg_lat=13.42s
+
+============================================================
+[budget] scaled 0.42 tile=0.084 thumb=0.3150
+============================================================
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [1/95] q=79  gt=B  pred=B  OK  lat=12.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [10/95] q=88  gt=D  pred=B  X   lat=11.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [20/95] q=107  gt=C  pred=B  X   lat=11.7s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [30/95] q=130  gt=C  pred=A  X   lat=12.9s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [40/95] q=144  gt=B  pred=B  OK  lat=11.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [50/95] q=164  gt=A  pred=C  X   lat=12.2s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [60/95] q=190  gt=A  pred=B  X   lat=11.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [70/95] q=214  gt=B  pred=A  X   lat=11.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [80/95] q=224  gt=A  pred=B  X   lat=11.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [90/95] q=234  gt=A  pred=C  X   lat=13.4s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [95/95] q=239  gt=C  pred=D  X   lat=11.5s
+
+  => scaled 0.42 tile=0.084 thumb=0.3150: acc=0.421 (40/95)  avg_lat=12.26s
+
+============================================================
+[budget] scaled 0.40 tile=0.080 thumb=0.3000
+============================================================
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [1/95] q=79  gt=B  pred=B  OK  lat=11.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [10/95] q=88  gt=D  pred=B  X   lat=12.2s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [20/95] q=107  gt=C  pred=B  X   lat=11.7s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [30/95] q=130  gt=C  pred=A  X   lat=12.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [40/95] q=144  gt=B  pred=B  OK  lat=12.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [50/95] q=164  gt=A  pred=C  X   lat=12.2s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [60/95] q=190  gt=A  pred=B  X   lat=11.7s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [70/95] q=214  gt=B  pred=A  X   lat=11.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [80/95] q=224  gt=A  pred=B  X   lat=11.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [90/95] q=234  gt=A  pred=C  X   lat=12.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [95/95] q=239  gt=C  pred=D  X   lat=11.6s
+
+  => scaled 0.40 tile=0.080 thumb=0.3000: acc=0.442 (42/95)  avg_lat=12.18s
+
+============================================================
+[budget] scaled 0.38 tile=0.076 thumb=0.2850
+============================================================
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [1/95] q=79  gt=B  pred=B  OK  lat=12.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [10/95] q=88  gt=D  pred=B  X   lat=11.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [20/95] q=107  gt=C  pred=B  X   lat=11.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [30/95] q=130  gt=C  pred=A  X   lat=13.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [40/95] q=144  gt=B  pred=B  OK  lat=12.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [50/95] q=164  gt=A  pred=C  X   lat=12.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [60/95] q=190  gt=A  pred=B  X   lat=11.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [70/95] q=214  gt=B  pred=A  X   lat=11.4s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [80/95] q=224  gt=A  pred=B  X   lat=11.7s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [90/95] q=234  gt=A  pred=B  X   lat=12.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [95/95] q=239  gt=C  pred=D  X   lat=11.1s
+
+  => scaled 0.38 tile=0.076 thumb=0.2850: acc=0.411 (39/95)  avg_lat=12.25s
+
+============================================================
+[budget] scaled 0.32 tile=0.064 thumb=0.2400
+============================================================
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [1/95] q=79  gt=B  pred=B  OK  lat=12.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [10/95] q=88  gt=D  pred=C  X   lat=11.2s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [20/95] q=107  gt=C  pred=B  X   lat=11.4s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [30/95] q=130  gt=C  pred=A  X   lat=13.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [40/95] q=144  gt=B  pred=B  OK  lat=12.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [50/95] q=164  gt=A  pred=C  X   lat=12.3s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [60/95] q=190  gt=A  pred=B  X   lat=11.7s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [70/95] q=214  gt=B  pred=C  X   lat=11.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [80/95] q=224  gt=A  pred=C  X   lat=11.7s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [90/95] q=234  gt=A  pred=C  X   lat=12.7s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [95/95] q=239  gt=C  pred=D  X   lat=11.3s
+
+  => scaled 0.32 tile=0.064 thumb=0.2400: acc=0.400 (38/95)  avg_lat=12.07s
+
+============================================================
+[budget] scaled 0.30 tile=0.060 thumb=0.2250
+============================================================
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [1/95] q=79  gt=B  pred=B  OK  lat=11.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [10/95] q=88  gt=D  pred=B  X   lat=11.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [20/95] q=107  gt=C  pred=B  X   lat=11.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [30/95] q=130  gt=C  pred=A  X   lat=12.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [40/95] q=144  gt=B  pred=A  X   lat=11.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [50/95] q=164  gt=A  pred=C  X   lat=12.2s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [60/95] q=190  gt=A  pred=B  X   lat=12.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [70/95] q=214  gt=B  pred=C  X   lat=11.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [80/95] q=224  gt=A  pred=C  X   lat=11.7s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [90/95] q=234  gt=A  pred=D  X   lat=12.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [95/95] q=239  gt=C  pred=D  X   lat=12.9s
+
+  => scaled 0.30 tile=0.060 thumb=0.2250: acc=0.389 (37/95)  avg_lat=12.14s
+
+============================================================
+[SUMMARY] HLVid household gaze-budget sweep (n=95)
+============================================================
+  vanilla tile=0.20 thumb=0.75                   acc=0.389 (37/95)  d_acc=+0.000  lat=13.42s  (speedup 1.00x)
+  scaled 0.42 tile=0.084 thumb=0.3150            acc=0.421 (40/95)  d_acc=+0.032  lat=12.26s  (speedup 1.10x)
+  scaled 0.40 tile=0.080 thumb=0.3000            acc=0.442 (42/95)  d_acc=+0.053  lat=12.18s  (speedup 1.10x)
+  scaled 0.38 tile=0.076 thumb=0.2850            acc=0.411 (39/95)  d_acc=+0.021  lat=12.25s  (speedup 1.10x)
+  scaled 0.32 tile=0.064 thumb=0.2400            acc=0.400 (38/95)  d_acc=+0.011  lat=12.07s  (speedup 1.11x)
+  scaled 0.30 tile=0.060 thumb=0.2250            acc=0.389 (37/95)  d_acc=+0.000  lat=12.14s  (speedup 1.11x)
+[save] results/budget_ladder_av_probe_40_peak/hlvid_subset.json

@@ -1,0 +1,5203 @@
+{
+  "summary": {
+    "vanilla tile=0.20 thumb=0.75": {
+      "config": {
+        "name": "vanilla tile=0.20 thumb=0.75",
+        "tile": 0.2,
+        "thumb": 0.75
+      },
+      "accuracy": 0.3894736842105263,
+      "correct": 37,
+      "total": 95,
+      "avg_latency_s": 13.423457508548898
+    },
+    "scaled 0.42 tile=0.084 thumb=0.3150": {
+      "config": {
+        "name": "scaled 0.42 tile=0.084 thumb=0.3150",
+        "tile": 0.084,
+        "thumb": 0.315
+      },
+      "accuracy": 0.42105263157894735,
+      "correct": 40,
+      "total": 95,
+      "avg_latency_s": 12.258463999065325
+    },
+    "scaled 0.40 tile=0.080 thumb=0.3000": {
+      "config": {
+        "name": "scaled 0.40 tile=0.080 thumb=0.3000",
+        "tile": 0.08,
+        "thumb": 0.3
+      },
+      "accuracy": 0.4421052631578947,
+      "correct": 42,
+      "total": 95,
+      "avg_latency_s": 12.182145882579253
+    },
+    "scaled 0.38 tile=0.076 thumb=0.2850": {
+      "config": {
+        "name": "scaled 0.38 tile=0.076 thumb=0.2850",
+        "tile": 0.076,
+        "thumb": 0.285
+      },
+      "accuracy": 0.4105263157894737,
+      "correct": 39,
+      "total": 95,
+      "avg_latency_s": 12.245248049269675
+    },
+    "scaled 0.32 tile=0.064 thumb=0.2400": {
+      "config": {
+        "name": "scaled 0.32 tile=0.064 thumb=0.2400",
+        "tile": 0.064,
+        "thumb": 0.24
+      },
+      "accuracy": 0.4,
+      "correct": 38,
+      "total": 95,
+      "avg_latency_s": 12.06625716171693
+    },
+    "scaled 0.30 tile=0.060 thumb=0.2250": {
+      "config": {
+        "name": "scaled 0.30 tile=0.060 thumb=0.2250",
+        "tile": 0.06,
+        "thumb": 0.225
+      },
+      "accuracy": 0.3894736842105263,
+      "correct": 37,
+      "total": 95,
+      "avg_latency_s": 12.141860762048562
+    }
+  },
+  "per_sample": [
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 79,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.8518343080068,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 80,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.892665722989477,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 81,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.733370360918343,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 82,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.679068451048806,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 83,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.644512781058438,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 84,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.880140268011019,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 85,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.156806238926947,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 86,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.816577723016962,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 87,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.904551610001363,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 88,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.025458001997322,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 89,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.701861356967129,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 99,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.992923638084903,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 100,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.667371935909614,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 101,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.998608194990084,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 102,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.408420664956793,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 103,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.605292951106094,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 104,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.399842969956808,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 105,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.354648877982982,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 106,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.99273976602126,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 107,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.889239449985325,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 108,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.039203181979246,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 109,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.650353936012834,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 110,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.107306586927734,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 111,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.096771853044629,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 112,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.087647059001029,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 126,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.338209967012517,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 127,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.570378395961598,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 128,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.420171802979894,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 129,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.292062610038556,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 130,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.051191358012147,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 131,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.189867082983255,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 136,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.132071184925735,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 137,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.903734961990267,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 138,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.605084219947457,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 139,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.803987897001207,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 140,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.916122235008515,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 141,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.866414574091323,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 142,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.787547929910943,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 143,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.240686816978268,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 144,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.185941483010538,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 145,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.316827998962253,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 146,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.441635362105444,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 147,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.166165246046148,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 148,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.508222567033954,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 149,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.664530513924547,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 150,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.398550841026008,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 161,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.153011220041662,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 162,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.72748765500728,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 163,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.8937837240519,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 164,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.975888377986848,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 181,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.581403583986685,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 182,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.473871683934703,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 183,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.094221837003715,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 184,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.587668286985718,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 185,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.798299049027264,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 186,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.571926026954316,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 187,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.705265526892617,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 188,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.66517765307799,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 189,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.3167877929518,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 190,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.607696591992863,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 193,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.325258877011947,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 194,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.516325336997397,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 195,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.355482471990399,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 196,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.743805258069187,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 206,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 14.71074452099856,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 210,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.260376985999756,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 211,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.245174942072481,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 212,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.102176851942204,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 213,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.451158916926943,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 214,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.385753105045296,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 215,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.6278198530199,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 216,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.492018136079423,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 217,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.397895568050444,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 218,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.476372530916706,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 219,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.365040002041496,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 220,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.395030825980939,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 221,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.354046329972334,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 222,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.661547834053636,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 223,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.454793326905929,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 224,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.614101499086246,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 225,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.552753036026843,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 226,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.569698416045867,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 227,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.88230298110284,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 228,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.11277302308008,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 229,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.627664119005203,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 230,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.548988335998729,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 231,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.672232624026947,
+      "response": "B."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 232,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.636020969017409,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 233,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.044933515018784,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 234,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.52092934504617,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 235,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.394811789970845,
+      "response": "A."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 236,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.151765918941237,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 237,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.949657500023022,
+      "response": "D."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 238,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.35878326697275,
+      "response": "C."
+    },
+    {
+      "config": "vanilla tile=0.20 thumb=0.75",
+      "question_id": 239,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.741113350959495,
+      "response": "D. FINES DOUBLED."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 79,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.989191565895453,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 80,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.373610131908208,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 81,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.786969788954593,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 82,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.85719924105797,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 83,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.125395865063183,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 84,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.513724299962632,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 85,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.676877737045288,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 86,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.585674814064987,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 87,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.407989860046655,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 88,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.533585706958547,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 89,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.494495594059117,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 99,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.327921914984472,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 100,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.237551223952323,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 101,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.271187696023844,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 102,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.26600588997826,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 103,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.515033081988804,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 104,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.521302222041413,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 105,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.825284235994332,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 106,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.867021071957424,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 107,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.68809735099785,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 108,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.737686794018373,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 109,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.65419070306234,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 110,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.552371341036633,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 111,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.89327240199782,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 112,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.052055133040994,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 126,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.81485123501625,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 127,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.000882900087163,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 128,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.732747392961755,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 129,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.195271598990075,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 130,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.894399637938477,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 131,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.648289239034057,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 136,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.057351633091457,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 137,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.956290059024468,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 138,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.20004330901429,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 139,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.847527227946557,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 140,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.096986950957216,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 141,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.024024126934819,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 142,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.930679564946331,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 143,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.875531832920387,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 144,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.83578835602384,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 145,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.770102991955355,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 146,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.226420314982533,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 147,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.802844090969302,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 148,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.856900083017536,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 149,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.895314430003054,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 150,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.703436812967993,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 161,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.209399887942709,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 162,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.910122840083204,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 163,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.462420681957155,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 164,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.224442188977264,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 181,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.882495987927541,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 182,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.452554805902764,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 183,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.157042667968199,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 184,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.486703578033485,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 185,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.659460706985556,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 186,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.438572747982107,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 187,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.691968266037293,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 188,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.64716951502487,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 189,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.195331554976292,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 190,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.847034153994173,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 193,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.47129189001862,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 194,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.827510301955044,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 195,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.784085835912265,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 196,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.296062255976722,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 206,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.431351313949563,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 210,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.409322764026001,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 211,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.630267758970149,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 212,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.259959749062546,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 213,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.469558464013971,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 214,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.60542043694295,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 215,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.675600765040144,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 216,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.562486042967066,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 217,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.423051443998702,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 218,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.458662121905945,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 219,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.395689475932159,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 220,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.430182150914334,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 221,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.793529047979973,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 222,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.43675367499236,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 223,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.69126992195379,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 224,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.6123267239891,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 225,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.403478748048656,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 226,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.639477881020866,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 227,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.97723265492823,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 228,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.719772727927193,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 229,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.839286535978317,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 230,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.767676200019196,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 231,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.127892457996495,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 232,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.937073335051537,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 233,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.127912058029324,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 234,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.39244374295231,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 235,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.019288019975647,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 236,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.579237816040404,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 237,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.973550327937119,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 238,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.53758116310928,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.42 tile=0.084 thumb=0.3150",
+      "question_id": 239,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.463695063022897,
+      "response": "D. FINES DOUBLED."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 79,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.553463282994926,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 80,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.814209406031296,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 81,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.809839689056389,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 82,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.72890856594313,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 83,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.62394611001946,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 84,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.115158784086816,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 85,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.872241672943346,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 86,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.403804049012251,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 87,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.634644019999541,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 88,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.210556211997755,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 89,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.236567714018747,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 99,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.869330627960153,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 100,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.928252444951795,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 101,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.028005023021251,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 102,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.03317994705867,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 103,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.063005850068294,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 104,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.302963647991419,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 105,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.993766139959916,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 106,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.886393907945603,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 107,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.692475605057552,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 108,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.291956536937505,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 109,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.50141926901415,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 110,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.296926529030316,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 111,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.27339581400156,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 112,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.874273097026162,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 126,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.639885665033944,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 127,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.480295036919415,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 128,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.937107427977026,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 129,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.009087249985896,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 130,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.841535518993624,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 131,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.38543177896645,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 136,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.07133327005431,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 137,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.829728947021067,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 138,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.80405955191236,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 139,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.774571847985499,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 140,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.78071502991952,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 141,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.887030215002596,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 142,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.878336780006066,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 143,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.891920396010391,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 144,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.954541743034497,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 145,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.089426945894957,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 146,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.802790111978538,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 147,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.882609747932293,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 148,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.829701681970619,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 149,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.385728587047197,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 150,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.685176354949363,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 161,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.087167441030033,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 162,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.8827964119846,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 163,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.44670423201751,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 164,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.164668394019827,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 181,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.613866178900935,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 182,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.339911776012741,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 183,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.734740320942365,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 184,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.436002147034742,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 185,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.311934405006468,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 186,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.410580502008088,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 187,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.423471800982952,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 188,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.465677578002214,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 189,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.54743105894886,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 190,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.742159815970808,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 193,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.38027287402656,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 194,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.290364716085605,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 195,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.671884699957445,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 196,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.439723802963272,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 206,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.601006259093992,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 210,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.965528427972458,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 211,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.086204724968411,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 212,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.370651109958999,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 213,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.566562614054419,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 214,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.571424936992116,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 215,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.484620517934673,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 216,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.454246832989156,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 217,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.57098831993062,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 218,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.339421304990537,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 219,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.3170156161068,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 220,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.34834634908475,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 221,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.3161286059767,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 222,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.647303312085569,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 223,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.47335752507206,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 224,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.49972620292101,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 225,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.689517254009843,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 226,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.439268095069565,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 227,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.478195886011235,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 228,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.800317812012509,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 229,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.545647696009837,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 230,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.69579661800526,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 231,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.534149370039813,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 232,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.462980490061454,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 233,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.026111759943888,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 234,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.649455450009555,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 235,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.546956807025708,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 236,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.908436272060499,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 237,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.526631864020601,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 238,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.47149085206911,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.40 tile=0.080 thumb=0.3000",
+      "question_id": 239,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.647313967929222,
+      "response": "D. FINES DOUBLED."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 79,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.521641139988787,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 80,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.856130675994791,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 81,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.972475376096554,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 82,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.035359353991225,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 83,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.875570189906284,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 84,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.548030002973974,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 85,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.866818478913046,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 86,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.671847183955833,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 87,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.762791168061085,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 88,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.45184830809012,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 89,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.497645615017973,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 99,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.508439548895694,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 100,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.10752516402863,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 101,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.32430447707884,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 102,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.383147681015544,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 103,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.468791285995394,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 104,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.392491745995358,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 105,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.291137701948173,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 106,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.219751121010631,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 107,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.817318401066586,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 108,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.974141707993113,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 109,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.960635649040341,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 110,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.930011310032569,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 111,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.631606620037928,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 112,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.207137908088043,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 126,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.258381990948692,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 127,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.239111011964269,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 128,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.338599734008312,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 129,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.152912402991205,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 130,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.043181395973079,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 131,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.937039111973718,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 136,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.079998833010904,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 137,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.238190038944595,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 138,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.214938802993856,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 139,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.351044943090528,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 140,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.086631479091011,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 141,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.210300219943747,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 142,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.588101943954825,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 143,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.297477562911808,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 144,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.062762486981228,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 145,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.007805331028067,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 146,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.06774862401653,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 147,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.171755502000451,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 148,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.423144447966479,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 149,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.38864602393005,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 150,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.30013627698645,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 161,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.1912231950555,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 162,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.132160029024817,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 163,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.055486322031356,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 164,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.121756777050905,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 181,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.464748711092398,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 182,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.493417560006492,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 183,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.047980595962144,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 184,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.344597619958222,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 185,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.264256443013437,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 186,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.125842451001517,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 187,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.296029080986045,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 188,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.355432128999382,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 189,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.022531401948072,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 190,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.80319246801082,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 193,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.24570816999767,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 194,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.46346113702748,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 195,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.554870527936146,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 196,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.367906286963262,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 206,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.536173790926114,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 210,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.366416484001093,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 211,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.41469883103855,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 212,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.344948702026159,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 213,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.408743754960597,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 214,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.40472158708144,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 215,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.282716920017265,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 216,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.245505337952636,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 217,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.044711100053973,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 218,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.368231498985551,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 219,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.420608051936142,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 220,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.350800292915665,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 221,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.08505268197041,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 222,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.333517477964051,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 223,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.701017476967536,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 224,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.694724716013297,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 225,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.325163714005612,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 226,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.763600189937279,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 227,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.527210718020797,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 228,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.118787401006557,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 229,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.440297084045596,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 230,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.399726793984883,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 231,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.205669719958678,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 232,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.22286365099717,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 233,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.954387389007024,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 234,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.767286793095991,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 235,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.310762975947,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 236,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.650069133960642,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 237,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.141218695905991,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 238,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.271340447943658,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.38 tile=0.076 thumb=0.2850",
+      "question_id": 239,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.11248438199982,
+      "response": "D. FINES DOUBLED."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 79,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.10199075890705,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 80,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.397377229994163,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 81,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.625171398976818,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 82,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.500411777989939,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 83,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.498521546949632,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 84,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.421278306050226,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 85,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.169312626007013,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 86,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.054260596982203,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 87,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.880298801930621,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 88,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.21481285104528,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 89,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.011348584084772,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 99,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.971623633988202,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 100,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.14559181209188,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 101,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.779742271988653,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 102,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.248224281007424,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 103,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.990696134977043,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 104,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.962695537949912,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 105,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.821150060044602,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 106,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.856308002024889,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 107,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.35323496593628,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 108,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.544774653972127,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 109,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.384065666934475,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 110,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.207655927049927,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 111,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.254413285991177,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 112,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.169248403981328,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 126,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.91769835096784,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 127,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.88944831804838,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 128,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.753866167040542,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 129,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.04007900506258,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 130,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.060130069032311,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 131,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.519657418946736,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 136,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.920234167017043,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 137,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.675400229985826,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 138,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.721885473001748,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 139,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.84536247595679,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 140,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.754260194953531,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 141,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.679952179081738,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 142,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.812433824990876,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 143,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.835412757005543,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 144,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.015339006087743,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 145,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.83206974400673,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 146,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.786149576073512,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 147,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.881126714986749,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 148,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.775193626992404,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 149,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.000585607020184,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 150,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.632655021967366,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 161,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.720859159016982,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 162,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.812851915019564,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 163,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.149050760897808,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 164,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.254683338920586,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 181,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.548577787936665,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 182,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.394162463024259,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 183,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.660314660985023,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 184,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.625036880956031,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 185,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.85968780098483,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 186,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.338192706927657,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 187,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.221009281929582,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 188,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.189529835944995,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 189,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.177360475994647,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 190,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.654867443954572,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 193,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.26128887804225,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 194,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.253863609977998,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 195,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.57796311401762,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 196,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.291382274939679,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 206,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.619696918991394,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 210,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.100374497007579,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 211,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.250866535003297,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 212,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.352212589932606,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 213,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.504387925029732,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 214,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.60524976591114,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 215,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.407385459984653,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 216,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.465605339035392,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 217,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.290146101964638,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 218,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.383756369003095,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 219,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.535883597913198,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 220,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.547628810978495,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 221,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.285796758020297,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 222,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.945219287998043,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 223,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.555990250897594,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 224,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.66868204891216,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 225,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.44094805198256,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 226,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.377306094043888,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 227,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.658675930928439,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 228,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.806407880038023,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 229,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.728567242040299,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 230,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.549567723996006,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 231,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.738074024906382,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 232,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.405764878029004,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 233,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.991880343994126,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 234,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.749388467986137,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 235,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.706715469015762,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 236,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.795102713047527,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 237,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.397978777997196,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 238,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.27076624892652,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.32 tile=0.064 thumb=0.2400",
+      "question_id": 239,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.254572825040668,
+      "response": "D. FINES DOUBLED."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 79,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.563013197039254,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 80,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.511971694999374,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 81,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.679634489002638,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 82,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.800159224076197,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 83,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.624144796980545,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 84,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.089233255013824,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 85,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.474143214989454,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 86,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.204505212954246,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 87,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.970473626977764,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 88,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.104827516013756,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 89,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.171483731945045,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 99,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.298804195015691,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 100,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.020869454951026,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 101,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.000128646031953,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 102,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.901397175970487,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 103,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.482974821003154,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 104,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.68567884201184,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 105,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.71136621304322,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 106,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.838730184012093,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 107,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.537676569074392,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 108,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.863006078987382,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 109,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.284325346001424,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 110,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.090294681955129,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 111,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.11543188302312,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 112,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.861131106037647,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 126,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.884888115921058,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 127,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.19715224695392,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 128,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.834155034972355,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 129,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.801720768096857,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 130,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.758980054990388,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 131,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.543890774948522,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 136,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.9165442539379,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 137,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.752434047986753,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 138,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.847016840940341,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 139,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.59696528094355,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 140,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.748443993972614,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 141,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.965520331053995,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 142,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.684594094986096,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 143,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.598828366026282,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 144,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.57679060997907,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 145,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.508593635051511,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 146,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.188776945928112,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 147,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.659286789014004,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 148,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.032963088015094,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 149,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.876968397991732,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 150,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.628325661993586,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 161,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.806849879096262,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 162,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.743261021911167,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 163,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.244894139003009,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 164,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.24502514093183,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 181,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.966019470011815,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 182,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.964402864919975,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 183,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.960398541064933,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 184,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.533016118919477,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 185,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.588314234977588,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 186,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.558402633992955,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 187,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.73334470600821,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 188,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.706855103024282,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 189,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.26916381099727,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 190,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.09202559303958,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 193,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.934964747983031,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 194,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 12.559130601002835,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 195,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.609068396035582,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 196,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.895116713945754,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 206,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.454945661942475,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 210,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.225959843955934,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 211,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.199369073961861,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 212,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.210560212959535,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 213,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.296213128021918,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 214,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.509123504976742,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 215,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.708470261073671,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 216,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.508143133018166,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 217,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.451294784084894,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 218,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.41513035306707,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 219,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 11.373864065972157,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 220,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.482861518044956,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 221,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.348921417957172,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 222,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.962310494971462,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 223,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.347603732021526,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 224,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.687606833060272,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 225,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 11.552960115019232,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 226,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 11.579844778054394,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 227,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 11.849512876942754,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 228,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.983151023974642,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 229,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 11.657792157959193,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 230,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.6377393839648,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 231,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.661092341993935,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 232,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.781493037007749,
+      "response": "B."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 233,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.145340689923614,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 234,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.559589301003143,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 235,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.230678590014577,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 236,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.8126367169898,
+      "response": "A."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 237,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 11.551439939066768,
+      "response": "D."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 238,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 11.47083899693098,
+      "response": "C."
+    },
+    {
+      "config": "scaled 0.30 tile=0.060 thumb=0.2250",
+      "question_id": 239,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.921786218998022,
+      "response": "D. FINES DOUBLED."
+    }
+  ],
+  "n_samples": 95
+}
