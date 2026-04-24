@@ -1,0 +1,36 @@
+dense-frame calibration: 14 universal-success qids × 32 frames = 448 VLM calls
+  [ 1/14] qid=  21 cls=  object_absent  yes=0/32  counts={'NO': 32}
+  [ 2/14] qid=  49 cls=  object_absent  yes=0/32  counts={'NO': 32}
+  [ 3/14] qid=  65 cls= object_present  yes=21/32  counts={'NO': 11, 'YES': 21}
+  [ 4/14] qid=  69 cls=  object_absent  yes=0/32  counts={'NO': 6, 'OTHER': 26}
+  [ 5/14] qid=  73 cls=  object_absent  yes=0/32  counts={'OTHER': 32}
+  [ 6/14] qid= 119 cls=  object_absent  yes=0/32  counts={'OTHER': 32}
+  [ 7/14] qid= 159 cls=  object_absent  yes=0/32  counts={'OTHER': 32}
+  [ 8/14] qid= 178 cls=  object_absent  yes=0/32  counts={'OTHER': 32}
+  [ 9/14] qid= 248 cls=    object_rare  yes=1/32  counts={'OTHER': 1, 'NO': 30, 'YES': 1}
+  [10/14] qid= 249 cls=    object_rare  yes=2/32  counts={'NO': 30, 'YES': 2}
+  [11/14] qid= 255 cls=  object_absent  yes=0/32  counts={'NO': 32}
+  [12/14] qid= 259 cls=  object_absent  yes=0/32  counts={'NO': 32}
+  [13/14] qid= 260 cls=    object_rare  yes=1/32  counts={'NO': 31, 'YES': 1}
+  [14/14] qid= 261 cls=    object_rare  yes=1/32  counts={'NO': 31, 'YES': 1}
+
+=== AGGREGATE (dense-frame calibration, 32 frames) ===
+     object_absent: 9/14  (64.3%)  qids=['21', '49', '69', '73', '119', '159', '178', '255', '259']
+       object_rare: 4/14  (28.6%)  qids=['248', '249', '260', '261']
+    object_present: 1/14  (7.1%)  qids=['65']
+
+=== 6-frame vs 32-frame comparison on universal-success ===
+  qid=  21  6f:    object_rare yes=1/6   |   32f:  object_absent yes=0/32   Δ yes=-1
+  qid=  49  6f:  object_absent yes=0/6   |   32f:  object_absent yes=0/32   Δ yes=+0
+  qid=  65  6f: object_present yes=5/6   |   32f: object_present yes=21/32   Δ yes=+16
+  qid=  69  6f:    object_rare yes=1/6   |   32f:  object_absent yes=0/32   Δ yes=-1
+  qid=  73  6f:  object_absent yes=0/6   |   32f:  object_absent yes=0/32   Δ yes=+0
+  qid= 119  6f:  object_absent yes=0/6   |   32f:  object_absent yes=0/32   Δ yes=+0
+  qid= 159  6f:  object_absent yes=0/6   |   32f:  object_absent yes=0/32   Δ yes=+0
+  qid= 178  6f:    object_rare yes=1/6   |   32f:  object_absent yes=0/32   Δ yes=-1
+  qid= 248  6f:  object_absent yes=0/6   |   32f:    object_rare yes=1/32   Δ yes=+1
+  qid= 249  6f:    object_rare yes=1/6   |   32f:    object_rare yes=2/32   Δ yes=+1
+  qid= 255  6f:  object_absent yes=0/6   |   32f:  object_absent yes=0/32   Δ yes=+0
+  qid= 259  6f:  object_absent yes=0/6   |   32f:  object_absent yes=0/32   Δ yes=+0
+  qid= 260  6f:  object_absent yes=0/6   |   32f:    object_rare yes=1/32   Δ yes=+1
+  qid= 261  6f:  object_absent yes=0/6   |   32f:    object_rare yes=1/32   Δ yes=+1

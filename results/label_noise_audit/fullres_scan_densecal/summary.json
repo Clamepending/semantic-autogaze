@@ -1,0 +1,2851 @@
+{
+  "21": {
+    "gt": "C",
+    "stem": "What numbers are displayed on the black telephone?",
+    "counts": {
+      "NO": 32
+    },
+    "yes_count": 0,
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "NO",
+        "raw": "NO \u2014 a desk setup with three monitors, a laptop, speaker, keyboard, and tablet; no black telephone visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, speaker, laptop, tablet, and keyboard; no black telephone visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, keyboard, speaker, headphones, and a Mac Pro tower; no telephone visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, speakers, headphones, microphone, and a Mac Pro tower; no telephone visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, keyboard, speakers, mic, and a Mac Pro tower; no black telephone visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "NO",
+        "raw": "NO \u2014 a black cordless phone is visible but its screen/number display is too small and low-resolution to read any numbers."
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "NO",
+        "raw": "NO \u2014 a black cordless phone with keypad is visible, but the number buttons are too small/low-resolution to read."
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, keyboard, and mouse; no telephone visible."
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "NO",
+        "raw": "NO \u2014 a black cordless phone handset is visible in its cradle, but no numbers/keypad digits are legible in this frame."
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with three monitors, keyboard, and audio gear; no telephone visible."
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with three monitors, keyboard, audio mixer, microphone arm, and speakers; no telephone visible."
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "NO",
+        "raw": "NO, no black telephone visible \u2014 frame shows a desk setup with three monitors, keyboard, microphone, and speakers."
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with keyboard, monitor, speaker, and wooden shelf; no telephone visible."
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "NO",
+        "raw": "NO \u2014 desk with keyboard, monitor, speaker, and mousepad; no telephone visible."
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "NO",
+        "raw": "NO \u2014 desk with keyboard, monitor, speakers, and cables; no telephone visible."
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "NO",
+        "raw": "NO \u2014 desk with keyboard, speaker, and small electronics; no telephone visible."
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "NO",
+        "raw": "NO \u2014 desk scene with a keyboard, speaker, monitor edge, and peripherals; no telephone visible."
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with keyboard, monitor, speaker, and Stream Deck; no telephone visible."
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "NO",
+        "raw": "NO, no telephone visible \u2014 desk scene with Logitech G900 mouse, router, and cables."
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "NO",
+        "raw": "NO - desk with monitor, headphones, microphone arm, Mac Pro tower, and audio equipment; no telephone visible."
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitor, microphone, headphones, Mac Pro tower, speakers, and PC case; no telephone visible."
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "NO",
+        "raw": "NO, the image shows the inside of a computer case with liquid cooling tubes, a motherboard, GPU, and a cooling fan \u2014 no telephone is visible."
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows the interior of a liquid-cooled PC build (Asus Rampage VI Extreme motherboard, Intel 7900X, GeForce RTX GPUs, tubing, CPU cooler). No telephone is visible."
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a liquid-cooled PC with GeForce RTX GPU, motherboard, and tubing; no telephone visible."
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "NO",
+        "raw": "NO - interior of a PC case with liquid cooling tubes, GeForce RTX GPU, motherboard, and fan; no telephone visible."
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC case with a GeForce RTX GPU, motherboard, and liquid cooling tubes; no telephone visible."
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "NO",
+        "raw": "NO \u2014 computer interior with motherboard, cooling tubes, and text overlay about Asus DIMM.2 / Samsung SSDs; no telephone visible."
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC build with motherboard, CPU cooler, and liquid cooling tubes; no telephone present."
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC with liquid cooling tubes and cables, no telephone visible."
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows the interior of a liquid-cooled computer case with GPUs and tubing, no telephone visible."
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC case with liquid-cooled GeForce RTX GPUs, tubing, and cables; no telephone visible."
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC with liquid cooling tubes, motherboard, and cables; no telephone visible."
+      }
+    ]
+  },
+  "49": {
+    "gt": "B",
+    "stem": "What numbers are displayed on the white display on the black surface?",
+    "counts": {
+      "NO": 32
+    },
+    "yes_count": 0,
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, speaker, keyboard, and laptop; no white display with numbers visible on a black surface."
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, speaker, keyboard, and tablet, but no white display showing numbers is clearly visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "NO",
+        "raw": "NO \u2014 no white display with visible numbers on a black surface; scene shows a desk with monitors, keyboard, speaker, mic arm, and a Mac Pro tower."
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, Mac Pro tower, speakers, and audio gear; no white display with numbers visible on a black surface."
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "NO",
+        "raw": "NO \u2014 no white display visible on a black surface; the scene shows a desk with three monitors, a keyboard, speakers, a mic, and a Mac Pro tower."
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "NO",
+        "raw": "NO \u2014 a closed laptop on a stand, a cordless phone, a speaker, and a small device on a notebook; no white display with numbers is visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "NO",
+        "raw": "NO \u2014 I see a closed laptop on a stand, a cordless phone handset, a studio monitor speaker, and a small mini-PC on a black desk. No white display with numbers is clearly visible in "
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with two monitors showing abstract visuals, keyboard, and mouse; no white display with numbers visible."
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "NO",
+        "raw": "NO \u2014 I see a closed laptop on a stand, a cordless phone handset with a small display, a speaker, a Mac mini-style device, and a small digital device (possibly a recorder) on a note"
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "NO",
+        "raw": "NO \u2014 I see a desk setup with three large monitors, a keyboard, a small tablet/mixer display showing audio levels, and speakers. There is no clearly visible white display showing nu"
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "NO",
+        "raw": "NO \u2014 I see a desk setup with three monitors, a keyboard, microphone, and audio mixer on a tablet; no clearly visible white display with numbers on a black surface."
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a desk setup with three monitors, a keyboard, and a tablet-like display with audio mixer software, but no white display on a black surface showing numbers is v"
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a keyboard, speakers, and desk surface; no white display with numbers is visible."
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a keyboard on a desk with speakers and a wooden shelf, no white display with numbers visible."
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "NO",
+        "raw": "NO, no white display visible \u2014 frame shows a keyboard, wrist rest, mousepad, and partial monitor/speaker setup."
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a keyboard, speaker, and desk setup; no white display with numbers on a black surface is visible."
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "NO",
+        "raw": "NO - no white display with numbers visible; scene shows a keyboard, speakers, and a Stream Deck-like device with a dark screen on a black desk surface."
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "NO",
+        "raw": "NO \u2014 desk with keyboard, speaker, and Stream Deck; no white display with numbers visible."
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "NO",
+        "raw": "NO \u2014 desk scene with two computer mice on a SteelSeries mousepad and a router/hub in the background; no white display with numbers visible."
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "NO",
+        "raw": "NO \u2014 I see two small blue/cyan illuminated displays on the black tower at the upper right, but no clearly visible white display on a black surface with readable numbers in this fra"
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "NO",
+        "raw": "NO \u2014 no white display with numbers visible; I see a Mac Pro tower, speakers, headphones, microphone, and a black server/PC case with small purple-lit displays on a black surface."
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows interior of a PC with water-cooling tubes, motherboard, and a fan; no white display with numbers is visible."
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a liquid-cooled PC build (Asus Rampage VI Extreme motherboard, GPUs, tubing); no white display on a black surface visible."
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC case with liquid cooling tubes, GPU, motherboard, and fan; no white display on a black surface visible."
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a liquid-cooled PC build (motherboard, GPU, tubing, reservoir); no white display or black surface with numbers visible."
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC case showing motherboard, GPU (GeForce RTX), and liquid cooling tubes; no white display visible."
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "NO",
+        "raw": "NO - interior of a PC build showing motherboard, cooling, and cables; no white display on a black surface visible."
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC case showing motherboard, RAM, cooling tubes, and text overlay about Asus DIMM.2 / Samsung SSDs; no white display on a black surface visible."
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC with water cooling tubes and cables, no white display visible."
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a liquid-cooled PC with GPUs, tubing, and cables; no white display visible."
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC case with GeForce RTX GPUs, liquid cooling tubes, and cables; no white display visible."
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "NO",
+        "raw": "NO \u2014 interior of a PC showing liquid cooling tubes, pump, motherboard, and GPU; no white display with numbers visible."
+      }
+    ]
+  },
+  "65": {
+    "gt": "C",
+    "stem": "What are the white texts displayed on the black electronic device?",
+    "counts": {
+      "NO": 11,
+      "YES": 21
+    },
+    "yes_count": 21,
+    "classification": "object_present",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "NO",
+        "raw": "NO \u2014 I can see a black device (appears to be a Shure receiver or similar) with a small display, but the white text on it is not legible at this resolution/distance."
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "NO",
+        "raw": "NO \u2014 the black electronic device is visible but the white text on it is too small/blurry to read in this frame."
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "YES",
+        "raw": "YES \u2014 black router/device with small white text label visible on its front face"
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "NO",
+        "raw": "NO \u2014 I see a desk setup with monitors, keyboard, mouse, and a small black/silver device with faint white text (\"CalDigit\"), but no clear black electronic device with prominently di"
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "NO",
+        "raw": "NO \u2014 title card showing the word \"Audio\" in white serif text on a black background; no electronic device visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "YES",
+        "raw": "YES \u2014 black electronic devices (Sennheiser unit on top, Mackie mixer below) with white text/labels visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "YES",
+        "raw": "YES \u2014 white text \"Mackie DL32R\" visible on the black electronic device (audio mixer/rack unit)."
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows the back of a rack-mounted audio mixer (Mackie) with many cables, but no black electronic device with white text displayed on it is clearly visible."
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "YES",
+        "raw": "YES \u2014 black electronic device with white text \"Sound Blaster\" visible on it, and overlay text \"Sound Blaster AE-9\"."
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "YES",
+        "raw": "YES \u2014 white text \"GEFORCE\" and \"Samsung\" (partially visible) on black GPU/electronic component."
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "YES",
+        "raw": "YES \u2014 white \"GEFORCE RTX\" and \"Sound Blaster\" text visible on black electronic devices."
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "YES",
+        "raw": "YES \u2014 black electronic devices with white text \"GEFORCE\" and \"SoundBlaster\" visible on PC components."
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "YES",
+        "raw": "YES black electronic device with white \"Sound Blaster\" text visible on top"
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "YES",
+        "raw": "YES \u2014 small black Sound Blaster-style audio device with white \"SoundBlaster\" text and labeled jack icons visible on top."
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a desk setup with monitors, a tablet showing audio mixer software, and keyboards, but no black electronic device with visible white text readable in this frame"
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "NO",
+        "raw": "NO \u2014 a black device (Stream Deck) is visible on the right with illuminated button icons, but no clearly readable white text labels are discernible on it at this resolution."
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "YES",
+        "raw": "YES \u2014 black Elgato Stream Deck with white \"STREAM DECK\" text visible on the right side."
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "YES",
+        "raw": "YES \u2014 black Stream Deck device with white \"STREAM DECK\" text visible on it, plus white \"LG\" text on the monitor."
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "YES",
+        "raw": "YES \u2014 black Stream Deck device on the right with white text labels on its buttons (e.g., \"Mute\", \"Start\", \"Chat\")."
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "YES",
+        "raw": "YES \u2014 black Stream Deck device on the right shows white text labels on its buttons."
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "YES",
+        "raw": "YES \u2014 black electronic device (Sound Blaster X7) visible with white text overlay reading \"Sound Blaster X7 External DAC\"."
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "YES",
+        "raw": "YES \u2014 black electronic device (appears to be a Creative Sound Blaster unit) with faint white text/labels visible on its front face near the knob and below the buttons."
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "YES",
+        "raw": "YES \u2014 black electronic device (appears to be a Creative Sound Blaster-style amp/DAC) is visible with small white text/logo markings on its side face."
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "YES",
+        "raw": "YES \u2014 black electronic device (appears to be an audio amplifier/DAC) with small white text labels visible near the ports and on the side."
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "YES",
+        "raw": "YES \u2014 black electronic device (appears to be an audio amplifier/DAC) with small white text/logo visible on its front face."
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "YES",
+        "raw": "YES \u2014 black Sennheiser device at top shows white text \"Sennheiser\" and model label; caption overlay at bottom reads \"Sennheiser HD820 phones / Sennheiser HDV820 amp\"."
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "NO",
+        "raw": "NO \u2014 black speakers/monitors visible but no readable white text on them; only overlay caption text \"5 x Mackie MR524 Monitors\" in upper left."
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "NO",
+        "raw": "NO \u2014 desk setup with monitors, speaker, keyboard, and tablet visible, but no readable white text on any black electronic device in this frame."
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "NO",
+        "raw": "NO \u2014 black electronic devices are visible (monitors, speakers, audio mixer, tower) but no white text is legibly readable on any of them at this resolution."
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a desk setup with monitors, speakers, a keyboard, and cables, but no black electronic device with clearly visible white text is the focal subject in this frame"
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "YES",
+        "raw": "YES \u2014 white text \"Rode Broadcaster\" visible on the black GoPro-style device/monitor area."
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "YES",
+        "raw": "YES \u2014 a black electronic device with white text \"SHURE GLXD4\" is visible on the desk."
+      }
+    ]
+  },
+  "69": {
+    "gt": "D",
+    "stem": "What numbers are displayed on the white surface of the black screen?",
+    "counts": {
+      "NO": 6,
+      "OTHER": 26
+    },
+    "yes_count": 0,
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a desk setup with a curved monitor, mice, and a small black device with antennas (likely a router/dock) that has a small white label/screen, but no clearly rea"
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a desk with monitors, a router/device with antennas, mice, and cables, but there is no black screen with a white surface displaying numbers visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "NO",
+        "raw": "NO \u2014 a black router/device with antennas on a desk; no black screen with numbers on a white surface visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "NO",
+        "raw": "NO \u2014 desk with monitors, keyboard, mouse, and small devices visible; no black screen with white surface displaying numbers is clearly shown."
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows a title card with the word \"Audio\" in white serif text on a black background; there is no screen with numbers on a white surface visible here."
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "NO",
+        "raw": "NO \u2014 audio mixer/patch panel with tangled cables, no black screen with numbers on a white surface visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      }
+    ]
+  },
+  "73": {
+    "gt": "B",
+    "stem": "What numbers are displayed on the white twelve lines in the center tab?",
+    "counts": {
+      "OTHER": 32
+    },
+    "yes_count": 0,
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      }
+    ]
+  },
+  "119": {
+    "gt": "D",
+    "stem": "What is written on the yellow book?",
+    "counts": {
+      "OTHER": 32
+    },
+    "yes_count": 0,
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      }
+    ]
+  },
+  "159": {
+    "gt": "B",
+    "stem": "What is written in white on the brown book?",
+    "counts": {
+      "OTHER": 32
+    },
+    "yes_count": 0,
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      }
+    ]
+  },
+  "178": {
+    "gt": "D",
+    "stem": "What does the black text say on the framed art?",
+    "counts": {
+      "OTHER": 32
+    },
+    "yes_count": 0,
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      }
+    ]
+  },
+  "248": {
+    "gt": "C",
+    "stem": "What does the black text on the black rectangular object say?",
+    "counts": {
+      "OTHER": 1,
+      "NO": 30,
+      "YES": 1
+    },
+    "yes_count": 1,
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "OTHER",
+        "raw": "ERR:{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"VISION_COMMAND_FAILED\",\n    \"message\": \"claude exited with code 1.\"\n  }\n}\n"
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "NO",
+        "raw": "NO \u2014 I see a living room with a wall-mounted TV showing a football game, a person holding a controller, a soundbar, and a console on a white media stand. There is a black soundbar "
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows an aloe plant in a green pot on a white shelf with a lamp; no black rectangular object with text is visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "NO",
+        "raw": "NO \u2014 only floor, rug, and a blue couch corner visible; no black rectangular object in frame."
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with rug, gray sofa, and folded blanket; no black rectangular object with text visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "NO",
+        "raw": "NO \u2014 wooden chair with green seat, wood floor, patterned rug, and grey couch corner; no black rectangular object visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a \"606 Universal Shelving System\" marketing layout with a living room photo; the only black rectangular object visible is a TV screen with no readable black text o"
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "NO",
+        "raw": "NO \u2014 I see a shelf with plants, glasses, a Marshall speaker, a flip clock showing \"3 03\", round lamps, and books (one titled \"DESIGN\"). There is no black rectangular object with bl"
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "NO",
+        "raw": "NO \u2014 I see a black rectangular speaker-like object on the shelf with faint text, but the text is not clearly legible at this resolution."
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "NO",
+        "raw": "NO \u2014 scene shows a desk with a plant, candle, and lamp; no black rectangular object with black text is visible in this frame."
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "NO",
+        "raw": "NO \u2014 the black rectangular object visible on the shelf has white/light text (\"Hi-\" visible) on a black background, not black text on black. No black-on-black text is visible in thi"
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "NO",
+        "raw": "NO \u2014 I see an orange flip clock on stacked books (\"BY DESIGN\", \"London Interiors\"), no black rectangular object with black text visible."
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "NO",
+        "raw": "NO \u2014 I see a shelf with plants, glassware, and a small black speaker-like object on the lower shelf, plus a TV on the right showing \"King Arthur\". There is no clearly visible black"
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a wall-mounted TV displaying a Spotify interface with a purple background; there is no black rectangular object with black text visible. A black soundbar sits "
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a living room with a wall-mounted TV, plants, and a white media console; there is a dark soundbar below the TV but no black text is legible on it at this resol"
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a living room with a man playing a football video game on a wall-mounted TV; no black rectangular object with legible black text is clearly visible."
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "NO",
+        "raw": "NO \u2014 scene shows a TV displaying a football game with a person holding a controller; the black rectangular object (soundbar) is visible but any text on it is not legible."
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "NO",
+        "raw": "NO \u2014 living room with wall-mounted TV showing Netflix; no black rectangular object with readable black text visible."
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "NO",
+        "raw": "NO \u2014 a black soundbar is visible on the white TV console, but no black text on it is legible in this frame."
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "NO",
+        "raw": "NO - I see a living room with a wall-mounted TV displaying a rocky seascape, shelves with plants and decor, and a media console with a soundbar and speaker. No black rectangular ob"
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "NO",
+        "raw": "NO \u2014 black soundbar visible on left but no readable black text on a black rectangular object; scene shows a white console/cabinet with an open drawer."
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "NO",
+        "raw": "NO \u2014 plant trailing off a white shelf; no black rectangular object with text visible."
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "NO",
+        "raw": "NO - the frame shows a terracotta plant pot with a plant on a black tray, sitting on top of what appears to be a book/box with partially visible text, but no black rectangular obje"
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a white/cream speaker, a blue glass vase, a potted pothos plant, and a glowing orb lamp; no black rectangular object with black text is visible."
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "NO",
+        "raw": "NO \u2014 I see a cylindrical black speaker, a magazine with \"HUMANS\" text, and a side table with plants, but no black rectangular object with black text on it."
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a living room scene with a TV, soundbar, and shelves holding books and decor. There is a book visible with the text \"HUMANS\" on its spine, but no black rectang"
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "YES",
+        "raw": "YES \u2014 black smartphone with dark screen showing \"Living Room\" settings menu in dark text on dark background."
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "NO",
+        "raw": "NO - I see a black round side table with a potted plant and a black book/notebook on it, but no black rectangular object with black text is clearly visible or readable."
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a white shelf with a lit lamp, a palm plant, and an aloe plant in a green pot. No black rectangular object with black text is visible."
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "NO",
+        "raw": "NO \u2014 living room with TV, sofa, and window; no black rectangular object with black text visible."
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "NO",
+        "raw": "NO \u2014 a black soundbar sits on top of a white media console; no black text on a black rectangular object is legible in this frame."
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "NO",
+        "raw": "NO \u2014 a black rectangular object (likely a soundbar) is visible under the TV, but no black text on it is legible at this resolution/angle."
+      }
+    ]
+  },
+  "249": {
+    "gt": "B",
+    "stem": "What is written in white text along the bottom of the television screen?",
+    "counts": {
+      "NO": 30,
+      "YES": 2
+    },
+    "yes_count": 2,
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a white shelf with a lamp, aloe plant in a green pot, and candle holder; no television screen visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "NO",
+        "raw": "NO \u2014 television screen is visible but it is black/off with no text displayed."
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "NO",
+        "raw": "NO \u2014 television is visible at top-left showing \"New Releases\" text, but the bottom of the screen is cut off by the frame edge; no white text along the bottom of the TV is visible h"
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a Sonos speaker on a windowsill, no television visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "NO",
+        "raw": "NO, a Sonos speaker on a windowsill, no television visible"
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "NO",
+        "raw": "NO \u2014 no television screen visible; the frame shows a living room corner with a plant on a side table, window with city view, and a grey couch."
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a mushroom-shaped lamp held by hands near a window, no television visible."
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "NO",
+        "raw": "NO \u2014 television is visible but the screen content is too small/low-resolution to read any white text along the bottom."
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "YES",
+        "raw": "YES \u2014 television screen with white text along the bottom is visible (a football game broadcast with a scrolling/ticker text bar at the bottom of the screen)."
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "YES",
+        "raw": "YES \u2014 white text ticker visible along the bottom of the TV screen"
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "NO",
+        "raw": "NO - television is visible but blurry/out of focus in background; no white text readable along the bottom of the TV screen in this frame."
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a cityscape at sunset with a blue banner reading \"Click Analyze to begin\"; no television screen with white text along the bottom is visible."
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "NO",
+        "raw": "NO - aerial view of city street and buildings, no television visible"
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "NO",
+        "raw": "NO \u2014 living room with sectional couch, pillows, and a wall lamp; no television visible in this frame."
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "NO",
+        "raw": "NO \u2014 no television visible; frame shows a man in a green sweater in a living room with a window, couch, and framed pictures."
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a person in a green sweater in a living room with a window, couch, and wall art; no television is visible."
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "NO",
+        "raw": "NO - no television screen is visible in this frame; shows a living room with a man standing, window, couch, and framed pictures."
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "NO",
+        "raw": "NO \u2014 no television screen is visible in this frame; the image shows a man standing in a living room with a window, couch, framed pictures, and a round wall light."
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "NO",
+        "raw": "NO \u2014 living room with a man standing by a window; no television screen visible in this frame."
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "NO",
+        "raw": "NO \u2014 no television visible; scene shows a man standing in a living room with a couch, window, and wall art."
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "NO",
+        "raw": "NO, no television screen is visible in this frame \u2014 only a person in a green sweater, a window with a city view, framed pictures on the wall, and a sofa."
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows framed wall art (New Yorker poster, landscape photos) and a person's hand, no television visible."
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a framed landscape painting of mountains on a wall, with a hand adjusting the frame; no television is visible."
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows framed wall art (New Yorker poster, mountain landscape, horse painting) and a lamp; no television screen is visible."
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows framed artwork on a wall (The New Yorker poster, mountain landscapes), no television visible."
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows framed pictures on a wall and a lamp; no television visible."
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "NO",
+        "raw": "NO \u2014 framed pictures on a wall, no television visible."
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "NO",
+        "raw": "NO, no television is visible \u2014 the frame shows a person reaching toward a round orange wall lamp above a couch."
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "NO",
+        "raw": "NO \u2014 no television visible; frame shows a person gesturing toward a donut-shaped wall lamp above a couch."
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "NO",
+        "raw": "NO \u2014 television is visible but small/distant; no readable white text along the bottom of the screen."
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "NO",
+        "raw": "NO \u2014 television screen is visible but the bottom shows app icons (YouTube, Netflix, Disney+, Apple TV, etc.), not white text along the bottom."
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "NO",
+        "raw": "NO \u2014 living room with sofa, pillows, and city view; no television visible in this frame."
+      }
+    ]
+  },
+  "255": {
+    "gt": "C",
+    "stem": "What is written in white text on the brown book?",
+    "counts": {
+      "NO": 32
+    },
+    "yes_count": 0,
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "NO",
+        "raw": "NO \u2014 no brown book visible; frame shows a staircase with globe lights, pebbles, and decorative plants."
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "NO",
+        "raw": "NO - living room scene with a circular wall decor, couch, and dining area; no brown book visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "NO",
+        "raw": "NO \u2014 living room with wall-mounted TV, no book visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "NO",
+        "raw": "NO \u2014 a wooden planter box with small trees and rocks in a hallway; no brown book visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with books on a shelf, but no brown book with visible white text is identifiable."
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom mirror reflecting a shower, no book visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a minimalist living room with an open book on the sofa, but no brown book with white text is visible."
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "NO",
+        "raw": "NO \u2014 the scene shows a living room with sofas, a low table with what appears to be a closed book/magazine, but no brown book with visible white text is identifiable in this frame."
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "NO",
+        "raw": "NO \u2014 a minimalist room with a wooden chair and a stack of books/magazines on a bench; no brown book with white text is visible."
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "NO",
+        "raw": "NO \u2014 a living room with a cream sectional sofa, wooden coffee table, and framed wall art; there is a small book on the coffee table but no visible brown book with white text."
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "NO",
+        "raw": "NO - living room with sofa and coffee table; no brown book visible."
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with bed, pillows, nightstands, and wood-paneled wall; no brown book visible."
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen scene with cabinets, dining table, and chairs; no brown book visible."
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "NO",
+        "raw": "NO \u2014 hallway view into a dining room with chairs, table, and a potted plant; no book visible."
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "NO",
+        "raw": "NO \u2014 no brown book with white text visible; I see a living room with a brown chair, floor lamp, sideboard, mirror, and plants. There is a dark book on a small stool but no readable"
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with bed, pillows, lamps, and wood-paneled wall; no brown book visible."
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a white cylindrical lamp on a wooden nightstand next to a bed; no brown book visible."
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "NO",
+        "raw": "NO \u2014 no brown book visible; frame shows a dark brown door, hanging mobile sculpture, small framed artwork, and olive branches."
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "NO",
+        "raw": "NO \u2014 this is a modern bathroom with a mirror, sink, shower head, and a small shelf with toiletries. No brown book is visible in this frame."
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with bed, pendant lamps, vase, and wardrobe; no brown book visible."
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "NO",
+        "raw": "NO \u2014 no brown book with white text is visible; the frame shows a living room with a shelf holding white books and decor, framed wall art, and a sofa."
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with a pendant lamp, nightstand with a vase, and bed; no book visible."
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "NO",
+        "raw": "NO, no brown book visible \u2014 bedroom scene with a bed, nightstands, and decor."
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "NO",
+        "raw": "NO - a living room scene with white sofa, coffee table, and wall art; no brown book visible."
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "NO",
+        "raw": "NO \u2014 no brown book visible; the stacked books are grey/taupe with titles like \"New Nordic Houses\" and \"Scandinavian Home,\" and an open magazine reads \"FULLSCREEN TITLE.\""
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with bed, chairs, and window; no brown book with white text visible."
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom vanity with twin sinks, faucets, a soap dispenser, and a vase of flowers; no brown book visible."
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom sink with faucet, amber soap dispenser, and a vase of white flowers; no book visible."
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom scene with green bathtub and city view, no brown book visible."
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "NO",
+        "raw": "NO - dining room with table, chairs, and a vase with branches; no brown book visible."
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "NO",
+        "raw": "NO - kitchen scene with sink, faucet, and glass bottle; no brown book visible."
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "NO",
+        "raw": "NO \u2014 a modern living room with cream boucl\u00e9 chairs and a round coffee table holding what appears to be a small book or tray, but no brown book with white text is visible."
+      }
+    ]
+  },
+  "259": {
+    "gt": "B",
+    "stem": "What is written in black text on the light beige book?",
+    "counts": {
+      "NO": 32
+    },
+    "yes_count": 0,
+    "classification": "object_absent",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "NO",
+        "raw": "NO, no book is visible in this frame \u2014 it shows a minimalist living room with a sectional sofa, coffee table, and a framed landscape painting."
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "NO",
+        "raw": "NO, no book visible in this kitchen scene."
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "NO",
+        "raw": "NO \u2014 bathroom scene with concrete walls, a vertical wall light, a door, and a mirror; no book visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "NO",
+        "raw": "NO, no book is visible in this bathroom scene."
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with pendant lamp, candles, outlets, and nightstand; no book visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "NO",
+        "raw": "NO \u2014 dining table with wicker pendant lamps and a vase of cotton stems; no book visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "NO",
+        "raw": "NO - dining room with table, chairs, dried floral arrangement, pendant lamp, and marble wall art; no book visible."
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "NO",
+        "raw": "NO \u2014 scene shows a daybed, wooden chair, side table, and patterned rug; no book visible."
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a wide shot of a room with a large wooden bookshelf; individual books are too small/distant to read any text, and no light beige book with visible black text i"
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen/dining scene with no book visible."
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "NO",
+        "raw": "NO \u2014 wide interior shot of a living room/dining area; no book with readable text visible."
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "NO",
+        "raw": "NO \u2014 interior view of a dark dining area with a long table and chairs; no book visible."
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "NO",
+        "raw": "NO \u2014 wide interior shot of a living room with sofas, no book visible."
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "NO",
+        "raw": "NO \u2014 there are stacked books visible under the lamp on the right side cabinet, but the text on them is not legible at this resolution and the books appear to be muted earth tones r"
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows wicker pendant lamps and wooden ceiling beams; no book visible."
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "NO",
+        "raw": "NO - interior living room with fireplace, chairs, and dining table; no light beige book visible."
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "NO",
+        "raw": "NO - no book visible; the scene shows a dining table with a driftwood light fixture, pampas grass in a vase, and built-in ovens in the background."
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "NO",
+        "raw": "NO \u2014 dining room with arched wall niches, straw pendant lamp, wooden table; no book visible."
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "NO",
+        "raw": "NO \u2014 wide living room shot with sofa, coffee table, TV, and pendant light; no book visible."
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "NO",
+        "raw": "NO \u2014 interior scene with vase, lantern, and couch; no light beige book visible."
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "NO",
+        "raw": "NO \u2014 living room with sofa, fireplace, and side table; no book visible."
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "NO",
+        "raw": "NO \u2014 minimalist living room with a dark framed artwork, dried branches in a vase, curtains, and a sofa; no book visible."
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "NO",
+        "raw": "NO \u2014 interior scene with stone wall, pendant lamp, vases, and sofa; no book visible."
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "NO",
+        "raw": "NO \u2014 modern living room interior with sofa, curtains, TV; no book visible."
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "NO",
+        "raw": "NO - no light beige book with visible black text is in this frame; there is a small dark book on the wooden bench but its cover text is not readable."
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "NO",
+        "raw": "NO \u2014 interior architectural scene with a circular arched doorway, wooden ceiling, and textured walls; no book visible."
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "NO",
+        "raw": "NO, no light beige book visible \u2014 the frame shows a minimalist living room with sofas, a vase, and wall art, but no book with black text."
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "NO",
+        "raw": "NO \u2014 no book is visible; the frame shows a marble counter with stones, a wooden tray, and a branch with leaves."
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "NO",
+        "raw": "NO \u2014 living room with brown leather sofa and coffee table, no book visible."
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with couch, coffee table, pendant lamps, no book visible."
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen/dining room interior with no book visible."
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "NO",
+        "raw": "NO, no light beige book with visible black text \u2014 only an open book with indistinct pages on the left, walnuts in a bowl, twigs, and a beige bowl on a plate."
+      }
+    ]
+  },
+  "260": {
+    "gt": "C",
+    "stem": "What is the title of the top white book on the brown table?",
+    "counts": {
+      "NO": 31,
+      "YES": 1
+    },
+    "yes_count": 1,
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "NO",
+        "raw": "NO \u2014 living room with sofa, coffee table, dining table; no white book or brown table with books visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "NO",
+        "raw": "NO \u2014 shelves with wicker baskets, towels, and a soap dispenser; no books or brown table visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "NO",
+        "raw": "NO \u2014 living room with armchair, curtains, vase, and side table; no brown table with a white book visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a living room with a staircase, sofas, and a dark round coffee table with a plant and small decorative items; there is no brown table with a white book visible"
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen counter with eggs, bowl, and plant; no brown table with a white book visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen/dining area with a dark round table, pendant lamp, and wall art; no white book or brown table visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "NO",
+        "raw": "NO \u2014 interior design scene with pendant lamps, a mirror, and a console table with a lamp and dried flowers; no brown table with stacked books visible."
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "NO",
+        "raw": "NO \u2014 living room with a round wooden coffee table holding sculptural vases with dried pampas grass; no books or white book visible on the table."
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with a round wooden coffee table (no books visible on it) and a dining table in the background; no white book on a brown table is visible."
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "YES",
+        "raw": "YES \u2014 a white book titled \"THE LAST RESCUE\" is visible on top of the brown table."
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "NO",
+        "raw": "NO \u2014 a wide living room shot with a brown/wood coffee table holding small decorative items (trays, vases, a figurine), but no white book with a readable title is visible."
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with bed, windows, and blinds; no brown table with a white book visible."
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "NO",
+        "raw": "NO \u2014 ceiling, window shutters/blinds, and a plant; no brown table or white book visible."
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with a platform bed, white cabinets, and an empty shelf unit; no brown table or white book visible."
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "NO",
+        "raw": "NO \u2014 empty room with tall illuminated wall panels, a window, and a plant; no brown table or white book visible."
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with a bed, nightstands, and a round wall art; no brown table or white book visible."
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a bedroom scene with a lamp and upholstered headboard; no brown table or white book visible."
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "NO",
+        "raw": "NO \u2014 no white book or brown table with books visible; scene shows a minimalist living room with a dark coffee table, beige sofa, wooden chairs, and a paper lantern by the window."
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "NO",
+        "raw": "NO \u2014 ceiling and archway of an interior space, no table or books visible."
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a living room with a sofa, round coffee table, and chairs; no white book or brown table with books is visible."
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with a bed, two pendant lamps, and small round side tables holding an open book and a vase; no white book on a brown table is visible."
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "NO",
+        "raw": "NO \u2014 books are stacked on the brown sideboard but titles/covers are not legible."
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "NO",
+        "raw": "NO \u2014 living room with sofa, coffee table, no books or brown table with a white book visible"
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with a sofa, pendant lamps, and a built-in shelf alcove; no brown table with a white book visible."
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "NO",
+        "raw": "NO \u2014 no brown table visible; frame shows wall-mounted shelves with vases and a few books, plus a potted tree."
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen/dining scene with a dark table, vase of olive branches, and chairs; no white book or stacked books visible on the table."
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "NO",
+        "raw": "NO \u2014 I see a modern living room with a grey sectional sofa, a low wooden coffee table with a small white item on it, an ottoman, and a kitchen/bar area in the background. There is "
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "NO",
+        "raw": "NO \u2014 an open book on a gray woven surface; no brown table or stack of white books visible."
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen/dining area with table and chairs, no books visible on any table"
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "NO",
+        "raw": "NO \u2014 interior view of a hallway with ceiling lights, a doorway, and a wall-mounted intercom; no brown table or white books visible."
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a TV on a wood-paneled wall with a console and ottoman; no brown table with a white book is visible."
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "NO",
+        "raw": "NO \u2014 wooden chair and a dark vase with pampas grass on a stool; no brown table with a white book visible."
+      }
+    ]
+  },
+  "261": {
+    "gt": "D",
+    "stem": "What color is the stamp next to the black Chinese text?",
+    "counts": {
+      "NO": 31,
+      "YES": 1
+    },
+    "yes_count": 1,
+    "classification": "object_rare",
+    "per_frame": [
+      {
+        "frame": 0,
+        "frac": 0.015625,
+        "v": "NO",
+        "raw": "NO \u2014 living/dining room with sofa, coffee table, dining chairs, and pendant lamps; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 1,
+        "frac": 0.046875,
+        "v": "NO",
+        "raw": "NO \u2014 shelving with wicker baskets, towels, robe, and a soap dispenser; no Chinese text or stamp visible."
+      },
+      {
+        "frame": 2,
+        "frac": 0.078125,
+        "v": "NO",
+        "raw": "NO \u2014 interior living room scene with armchair, curtains, vase, and sideboard; no Chinese text or stamp visible."
+      },
+      {
+        "frame": 3,
+        "frac": 0.109375,
+        "v": "NO",
+        "raw": "NO \u2014 living room interior with a staircase, sofas, and a coffee table; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 4,
+        "frac": 0.140625,
+        "v": "NO",
+        "raw": "NO \u2014 kitchen/dining scene with lattice cabinets, a bowl of eggs, and an olive tree; no Chinese text or stamp visible."
+      },
+      {
+        "frame": 5,
+        "frac": 0.171875,
+        "v": "NO",
+        "raw": "NO \u2014 interior kitchen/dining scene with pendant lamp and artwork; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 6,
+        "frac": 0.203125,
+        "v": "NO",
+        "raw": "NO \u2014 interior room with pendant lights, mirror, and console table; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 7,
+        "frac": 0.234375,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with coffee table, vases, sofa, and abstract wall art; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 8,
+        "frac": 0.265625,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a living room interior with sofa, armchairs, pendant lamps, and curtains. No Chinese text or stamp visible."
+      },
+      {
+        "frame": 9,
+        "frac": 0.296875,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with armchairs, coffee table, and books; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 10,
+        "frac": 0.328125,
+        "v": "NO",
+        "raw": "NO \u2014 modern living room interior with sofas, coffee table, kitchen in background; no visible stamp or Chinese text."
+      },
+      {
+        "frame": 11,
+        "frac": 0.359375,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom interior scene with no Chinese text or stamp visible"
+      },
+      {
+        "frame": 12,
+        "frac": 0.390625,
+        "v": "NO",
+        "raw": "NO \u2014 interior room with window shutters, blinds, ceiling lights, and a plant; no Chinese text or stamp visible."
+      },
+      {
+        "frame": 13,
+        "frac": 0.421875,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom interior with bed, shelving, and cabinets; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 14,
+        "frac": 0.453125,
+        "v": "NO",
+        "raw": "NO \u2014 interior room with windows/panels, no Chinese text or stamp visible."
+      },
+      {
+        "frame": 15,
+        "frac": 0.484375,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with a circular tree relief artwork above the bed; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 16,
+        "frac": 0.515625,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with a lamp and headboard, no stamp or Chinese text visible."
+      },
+      {
+        "frame": 17,
+        "frac": 0.546875,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with sofa, coffee table, chairs, and window; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 18,
+        "frac": 0.578125,
+        "v": "NO",
+        "raw": "NO \u2014 interior architectural view of a room with ceiling lights and an archway; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 19,
+        "frac": 0.609375,
+        "v": "NO",
+        "raw": "NO \u2014 living room scene with sofa, coffee table, and chairs; no Chinese text or stamp visible."
+      },
+      {
+        "frame": 20,
+        "frac": 0.640625,
+        "v": "NO",
+        "raw": "NO \u2014 bedroom scene with bed, pendant lamps, and wall decor; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 21,
+        "frac": 0.671875,
+        "v": "YES",
+        "raw": "YES red stamp next to black Chinese calligraphy visible on the framed painting"
+      },
+      {
+        "frame": 22,
+        "frac": 0.703125,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows a living room with a beige sectional sofa, concrete wall panels, a coffee table, and a floor lamp. There is no stamp or Chinese text visible."
+      },
+      {
+        "frame": 23,
+        "frac": 0.734375,
+        "v": "NO",
+        "raw": "NO \u2014 living room interior with pendant lamps, sofa, and shelving; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 24,
+        "frac": 0.765625,
+        "v": "NO",
+        "raw": "NO \u2014 no Chinese text or stamp visible; frame shows a decorative plant and shelving with vases and books."
+      },
+      {
+        "frame": 25,
+        "frac": 0.796875,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows a modern kitchen/dining room scene with chairs, a table, and a plant; no stamp or Chinese text is visible."
+      },
+      {
+        "frame": 26,
+        "frac": 0.828125,
+        "v": "NO",
+        "raw": "NO \u2014 living room/kitchen interior with gray sofa, ottoman, and coffee table; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 27,
+        "frac": 0.859375,
+        "v": "NO",
+        "raw": "NO \u2014 open book on a fabric surface, no stamp or Chinese text visible."
+      },
+      {
+        "frame": 28,
+        "frac": 0.890625,
+        "v": "NO",
+        "raw": "NO, no Chinese text or stamp visible \u2014 this is a modern dining/kitchen interior with pendant lamps, curtains, and a table."
+      },
+      {
+        "frame": 29,
+        "frac": 0.921875,
+        "v": "NO",
+        "raw": "NO \u2014 this frame shows an interior room with a doorway, ceiling lights, and shelving. No stamp or Chinese text is visible."
+      },
+      {
+        "frame": 30,
+        "frac": 0.953125,
+        "v": "NO",
+        "raw": "NO \u2014 frame shows a living room with a wall-mounted TV displaying dark artwork; no stamp or Chinese text visible."
+      },
+      {
+        "frame": 31,
+        "frac": 0.984375,
+        "v": "NO",
+        "raw": "NO \u2014 the frame shows a wooden chair and a dark glass vase with pampas grass against a brown curtain; no stamp or Chinese text is visible."
+      }
+    ]
+  }
+}
