@@ -1,0 +1,17 @@
+Vanilla determinism check (NVILA deterministic by construction): 119/122 identical across prior and new sweep.
+
+Full budget-ladder curve (merged new + prior):
+config                                               scale     acc      n              95% CI     net        p
+vanilla tile=0.20 thumb=0.75                          1.00   0.410    122  [0.320, 0.500]   (ref)        -
+scaled 0.9 tile=0.18 thumb=0.675                      0.90   0.385    122  [0.303, 0.467]      -3   0.4531
+scaled 0.8 tile=0.16 thumb=0.600                      0.80   0.426    122  [0.336, 0.516]      +2   0.7744
+scaled 0.7 tile=0.14 thumb=0.525                      0.70   0.434    122  [0.344, 0.525]      +3   0.5488
+scaled 0.6 tile=0.12 thumb=0.450                      0.60   0.385    122  [0.295, 0.475]      -3   0.6291
+scaled 0.5 tile=0.10 thumb=0.375                      0.50   0.402    122  [0.320, 0.492]      -1   1.0000
+scaled 0.3 tile=0.06 thumb=0.225                      0.30   0.369    122  [0.287, 0.451]      -5   0.2668
+scaled 0.1 tile=0.02 thumb=0.075                      0.10   0.328    122  [0.246, 0.410]     -10   0.0414
+scaled 0.05 tile=0.01 thumb=0.0375                    0.05   0.287    122  [0.205, 0.369]     -15   0.0107
+
+Tie-band analysis (|net| <= 1 vs vanilla 51/122 = admission-adjacent):
+  TIE  scaled 0.5 tile=0.10 thumb=0.375  net=-1
+
