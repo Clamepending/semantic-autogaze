@@ -1,0 +1,62 @@
+Source files:
+  av:        results/hlvid_expand_n/tier3_full_sweep/hlvid_subset.json
+  household: results/hlvid_household_expand/tier3_full_sweep/hlvid_subset.json
+  baseline:  AutoGaze only
+
+=== HLVid av (n=63) ===
+config                        acc              95% CI  net_vs_van   binom_p
+AutoGaze only               0.381  [0.270, 0.508]       (ref)         -
+Intersect 30%               0.317  [0.206, 0.429]          -4    0.4545
+Intersect 10%               0.317  [0.206, 0.429]          -4    0.4545
+Semantic 10%                0.317  [0.206, 0.429]          -4    0.4545
+Semantic 2%                 0.317  [0.206, 0.429]          -4    0.4807
+Thresh 0.005                0.333  [0.222, 0.460]          -3    0.6072
+Thresh 0.01                 0.302  [0.190, 0.413]          -5    0.3323
+Thresh 0.02                 0.302  [0.190, 0.413]          -5    0.3323
+Thresh 0.05                 0.333  [0.222, 0.460]          -3    0.6291
+
+Answer-matrix decomposition (9 configs x 63 qids):
+  ensemble_correct (>=1 config right):  32/63 = 0.508
+  universal_success (all 9 right):      12/63 = 0.190
+  universal_fail (all 9 wrong):         31/63 = 0.492
+  variable (some right, some wrong):    20/63 = 0.317
+  headroom ceil - individual-max:       32/63 - 24/63
+
+=== HLVid household (n=122) ===
+config                        acc              95% CI  net_vs_van   binom_p
+AutoGaze only               0.418  [0.328, 0.500]       (ref)         -
+Intersect 30%               0.262  [0.180, 0.344]         -19    0.0026
+Intersect 10%               0.238  [0.164, 0.311]         -22    0.0003
+Semantic 10%                0.238  [0.164, 0.311]         -22    0.0003
+Semantic 2%                 0.246  [0.172, 0.328]         -21    0.0011
+Thresh 0.005                0.311  [0.230, 0.393]         -13    0.0106
+Thresh 0.01                 0.295  [0.213, 0.377]         -15    0.0107
+Thresh 0.02                 0.246  [0.172, 0.320]         -21    0.0003
+Thresh 0.05                 0.270  [0.197, 0.352]         -18    0.0064
+
+Answer-matrix decomposition (9 configs x 122 qids):
+  ensemble_correct (>=1 config right):  67/122 = 0.549
+  universal_success (all 9 right):      18/122 = 0.148
+  universal_fail (all 9 wrong):         55/122 = 0.451
+  variable (some right, some wrong):    49/122 = 0.402
+  headroom ceil - individual-max:       67/122 - 51/122
+
+=== Cross-category comparison (av vs household) ===
+config                      av net   hh net     av p     hh p  pattern             
+Intersect 30%                   -4      -19   0.4545   0.0026  both regress        
+Intersect 10%                   -4      -22   0.4545   0.0003  both regress        
+Semantic 10%                    -4      -22   0.4545   0.0003  both regress        
+Semantic 2%                     -4      -21   0.4807   0.0011  both regress        
+Thresh 0.005                    -3      -13   0.6072   0.0106  both regress        
+Thresh 0.01                     -5      -15   0.3323   0.0107  both regress        
+Thresh 0.02                     -5      -21   0.3323   0.0003  both regress        
+Thresh 0.05                     -3      -18   0.6291   0.0064  both regress        
+
+  configs regressing on BOTH categories: 8/8
+  configs with any non-neg category:     0/8
+  pattern-confirm fraction:              1.000
+
+Ensemble decomposition across categories:
+  av  n= 63  ens= 32 (0.508)  u_fail= 31  u_succ= 12  var= 20
+  hh  n=122  ens= 67 (0.549)  u_fail= 55  u_succ= 18  var= 49
+
