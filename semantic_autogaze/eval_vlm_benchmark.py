@@ -208,6 +208,7 @@ def patch_processor_with_semantic_filter(
     filter_thumbnails: bool = True,
     log_score_dist: bool = False,
     random_scoring: bool = False,
+    bypass_autogaze_selection: bool = False,
 ):
     """
     Monkey-patch the NVILA processor to inject semantic filtering after AutoGaze.
@@ -237,6 +238,49 @@ def patch_processor_with_semantic_filter(
         thumbs_autogaze = videos_inputs.get("pixel_values_videos_thumbnails_autogaze")
         if tiles_autogaze is None:
             return gazing_info
+
+        # When bypass_autogaze_selection=True, replace AutoGaze's gazing_pos
+        # with full-grid arange (every patch on the 14×14 grid is "kept" by
+        # AutoGaze; BigHead then picks top-K from all 196 per frame). This
+        # makes the downstream _shrink_unit_batch operate on the full grid
+        # rather than re-ranking AutoGaze's K-subset, so semantic_keep_ratio
+        # selects K = round(196 * keep_ratio) patches per frame.
+        if bypass_autogaze_selection:
+            import torch as _torch
+            for vid_idx in range(len(tiles_autogaze)):
+                vt = tiles_autogaze[vid_idx]  # (num_tiles, T_tile, C, H, W)
+                num_tiles_v, T_tile_v = vt.shape[:2]
+                # 14×14 = 196 fine-grid patches per frame
+                N_per_frame = 196
+                K_total = T_tile_v * N_per_frame
+                # gazing_pos_tiles[vid] : (num_tiles, K_total) — same arange across tiles
+                full_pos = _torch.arange(K_total, device=gazing_info["gazing_pos_tiles"][vid_idx].device,
+                                         dtype=gazing_info["gazing_pos_tiles"][vid_idx].dtype)
+                full_pos = full_pos.unsqueeze(0).expand(num_tiles_v, -1).contiguous()
+                gazing_info["gazing_pos_tiles"][vid_idx] = full_pos
+                gazing_info["if_padded_gazing_tiles"][vid_idx] = _torch.zeros(
+                    num_tiles_v, K_total,
+                    device=full_pos.device, dtype=_torch.bool,
+                )
+                # num_gazing_each_frame_tiles: keep original outer shape but set values to N_per_frame
+                nge = gazing_info["num_gazing_each_frame_tiles"][vid_idx]
+                gazing_info["num_gazing_each_frame_tiles"][vid_idx] = _torch.full_like(nge, N_per_frame)
+            if thumbs_autogaze is not None:
+                for vid_idx in range(len(thumbs_autogaze)):
+                    th = thumbs_autogaze[vid_idx]  # (1, T_thumb, C, H, W)
+                    num_t, T_thumb_v = th.shape[:2]
+                    N_per_frame = 196
+                    K_total = T_thumb_v * N_per_frame
+                    full_pos = _torch.arange(K_total, device=gazing_info["gazing_pos_thumbnails"][vid_idx].device,
+                                             dtype=gazing_info["gazing_pos_thumbnails"][vid_idx].dtype)
+                    full_pos = full_pos.unsqueeze(0).expand(num_t, -1).contiguous()
+                    gazing_info["gazing_pos_thumbnails"][vid_idx] = full_pos
+                    gazing_info["if_padded_gazing_thumbnails"][vid_idx] = _torch.zeros(
+                        num_t, K_total,
+                        device=full_pos.device, dtype=_torch.bool,
+                    )
+                    nge = gazing_info["num_gazing_each_frame_thumbnails"][vid_idx]
+                    gazing_info["num_gazing_each_frame_thumbnails"][vid_idx] = _torch.full_like(nge, N_per_frame)
 
         nonlocal query_text
         q = query_text or "important content"

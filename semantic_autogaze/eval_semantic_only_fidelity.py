@@ -117,16 +117,36 @@ def main(args):
     print(f"          sample[0] shuffled_q='{shuffled_query[samples[0]['question_id']][:60]}'")
 
     configs = [
+        # cycle 1 — sub-select from AutoGaze's gazed-set (filter-on-top, NOT replacement)
         {"name": "sem_match",     "mode": "semantic_only", "keep_ratio": 0.14,
-         "query_mode": "matched",  "random_scoring": False, "thr": None},
+         "query_mode": "matched",  "random_scoring": False, "thr": None,
+         "bypass_autogaze": False},
         {"name": "sem_shuffled",  "mode": "semantic_only", "keep_ratio": 0.14,
-         "query_mode": "shuffled", "random_scoring": False, "thr": None},
+         "query_mode": "shuffled", "random_scoring": False, "thr": None,
+         "bypass_autogaze": False},
         {"name": "sem_random",    "mode": "semantic_only", "keep_ratio": 0.14,
-         "query_mode": "matched",  "random_scoring": True,  "thr": None},
+         "query_mode": "matched",  "random_scoring": True,  "thr": None,
+         "bypass_autogaze": False},
+        # cycle 2 — TRUE filter-as-replacement: full 14×14 grid, BigHead picks top-K=27
+        # per frame (matches K=27 of vanilla rank-1 scale 0.70 on the SigLIP grid).
+        {"name": "true_match",    "mode": "semantic_only", "keep_ratio": 0.14,
+         "query_mode": "matched",  "random_scoring": False, "thr": None,
+         "bypass_autogaze": True},
+        {"name": "true_shuffled", "mode": "semantic_only", "keep_ratio": 0.14,
+         "query_mode": "shuffled", "random_scoring": False, "thr": None,
+         "bypass_autogaze": True},
+        {"name": "true_random",   "mode": "semantic_only", "keep_ratio": 0.14,
+         "query_mode": "matched",  "random_scoring": True,  "thr": None,
+         "bypass_autogaze": True},
     ]
 
     all_results = {}
     per_sample_all = []
+
+    only_set = set(args.only.split(",")) if args.only else None
+    if only_set:
+        configs = [c for c in configs if c["name"] in only_set]
+        print(f"[filter] running only: {[c['name'] for c in configs]}")
 
     for cfg in configs:
         print(f"\n{'=' * 60}\n[config] {cfg['name']}\n{'=' * 60}")
@@ -156,6 +176,7 @@ def main(args):
                     filter_thumbnails=True,
                     log_score_dist=(i == 0),
                     random_scoring=cfg["random_scoring"],
+                    bypass_autogaze_selection=cfg.get("bypass_autogaze", False),
                 )
 
                 t0 = time.perf_counter()
@@ -216,5 +237,7 @@ if __name__ == "__main__":
     p.add_argument("--device", default="cuda:0")
     p.add_argument("--output_dir", default="results/semantic_only_hlvid_baseline")
     p.add_argument("--seed", type=int, default=42)
+    p.add_argument("--only", default=None,
+                   help="comma-separated config names to run (skip the others). e.g. true_match,true_shuffled,true_random")
     args = p.parse_args()
     main(args)
