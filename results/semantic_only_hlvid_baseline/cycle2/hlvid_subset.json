@@ -1,0 +1,3712 @@
+{
+  "summary": {
+    "true_match": {
+      "config": {
+        "name": "true_match",
+        "mode": "semantic_only",
+        "keep_ratio": 0.14,
+        "query_mode": "matched",
+        "random_scoring": false,
+        "thr": null,
+        "bypass_autogaze": true
+      },
+      "accuracy": 0.32786885245901637,
+      "correct": 40,
+      "total": 122,
+      "avg_latency_s": 16.069246253063596
+    },
+    "true_shuffled": {
+      "config": {
+        "name": "true_shuffled",
+        "mode": "semantic_only",
+        "keep_ratio": 0.14,
+        "query_mode": "shuffled",
+        "random_scoring": false,
+        "thr": null,
+        "bypass_autogaze": true
+      },
+      "accuracy": 0.3360655737704918,
+      "correct": 41,
+      "total": 122,
+      "avg_latency_s": 16.015348297558138
+    },
+    "true_random": {
+      "config": {
+        "name": "true_random",
+        "mode": "semantic_only",
+        "keep_ratio": 0.14,
+        "query_mode": "matched",
+        "random_scoring": true,
+        "thr": null,
+        "bypass_autogaze": true
+      },
+      "accuracy": 0.3114754098360656,
+      "correct": 38,
+      "total": 122,
+      "avg_latency_s": 15.587512441594
+    }
+  },
+  "per_sample": [
+    {
+      "config": "true_match",
+      "question_id": 8,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.794780137948692,
+      "response": "B.",
+      "query_used": "What does the white text say on the green background of the pack on the top of the shelf?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 9,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.957952619995922,
+      "response": "D.",
+      "query_used": "What does the gray text say inside the beige toaster?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 10,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.68614474509377,
+      "response": "A.",
+      "query_used": "What text is visible on the dark blue and black packet placed on the brown wooden chair?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 11,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.476535961031914,
+      "response": "C.",
+      "query_used": "What device name is displayed in white text below the partially visible screen?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 12,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.788107413914986,
+      "response": "A.",
+      "query_used": "What does the black text say on the white box located on the brown surface?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 13,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.876994287013076,
+      "response": "A.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 14,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.884922249941155,
+      "response": "D.",
+      "query_used": "What does the white text on the black screen read?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 15,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.16683624801226,
+      "response": "C.",
+      "query_used": "What is displayed on the black screen?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 16,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.408360442961566,
+      "response": "D.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 17,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.406758373021148,
+      "response": "D.",
+      "query_used": "What does the black text on the yellow cover say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 18,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.281921715009958,
+      "response": "A.",
+      "query_used": "What does the white text say on the black square object located on the orange shirt?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 19,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.366051672026515,
+      "response": "B.",
+      "query_used": "What is the white text on the orange sweatshirt?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 20,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.494271214934997,
+      "response": "D.",
+      "query_used": "What does the white text on the screen read?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 21,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.615378029993735,
+      "response": "C.",
+      "query_used": "What numbers are displayed on the black telephone?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 22,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.707548577920534,
+      "response": "D.",
+      "query_used": "What is written on the white text visible on the black electronic device?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 23,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.37705500505399,
+      "response": "B.",
+      "query_used": "What does the white text say on the black headphone?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 24,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.679432914010249,
+      "response": "C.",
+      "query_used": "What is written on the gray rectangular object?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 25,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.742821646970697,
+      "response": "C.",
+      "query_used": "What does the white text on the blue keypad say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 26,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.410089327953756,
+      "response": "A.",
+      "query_used": "What does the green text on the black button say, accompanied by a green phone icon?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 27,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.892292308970354,
+      "response": "B.",
+      "query_used": "What is written on the black button inside the black phone?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 28,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.926685718004592,
+      "response": "D.",
+      "query_used": "What does the white text say on the black object?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 29,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.003198274062015,
+      "response": "D.",
+      "query_used": "What is the text color on the vertical gray object?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 30,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.346984634990804,
+      "response": "A.",
+      "query_used": "What does the white text on the left read?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 31,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 13.975796109065413,
+      "response": "B.",
+      "query_used": "What brand is displayed in the white text on the black monitor?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 32,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.073394661070779,
+      "response": "A.",
+      "query_used": "What does the red text on the black button say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 33,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.343036859994754,
+      "response": "C.",
+      "query_used": "What does the red text on the grey button say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 34,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.44999959191773,
+      "response": "C.",
+      "query_used": "What does the white text on the black background say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 35,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.324734422960319,
+      "response": "D.",
+      "query_used": "What colors are indicated by the white text \"+12V G R B\" on the motherboard?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 36,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 14.788284922018647,
+      "response": "A.",
+      "query_used": "What does the black text say on the bottom part of the motherboard, above the button?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 37,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.523156133014709,
+      "response": "B.",
+      "query_used": "What does the white text say on the motherboard?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 38,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.719356165034696,
+      "response": "B.",
+      "query_used": "What is the white text on the black object?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 39,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.669006878975779,
+      "response": "C. SSD.",
+      "query_used": "What do the two sideway white texts on the black object say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 40,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.85051914700307,
+      "response": "D.",
+      "query_used": "What does the white sideway text on the black surface read?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 41,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.12677310896106,
+      "response": "C.",
+      "query_used": "What does the black text on the grey switch say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 42,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.039202300016768,
+      "response": "D.",
+      "query_used": "What is the white text on the black computer RAM?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 43,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.28581079095602,
+      "response": "C.",
+      "query_used": "What does the black text on the gray button say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 44,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.257567281951196,
+      "response": "D.",
+      "query_used": "What are the white texts on the black motherboard?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 45,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.356673505040817,
+      "response": "C.",
+      "query_used": "What does the black text say on the white barcode?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 46,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.177162020932883,
+      "response": "C.",
+      "query_used": "What does the white text say on the black object?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 47,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.502845933893695,
+      "response": "C.",
+      "query_used": "What does the white text say on the black motherboard?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 48,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.364335912978277,
+      "response": "B.",
+      "query_used": "What does the black text on the pink barcode read?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 49,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 15.765250055934303,
+      "response": "B.",
+      "query_used": "What numbers are displayed on the white display on the black surface?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 50,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.67617191595491,
+      "response": "D.",
+      "query_used": "What does the black text say on the blue surface?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 51,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.645379271009006,
+      "response": "D.",
+      "query_used": "What does the white text on the black tag say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 52,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.70945034106262,
+      "response": "C.",
+      "query_used": "What does the white-outlined black text on the black digital mixer read?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 53,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.812674542074092,
+      "response": "D.",
+      "query_used": "What does the white text say on the black digital mixer?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 54,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.876412665005773,
+      "response": "C.",
+      "query_used": "What does the white text on the black amplifier say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 55,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.948442972032353,
+      "response": "D.",
+      "query_used": "What does the white text say on the amplifier?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 56,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.05434380704537,
+      "response": "C.",
+      "query_used": "What does the purple text say on the brown screen display?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 57,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.145279490971006,
+      "response": "A.",
+      "query_used": "What does the yellow text on the speaker read?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 58,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.327397180953994,
+      "response": "C.",
+      "query_used": "What numbers and letter are displayed on the black buttons?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 59,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.485529388068244,
+      "response": "B.",
+      "query_used": "What does the white text say on the black background with 2 antennas?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 60,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.7130555389449,
+      "response": "C.",
+      "query_used": "What does the brown text say on the black speaker?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 61,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.634581266902387,
+      "response": "C.",
+      "query_used": "What does the white text say on the black box?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 62,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.941625052015297,
+      "response": "D.",
+      "query_used": "What numbers are displayed on the white text with a black background located at the bottom right side?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 63,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.420801967033185,
+      "response": "C.",
+      "query_used": "What does the white text say on the black object?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 64,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.383457388030365,
+      "response": "D.",
+      "query_used": "What does the white text say on the sign?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 65,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.599403364933096,
+      "response": "A.",
+      "query_used": "What are the white texts displayed on the black electronic device?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 66,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.858320883009583,
+      "response": "D.",
+      "query_used": "What color is the text on the first button of the nine gray buttons on the screen?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 67,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.12618207698688,
+      "response": "D.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 68,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.566694722976536,
+      "response": "A.",
+      "query_used": "On the black background, what numbers are displayed in white text?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 69,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.132523159962147,
+      "response": "D.",
+      "query_used": "What numbers are displayed on the white surface of the black screen?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 70,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.90729395893868,
+      "response": "B.",
+      "query_used": "On the gray surface, which combination of texts is correctly ordered from left to right?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 71,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.185090424027294,
+      "response": "B.",
+      "query_used": "What are the white text lines on the left side of the black section of the bottom screen reading?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 72,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.961166844936088,
+      "response": "B.",
+      "query_used": "What does the black text on the white button read?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 73,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 17.319682182976976,
+      "response": "B.",
+      "query_used": "What numbers are displayed on the white twelve lines in the center tab?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 74,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.092902628006414,
+      "response": "B.",
+      "query_used": "What is the white text on the side of the black monitor screen?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 75,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 17.528547817026265,
+      "response": "A.",
+      "query_used": "What does the white text say on the black cable?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 76,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.214838379062712,
+      "response": "D.",
+      "query_used": "In the upper left of the image, what does the white text say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 77,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 17.84382061904762,
+      "response": "B.",
+      "query_used": "What number is displayed on the circular black button of the camcorder?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 78,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.90072619600687,
+      "response": "B.",
+      "query_used": "What number is displayed on the circular black button of the camcorder?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 113,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.752834727987647,
+      "response": "A.",
+      "query_used": "What does the gray text say on the white object?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 114,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.728626777068712,
+      "response": "A.",
+      "query_used": "What are the five lines of black text at the bottom of the white box?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 115,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 18.62329541600775,
+      "response": "A.",
+      "query_used": "What does the white text say on the black background?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 116,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.849395429017022,
+      "response": "A.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 117,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.134496891056187,
+      "response": "C.",
+      "query_used": "What does the orange background on the black text of the TV read?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 118,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.400407014996745,
+      "response": "A.",
+      "query_used": "What is written on the white text displayed on the TV with a brown background?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 119,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 18.153594080009498,
+      "response": "D.",
+      "query_used": "What is written on the yellow book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 120,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.565068762982264,
+      "response": "D.",
+      "query_used": "What does the white text on the black book say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 121,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 20.378276297007687,
+      "response": "A.",
+      "query_used": "What does the white text on the TV say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 122,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 20.336999453953467,
+      "response": "D.",
+      "query_used": "What is written in silver on the white speaker?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 123,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.68268431397155,
+      "response": "A.",
+      "query_used": "What does the black text say on the white book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 124,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 18.82780458498746,
+      "response": "C.",
+      "query_used": "What are the two white texts written on the black book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 125,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.66702172101941,
+      "response": "A.",
+      "query_used": "What is displayed in the fourth movie tab?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 151,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.706017835997045,
+      "response": "A.",
+      "query_used": "What is the text on the white watermark?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 152,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.516808663029224,
+      "response": "C.",
+      "query_used": "What brand is the TV?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 153,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.95703540998511,
+      "response": "A.",
+      "query_used": "How many spikes are visible in the bathroom mirror?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 154,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.082179389079101,
+      "response": "C.",
+      "query_used": "What is written in white text on the black book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 155,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.984182981075719,
+      "response": "C.",
+      "query_used": "What does the white text say on the black book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 156,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.081426049000584,
+      "response": "A.",
+      "query_used": "What are the black texts on the beige book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 157,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.003319412004203,
+      "response": "D.",
+      "query_used": "How many glasses are next to the bed?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 158,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.26613915793132,
+      "response": "C.",
+      "query_used": "What is written on the white soap label?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 159,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.376788249006495,
+      "response": "B.",
+      "query_used": "What is written in white on the brown book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 160,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.492035182076506,
+      "response": "D.",
+      "query_used": "What does the gray text against the brown and gray backdrop say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 177,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 19.919675711076707,
+      "response": "C.",
+      "query_used": "What does the black text on the book say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 178,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 20.37344756501261,
+      "response": "D.",
+      "query_used": "What does the black text say on the framed art?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 191,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.577637774986215,
+      "response": "C.",
+      "query_used": "What is written on the black text located on the silver section of the oven?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 192,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.998735932982527,
+      "response": "A.",
+      "query_used": "What does the white text on the black frame say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 197,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.149539823061787,
+      "response": "D.",
+      "query_used": "What does the white text on the dark blue sign read?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 245,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.385229537962005,
+      "response": "A.",
+      "query_used": "How many holes are in the electrical outlet?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 246,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.191430139937438,
+      "response": "A.",
+      "query_used": "What is written in white text on the orange clock?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 247,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.97969141905196,
+      "response": "C.",
+      "query_used": "What is written on the black glass candle?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 248,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 19.9928359730402,
+      "response": "C.",
+      "query_used": "What does the black text on the black rectangular object say?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 249,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 20.20143791893497,
+      "response": "B.",
+      "query_used": "What is written in white text along the bottom of the television screen?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 250,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.612804436008446,
+      "response": "C.",
+      "query_used": "Which ocean is labeled on the framed poster?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 251,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 14.223885199055076,
+      "response": "A.",
+      "query_used": "What is written in black text on the white book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 252,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.389207454980351,
+      "response": "A.",
+      "query_used": "What is written on the gray bag?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 253,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.330398419988342,
+      "response": "D.",
+      "query_used": "What is written in black text on the white book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 254,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 14.860646424000151,
+      "response": "A.",
+      "query_used": "What brown figure is on the top shelf?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 255,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.365099358954467,
+      "response": "C.",
+      "query_used": "What is written in white text on the brown book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 256,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.826874259044416,
+      "response": "A.",
+      "query_used": "What name is written in the credits on the TV?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 257,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.741203399025835,
+      "response": "C.",
+      "query_used": "What shape is each hole in the electrical outlet?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 258,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.916481341002509,
+      "response": "B.",
+      "query_used": "What color is the soap bottle by the sink?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 259,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.903421642025933,
+      "response": "B.",
+      "query_used": "What is written in black text on the light beige book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 260,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.925657226005569,
+      "response": "C.",
+      "query_used": "What is the title of the top white book on the brown table?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 261,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.291025104932487,
+      "response": "D.",
+      "query_used": "What color is the stamp next to the black Chinese text?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 262,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.274231481947936,
+      "response": "C.",
+      "query_used": "What is the title of the middle book in the stack on the brown table?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 263,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.36757471098099,
+      "response": "D.",
+      "query_used": "What is written in orange text on the purple book?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 264,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 21.453825371921994,
+      "response": "B.",
+      "query_used": "What is written on the orange soap bottle?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 265,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 22.96235240995884,
+      "response": "C.",
+      "query_used": "What time is shown on the open microwave?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 266,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 22.49325525003951,
+      "response": "C.",
+      "query_used": "What is written in white text on the black board above the bed?"
+    },
+    {
+      "config": "true_match",
+      "question_id": 267,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 22.278174423030578,
+      "response": "A.",
+      "query_used": "What is the color of the top of the wine bottle on the shelves?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 8,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.462004014989361,
+      "response": "B.",
+      "query_used": "What does the black text on the yellow cover say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 9,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.242469635093585,
+      "response": "D.",
+      "query_used": "What shape is each hole in the electrical outlet?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 10,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.21041597391013,
+      "response": "A.",
+      "query_used": "On the gray surface, which combination of texts is correctly ordered from left to right?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 11,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.435112155973911,
+      "response": "C.",
+      "query_used": "What is the title of the middle book in the stack on the brown table?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 12,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.830745753017254,
+      "response": "A.",
+      "query_used": "What brand is the TV?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 13,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.935227896086872,
+      "response": "A.",
+      "query_used": "What is the white text on the black object?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 14,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.64115476491861,
+      "response": "D.",
+      "query_used": "What does the white text say on the black object?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 15,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.912937019951642,
+      "response": "C.",
+      "query_used": "What does the white text on the TV say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 16,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.258414160925895,
+      "response": "D.",
+      "query_used": "What does the white text on the dark blue sign read?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 17,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.086405150941573,
+      "response": "D.",
+      "query_used": "How many holes are in the electrical outlet?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 18,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.080482859048061,
+      "response": "A.",
+      "query_used": "What does the white text say on the black cable?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 19,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.18481950100977,
+      "response": "B.",
+      "query_used": "What is the color of the top of the wine bottle on the shelves?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 20,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.20525813603308,
+      "response": "A.",
+      "query_used": "How many glasses are next to the bed?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 21,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.246137941023335,
+      "response": "C.",
+      "query_used": "What does the white sideway text on the black surface read?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 22,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.377797140041366,
+      "response": "D.",
+      "query_used": "What is written on the gray rectangular object?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 23,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.387330226018094,
+      "response": "B.",
+      "query_used": "What are the white texts on the black motherboard?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 24,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.510736942989752,
+      "response": "C.",
+      "query_used": "What does the white text say on the sign?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 25,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.376285630976781,
+      "response": "B.",
+      "query_used": "What does the white text say on the black background?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 26,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.0812486379873,
+      "response": "A.",
+      "query_used": "What does the brown text say on the black speaker?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 27,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.709689444047399,
+      "response": "B.",
+      "query_used": "On the black background, what numbers are displayed in white text?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 28,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.641209705965593,
+      "response": "D.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 29,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.841967730084434,
+      "response": "A.",
+      "query_used": "What does the white text say on the black book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 30,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.091754098888487,
+      "response": "A.",
+      "query_used": "What numbers are displayed on the white twelve lines in the center tab?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 31,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.249306780053303,
+      "response": "C.",
+      "query_used": "What is written on the black text located on the silver section of the oven?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 32,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.200129068922251,
+      "response": "B.",
+      "query_used": "What is displayed on the black screen?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 33,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.192821549018845,
+      "response": "C.",
+      "query_used": "What does the gray text say inside the beige toaster?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 34,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.120725188055076,
+      "response": "C.",
+      "query_used": "What is written in silver on the white speaker?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 35,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.45470237894915,
+      "response": "D.",
+      "query_used": "What are the five lines of black text at the bottom of the white box?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 36,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.794486306025647,
+      "response": "C.",
+      "query_used": "What does the white text on the black background say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 37,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.369065855978988,
+      "response": "B.",
+      "query_used": "What are the two white texts written on the black book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 38,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.667203381075524,
+      "response": "B.",
+      "query_used": "What is the text color on the vertical gray object?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 39,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 14.82108995190356,
+      "response": "A. CPU.",
+      "query_used": "What does the black text say on the framed art?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 40,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.871932543930598,
+      "response": "C.",
+      "query_used": "What numbers are displayed on the white display on the black surface?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 41,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.803446504985914,
+      "response": "C.",
+      "query_used": "What does the white text say on the black background with 2 antennas?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 42,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.958973407978192,
+      "response": "D.",
+      "query_used": "What does the gray text against the brown and gray backdrop say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 43,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.789222444989718,
+      "response": "C.",
+      "query_used": "What does the white text say on the black motherboard?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 44,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.2507384410128,
+      "response": "D.",
+      "query_used": "What is written in white on the brown book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 45,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.01721290696878,
+      "response": "C.",
+      "query_used": "What is the white text on the black computer RAM?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 46,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.421138760983013,
+      "response": "C.",
+      "query_used": "What is written in white text on the orange clock?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 47,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.321090090903454,
+      "response": "D.",
+      "query_used": "What does the white text say on the black object?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 48,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.816435564076528,
+      "response": "B.",
+      "query_used": "What numbers are displayed on the white surface of the black screen?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 49,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 15.398905723937787,
+      "response": "B.",
+      "query_used": "What numbers and letter are displayed on the black buttons?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 50,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.491820850991644,
+      "response": "D.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 51,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.414257965050638,
+      "response": "D.",
+      "query_used": "What does the white text on the black book say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 52,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.13630467792973,
+      "response": "C.",
+      "query_used": "What does the white text on the left read?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 53,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.780773739912547,
+      "response": "D.",
+      "query_used": "What does the white text say on the amplifier?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 54,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.999033247004263,
+      "response": "C.",
+      "query_used": "What is the white text on the side of the black monitor screen?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 55,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.031319139990956,
+      "response": "D.",
+      "query_used": "What brand is displayed in the white text on the black monitor?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 56,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.80354183493182,
+      "response": "C.",
+      "query_used": "What does the black text on the pink barcode read?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 57,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.440427428111434,
+      "response": "A.",
+      "query_used": "What is written on the black glass candle?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 58,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.41061960591469,
+      "response": "C.",
+      "query_used": "What is the title of the top white book on the brown table?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 59,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.365864432998933,
+      "response": "B.",
+      "query_used": "What are the white text lines on the left side of the black section of the bottom screen reading?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 60,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.871547020971775,
+      "response": "C.",
+      "query_used": "What does the white text on the black screen read?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 61,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.818060452933423,
+      "response": "D.",
+      "query_used": "What number is displayed on the circular black button of the camcorder?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 62,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.096341387950815,
+      "response": "D.",
+      "query_used": "What is the text on the white watermark?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 63,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.602737730019726,
+      "response": "C.",
+      "query_used": "What does the white text on the black frame say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 64,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.5948922149837,
+      "response": "A.",
+      "query_used": "What does the green text on the black button say, accompanied by a green phone icon?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 65,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.428967577056028,
+      "response": "A.",
+      "query_used": "What does the yellow text on the speaker read?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 66,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.52542438497767,
+      "response": "D.",
+      "query_used": "What is written in white text on the black board above the bed?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 67,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.067749731009826,
+      "response": "D.",
+      "query_used": "What does the black text say on the blue surface?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 68,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.770015995018184,
+      "response": "A.",
+      "query_used": "What text is visible on the dark blue and black packet placed on the brown wooden chair?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 69,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.792614899924956,
+      "response": "D.",
+      "query_used": "What is written in black text on the white book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 70,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.272369759972207,
+      "response": "B.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 71,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.520718336920254,
+      "response": "B.",
+      "query_used": "What does the red text on the black button say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 72,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.208485392970033,
+      "response": "B.",
+      "query_used": "What does the white text on the black amplifier say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 73,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.95765456999652,
+      "response": "B.",
+      "query_used": "What does the black text say on the white barcode?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 74,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 17.336418961989693,
+      "response": "B.",
+      "query_used": "What does the white text say on the black square object located on the orange shirt?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 75,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 17.305083637940697,
+      "response": "A.",
+      "query_used": "What is written on the white text displayed on the TV with a brown background?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 76,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.23111609800253,
+      "response": "D.",
+      "query_used": "What does the white text say on the black headphone?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 77,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 17.658389421994798,
+      "response": "B.",
+      "query_used": "In the upper left of the image, what does the white text say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 78,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.70428958896082,
+      "response": "D.",
+      "query_used": "What color is the text on the first button of the nine gray buttons on the screen?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 113,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.906177125987597,
+      "response": "A.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 114,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.532480081892572,
+      "response": "A.",
+      "query_used": "What does the black text on the grey switch say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 115,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 18.858001595013775,
+      "response": "A.",
+      "query_used": "What does the white-outlined black text on the black digital mixer read?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 116,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.89570467406884,
+      "response": "A.",
+      "query_used": "What does the white text say on the black digital mixer?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 117,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.439145074924454,
+      "response": "C.",
+      "query_used": "What does the white text on the screen read?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 118,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.9462272929959,
+      "response": "A.",
+      "query_used": "What does the purple text say on the brown screen display?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 119,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 19.012611701036803,
+      "response": "D.",
+      "query_used": "What is written in white text along the bottom of the television screen?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 120,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 18.423144964966923,
+      "response": "D.",
+      "query_used": "What color is the soap bottle by the sink?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 121,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.513825720991008,
+      "response": "C.",
+      "query_used": "What name is written in the credits on the TV?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 122,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.152717804070562,
+      "response": "C.",
+      "query_used": "What does the black text on the black rectangular object say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 123,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.02335413196124,
+      "response": "A.",
+      "query_used": "What is written on the black button inside the black phone?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 124,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 18.423429916030727,
+      "response": "C.",
+      "query_used": "What is written in white text on the black book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 125,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.621006024070084,
+      "response": "A.",
+      "query_used": "What does the white text on the black tag say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 151,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.377541805966757,
+      "response": "A.",
+      "query_used": "What is written on the gray bag?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 152,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.35581183899194,
+      "response": "C.",
+      "query_used": "What does the white text say on the black object?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 153,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.526722262962721,
+      "response": "A.",
+      "query_used": "What does the white text say on the green background of the pack on the top of the shelf?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 154,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.839400060009211,
+      "response": "C.",
+      "query_used": "What is written in orange text on the purple book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 155,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.90030532097444,
+      "response": "C.",
+      "query_used": "What is written in black text on the white book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 156,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.78547921392601,
+      "response": "A.",
+      "query_used": "What are the white texts displayed on the black electronic device?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 157,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.88958800304681,
+      "response": "D.",
+      "query_used": "What color is the stamp next to the black Chinese text?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 158,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.093637507990934,
+      "response": "C.",
+      "query_used": "What does the white text say on the black box?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 159,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.371271744021215,
+      "response": "B.",
+      "query_used": "What is written in white text on the brown book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 160,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.171007669065148,
+      "response": "D.",
+      "query_used": "What are the black texts on the beige book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 177,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 19.56079628295265,
+      "response": "C.",
+      "query_used": "What is displayed in the fourth movie tab?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 178,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 20.362111971946433,
+      "response": "D.",
+      "query_used": "What is written on the white soap label?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 191,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.706347511033528,
+      "response": "C.",
+      "query_used": "What does the red text on the grey button say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 192,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.9706808590563,
+      "response": "A.",
+      "query_used": "What does the gray text say on the white object?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 197,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.12065523408819,
+      "response": "D.",
+      "query_used": "Which ocean is labeled on the framed poster?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 245,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 21.034249140997417,
+      "response": "A.",
+      "query_used": "What is written on the yellow book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 246,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 20.826975394040346,
+      "response": "A.",
+      "query_used": "What does the black text on the white button read?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 247,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 20.283923894981854,
+      "response": "B.",
+      "query_used": "What does the white text say on the motherboard?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 248,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 20.953765908954665,
+      "response": "C.",
+      "query_used": "What colors are indicated by the white text \"+12V G R B\" on the motherboard?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 249,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 20.34877673292067,
+      "response": "B.",
+      "query_used": "What brown figure is on the top shelf?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 250,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 20.366756869014353,
+      "response": "C.",
+      "query_used": "What time is shown on the open microwave?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 251,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 14.533584207994863,
+      "response": "A.",
+      "query_used": "What does the black text say on the white box located on the brown surface?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 252,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.10471925989259,
+      "response": "A.",
+      "query_used": "What numbers are displayed on the white text with a black background located at the bottom right side?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 253,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.572743943077512,
+      "response": "D.",
+      "query_used": "What does the orange background on the black text of the TV read?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 254,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.283396471990272,
+      "response": "C.",
+      "query_used": "What is the white text on the orange sweatshirt?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 255,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.485030806041323,
+      "response": "C.",
+      "query_used": "What number is displayed on the circular black button of the camcorder?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 256,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 14.479579507024027,
+      "response": "A.",
+      "query_used": "What is written in black text on the light beige book?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 257,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.424813405959867,
+      "response": "C.",
+      "query_used": "How many spikes are visible in the bathroom mirror?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 258,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.399638904025778,
+      "response": "B.",
+      "query_used": "What numbers are displayed on the black telephone?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 259,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.726753041963093,
+      "response": "B.",
+      "query_used": "What is written on the orange soap bottle?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 260,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.238737971056253,
+      "response": "C.",
+      "query_used": "What does the white text on the blue keypad say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 261,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.86489793495275,
+      "response": "D.",
+      "query_used": "What does the black text say on the bottom part of the motherboard, above the button?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 262,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 14.885604429990053,
+      "response": "A.",
+      "query_used": "What do the two sideway white texts on the black object say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 263,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.771789181046188,
+      "response": "D.",
+      "query_used": "What does the black text on the gray button say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 264,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 22.281962065026164,
+      "response": "B.",
+      "query_used": "What does the black text on the book say?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 265,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 22.79278607200831,
+      "response": "C.",
+      "query_used": "What device name is displayed in white text below the partially visible screen?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 266,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 23.015276778955013,
+      "response": "C.",
+      "query_used": "What is written on the white text visible on the black electronic device?"
+    },
+    {
+      "config": "true_shuffled",
+      "question_id": 267,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 22.512475530034862,
+      "response": "A.",
+      "query_used": "What does the black text say on the white book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 8,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 12.252030920935795,
+      "response": "B.",
+      "query_used": "What does the white text say on the green background of the pack on the top of the shelf?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 9,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.480118126026355,
+      "response": "D.",
+      "query_used": "What does the gray text say inside the beige toaster?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 10,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.13722004299052,
+      "response": "A.",
+      "query_used": "What text is visible on the dark blue and black packet placed on the brown wooden chair?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 11,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.478239806951024,
+      "response": "C.",
+      "query_used": "What device name is displayed in white text below the partially visible screen?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 12,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.457537958980538,
+      "response": "A.",
+      "query_used": "What does the black text say on the white box located on the brown surface?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 13,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 12.680129433050752,
+      "response": "A.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 14,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.847776210051961,
+      "response": "D.",
+      "query_used": "What does the white text on the black screen read?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 15,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.588248109910637,
+      "response": "C.",
+      "query_used": "What is displayed on the black screen?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 16,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.085238393978216,
+      "response": "A.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 17,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.824330523028038,
+      "response": "D.",
+      "query_used": "What does the black text on the yellow cover say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 18,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.823010899010114,
+      "response": "D.",
+      "query_used": "What does the white text say on the black square object located on the orange shirt?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 19,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.541222354979254,
+      "response": "B.",
+      "query_used": "What is the white text on the orange sweatshirt?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 20,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.856867093010806,
+      "response": "C.",
+      "query_used": "What does the white text on the screen read?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 21,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 13.2436244469136,
+      "response": "C.",
+      "query_used": "What numbers are displayed on the black telephone?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 22,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.915835692896508,
+      "response": "D.",
+      "query_used": "What is written on the white text visible on the black electronic device?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 23,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 13.334653683006763,
+      "response": "B.",
+      "query_used": "What does the white text say on the black headphone?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 24,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.274140255060047,
+      "response": "C.",
+      "query_used": "What is written on the gray rectangular object?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 25,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.82958076603245,
+      "response": "C.",
+      "query_used": "What does the white text on the blue keypad say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 26,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.424091713037342,
+      "response": "A.",
+      "query_used": "What does the green text on the black button say, accompanied by a green phone icon?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 27,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.613698066095822,
+      "response": "A.",
+      "query_used": "What is written on the black button inside the black phone?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 28,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.41500621510204,
+      "response": "D.",
+      "query_used": "What does the white text say on the black object?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 29,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 13.58479340292979,
+      "response": "D.",
+      "query_used": "What is the text color on the vertical gray object?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 30,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.736864889971912,
+      "response": "A.",
+      "query_used": "What does the white text on the left read?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 31,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.897398589993827,
+      "response": "C.",
+      "query_used": "What brand is displayed in the white text on the black monitor?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 32,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.803515359060839,
+      "response": "B.",
+      "query_used": "What does the red text on the black button say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 33,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.389364854083396,
+      "response": "C.",
+      "query_used": "What does the red text on the grey button say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 34,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.027305692899972,
+      "response": "C.",
+      "query_used": "What does the white text on the black background say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 35,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.546932679018937,
+      "response": "D.",
+      "query_used": "What colors are indicated by the white text \"+12V G R B\" on the motherboard?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 36,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 14.377567335031927,
+      "response": "A.",
+      "query_used": "What does the black text say on the bottom part of the motherboard, above the button?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 37,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.33553568192292,
+      "response": "B.",
+      "query_used": "What does the white text say on the motherboard?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 38,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.205379243940115,
+      "response": "B.",
+      "query_used": "What is the white text on the black object?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 39,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 14.51947573700454,
+      "response": "A. CPU.",
+      "query_used": "What do the two sideway white texts on the black object say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 40,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.52730908000376,
+      "response": "D.",
+      "query_used": "What does the white sideway text on the black surface read?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 41,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.787760955980048,
+      "response": "C.",
+      "query_used": "What does the black text on the grey switch say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 42,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 14.80268703296315,
+      "response": "D.",
+      "query_used": "What is the white text on the black computer RAM?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 43,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.834262782009318,
+      "response": "C.",
+      "query_used": "What does the black text on the gray button say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 44,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.702452696976252,
+      "response": "D.",
+      "query_used": "What are the white texts on the black motherboard?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 45,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 15.135596102103591,
+      "response": "C.",
+      "query_used": "What does the black text say on the white barcode?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 46,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.856089028064162,
+      "response": "C.",
+      "query_used": "What does the white text say on the black object?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 47,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.990637783077545,
+      "response": "C.",
+      "query_used": "What does the white text say on the black motherboard?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 48,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.580390625982545,
+      "response": "B.",
+      "query_used": "What does the black text on the pink barcode read?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 49,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 15.10162403807044,
+      "response": "B.",
+      "query_used": "What numbers are displayed on the white display on the black surface?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 50,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.315957549959421,
+      "response": "D.",
+      "query_used": "What does the black text say on the blue surface?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 51,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 15.514496092917398,
+      "response": "A.",
+      "query_used": "What does the white text on the black tag say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 52,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.45242073701229,
+      "response": "C.",
+      "query_used": "What does the white-outlined black text on the black digital mixer read?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 53,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.760892778984271,
+      "response": "D.",
+      "query_used": "What does the white text say on the black digital mixer?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 54,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 15.452755135949701,
+      "response": "C.",
+      "query_used": "What does the white text on the black amplifier say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 55,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 15.774691350990906,
+      "response": "D.",
+      "query_used": "What does the white text say on the amplifier?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 56,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 15.807375911972485,
+      "response": "D.",
+      "query_used": "What does the purple text say on the brown screen display?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 57,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.88960885105189,
+      "response": "A.",
+      "query_used": "What does the yellow text on the speaker read?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 58,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.241389691014774,
+      "response": "A.",
+      "query_used": "What numbers and letter are displayed on the black buttons?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 59,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 15.860155010013841,
+      "response": "B.",
+      "query_used": "What does the white text say on the black background with 2 antennas?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 60,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 16.184423642000183,
+      "response": "C.",
+      "query_used": "What does the brown text say on the black speaker?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 61,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.502149710897356,
+      "response": "D.",
+      "query_used": "What does the white text say on the black box?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 62,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.038099053082988,
+      "response": "D.",
+      "query_used": "What numbers are displayed on the white text with a black background located at the bottom right side?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 63,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 15.876277921022847,
+      "response": "A.",
+      "query_used": "What does the white text say on the black object?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 64,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.157047288957983,
+      "response": "A.",
+      "query_used": "What does the white text say on the sign?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 65,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 16.023809994920157,
+      "response": "C.",
+      "query_used": "What are the white texts displayed on the black electronic device?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 66,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.478495509014465,
+      "response": "A.",
+      "query_used": "What color is the text on the first button of the nine gray buttons on the screen?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 67,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 16.053948975051753,
+      "response": "D.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 68,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.327940564020537,
+      "response": "A.",
+      "query_used": "On the black background, what numbers are displayed in white text?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 69,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.129545161034912,
+      "response": "D.",
+      "query_used": "What numbers are displayed on the white surface of the black screen?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 70,
+      "gt": "A",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.544475300004706,
+      "response": "B.",
+      "query_used": "On the gray surface, which combination of texts is correctly ordered from left to right?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 71,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.4322491340572,
+      "response": "B.",
+      "query_used": "What are the white text lines on the left side of the black section of the bottom screen reading?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 72,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 16.62902746803593,
+      "response": "A.",
+      "query_used": "What does the black text on the white button read?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 73,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 16.47144475602545,
+      "response": "B.",
+      "query_used": "What numbers are displayed on the white twelve lines in the center tab?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 74,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 16.83302633999847,
+      "response": "B.",
+      "query_used": "What is the white text on the side of the black monitor screen?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 75,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 16.95211381302215,
+      "response": "A.",
+      "query_used": "What does the white text say on the black cable?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 76,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 17.07322229188867,
+      "response": "D.",
+      "query_used": "In the upper left of the image, what does the white text say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 77,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 17.08808537304867,
+      "response": "B.",
+      "query_used": "What number is displayed on the circular black button of the camcorder?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 78,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 16.938303280971013,
+      "response": "D.",
+      "query_used": "What number is displayed on the circular black button of the camcorder?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 113,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.01649138110224,
+      "response": "A.",
+      "query_used": "What does the gray text say on the white object?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 114,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.972856319043785,
+      "response": "A.",
+      "query_used": "What are the five lines of black text at the bottom of the white box?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 115,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 18.146146601997316,
+      "response": "A.",
+      "query_used": "What does the white text say on the black background?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 116,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 18.132107903948054,
+      "response": "B.",
+      "query_used": "What does the white text say on the black screen?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 117,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.939801223925315,
+      "response": "C.",
+      "query_used": "What does the orange background on the black text of the TV read?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 118,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.81323624891229,
+      "response": "C.",
+      "query_used": "What is written on the white text displayed on the TV with a brown background?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 119,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 17.896638657082804,
+      "response": "D.",
+      "query_used": "What is written on the yellow book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 120,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 17.54061935201753,
+      "response": "A.",
+      "query_used": "What does the white text on the black book say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 121,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 17.964329355978407,
+      "response": "A.",
+      "query_used": "What does the white text on the TV say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 122,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 18.369746979908086,
+      "response": "C.",
+      "query_used": "What is written in silver on the white speaker?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 123,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 17.887464514933527,
+      "response": "C.",
+      "query_used": "What does the black text say on the white book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 124,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 18.375733006978408,
+      "response": "C.",
+      "query_used": "What are the two white texts written on the black book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 125,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 18.03194232704118,
+      "response": "A.",
+      "query_used": "What is displayed in the fourth movie tab?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 151,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 11.892887372057885,
+      "response": "A.",
+      "query_used": "What is the text on the white watermark?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 152,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 12.0475902199978,
+      "response": "C.",
+      "query_used": "What brand is the TV?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 153,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.25452908501029,
+      "response": "A.",
+      "query_used": "How many spikes are visible in the bathroom mirror?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 154,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.150185527978465,
+      "response": "C.",
+      "query_used": "What is written in white text on the black book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 155,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.365505144000053,
+      "response": "C.",
+      "query_used": "What does the white text say on the black book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 156,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 12.389402177999727,
+      "response": "A.",
+      "query_used": "What are the black texts on the beige book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 157,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.311294244951569,
+      "response": "D.",
+      "query_used": "How many glasses are next to the bed?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 158,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 12.469930044026114,
+      "response": "C.",
+      "query_used": "What is written on the white soap label?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 159,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 12.690510720945895,
+      "response": "B.",
+      "query_used": "What is written in white on the brown book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 160,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 12.524180401931517,
+      "response": "D.",
+      "query_used": "What does the gray text against the brown and gray backdrop say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 177,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 19.02150614093989,
+      "response": "C.",
+      "query_used": "What does the black text on the book say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 178,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 20.012123143998906,
+      "response": "D.",
+      "query_used": "What does the black text say on the framed art?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 191,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.04673174303025,
+      "response": "C.",
+      "query_used": "What is written on the black text located on the silver section of the oven?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 192,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.138853196054697,
+      "response": "A.",
+      "query_used": "What does the white text on the black frame say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 197,
+      "gt": "B",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 20.491392851923592,
+      "response": "D.",
+      "query_used": "What does the white text on the dark blue sign read?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 245,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.25628265889827,
+      "response": "A.",
+      "query_used": "How many holes are in the electrical outlet?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 246,
+      "gt": "C",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 19.687060787924565,
+      "response": "A.",
+      "query_used": "What is written in white text on the orange clock?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 247,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.23820465791505,
+      "response": "C.",
+      "query_used": "What is written on the black glass candle?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 248,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 19.355868953978643,
+      "response": "C.",
+      "query_used": "What does the black text on the black rectangular object say?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 249,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 19.41705742594786,
+      "response": "B.",
+      "query_used": "What is written in white text along the bottom of the television screen?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 250,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 19.27219565503765,
+      "response": "C.",
+      "query_used": "Which ocean is labeled on the framed poster?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 251,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 13.716029084986076,
+      "response": "A.",
+      "query_used": "What is written in black text on the white book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 252,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.741154124960303,
+      "response": "A.",
+      "query_used": "What is written on the gray bag?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 253,
+      "gt": "C",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 13.67777449300047,
+      "response": "D.",
+      "query_used": "What is written in black text on the white book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 254,
+      "gt": "A",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 13.873223927919753,
+      "response": "C.",
+      "query_used": "What brown figure is on the top shelf?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 255,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.081230142037384,
+      "response": "C.",
+      "query_used": "What is written in white text on the brown book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 256,
+      "gt": "D",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 13.811746792984195,
+      "response": "A.",
+      "query_used": "What name is written in the credits on the TV?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 257,
+      "gt": "B",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 14.030167881050147,
+      "response": "C.",
+      "query_used": "What shape is each hole in the electrical outlet?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 258,
+      "gt": "C",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 14.212031721952371,
+      "response": "B.",
+      "query_used": "What color is the soap bottle by the sink?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 259,
+      "gt": "B",
+      "predicted": "B",
+      "correct": true,
+      "latency_s": 14.226574969943613,
+      "response": "B.",
+      "query_used": "What is written in black text on the light beige book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 260,
+      "gt": "C",
+      "predicted": "C",
+      "correct": true,
+      "latency_s": 14.228500307071954,
+      "response": "C.",
+      "query_used": "What is the title of the top white book on the brown table?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 261,
+      "gt": "D",
+      "predicted": "D",
+      "correct": true,
+      "latency_s": 14.50058180699125,
+      "response": "D.",
+      "query_used": "What color is the stamp next to the black Chinese text?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 262,
+      "gt": "A",
+      "predicted": "A",
+      "correct": true,
+      "latency_s": 14.554133852012455,
+      "response": "A.",
+      "query_used": "What is the title of the middle book in the stack on the brown table?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 263,
+      "gt": "A",
+      "predicted": "D",
+      "correct": false,
+      "latency_s": 21.035682949936017,
+      "response": "D.",
+      "query_used": "What is written in orange text on the purple book?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 264,
+      "gt": "D",
+      "predicted": "B",
+      "correct": false,
+      "latency_s": 23.81651083100587,
+      "response": "B.",
+      "query_used": "What is written on the orange soap bottle?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 265,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 21.966290096053854,
+      "response": "C.",
+      "query_used": "What time is shown on the open microwave?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 266,
+      "gt": "D",
+      "predicted": "C",
+      "correct": false,
+      "latency_s": 22.27603339299094,
+      "response": "C.",
+      "query_used": "What is written in white text on the black board above the bed?"
+    },
+    {
+      "config": "true_random",
+      "question_id": 267,
+      "gt": "B",
+      "predicted": "A",
+      "correct": false,
+      "latency_s": 22.15947248309385,
+      "response": "A.",
+      "query_used": "What is the color of the top of the wine bottle on the shelves?"
+    }
+  ],
+  "n_samples": 122
+}

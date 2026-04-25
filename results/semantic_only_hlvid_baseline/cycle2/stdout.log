@@ -1,0 +1,1179 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+`torch_dtype` is deprecated! Use `dtype` instead!
+[setup] Loading NVILA-8B-HD-Video (4-bit NF4)...
+AutoGaze loaded successfully in processor
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:04<00:13,  4.34s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:10<00:10,  5.47s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:16<00:05,  5.88s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:17<00:00,  3.66s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:17<00:00,  4.31s/it]
+/home/ogata/.local/lib/python3.12/site-packages/open_clip/factory.py:450: UserWarning: QuickGELU mismatch between final model config (quick_gelu=False) and pretrained tag 'openai' (quick_gelu=True).
+  warnings.warn(
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:151645 for open-end generation.
+[setup] Loading SemanticAutoGazeWrapper (BigHead results/bighead/best_bighead.pt)...
+[setup] Loading CLIP ViT-B/16 text encoder...
+[data] 122 QA pairs
+[shuffle] sample[0] real_q='What does the white text say on the green background of the '
+          sample[0] shuffled_q='What does the black text on the yellow cover say?'
+[filter] running only: ['true_match', 'true_shuffled', 'true_random']
+
+============================================================
+[config] true_match
+============================================================
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.141 p90=0.166 p99=0.181 max=0.201
+  [1/122] q=8 gt=C pred=B ✗ lat=13.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.141 p90=0.166 p99=0.181 max=0.201
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.141 p90=0.166 p99=0.181 max=0.201
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.141 p90=0.166 p99=0.181 max=0.201
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.137 p90=0.164 p99=0.181 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.137 p90=0.164 p99=0.181 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.137 p90=0.164 p99=0.181 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.137 p90=0.164 p99=0.181 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.137 p90=0.164 p99=0.181 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.137 p90=0.164 p99=0.181 max=0.196
+  [10/122] q=17 gt=A pred=D ✗ lat=13.4s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.137 p90=0.164 p99=0.181 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.137 p90=0.164 p99=0.181 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+  [20/122] q=27 gt=B pred=B ✓ lat=13.9s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+  [30/122] q=37 gt=A pred=B ✗ lat=14.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+  [40/122] q=47 gt=D pred=C ✗ lat=15.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.131 p90=0.155 p99=0.171 max=0.188
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+  [50/122] q=57 gt=B pred=A ✗ lat=16.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.132 p90=0.158 p99=0.175 max=0.196
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+  [60/122] q=67 gt=B pred=D ✗ lat=17.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.093 p50=0.131 p90=0.159 p99=0.176 max=0.194
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.134 p90=0.163 p99=0.180 max=0.200
+  [70/122] q=77 gt=B pred=B ✓ lat=17.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.134 p90=0.163 p99=0.180 max=0.200
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.107 p50=0.143 p90=0.170 p99=0.187 max=0.203
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.110 p50=0.145 p90=0.171 p99=0.189 max=0.218
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.110 p50=0.145 p90=0.171 p99=0.189 max=0.218
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.110 p50=0.145 p90=0.171 p99=0.189 max=0.218
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+  [80/122] q=121 gt=A pred=A ✓ lat=20.4s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.139 p90=0.165 p99=0.181 max=0.197
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.139 p90=0.165 p99=0.181 max=0.197
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.139 p90=0.165 p99=0.181 max=0.197
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.134 p90=0.161 p99=0.177 max=0.193
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.134 p90=0.161 p99=0.177 max=0.193
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.138 p90=0.163 p99=0.179 max=0.204
+  [90/122] q=156 gt=C pred=A ✗ lat=13.1s
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.138 p90=0.163 p99=0.179 max=0.204
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.138 p90=0.163 p99=0.179 max=0.204
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.138 p90=0.165 p99=0.180 max=0.200
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.138 p90=0.165 p99=0.180 max=0.200
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.137 p90=0.160 p99=0.176 max=0.193
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.106 p50=0.140 p90=0.167 p99=0.186 max=0.206
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.104 p50=0.138 p90=0.166 p99=0.182 max=0.198
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.104 p50=0.138 p90=0.166 p99=0.182 max=0.198
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.109 p50=0.143 p90=0.168 p99=0.183 max=0.201
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.137 p90=0.160 p99=0.176 max=0.193
+  [100/122] q=245 gt=C pred=A ✗ lat=20.4s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.108 p50=0.142 p90=0.168 p99=0.186 max=0.204
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.136 p90=0.167 p99=0.184 max=0.206
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.136 p90=0.167 p99=0.184 max=0.206
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.139 p90=0.165 p99=0.181 max=0.197
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.134 p90=0.161 p99=0.177 max=0.193
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.137 p90=0.163 p99=0.181 max=0.201
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.137 p90=0.163 p99=0.181 max=0.201
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.138 p90=0.163 p99=0.179 max=0.204
+  [110/122] q=255 gt=C pred=C ✓ lat=14.4s
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.138 p90=0.165 p99=0.180 max=0.200
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.137 p90=0.163 p99=0.178 max=0.201
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.137 p90=0.163 p99=0.178 max=0.201
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.137 p90=0.163 p99=0.178 max=0.201
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.139 p90=0.165 p99=0.181 max=0.202
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.139 p90=0.165 p99=0.181 max=0.202
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.139 p90=0.165 p99=0.181 max=0.202
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.104 p50=0.138 p90=0.166 p99=0.182 max=0.198
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.104 p50=0.138 p90=0.166 p99=0.182 max=0.198
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.109 p50=0.143 p90=0.168 p99=0.183 max=0.201
+  [120/122] q=265 gt=D pred=C ✗ lat=23.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.109 p50=0.143 p90=0.168 p99=0.183 max=0.201
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.109 p50=0.143 p90=0.168 p99=0.183 max=0.201
+  [122/122] q=267 gt=B pred=A ✗ lat=22.3s
+
+  => true_match: acc=0.328 (40/122)  avg_lat=16.07s
+
+============================================================
+[config] true_shuffled
+============================================================
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.086 p50=0.118 p90=0.143 p99=0.158 max=0.179
+  [1/122] q=8 gt=C pred=B ✗ lat=12.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.086 p50=0.118 p90=0.143 p99=0.158 max=0.179
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.086 p50=0.118 p90=0.143 p99=0.158 max=0.179
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.086 p50=0.118 p90=0.143 p99=0.158 max=0.179
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.083 p50=0.115 p90=0.142 p99=0.157 max=0.175
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.083 p50=0.115 p90=0.142 p99=0.157 max=0.175
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.083 p50=0.115 p90=0.142 p99=0.157 max=0.175
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.083 p50=0.115 p90=0.142 p99=0.157 max=0.175
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.083 p50=0.115 p90=0.142 p99=0.157 max=0.175
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.083 p50=0.115 p90=0.142 p99=0.157 max=0.175
+  [10/122] q=17 gt=A pred=D ✗ lat=13.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.083 p50=0.115 p90=0.142 p99=0.157 max=0.175
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.083 p50=0.115 p90=0.142 p99=0.157 max=0.175
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+  [20/122] q=27 gt=B pred=B ✓ lat=13.7s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+  [30/122] q=37 gt=A pred=B ✗ lat=14.4s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+  [40/122] q=47 gt=D pred=D ✓ lat=15.3s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.076 p50=0.107 p90=0.132 p99=0.148 max=0.164
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+  [50/122] q=57 gt=B pred=A ✗ lat=16.4s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.108 p90=0.135 p99=0.152 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+  [60/122] q=67 gt=B pred=D ✗ lat=17.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.071 p50=0.107 p90=0.135 p99=0.153 max=0.172
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.111 p90=0.140 p99=0.157 max=0.177
+  [70/122] q=77 gt=B pred=B ✓ lat=17.7s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.111 p90=0.140 p99=0.157 max=0.177
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.085 p50=0.120 p90=0.148 p99=0.164 max=0.178
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.088 p50=0.122 p90=0.149 p99=0.168 max=0.199
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.088 p50=0.122 p90=0.149 p99=0.168 max=0.199
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.088 p50=0.122 p90=0.149 p99=0.168 max=0.199
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+  [80/122] q=121 gt=A pred=C ✗ lat=18.5s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.081 p50=0.116 p90=0.143 p99=0.158 max=0.176
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.081 p50=0.116 p90=0.143 p99=0.158 max=0.176
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.081 p50=0.116 p90=0.143 p99=0.158 max=0.176
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.079 p50=0.112 p90=0.139 p99=0.155 max=0.171
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.079 p50=0.112 p90=0.139 p99=0.155 max=0.171
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.085 p50=0.116 p90=0.141 p99=0.157 max=0.184
+  [90/122] q=156 gt=C pred=A ✗ lat=12.8s
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.085 p50=0.116 p90=0.141 p99=0.157 max=0.184
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.085 p50=0.116 p90=0.141 p99=0.157 max=0.184
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.084 p50=0.116 p90=0.143 p99=0.158 max=0.181
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.084 p50=0.116 p90=0.143 p99=0.158 max=0.181
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.084 p50=0.114 p90=0.137 p99=0.153 max=0.171
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.085 p50=0.117 p90=0.145 p99=0.164 max=0.184
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.082 p50=0.115 p90=0.144 p99=0.160 max=0.176
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.082 p50=0.115 p90=0.144 p99=0.160 max=0.176
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.088 p50=0.120 p90=0.145 p99=0.161 max=0.178
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.084 p50=0.114 p90=0.137 p99=0.153 max=0.171
+  [100/122] q=245 gt=C pred=A ✗ lat=21.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.087 p50=0.119 p90=0.145 p99=0.164 max=0.183
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.113 p90=0.144 p99=0.161 max=0.184
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.077 p50=0.113 p90=0.144 p99=0.161 max=0.184
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.081 p50=0.116 p90=0.143 p99=0.158 max=0.176
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.079 p50=0.112 p90=0.139 p99=0.155 max=0.171
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.082 p50=0.115 p90=0.141 p99=0.158 max=0.178
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.082 p50=0.115 p90=0.141 p99=0.158 max=0.178
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.085 p50=0.116 p90=0.141 p99=0.157 max=0.184
+  [110/122] q=255 gt=C pred=C ✓ lat=14.5s
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.084 p50=0.116 p90=0.143 p99=0.158 max=0.181
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.081 p50=0.114 p90=0.140 p99=0.155 max=0.180
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.081 p50=0.114 p90=0.140 p99=0.155 max=0.180
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.081 p50=0.114 p90=0.140 p99=0.155 max=0.180
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.084 p50=0.117 p90=0.142 p99=0.158 max=0.182
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.084 p50=0.117 p90=0.142 p99=0.158 max=0.182
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.084 p50=0.117 p90=0.142 p99=0.158 max=0.182
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.082 p50=0.115 p90=0.144 p99=0.160 max=0.176
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.082 p50=0.115 p90=0.144 p99=0.160 max=0.176
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.088 p50=0.120 p90=0.145 p99=0.161 max=0.178
+  [120/122] q=265 gt=D pred=C ✗ lat=22.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.088 p50=0.120 p90=0.145 p99=0.161 max=0.178
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.088 p50=0.120 p90=0.145 p99=0.161 max=0.178
+  [122/122] q=267 gt=B pred=A ✗ lat=22.5s
+
+  => true_shuffled: acc=0.336 (41/122)  avg_lat=16.02s
+
+============================================================
+[config] true_random
+============================================================
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.499 p90=0.902 p99=0.990 max=1.000
+  [1/122] q=8 gt=C pred=B ✗ lat=12.3s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.096 p50=0.497 p90=0.898 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.097 p50=0.501 p90=0.899 p99=0.989 max=0.999
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.497 p90=0.897 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.497 p90=0.899 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.503 p90=0.901 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.501 p90=0.903 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.502 p90=0.902 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.504 p90=0.902 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.502 p90=0.899 p99=0.989 max=1.000
+  [10/122] q=17 gt=A pred=D ✗ lat=12.8s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.498 p90=0.899 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.502 p90=0.902 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.503 p90=0.902 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.097 p50=0.501 p90=0.900 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.095 p50=0.501 p90=0.902 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.501 p90=0.901 p99=0.989 max=0.999
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.502 p90=0.901 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.506 p90=0.900 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.501 p90=0.900 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.495 p90=0.898 p99=0.990 max=1.000
+  [20/122] q=27 gt=B pred=A ✗ lat=13.6s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.094 p50=0.495 p90=0.901 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.096 p50=0.503 p90=0.901 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.494 p90=0.896 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.496 p90=0.904 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.096 p50=0.498 p90=0.898 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.499 p90=0.900 p99=0.992 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.502 p90=0.900 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.497 p90=0.900 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.504 p90=0.903 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.501 p90=0.901 p99=0.990 max=1.000
+  [30/122] q=37 gt=A pred=B ✗ lat=14.3s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.499 p90=0.898 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.501 p90=0.899 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.502 p90=0.899 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.501 p90=0.898 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.492 p90=0.898 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.508 p90=0.902 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.505 p90=0.897 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.503 p90=0.901 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.501 p90=0.901 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.095 p50=0.502 p90=0.898 p99=0.990 max=1.000
+  [40/122] q=47 gt=D pred=C ✗ lat=15.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.511 p90=0.906 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.499 p90=0.901 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.501 p90=0.901 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.500 p90=0.900 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.498 p90=0.898 p99=0.988 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.500 p90=0.903 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.095 p50=0.493 p90=0.900 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.502 p90=0.899 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.501 p90=0.897 p99=0.988 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.498 p90=0.898 p99=0.989 max=1.000
+  [50/122] q=57 gt=B pred=A ✗ lat=15.9s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.503 p90=0.896 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.503 p90=0.897 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.494 p90=0.898 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.498 p90=0.898 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.504 p90=0.901 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.495 p90=0.904 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.498 p90=0.900 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.499 p90=0.900 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.505 p90=0.902 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.498 p90=0.898 p99=0.990 max=1.000
+  [60/122] q=67 gt=B pred=D ✗ lat=16.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.495 p90=0.897 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.500 p90=0.898 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.502 p90=0.901 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.494 p90=0.900 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.503 p90=0.902 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.498 p90=0.901 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.507 p90=0.898 p99=0.988 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.105 p50=0.501 p90=0.903 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.096 p50=0.495 p90=0.897 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.497 p90=0.898 p99=0.990 max=1.000
+  [70/122] q=77 gt=B pred=B ✓ lat=17.1s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.506 p90=0.901 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.502 p90=0.903 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.506 p90=0.900 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.509 p90=0.900 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.500 p90=0.898 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.496 p90=0.897 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.495 p90=0.899 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.498 p90=0.895 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.500 p90=0.898 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.496 p90=0.902 p99=0.991 max=1.000
+  [80/122] q=121 gt=A pred=A ✓ lat=18.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.497 p90=0.901 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.505 p90=0.904 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.506 p90=0.903 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.501 p90=0.901 p99=0.991 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.096 p50=0.501 p90=0.901 p99=0.989 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.509 p90=0.902 p99=0.990 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.494 p90=0.902 p99=0.991 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.495 p90=0.899 p99=0.990 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.106 p50=0.498 p90=0.901 p99=0.989 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.499 p90=0.897 p99=0.989 max=1.000
+  [90/122] q=156 gt=C pred=A ✗ lat=12.4s
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.502 p90=0.903 p99=0.990 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.095 p50=0.501 p90=0.898 p99=0.991 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.507 p90=0.902 p99=0.990 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.504 p90=0.907 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.496 p90=0.899 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.496 p90=0.903 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.497 p90=0.897 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.495 p90=0.901 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.499 p90=0.899 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.501 p90=0.900 p99=0.989 max=1.000
+  [100/122] q=245 gt=C pred=A ✗ lat=19.3s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.500 p90=0.901 p99=0.991 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.495 p90=0.904 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.499 p90=0.899 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.106 p50=0.502 p90=0.898 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.502 p90=0.898 p99=0.990 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.501 p90=0.897 p99=0.990 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.502 p90=0.897 p99=0.990 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.500 p90=0.900 p99=0.990 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.497 p90=0.899 p99=0.988 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.501 p90=0.898 p99=0.988 max=1.000
+  [110/122] q=255 gt=C pred=C ✓ lat=14.1s
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.503 p90=0.899 p99=0.990 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.496 p90=0.897 p99=0.990 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.100 p50=0.497 p90=0.898 p99=0.991 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.501 p90=0.902 p99=0.989 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.104 p50=0.504 p90=0.901 p99=0.992 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.103 p50=0.499 p90=0.900 p99=0.991 max=1.000
+Video tiling: 32 frames @ 1920x1080 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.102 p50=0.501 p90=0.905 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.501 p90=0.902 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.502 p90=0.898 p99=0.990 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.098 p50=0.491 p90=0.899 p99=0.990 max=1.000
+  [120/122] q=265 gt=D pred=C ✗ lat=22.0s
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.099 p50=0.504 p90=0.899 p99=0.989 max=1.000
+Video tiling: 32 frames @ 3840x2160 → 2 spatial × 2 temporal = 4 tiles, each 16×392×392; 16 thumbnail frames
+  [score-dist] n=15680 p10=0.101 p50=0.496 p90=0.902 p99=0.992 max=1.000
+  [122/122] q=267 gt=B pred=A ✗ lat=22.2s
+
+  => true_random: acc=0.311 (38/122)  avg_lat=15.59s
+
+============================================================
+[SUMMARY]
+============================================================
+  true_match       acc=0.328 (40/122)  avg_lat=16.07s
+  true_shuffled    acc=0.336 (41/122)  avg_lat=16.02s
+  true_random      acc=0.311 (38/122)  avg_lat=15.59s
+[save] results/semantic_only_hlvid_baseline/cycle2/hlvid_subset.json
