@@ -1,0 +1,193 @@
+{
+  "clips": [
+    {
+      "label": "household_0_000",
+      "qid": 8,
+      "question": "What does the white text say on the green background of the pack on the top of the shelf?",
+      "category": "household",
+      "save_path": "results/qual_semantic_filter_verify/viz_filter_household_0_000.png",
+      "autogaze_lat_ms": 6.953413947485387,
+      "filter_lat_ms": 7.1664099814370275,
+      "filter_pct_of_autogaze": 103.06318645143608,
+      "kept_per_keep_ratio": {
+        "1.00": [
+          196,
+          196,
+          196,
+          196,
+          196,
+          196
+        ],
+        "0.75": [
+          147,
+          147,
+          147,
+          147,
+          147,
+          147
+        ],
+        "0.50": [
+          98,
+          98,
+          98,
+          98,
+          98,
+          98
+        ],
+        "0.25": [
+          49,
+          49,
+          49,
+          49,
+          49,
+          49
+        ]
+      }
+    },
+    {
+      "label": "household_11_000",
+      "qid": 177,
+      "question": "What does the black text on the book say?",
+      "category": "household",
+      "save_path": "results/qual_semantic_filter_verify/viz_filter_household_11_000.png",
+      "autogaze_lat_ms": 11.97496009990573,
+      "filter_lat_ms": 5.410057958215475,
+      "filter_pct_of_autogaze": 45.17808755169101,
+      "kept_per_keep_ratio": {
+        "1.00": [
+          196,
+          196,
+          196,
+          196,
+          196,
+          196
+        ],
+        "0.75": [
+          147,
+          147,
+          147,
+          147,
+          147,
+          147
+        ],
+        "0.50": [
+          98,
+          98,
+          98,
+          98,
+          98,
+          98
+        ],
+        "0.25": [
+          49,
+          49,
+          49,
+          49,
+          49,
+          49
+        ]
+      }
+    },
+    {
+      "label": "av_0_000",
+      "qid": 79,
+      "question": "What are the two texts written on the yellow and green signs?",
+      "category": "av",
+      "save_path": "results/qual_semantic_filter_verify/viz_filter_av_0_000.png",
+      "autogaze_lat_ms": 10.922510991804302,
+      "filter_lat_ms": 3.2073649344965816,
+      "filter_pct_of_autogaze": 29.364721508664317,
+      "kept_per_keep_ratio": {
+        "1.00": [
+          196,
+          196,
+          196,
+          196,
+          196,
+          196
+        ],
+        "0.75": [
+          147,
+          147,
+          147,
+          147,
+          147,
+          147
+        ],
+        "0.50": [
+          98,
+          98,
+          98,
+          98,
+          98,
+          98
+        ],
+        "0.25": [
+          49,
+          49,
+          49,
+          49,
+          49,
+          49
+        ]
+      }
+    },
+    {
+      "label": "av_1_000",
+      "qid": 232,
+      "question": "What is the number on the red sign on the brown building?",
+      "category": "av",
+      "save_path": "results/qual_semantic_filter_verify/viz_filter_av_1_000.png",
+      "autogaze_lat_ms": 8.995559997856617,
+      "filter_lat_ms": 3.5869129933416843,
+      "filter_pct_of_autogaze": 39.874260126066,
+      "kept_per_keep_ratio": {
+        "1.00": [
+          196,
+          196,
+          196,
+          196,
+          196,
+          196
+        ],
+        "0.75": [
+          147,
+          147,
+          147,
+          147,
+          147,
+          147
+        ],
+        "0.50": [
+          98,
+          98,
+          98,
+          98,
+          98,
+          98
+        ],
+        "0.25": [
+          49,
+          49,
+          49,
+          49,
+          49,
+          49
+        ]
+      }
+    }
+  ],
+  "keep_ratios": [
+    1.0,
+    0.75,
+    0.5,
+    0.25
+  ],
+  "aggregate": {
+    "autogaze_lat_ms_mean": 9.711611259263009,
+    "autogaze_lat_ms_std": 1.9176422995677729,
+    "filter_lat_ms_mean": 4.842686466872692,
+    "filter_lat_ms_std": 1.578990572518155,
+    "filter_pct_of_autogaze_mean": 49.86491260400997
+  }
+}
