@@ -1,0 +1,612 @@
+{
+  "clips": [
+    {
+      "label": "household_0_000",
+      "path": "hlvid_videos/extracted_household/videos/clip_household_video_0_000.mp4",
+      "save_path": "results/qual_leaderboard_viz/viz_household_0_000.png",
+      "category": "household",
+      "kept_per_config": {
+        "vanilla": {
+          "total_per_frame": [
+            53,
+            53,
+            53,
+            53,
+            53,
+            53
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              4,
+              3,
+              4,
+              4,
+              4
+            ],
+            [
+              13,
+              12,
+              11,
+              13,
+              16,
+              12
+            ],
+            [
+              36,
+              37,
+              39,
+              36,
+              33,
+              37
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "rank1_h_0.70": {
+          "total_per_frame": [
+            37,
+            37,
+            37,
+            37,
+            37,
+            37
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            [
+              13,
+              13,
+              11,
+              15,
+              16,
+              14
+            ],
+            [
+              20,
+              20,
+              22,
+              18,
+              17,
+              19
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "rank2_av_0.40": {
+          "total_per_frame": [
+            21,
+            21,
+            21,
+            21,
+            21,
+            21
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            [
+              10,
+              12,
+              8,
+              12,
+              12,
+              10
+            ],
+            [
+              7,
+              5,
+              9,
+              5,
+              5,
+              7
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "label": "household_11_000",
+      "path": "hlvid_videos/extracted_household/videos/clip_household_video_11_000.mp4",
+      "save_path": "results/qual_leaderboard_viz/viz_household_11_000.png",
+      "category": "household",
+      "kept_per_config": {
+        "vanilla": {
+          "total_per_frame": [
+            53,
+            53,
+            53,
+            53,
+            53,
+            53
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            [
+              15,
+              11,
+              13,
+              14,
+              13,
+              14
+            ],
+            [
+              34,
+              38,
+              36,
+              35,
+              36,
+              35
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "rank1_h_0.70": {
+          "total_per_frame": [
+            37,
+            37,
+            37,
+            37,
+            37,
+            37
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            [
+              15,
+              12,
+              13,
+              12,
+              12,
+              14
+            ],
+            [
+              18,
+              21,
+              20,
+              21,
+              21,
+              19
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "rank2_av_0.40": {
+          "total_per_frame": [
+            21,
+            21,
+            21,
+            21,
+            21,
+            21
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            [
+              11,
+              10,
+              10,
+              11,
+              11,
+              10
+            ],
+            [
+              6,
+              7,
+              7,
+              6,
+              6,
+              7
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "label": "av_0_000",
+      "path": "hlvid_videos/extracted/videos/clip_av_video_0_000.mp4",
+      "save_path": "results/qual_leaderboard_viz/viz_av_0_000.png",
+      "category": "av",
+      "kept_per_config": {
+        "vanilla": {
+          "total_per_frame": [
+            53,
+            53,
+            53,
+            53,
+            53,
+            53
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            [
+              16,
+              14,
+              12,
+              15,
+              14,
+              14
+            ],
+            [
+              33,
+              35,
+              37,
+              34,
+              35,
+              35
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "rank1_h_0.70": {
+          "total_per_frame": [
+            37,
+            37,
+            37,
+            37,
+            37,
+            37
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            [
+              16,
+              15,
+              13,
+              15,
+              16,
+              15
+            ],
+            [
+              17,
+              18,
+              20,
+              18,
+              17,
+              18
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "rank2_av_0.40": {
+          "total_per_frame": [
+            21,
+            21,
+            21,
+            21,
+            21,
+            21
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            [
+              13,
+              11,
+              8,
+              10,
+              10,
+              10
+            ],
+            [
+              4,
+              6,
+              9,
+              7,
+              7,
+              7
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "label": "av_1_000",
+      "path": "hlvid_videos/extracted/videos/clip_av_video_1_000.mp4",
+      "save_path": "results/qual_leaderboard_viz/viz_av_1_000.png",
+      "category": "av",
+      "kept_per_config": {
+        "vanilla": {
+          "total_per_frame": [
+            53,
+            53,
+            53,
+            53,
+            53,
+            53
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              3,
+              4,
+              3,
+              4,
+              4
+            ],
+            [
+              13,
+              10,
+              12,
+              7,
+              13,
+              13
+            ],
+            [
+              36,
+              40,
+              37,
+              43,
+              36,
+              36
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "rank1_h_0.70": {
+          "total_per_frame": [
+            37,
+            37,
+            37,
+            37,
+            37,
+            37
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              2,
+              4,
+              4,
+              4,
+              4
+            ],
+            [
+              13,
+              14,
+              10,
+              8,
+              13,
+              13
+            ],
+            [
+              20,
+              21,
+              23,
+              25,
+              20,
+              20
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "rank2_av_0.40": {
+          "total_per_frame": [
+            21,
+            21,
+            21,
+            21,
+            21,
+            21
+          ],
+          "per_scale_counts": [
+            [
+              4,
+              2,
+              4,
+              3,
+              4,
+              4
+            ],
+            [
+              11,
+              13,
+              8,
+              6,
+              10,
+              11
+            ],
+            [
+              6,
+              6,
+              9,
+              12,
+              7,
+              6
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "configs": [
+    {
+      "name": "vanilla",
+      "tile_ratio": 0.2,
+      "thumb_ratio": 0.75,
+      "color": "#22c55e",
+      "K": 53,
+      "latency_ms_mean": 1694.766910513863,
+      "latency_ms_std": 972.9943707042512,
+      "latency_ms_per_clip": [
+        1937.7190120285377,
+        275.5883280187845,
+        1568.0290330201387,
+        2997.731268987991
+      ]
+    },
+    {
+      "name": "rank1_h_0.70",
+      "tile_ratio": 0.14,
+      "thumb_ratio": 0.525,
+      "color": "#ef4444",
+      "K": 37,
+      "latency_ms_mean": 780.8109462785069,
+      "latency_ms_std": 590.5302511017896,
+      "latency_ms_per_clip": [
+        1467.748114024289,
+        197.94589304365218,
+        1266.303522977978,
+        191.24625506810844
+      ]
+    },
+    {
+      "name": "rank2_av_0.40",
+      "tile_ratio": 0.08,
+      "thumb_ratio": 0.3,
+      "color": "#3b82f6",
+      "K": 21,
+      "latency_ms_mean": 504.672430222854,
+      "latency_ms_std": 356.1517750594481,
+      "latency_ms_per_clip": [
+        879.1962709510699,
+        153.2441220479086,
+        841.9367069145665,
+        144.31262097787112
+      ]
+    }
+  ],
+  "N_per_frame": 265
+}
