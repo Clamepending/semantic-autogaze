@@ -62,29 +62,57 @@ Pilot with Strategy A on a subset (n=40 train + n=10 val). Quick training (~1 ho
 Evaluate cycle 1.5b-style on the val split. If signal preserves, scale to
 Strategy B for full filter-as-replacement.
 
-## Implementation checklist (NOT YET DONE)
+## Implementation checklist
 
 1. **Extract AutoGaze hidden states + gazing_info** for each of 122 samples at
-   the smaller config (max_tiles=1, num_frames=16, gazing_ratio=0.50). Cache
-   to `results/autogaze_hidden_for_distill/qid_{qid:04d}.npz` with arrays
-   `hidden_states (T*196, hidden_dim)`, `gazing_pos (K_kept,)`, `kept_mask (T, 14, 14)`.
-   ~1h GPU.
+   the smaller config (max_tiles=1, num_frames=16, gazing_ratio=0.50). ✓ DONE
+   commit aea64a0. Cache at `results/autogaze_hidden_for_distill/qid_{qid:04d}.npz`
+   with arrays `hidden_states (3136, 192)`, `gazing_pos (K_kept,)`, `if_padded`,
+   `num_gazing_each_frame`. K_kept varies 25-696 by video.
 
-2. **Build NVILAAttentionDataset** (similar to DistillDataset). For each qid:
-   - Load AutoGaze hidden states from #1 (input)
+2. **Build NVILAAttentionDataset** (PENDING). For each qid:
+   - Load AutoGaze hidden_states (input)
    - Load CLIP text embedding for the question (input)
-   - Load NVILA attention from cache + AutoGaze gazing_info to compute fine-grid
-     supervision target via Strategy A (initially)
+   - Load NVILA attention from cache (target) + the gazing_info (mapping)
 
-3. **Adapt train_distill_bighead.py loop** to use new dataset. Loss: focal BCE
-   on top-K=27 mask, MSE on full attention, or composite.
+   **The mapping problem (deferred to next session)**: NVILA's connector
+   applies a 2x2 spatial pool (within each frame's 14x14 SigLIP grid → 7x7
+   per frame) BEFORE AutoGaze pruning, yielding 49 LLM tokens per frame.
+   Then AutoGaze prunes some of these to fit gazing_ratio. So:
+     fine 14x14 → 2x2 spatial pool → 7x7 per frame (49 LLM tokens) →
+     AutoGaze prune → K_kept LLM tokens
 
-4. **Train**: ~30 epochs, ~1-2h on a single GPU.
+   But our AutoGaze gazing_pos is on the 14x14 fine grid (sum of frame counts
+   = K_kept × 4 if we counted multi-scale). This needs reconciliation.
 
-5. **Evaluate**: cycle 1.5b-style — use distilled BigHead as filter (top-K=27/196
-   per frame at fine grid), compare matched/shuffled/random VQA accuracy.
-   Decisive if matched > shuffled by ≥+3 (replicating cycle 1.5b's signal
-   through the distilled filter).
+   **ALTERNATIVE**: Skip the precise pool inversion. Train BigHead at the
+   LLM-token level directly:
+   - BigHead hidden_dim=192 stays the same
+   - Output dim becomes 49 per frame instead of 196
+   - Loss: BCE on top-K=14% of NVILA attention positions per video
+
+   This sidesteps the pool inversion but requires a new BigHead architecture
+   variant and changes the filter-as-replacement semantics.
+
+3. **Adapt train_distill_bighead.py loop** to use new dataset. Loss: focal
+   BCE on top-K mask of NVILA attention (K=14% of num_v).
+
+4. **Train** ~30 epochs (~1-2h GPU).
+
+5. **Evaluate cycle 1.5b-style**: distilled BigHead → patch scores. Use as
+   filter at the same smaller config. Compare matched/shuffled/random VQA
+   accuracy. Decisive: matched > shuffled by ≥+3 paired-flip preserves
+   through distillation → direction validated and ready for Phase 3
+   (cross-config + cross-dataset + admission test).
+
+## Engineering note for next iteration
+
+The NVILA connector layout details need careful study before step 2 can
+proceed cleanly. The path of least resistance is probably to match BigHead's
+output layout to NVILA's LLM-token layout (49 per frame after 2x2 pool),
+training BigHead directly on the post-pool grid. Then AT INFERENCE the
+distilled BigHead can be unfolded to the 14x14 grid by replicating each
+LLM-token score to its 4 fine patches.
 
 ## Open design questions
 
