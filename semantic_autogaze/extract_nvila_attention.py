@@ -1,95 +1,188 @@
 """r/nvila-attention-distill Phase 1 — extract NVILA's question→visual cross-attention.
 
-# DESIGN STATUS — DESIGN PHASE 2026-04-26
+Implementation of Option B (smaller supervision config + output_attentions=True).
+For each (video, question) on HLVid household + av:
+1. Load NVILA at max_tiles=1, num_video_frames=16, gazing_ratio=0.50 (small enough
+   that attention matrices fit in 24 GB).
+2. Forward pass with output_attentions=True (NOT generate — we only need prefill
+   attention).
+3. Extract attentions[LAYER] (1, num_heads, S, S). Slice (q_positions, v_positions),
+   head-mean. Map back to (T, 14, 14) using gazing_info.
+4. Save to results/nvila_attention_cache/qid_{qid}.npz.
 
-## Goal
+Layer choice: pilot at layer 14 (middle of 28-layer LLaMA-style decoder).
+Future cycle 2 may sweep layers/heads.
 
-For each (video, question) pair on HLVid household + av (n=217), extract NVILA's
-attention pattern from question tokens to visual tokens. Use as supervision target
-for a BigHead-style distilled filter that picks query-relevant patches.
-
-## Computational constraint
-
-Full attention matrix at vanilla NVILA config:
-- max_tiles=4, num_video_frames=32, gazing_ratio_tile=0.20
-- ≈ 14k visual tokens kept after AutoGaze
-- seq_len ≈ 14050 (visual + question)
-- attention per layer: (1, 28 heads, 14050, 14050) ≈ 22 GB
-- 28 layers → not extractable on 24-GB hardware
-
-**We don't need the full attention matrix — only the (num_q, num_v) submatrix**.
-That is, attention from question tokens (~50) to visual tokens (~14k).
-For one layer, head-averaged: ≈ 50 × 14k × 4 bytes = 3 MB. Trivial.
-
-## Three extraction options
-
-### Option A: Custom attention layer patch (BEST, but invasive)
-
-Monkey-patch each Qwen2 attention layer's forward to compute only the
-(q_positions, v_positions) attention block. Requires intercepting `q`, `k`
-projections, computing `q[q_positions] @ k[v_positions].T / sqrt(d)`, softmax
-along v dim. Saves 4 orders of magnitude over the full attention matrix.
-
-### Option B: Smaller supervision config (FASTER, but imperfect)
-
-Use a smaller NVILA config for attention extraction:
-- max_tiles=1, num_video_frames=16, gazing_ratio_tile=0.50
-- ≈ 1500 visual tokens
-- attention per layer: (1, 28, 1550, 1550) ≈ 270 MB
-- 28 layers all-at-once: ~7 GB (but only need a few middle layers)
-
-Use `output_attentions=True` and `attn_implementation="eager"` to materialize
-attention. Extract layer 14 head-averaged.
-
-Trade-off: this attention pattern may not match what vanilla-config NVILA does.
-But the supervision is on coarse "which patches are relevant", and the answer
-should be similar across configs for the same question.
-
-### Option C: Grad-CAM proxy (SIMPLEST, but indirect)
-
-Run NVILA forward + backward. Take ∂(answer log-prob)/∂(visual feature embeddings).
-|grad| is a per-token importance score. NOT attention but correlated with it.
-
-bnb_4bit blocks gradients through the quantized weights, but visual tokens enter
-as `inputs_embeds` (not through quantized matmul) so grads should flow.
-
-## Recommended path
-
-1. **Pilot with Option B (smaller config)** — easiest to wire, lower OOM risk.
-2. If Option B's distilled filter works, skip Option A.
-3. If Option B fails, escalate to Option A.
-
-## Implementation status
-
-NOT YET IMPLEMENTED. This script is a planning placeholder. Engineering
-checklist:
-
-1. Load NVILA at smaller config (max_tiles=1, num_video_frames=16,
-   gazing_ratio=0.50) with `attn_implementation="eager"`.
-2. For each (video, question):
-   a. Tokenize input. Note video_token_id=151650 positions.
-   b. Run model.forward(...) with output_attentions=True, no generate.
-   c. From outputs.attentions (list of 28 layers, each (1, 28, S, S) on CPU/GPU):
-      - layer = 14
-      - q_positions = positions in input_ids past the video tokens (question tokens)
-      - v_positions = positions in input_ids equal to video_token_id (where visual features were inserted)
-      - attn_q_to_v = attentions[14][0, :, q_positions, :][:, :, v_positions]  # (28 heads, num_q, num_v)
-      - attn_avg = attn_q_to_v.mean(dim=(0, 1))  # (num_v,) — averaged over heads + question tokens
-   d. Map num_v back to (T, 14, 14) per frame using gazing_info (which positions
-      on the original 14×14 grid are kept).
-   e. Save to results/nvila_attention_cache/qid_{qid}.npz with arrays
-      `attention_grid (T, 14, 14)`, `gazing_pos (K_kept,)`, `kept_mask (T, 14, 14)`.
-
-3. Sanity-visualize 5 samples: attention overlay on representative frames.
-
-4. Cycle 1.5 gate (per result-doc): use cached attention DIRECTLY as patch
-   scorer in NVILA forward. 3-config (matched/shuffled/random) HLVid household
-   VQA test. Decisive: if matched > shuffled by ≥+3 paired-flip, proceed to
-   Phase 2 distillation.
-
-Estimated wall: 217 samples × ~10 s/sample = ~36 min for extraction. Plus
-implementation time. Pilot run first to verify the approach.
+Run:
+  CUDA_VISIBLE_DEVICES=N python -m semantic_autogaze.extract_nvila_attention \\
+    --device cuda:0 --output_dir results/nvila_attention_cache --layer 14
 """
-raise NotImplementedError(
-    "Engineering placeholder. See module docstring for the implementation plan."
-)
+from __future__ import annotations
+import os, json, time, argparse
+from typing import Optional
+import numpy as np
+import torch
+from transformers import AutoModel, AutoProcessor, BitsAndBytesConfig
+
+from semantic_autogaze.eval_hlvid_subset import load_subset, PARQUET_PATH
+
+
+VIDEO_TOKEN_ID = 151650
+
+
+def main(args):
+    device = torch.device(args.device)
+    os.makedirs(args.output_dir, exist_ok=True)
+
+    print(f"[setup] Loading NVILA at smaller config for attention extraction...", flush=True)
+    print(f"        max_tiles={args.max_tiles}, num_frames={args.num_frames}, "
+          f"gazing_ratio={args.gazing_ratio}", flush=True)
+    processor = AutoProcessor.from_pretrained(
+        args.model_path,
+        num_video_frames=args.num_frames,
+        num_video_frames_thumbnail=args.num_frames_thumbnail,
+        max_tiles_video=args.max_tiles,
+        gazing_ratio_tile=args.gazing_ratio,
+        gazing_ratio_thumbnail=args.gazing_ratio_thumbnail,
+        task_loss_requirement_tile=0.6,
+        task_loss_requirement_thumbnail=0.6,
+        max_batch_size_autogaze=8,
+        autogaze_model_id="nvidia/AutoGaze",
+        trust_remote_code=True,
+    )
+    bnb = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_compute_dtype=torch.float16,
+        bnb_4bit_quant_type="nf4",
+    )
+    model = AutoModel.from_pretrained(
+        args.model_path,
+        trust_remote_code=True,
+        quantization_config=bnb,
+        device_map=args.device,
+        attn_implementation="eager",  # required for output_attentions
+    ).eval()
+    print(f"[setup] NVILA loaded; cuda mem={torch.cuda.memory_allocated()/1024**3:.2f} GB",
+          flush=True)
+    print(f"[setup] LLM has {len(model.llm.model.layers)} layers", flush=True)
+
+    # Load HLVid samples
+    samples = load_subset(args.video_dir, parquet_path=args.parquet_path, query_mode="stem")
+    if args.category:
+        samples = [s for s in samples if s.get("category") == args.category]
+    if args.n_samples is not None:
+        samples = samples[:args.n_samples]
+    print(f"[data] Loaded {len(samples)} samples (category={args.category})", flush=True)
+
+    LAYER = args.layer
+
+    for i, s in enumerate(samples):
+        qid = s["question_id"]
+        out_path = os.path.join(args.output_dir, f"qid_{qid:04d}.npz")
+        if os.path.exists(out_path) and not args.overwrite:
+            print(f"  [{i+1}/{len(samples)}] qid={qid} already cached, skipping", flush=True)
+            continue
+
+        try:
+            t0 = time.perf_counter()
+            video_token = processor.tokenizer.video_token
+            inputs = processor(
+                text=f"{video_token}\n\n{s['question_raw']}",
+                videos=s["video_path"],
+                return_tensors="pt",
+            )
+            inputs = {
+                k: v.to(device) if isinstance(v, torch.Tensor) else v
+                for k, v in inputs.items()
+            }
+
+            input_ids = inputs["input_ids"][0]  # (S,)
+            video_token_mask = (input_ids == VIDEO_TOKEN_ID)
+            v_positions = torch.where(video_token_mask)[0]  # positions of video tokens
+            num_v = len(v_positions)
+            # Question tokens = everything AFTER the last video token
+            last_v = v_positions.max().item()
+            q_positions = torch.arange(last_v + 1, len(input_ids), device=device)
+            num_q = len(q_positions)
+
+            with torch.inference_mode():
+                outputs = model.forward(
+                    **inputs,
+                    output_attentions=True,
+                    return_dict=True,
+                )
+            attns = outputs.attentions  # tuple of (1, num_heads, S, S) for each layer
+            layer_attn = attns[LAYER][0]  # (num_heads, S, S)
+
+            # Extract question→visual attention
+            # attn[h, q_pos, v_pos]: how much head h attends from q_pos to v_pos
+            q_to_v = layer_attn[:, q_positions[:, None], v_positions[None, :]]  # (heads, num_q, num_v)
+            # Average over heads + question tokens
+            attn_map = q_to_v.mean(dim=(0, 1))  # (num_v,)
+
+            # Map back to (T, 14, 14) per frame using gazing_info
+            # gazing_info contains gazing_pos_tiles and gazing_pos_thumbnails which are
+            # (num_units, K) tensors of patch positions on the original 14x14 grid.
+            # Visual tokens in the LLM sequence come from per_video_features which
+            # concatenates kept tile + thumb patches per video.
+            #
+            # For our smaller config (max_tiles=1, num_frames=16), there is 1 tile
+            # holding all 16 frames + 16 thumbnail single-frames. After AutoGaze with
+            # gazing_ratio=0.50, ~50% of patches/frame are kept. The ordering follows
+            # `_encode_vision`: tiles first (per spatial_tile per frame), then thumbs.
+            #
+            # We DON'T have direct access to gazing_info here. NVILA computed it
+            # internally and used it to select kept patches. We need to either:
+            # (a) hook into model.forward to capture gazing_info, or
+            # (b) re-derive gazing_info via a separate AutoGaze call.
+            #
+            # Cleanest path: hook _encode_vision to capture gazing_info.
+            # For now, save the raw attention map and num_v; reconstruct (T, 14, 14)
+            # in a post-processing pass that re-runs AutoGaze.
+
+            attn_map_cpu = attn_map.detach().to(torch.float32).cpu().numpy()
+            wall = time.perf_counter() - t0
+
+            np.savez_compressed(
+                out_path,
+                attention=attn_map_cpu,             # (num_v,) — raw NVILA attention scores
+                num_v=int(num_v),
+                num_q=int(num_q),
+                v_positions=v_positions.detach().cpu().numpy(),
+                q_positions=q_positions.detach().cpu().numpy(),
+                qid=int(qid),
+                question_stem=s["question_stem"],
+                video_path=s["video_path"],
+                layer=LAYER,
+                config_max_tiles=args.max_tiles,
+                config_num_frames=args.num_frames,
+                config_gazing_ratio=args.gazing_ratio,
+            )
+            print(f"  [{i+1}/{len(samples)}] qid={qid} num_v={num_v} num_q={num_q} "
+                  f"min={attn_map_cpu.min():.4f} max={attn_map_cpu.max():.4f} "
+                  f"wall={wall:.1f}s", flush=True)
+        except Exception as e:
+            import traceback
+            print(f"  [error] qid={qid}: {type(e).__name__}: {e}", flush=True)
+            traceback.print_exc()
+
+
+if __name__ == "__main__":
+    p = argparse.ArgumentParser()
+    p.add_argument("--device", default="cuda:0")
+    p.add_argument("--model_path", default="nvidia/NVILA-8B-HD-Video")
+    p.add_argument("--parquet_path", default=PARQUET_PATH)
+    p.add_argument("--video_dir", default="hlvid_videos/extracted_household/videos")
+    p.add_argument("--category", default="household",
+                   help="HLVid category filter; '' to keep all")
+    p.add_argument("--n_samples", type=int, default=None)
+    p.add_argument("--num_frames", type=int, default=16)
+    p.add_argument("--num_frames_thumbnail", type=int, default=16)
+    p.add_argument("--max_tiles", type=int, default=1)
+    p.add_argument("--gazing_ratio", type=float, default=0.50)
+    p.add_argument("--gazing_ratio_thumbnail", type=float, default=0.75)
+    p.add_argument("--layer", type=int, default=14, help="LLM layer index for attention extraction")
+    p.add_argument("--output_dir", default="results/nvila_attention_cache")
+    p.add_argument("--overwrite", action="store_true")
+    args = p.parse_args()
+    main(args)
