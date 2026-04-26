@@ -97,6 +97,8 @@ def _shrink_unit_batch(
     semantic_keep_ratio,
     score_threshold,
     score_log=None,
+    score_provider=None,
+    random_scoring=False,
 ):
     """Physically shrink K (the gazing-position dimension) for a batch of items
     that share the same per-frame budget.
@@ -126,11 +128,24 @@ def _shrink_unit_batch(
 
     # ---- Score all items in one wrapper batch ----
     unit_videos_dev = unit_videos.to(device)
-    with torch.inference_mode():
-        hidden = wrapper.extract_hidden_states(unit_videos_dev)  # (B, T*N_full, C)
-        # Broadcast query_emb to batch
-        query_emb_b = query_emb.expand(B, -1)
-        scores = wrapper.semantic_filter.get_scores(hidden, query_emb_b)  # (B, T*N_full)
+    if score_provider is not None:
+        # External scorer (e.g. OWL-ViT). Accepts (B, T, C, H, W) AutoGaze-format
+        # video tensors and (B, embed_dim) text embedding, returns (B, T*N_full)
+        # scores in [0, 1].
+        with torch.inference_mode():
+            query_emb_b = query_emb.expand(B, -1) if query_emb.shape[0] == 1 else query_emb
+            scores = score_provider(unit_videos_dev, query_emb_b)
+    elif random_scoring:
+        with torch.inference_mode():
+            T_full = unit_videos_dev.shape[1]
+            N_full = 14 * 14  # SigLIP grid
+            scores = torch.rand(B, T_full * N_full, device=device)
+    else:
+        with torch.inference_mode():
+            hidden = wrapper.extract_hidden_states(unit_videos_dev)  # (B, T*N_full, C)
+            # Broadcast query_emb to batch
+            query_emb_b = query_emb.expand(B, -1)
+            scores = wrapper.semantic_filter.get_scores(hidden, query_emb_b)  # (B, T*N_full)
     score_dev = scores.device
 
     # ---- Per-frame: figure out kept *original-grid* indices for each item ----
@@ -203,6 +218,9 @@ def patch_processor_with_semantic_filter(
     score_threshold: Optional[float] = None,
     filter_thumbnails: bool = True,
     log_score_dist: bool = False,
+    bypass_autogaze_selection: bool = False,
+    random_scoring: bool = False,
+    score_provider=None,
 ):
     """
     Monkey-patch the NVILA processor to inject semantic filtering after AutoGaze.
@@ -233,6 +251,45 @@ def patch_processor_with_semantic_filter(
         if tiles_autogaze is None:
             return gazing_info
 
+        # When bypass_autogaze_selection=True, replace AutoGaze's gazing_pos
+        # with full-grid arange (every patch on the 14x14 grid is "kept"
+        # initially; downstream _shrink_unit_batch picks top-K from all 196
+        # per frame). Cherry-picked from r/semantic-only-hlvid-baseline cycle 2
+        # (commit e787e0a).
+        if bypass_autogaze_selection:
+            import torch as _torch
+            for vid_idx in range(len(tiles_autogaze)):
+                vt = tiles_autogaze[vid_idx]  # (num_tiles, T_tile, C, H, W)
+                num_tiles_v, T_tile_v = vt.shape[:2]
+                N_per_frame = 196
+                K_total = T_tile_v * N_per_frame
+                full_pos = _torch.arange(K_total, device=gazing_info["gazing_pos_tiles"][vid_idx].device,
+                                         dtype=gazing_info["gazing_pos_tiles"][vid_idx].dtype)
+                full_pos = full_pos.unsqueeze(0).expand(num_tiles_v, -1).contiguous()
+                gazing_info["gazing_pos_tiles"][vid_idx] = full_pos
+                gazing_info["if_padded_gazing_tiles"][vid_idx] = _torch.zeros(
+                    num_tiles_v, K_total,
+                    device=full_pos.device, dtype=_torch.bool,
+                )
+                nge = gazing_info["num_gazing_each_frame_tiles"][vid_idx]
+                gazing_info["num_gazing_each_frame_tiles"][vid_idx] = _torch.full_like(nge, N_per_frame)
+            if thumbs_autogaze is not None:
+                for vid_idx in range(len(thumbs_autogaze)):
+                    th = thumbs_autogaze[vid_idx]  # (num_thumb, T_thumb, C, H, W)
+                    num_t, T_thumb_v = th.shape[:2]
+                    N_per_frame = 196
+                    K_total = T_thumb_v * N_per_frame
+                    full_pos = _torch.arange(K_total, device=gazing_info["gazing_pos_thumbnails"][vid_idx].device,
+                                             dtype=gazing_info["gazing_pos_thumbnails"][vid_idx].dtype)
+                    full_pos = full_pos.unsqueeze(0).expand(num_t, -1).contiguous()
+                    gazing_info["gazing_pos_thumbnails"][vid_idx] = full_pos
+                    gazing_info["if_padded_gazing_thumbnails"][vid_idx] = _torch.zeros(
+                        num_t, K_total,
+                        device=full_pos.device, dtype=_torch.bool,
+                    )
+                    nge = gazing_info["num_gazing_each_frame_thumbnails"][vid_idx]
+                    gazing_info["num_gazing_each_frame_thumbnails"][vid_idx] = _torch.full_like(nge, N_per_frame)
+
         nonlocal query_text
         q = query_text or "important content"
         query_emb = get_clip_text_embedding(q, clip_model, clip_tokenizer, device)
@@ -262,6 +319,8 @@ def patch_processor_with_semantic_filter(
                 semantic_keep_ratio=semantic_keep_ratio,
                 score_threshold=score_threshold,
                 score_log=score_log,
+                score_provider=score_provider,
+                random_scoring=random_scoring,
             )
             per_video_tile_results.append((new_pos_t, new_pad_t, new_kt_t))
 
