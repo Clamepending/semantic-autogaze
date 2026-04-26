@@ -119,12 +119,18 @@ class OwlViTScoreProvider:
 
     @torch.no_grad()
     def set_query_text(self, text: str):
-        enc = self.tok([text], padding="max_length", return_tensors="pt").to(self.device)
+        # OWL-ViT B/32's text encoder has max_position_embeddings=16 (it's
+        # designed for SHORT class-name prompts like "a cat", not full sentences).
+        # HLVid questions tokenize to ~18-22 tokens, blowing the position-embedding
+        # bounds. Truncate to 16 with truncation=True.
+        enc = self.tok(
+            [text], padding="max_length", truncation=True, max_length=16,
+            return_tensors="pt",
+        ).to(self.device)
         out = self.model.owlvit.text_model(input_ids=enc["input_ids"])
         pooled = self.model.owlvit.text_projection(out.pooler_output)
         self._cur_query_emb = F.normalize(pooled, dim=-1)  # (1, 512)
 
-    @torch.no_grad()
     def __call__(self, unit_videos: torch.Tensor, query_emb: torch.Tensor) -> torch.Tensor:
         """unit_videos: (B, T, C, H, W) AutoGaze-normalized tensors.
         query_emb: (B, 512) IGNORED — uses self._cur_query_emb set by set_query_text.
@@ -132,6 +138,12 @@ class OwlViTScoreProvider:
         """
         assert self._cur_query_emb is not None, "Call set_query_text(...) first"
         B, T, C, H, W = unit_videos.shape
+        if os.environ.get("OWLVIT_DEBUG_RAND") == "1":
+            # Diagnostic: bypass actual OWL-ViT and return torch.rand of the right shape.
+            # If errors persist with this, the score-provider plumbing is the issue.
+            # If errors disappear, the OWL-ViT score values themselves are causing breakage.
+            return torch.rand(B, T * N_PATCHES, device=unit_videos.device)
+        print(f"[owlvit] called unit_videos {tuple(unit_videos.shape)} dtype={unit_videos.dtype}", flush=True)
 
         # Un-normalize from AutoGaze, resize to OWL-ViT size, re-normalize for OWL-ViT
         flat = unit_videos.view(B * T, C, H, W)
@@ -160,18 +172,26 @@ class OwlViTScoreProvider:
         cos = torch.einsum("btnd,kd->btn", x, self._cur_query_emb).clamp(-1.0, 1.0)
         # Sigmoid-warp like the existing CLIP/SigLIP-2 scorers
         scores = torch.sigmoid(cos * 10.0)
-        return scores.view(B, T * N_PATCHES)  # (B, T*196)
+        out = scores.view(B, T * N_PATCHES)
+        print(f"[owlvit] returning scores {tuple(out.shape)} dtype={out.dtype} dev={out.device}", flush=True)
+        return out  # (B, T*196)
 
 
 def deterministic_shuffle(qids, seed=42):
-    """Return a permutation of qids with no fixed points (each qid maps to a different qid)."""
-    rng = random.Random(seed)
+    """Return a permutation of qids with no fixed points (each qid maps to a different qid).
+    Falls back to a single rotation by 1 when n < 2 (no valid derangement) or when
+    rejection sampling hasn't found one quickly."""
     n = len(qids)
+    if n < 2:
+        return list(qids)  # no valid derangement
+    rng = random.Random(seed)
     result = list(qids)
-    while True:
+    for _ in range(200):
         rng.shuffle(result)
         if all(result[i] != qids[i] for i in range(n)):
             return result
+    # Fallback: cyclic rotation by 1 (always a valid derangement for n >= 2)
+    return [qids[(i + 1) % n] for i in range(n)]
 
 
 def main(args):
@@ -258,33 +278,11 @@ def main(args):
     for config in configs:
         print(f"\n{'='*50}\nConfig: {config['name']}\n{'='*50}")
 
-        # Reset processor patch
+        # Reset processor patch ONCE per config to break any prior chain
         if hasattr(processor, "_original_get_gazing"):
             processor._get_gazing_info_from_videos = processor._original_get_gazing
         else:
             processor._original_get_gazing = processor._get_gazing_info_from_videos
-
-        # Configure scoring path for this variant
-        if config["variant"] == "rand":
-            patch_processor_with_semantic_filter(
-                processor, wrapper, clip_model, clip_tokenizer,
-                mode="intersect",  # mode != "gaze_only" so the patch runs
-                semantic_keep_ratio=args.semantic_keep_ratio,
-                device=str(device),
-                bypass_autogaze_selection=True,
-                random_scoring=True,
-                filter_thumbnails=False,
-            )
-        else:
-            patch_processor_with_semantic_filter(
-                processor, wrapper, clip_model, clip_tokenizer,
-                mode="intersect",
-                semantic_keep_ratio=args.semantic_keep_ratio,
-                device=str(device),
-                bypass_autogaze_selection=True,
-                score_provider=owlvit_provider,
-                filter_thumbnails=False,
-            )
 
         per_q = []
         correct = 0
@@ -301,9 +299,31 @@ def main(args):
                 else:
                     q_for_score = sample["question_stem"]  # ignored under random_scoring
 
-                # Set OWL-ViT query (only used if score_provider is wired)
-                if config["variant"] in ("match", "shuf"):
+                # Reset and re-patch BEFORE each sample (matches legacy cycle-2 pattern)
+                processor._get_gazing_info_from_videos = processor._original_get_gazing
+                if config["variant"] == "rand":
+                    patch_processor_with_semantic_filter(
+                        processor, wrapper, clip_model, clip_tokenizer,
+                        mode="intersect",
+                        semantic_keep_ratio=args.semantic_keep_ratio,
+                        query_text=q_for_score,
+                        device=str(device),
+                        bypass_autogaze_selection=True,
+                        random_scoring=True,
+                        filter_thumbnails=True,
+                    )
+                else:
                     owlvit_provider.set_query_text(q_for_score)
+                    patch_processor_with_semantic_filter(
+                        processor, wrapper, clip_model, clip_tokenizer,
+                        mode="intersect",
+                        semantic_keep_ratio=args.semantic_keep_ratio,
+                        query_text=q_for_score,
+                        device=str(device),
+                        bypass_autogaze_selection=True,
+                        score_provider=owlvit_provider,
+                        filter_thumbnails=True,
+                    )
 
                 t0 = time.perf_counter()
                 response = run_inference(
@@ -330,7 +350,10 @@ def main(args):
                     print(f"  [{i+1}/{len(samples)}] qid={qid} gt={gt} pred={pred} acc={correct}/{total} avg_lat={sum(latencies)/len(latencies):.2f}s",
                           flush=True)
             except Exception as e:
+                import traceback
+                tb = traceback.format_exc()
                 print(f"  [error] qid={qid}: {type(e).__name__}: {e}", flush=True)
+                print(f"  [tb] {tb[-2000:]}", flush=True)
                 per_q.append({
                     "qid": qid,
                     "gt": sample["answer"],
@@ -339,6 +362,7 @@ def main(args):
                     "scoring_q": q_for_score,
                     "wall_s": -1,
                     "error": str(e),
+                    "traceback": tb,
                 })
 
         all_results[config["name"]] = {
