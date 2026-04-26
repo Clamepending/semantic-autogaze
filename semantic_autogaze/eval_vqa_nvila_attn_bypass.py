@@ -344,7 +344,7 @@ if __name__ == "__main__":
     p.add_argument("--model_path", default="nvidia/NVILA-8B-HD-Video")
     p.add_argument("--autogaze_model", default="nvidia/AutoGaze")
     p.add_argument("--ckpt", default="results/bighead/best_bighead.pt")
-    p.add_argument("--head_type", default="big")
+    p.add_argument("--head_type", default="bighead")
     p.add_argument("--parquet_path", default=PARQUET_PATH)
     p.add_argument("--video_dir", default="hlvid_videos/extracted_household/videos")
     p.add_argument("--n_samples", type=int, default=None)

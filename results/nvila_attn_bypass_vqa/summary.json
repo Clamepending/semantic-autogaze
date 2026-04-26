@@ -1,0 +1,2987 @@
+{
+  "configs": [
+    "nvila_attn_match",
+    "nvila_attn_shuf",
+    "nvila_attn_rand"
+  ],
+  "n_samples": 122,
+  "summary": {
+    "nvila_attn_match": {
+      "correct": 39,
+      "total": 122,
+      "accuracy": 0.319672131147541,
+      "avg_lat_s": 7.955857277383119,
+      "miss_cache": 0
+    },
+    "nvila_attn_shuf": {
+      "correct": 36,
+      "total": 122,
+      "accuracy": 0.29508196721311475,
+      "avg_lat_s": 7.853219386035592,
+      "miss_cache": 0
+    },
+    "nvila_attn_rand": {
+      "correct": 40,
+      "total": 122,
+      "accuracy": 0.32786885245901637,
+      "avg_lat_s": 7.755964704497229,
+      "miss_cache": 0
+    }
+  },
+  "paired": {
+    "nvila_attn_match_vs_nvila_attn_shuf": {
+      "a_wins": 4,
+      "b_wins": 1,
+      "net": 3,
+      "n": 122
+    },
+    "nvila_attn_match_vs_nvila_attn_rand": {
+      "a_wins": 5,
+      "b_wins": 6,
+      "net": -1,
+      "n": 122
+    },
+    "nvila_attn_shuf_vs_nvila_attn_rand": {
+      "a_wins": 4,
+      "b_wins": 8,
+      "net": -4,
+      "n": 122
+    }
+  },
+  "per_config_per_q": {
+    "nvila_attn_match": [
+      {
+        "qid": 8,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the green background of the pack on the top of the shelf?",
+        "wall_s": 9.893458411912434
+      },
+      {
+        "qid": 9,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the gray text say inside the beige toaster?",
+        "wall_s": 9.176405554055236
+      },
+      {
+        "qid": 10,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What text is visible on the dark blue and black packet placed on the brown wooden chair?",
+        "wall_s": 8.623091439018026
+      },
+      {
+        "qid": 11,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What device name is displayed in white text below the partially visible screen?",
+        "wall_s": 8.576310135074891
+      },
+      {
+        "qid": 12,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the black text say on the white box located on the brown surface?",
+        "wall_s": 7.8248680219985545
+      },
+      {
+        "qid": 13,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 8.091874831006862
+      },
+      {
+        "qid": 14,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black screen read?",
+        "wall_s": 8.451418166980147
+      },
+      {
+        "qid": 15,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is displayed on the black screen?",
+        "wall_s": 8.120185857987963
+      },
+      {
+        "qid": 16,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 7.638804328045808
+      },
+      {
+        "qid": 17,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the black text on the yellow cover say?",
+        "wall_s": 7.931636661058292
+      },
+      {
+        "qid": 18,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black square object located on the orange shirt?",
+        "wall_s": 8.561542825074866
+      },
+      {
+        "qid": 19,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is the white text on the orange sweatshirt?",
+        "wall_s": 8.413685153005645
+      },
+      {
+        "qid": 20,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the screen read?",
+        "wall_s": 8.616487424005754
+      },
+      {
+        "qid": 21,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What numbers are displayed on the black telephone?",
+        "wall_s": 8.941896026022732
+      },
+      {
+        "qid": 22,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is written on the white text visible on the black electronic device?",
+        "wall_s": 8.622466549044475
+      },
+      {
+        "qid": 23,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black headphone?",
+        "wall_s": 8.626279649091884
+      },
+      {
+        "qid": 24,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the gray rectangular object?",
+        "wall_s": 8.874154777033255
+      },
+      {
+        "qid": 25,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What does the white text on the blue keypad say?",
+        "wall_s": 8.147838659933768
+      },
+      {
+        "qid": 26,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the green text on the black button say, accompanied by a green phone icon?",
+        "wall_s": 8.139795254101045
+      },
+      {
+        "qid": 27,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is written on the black button inside the black phone?",
+        "wall_s": 8.481980485958047
+      },
+      {
+        "qid": 28,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black object?",
+        "wall_s": 8.53446007904131
+      },
+      {
+        "qid": 29,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What is the text color on the vertical gray object?",
+        "wall_s": 9.135900488006882
+      },
+      {
+        "qid": 30,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text on the left read?",
+        "wall_s": 7.984127881005406
+      },
+      {
+        "qid": 31,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What brand is displayed in the white text on the black monitor?",
+        "wall_s": 8.683299253927544
+      },
+      {
+        "qid": 32,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the red text on the black button say?",
+        "wall_s": 8.861946844030172
+      },
+      {
+        "qid": 33,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the red text on the grey button say?",
+        "wall_s": 8.389838411007077
+      },
+      {
+        "qid": 34,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black background say?",
+        "wall_s": 7.9454706540564075
+      },
+      {
+        "qid": 35,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What colors are indicated by the white text \"+12V G R B\" on the motherboard?",
+        "wall_s": 8.38021281408146
+      },
+      {
+        "qid": 36,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the black text say on the bottom part of the motherboard, above the button?",
+        "wall_s": 7.92478032305371
+      },
+      {
+        "qid": 37,
+        "gt": "A",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the motherboard?",
+        "wall_s": 8.156431787996553
+      },
+      {
+        "qid": 38,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is the white text on the black object?",
+        "wall_s": 8.188830423983745
+      },
+      {
+        "qid": 39,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What do the two sideway white texts on the black object say?",
+        "wall_s": 8.374025890021585
+      },
+      {
+        "qid": 40,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white sideway text on the black surface read?",
+        "wall_s": 8.328648142982274
+      },
+      {
+        "qid": 41,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What does the black text on the grey switch say?",
+        "wall_s": 7.778048536973074
+      },
+      {
+        "qid": 42,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is the white text on the black computer RAM?",
+        "wall_s": 7.925191065995023
+      },
+      {
+        "qid": 43,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the black text on the gray button say?",
+        "wall_s": 7.98327224701643
+      },
+      {
+        "qid": 44,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What are the white texts on the black motherboard?",
+        "wall_s": 8.419681794941425
+      },
+      {
+        "qid": 45,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the black text say on the white barcode?",
+        "wall_s": 8.31219868408516
+      },
+      {
+        "qid": 46,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black object?",
+        "wall_s": 8.151631415006705
+      },
+      {
+        "qid": 47,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black motherboard?",
+        "wall_s": 8.145972001017071
+      },
+      {
+        "qid": 48,
+        "gt": "A",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the black text on the pink barcode read?",
+        "wall_s": 8.88865823193919
+      },
+      {
+        "qid": 49,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What numbers are displayed on the white display on the black surface?",
+        "wall_s": 8.509466968942434
+      },
+      {
+        "qid": 50,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the black text say on the blue surface?",
+        "wall_s": 8.613672628998756
+      },
+      {
+        "qid": 51,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black tag say?",
+        "wall_s": 7.872810720000416
+      },
+      {
+        "qid": 52,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white-outlined black text on the black digital mixer read?",
+        "wall_s": 8.02487096004188
+      },
+      {
+        "qid": 53,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black digital mixer?",
+        "wall_s": 8.147257967037149
+      },
+      {
+        "qid": 54,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black amplifier say?",
+        "wall_s": 8.188242129050195
+      },
+      {
+        "qid": 55,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the amplifier?",
+        "wall_s": 7.831999884918332
+      },
+      {
+        "qid": 56,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the purple text say on the brown screen display?",
+        "wall_s": 8.280231021926738
+      },
+      {
+        "qid": 57,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the yellow text on the speaker read?",
+        "wall_s": 8.08992301800754
+      },
+      {
+        "qid": 58,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What numbers and letter are displayed on the black buttons?",
+        "wall_s": 8.23682710097637
+      },
+      {
+        "qid": 59,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black background with 2 antennas?",
+        "wall_s": 7.728802987025119
+      },
+      {
+        "qid": 60,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the brown text say on the black speaker?",
+        "wall_s": 7.941792362020351
+      },
+      {
+        "qid": 61,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black box?",
+        "wall_s": 8.047146193915978
+      },
+      {
+        "qid": 62,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What numbers are displayed on the white text with a black background located at the bottom right side?",
+        "wall_s": 8.679819237906486
+      },
+      {
+        "qid": 63,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black object?",
+        "wall_s": 8.578183169011027
+      },
+      {
+        "qid": 64,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the sign?",
+        "wall_s": 8.383526307996362
+      },
+      {
+        "qid": 65,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What are the white texts displayed on the black electronic device?",
+        "wall_s": 7.86100808205083
+      },
+      {
+        "qid": 66,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What color is the text on the first button of the nine gray buttons on the screen?",
+        "wall_s": 8.451744904043153
+      },
+      {
+        "qid": 67,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 8.417074545985088
+      },
+      {
+        "qid": 68,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "On the black background, what numbers are displayed in white text?",
+        "wall_s": 8.421449160086922
+      },
+      {
+        "qid": 69,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What numbers are displayed on the white surface of the black screen?",
+        "wall_s": 8.03567929903511
+      },
+      {
+        "qid": 70,
+        "gt": "A",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "On the gray surface, which combination of texts is correctly ordered from left to right?",
+        "wall_s": 9.095923160086386
+      },
+      {
+        "qid": 71,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What are the white text lines on the left side of the black section of the bottom screen reading?",
+        "wall_s": 7.788276233011857
+      },
+      {
+        "qid": 72,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the black text on the white button read?",
+        "wall_s": 8.693920651916414
+      },
+      {
+        "qid": 73,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What numbers are displayed on the white twelve lines in the center tab?",
+        "wall_s": 8.556583931087516
+      },
+      {
+        "qid": 74,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is the white text on the side of the black monitor screen?",
+        "wall_s": 9.212570318952203
+      },
+      {
+        "qid": 75,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black cable?",
+        "wall_s": 9.402867297059856
+      },
+      {
+        "qid": 76,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "In the upper left of the image, what does the white text say?",
+        "wall_s": 8.189485442941077
+      },
+      {
+        "qid": 77,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What number is displayed on the circular black button of the camcorder?",
+        "wall_s": 9.143815836054273
+      },
+      {
+        "qid": 78,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What number is displayed on the circular black button of the camcorder?",
+        "wall_s": 8.615373129956424
+      },
+      {
+        "qid": 113,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the gray text say on the white object?",
+        "wall_s": 8.902099644066766
+      },
+      {
+        "qid": 114,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What are the five lines of black text at the bottom of the white box?",
+        "wall_s": 8.806991648976691
+      },
+      {
+        "qid": 115,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black background?",
+        "wall_s": 8.604103393969126
+      },
+      {
+        "qid": 116,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 9.130385668948293
+      },
+      {
+        "qid": 117,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the orange background on the black text of the TV read?",
+        "wall_s": 8.959445126005448
+      },
+      {
+        "qid": 118,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is written on the white text displayed on the TV with a brown background?",
+        "wall_s": 8.746008589980192
+      },
+      {
+        "qid": 119,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What is written on the yellow book?",
+        "wall_s": 8.761433918960392
+      },
+      {
+        "qid": 120,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black book say?",
+        "wall_s": 9.287012130953372
+      },
+      {
+        "qid": 121,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the white text on the TV say?",
+        "wall_s": 9.086612149025314
+      },
+      {
+        "qid": 122,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What is written in silver on the white speaker?",
+        "wall_s": 8.801824862021022
+      },
+      {
+        "qid": 123,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the black text say on the white book?",
+        "wall_s": 9.157416934031062
+      },
+      {
+        "qid": 124,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What are the two white texts written on the black book?",
+        "wall_s": 8.895699642016552
+      },
+      {
+        "qid": 125,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is displayed in the fourth movie tab?",
+        "wall_s": 9.137199272052385
+      },
+      {
+        "qid": 151,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is the text on the white watermark?",
+        "wall_s": 5.010009811958298
+      },
+      {
+        "qid": 152,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What brand is the TV?",
+        "wall_s": 5.44551756803412
+      },
+      {
+        "qid": 153,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "How many spikes are visible in the bathroom mirror?",
+        "wall_s": 4.552361847017892
+      },
+      {
+        "qid": 154,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written in white text on the black book?",
+        "wall_s": 6.222148489905521
+      },
+      {
+        "qid": 155,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black book?",
+        "wall_s": 5.314837443991564
+      },
+      {
+        "qid": 156,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What are the black texts on the beige book?",
+        "wall_s": 5.065337880048901
+      },
+      {
+        "qid": 157,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "How many glasses are next to the bed?",
+        "wall_s": 6.085117994924076
+      },
+      {
+        "qid": 158,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the white soap label?",
+        "wall_s": 4.828145566978492
+      },
+      {
+        "qid": 159,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is written in white on the brown book?",
+        "wall_s": 5.658312515006401
+      },
+      {
+        "qid": 160,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the gray text against the brown and gray backdrop say?",
+        "wall_s": 5.127461809082888
+      },
+      {
+        "qid": 177,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the black text on the book say?",
+        "wall_s": 9.673109450028278
+      },
+      {
+        "qid": 178,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What does the black text say on the framed art?",
+        "wall_s": 8.760477122035809
+      },
+      {
+        "qid": 191,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the black text located on the silver section of the oven?",
+        "wall_s": 7.613519646925852
+      },
+      {
+        "qid": 192,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black frame say?",
+        "wall_s": 8.1409985430073
+      },
+      {
+        "qid": 197,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text on the dark blue sign read?",
+        "wall_s": 10.02062968397513
+      },
+      {
+        "qid": 245,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "How many holes are in the electrical outlet?",
+        "wall_s": 10.115089031052776
+      },
+      {
+        "qid": 246,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is written in white text on the orange clock?",
+        "wall_s": 9.327343010925688
+      },
+      {
+        "qid": 247,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the black glass candle?",
+        "wall_s": 9.109010644024238
+      },
+      {
+        "qid": 248,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the black text on the black rectangular object say?",
+        "wall_s": 8.59075618092902
+      },
+      {
+        "qid": 249,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is written in white text along the bottom of the television screen?",
+        "wall_s": 7.838813269045204
+      },
+      {
+        "qid": 250,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "Which ocean is labeled on the framed poster?",
+        "wall_s": 7.7722245149780065
+      },
+      {
+        "qid": 251,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What is written in black text on the white book?",
+        "wall_s": 4.651186841074377
+      },
+      {
+        "qid": 252,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is written on the gray bag?",
+        "wall_s": 4.993468080996536
+      },
+      {
+        "qid": 253,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is written in black text on the white book?",
+        "wall_s": 4.725413255975582
+      },
+      {
+        "qid": 254,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What brown figure is on the top shelf?",
+        "wall_s": 4.987967260996811
+      },
+      {
+        "qid": 255,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What is written in white text on the brown book?",
+        "wall_s": 5.042406843975186
+      },
+      {
+        "qid": 256,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What name is written in the credits on the TV?",
+        "wall_s": 5.45339806296397
+      },
+      {
+        "qid": 257,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What shape is each hole in the electrical outlet?",
+        "wall_s": 5.378098440007307
+      },
+      {
+        "qid": 258,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What color is the soap bottle by the sink?",
+        "wall_s": 5.918304753024131
+      },
+      {
+        "qid": 259,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is written in black text on the light beige book?",
+        "wall_s": 4.95151565503329
+      },
+      {
+        "qid": 260,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What is the title of the top white book on the brown table?",
+        "wall_s": 5.921779568074271
+      },
+      {
+        "qid": 261,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What color is the stamp next to the black Chinese text?",
+        "wall_s": 4.7636211439967155
+      },
+      {
+        "qid": 262,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What is the title of the middle book in the stack on the brown table?",
+        "wall_s": 5.316961360047571
+      },
+      {
+        "qid": 263,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is written in orange text on the purple book?",
+        "wall_s": 8.482861959957518
+      },
+      {
+        "qid": 264,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is written on the orange soap bottle?",
+        "wall_s": 8.846537920064293
+      },
+      {
+        "qid": 265,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What time is shown on the open microwave?",
+        "wall_s": 9.45921509002801
+      },
+      {
+        "qid": 266,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What is written in white text on the black board above the bed?",
+        "wall_s": 9.28137187298853
+      },
+      {
+        "qid": 267,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is the color of the top of the wine bottle on the shelves?",
+        "wall_s": 10.60587289603427
+      }
+    ],
+    "nvila_attn_shuf": [
+      {
+        "qid": 8,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the black text on the yellow cover say?",
+        "wall_s": 10.113812690018676
+      },
+      {
+        "qid": 9,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What shape is each hole in the electrical outlet?",
+        "wall_s": 8.76848704693839
+      },
+      {
+        "qid": 10,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "On the gray surface, which combination of texts is correctly ordered from left to right?",
+        "wall_s": 9.091548701981083
+      },
+      {
+        "qid": 11,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is the title of the middle book in the stack on the brown table?",
+        "wall_s": 8.47996091900859
+      },
+      {
+        "qid": 12,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What brand is the TV?",
+        "wall_s": 7.97616686404217
+      },
+      {
+        "qid": 13,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What is the white text on the black object?",
+        "wall_s": 7.925574159948155
+      },
+      {
+        "qid": 14,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black object?",
+        "wall_s": 8.248305483022705
+      },
+      {
+        "qid": 15,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text on the TV say?",
+        "wall_s": 7.718540593981743
+      },
+      {
+        "qid": 16,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text on the dark blue sign read?",
+        "wall_s": 7.6030946749961
+      },
+      {
+        "qid": 17,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "How many holes are in the electrical outlet?",
+        "wall_s": 8.28445107198786
+      },
+      {
+        "qid": 18,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black cable?",
+        "wall_s": 8.153044790960848
+      },
+      {
+        "qid": 19,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is the color of the top of the wine bottle on the shelves?",
+        "wall_s": 8.276902802055702
+      },
+      {
+        "qid": 20,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "How many glasses are next to the bed?",
+        "wall_s": 8.669426383101381
+      },
+      {
+        "qid": 21,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the white sideway text on the black surface read?",
+        "wall_s": 8.311912780976854
+      },
+      {
+        "qid": 22,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is written on the gray rectangular object?",
+        "wall_s": 9.03896288992837
+      },
+      {
+        "qid": 23,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What are the white texts on the black motherboard?",
+        "wall_s": 8.20386539096944
+      },
+      {
+        "qid": 24,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the sign?",
+        "wall_s": 9.867025997955352
+      },
+      {
+        "qid": 25,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black background?",
+        "wall_s": 9.331429435056634
+      },
+      {
+        "qid": 26,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the brown text say on the black speaker?",
+        "wall_s": 7.704362232005224
+      },
+      {
+        "qid": 27,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "On the black background, what numbers are displayed in white text?",
+        "wall_s": 8.577278640004806
+      },
+      {
+        "qid": 28,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 9.389241612050682
+      },
+      {
+        "qid": 29,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black book?",
+        "wall_s": 8.4743674879428
+      },
+      {
+        "qid": 30,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What numbers are displayed on the white twelve lines in the center tab?",
+        "wall_s": 8.02917321503628
+      },
+      {
+        "qid": 31,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is written on the black text located on the silver section of the oven?",
+        "wall_s": 8.442610373022035
+      },
+      {
+        "qid": 32,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is displayed on the black screen?",
+        "wall_s": 8.27218011696823
+      },
+      {
+        "qid": 33,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the gray text say inside the beige toaster?",
+        "wall_s": 8.113465836038813
+      },
+      {
+        "qid": 34,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written in silver on the white speaker?",
+        "wall_s": 7.704563869978301
+      },
+      {
+        "qid": 35,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What are the five lines of black text at the bottom of the white box?",
+        "wall_s": 8.486577065079473
+      },
+      {
+        "qid": 36,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black background say?",
+        "wall_s": 8.096834341995418
+      },
+      {
+        "qid": 37,
+        "gt": "A",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What are the two white texts written on the black book?",
+        "wall_s": 8.204427361022681
+      },
+      {
+        "qid": 38,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is the text color on the vertical gray object?",
+        "wall_s": 8.465980431064963
+      },
+      {
+        "qid": 39,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the black text say on the framed art?",
+        "wall_s": 8.354294658987783
+      },
+      {
+        "qid": 40,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What numbers are displayed on the white display on the black surface?",
+        "wall_s": 8.366879613953643
+      },
+      {
+        "qid": 41,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black background with 2 antennas?",
+        "wall_s": 8.187985641066916
+      },
+      {
+        "qid": 42,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the gray text against the brown and gray backdrop say?",
+        "wall_s": 7.817601181915961
+      },
+      {
+        "qid": 43,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black motherboard?",
+        "wall_s": 7.95961465802975
+      },
+      {
+        "qid": 44,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is written in white on the brown book?",
+        "wall_s": 8.07288840902038
+      },
+      {
+        "qid": 45,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What is the white text on the black computer RAM?",
+        "wall_s": 8.033228375017643
+      },
+      {
+        "qid": 46,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What is written in white text on the orange clock?",
+        "wall_s": 7.680087029002607
+      },
+      {
+        "qid": 47,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black object?",
+        "wall_s": 7.68441847898066
+      },
+      {
+        "qid": 48,
+        "gt": "A",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What numbers are displayed on the white surface of the black screen?",
+        "wall_s": 8.588160629966296
+      },
+      {
+        "qid": 49,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What numbers and letter are displayed on the black buttons?",
+        "wall_s": 7.9629002049332485
+      },
+      {
+        "qid": 50,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 8.41043593606446
+      },
+      {
+        "qid": 51,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black book say?",
+        "wall_s": 8.60228822589852
+      },
+      {
+        "qid": 52,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the left read?",
+        "wall_s": 7.80736413190607
+      },
+      {
+        "qid": 53,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the amplifier?",
+        "wall_s": 8.253690751036629
+      },
+      {
+        "qid": 54,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is the white text on the side of the black monitor screen?",
+        "wall_s": 8.157797090010718
+      },
+      {
+        "qid": 55,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What brand is displayed in the white text on the black monitor?",
+        "wall_s": 8.17633161006961
+      },
+      {
+        "qid": 56,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the black text on the pink barcode read?",
+        "wall_s": 8.480338689987548
+      },
+      {
+        "qid": 57,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the black glass candle?",
+        "wall_s": 8.688759892014787
+      },
+      {
+        "qid": 58,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is the title of the top white book on the brown table?",
+        "wall_s": 8.80627280799672
+      },
+      {
+        "qid": 59,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What are the white text lines on the left side of the black section of the bottom screen reading?",
+        "wall_s": 8.457899641944095
+      },
+      {
+        "qid": 60,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black screen read?",
+        "wall_s": 8.312476119026542
+      },
+      {
+        "qid": 61,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What number is displayed on the circular black button of the camcorder?",
+        "wall_s": 8.156059275032021
+      },
+      {
+        "qid": 62,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is the text on the white watermark?",
+        "wall_s": 7.765924443025142
+      },
+      {
+        "qid": 63,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black frame say?",
+        "wall_s": 8.111310604028404
+      },
+      {
+        "qid": 64,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the green text on the black button say, accompanied by a green phone icon?",
+        "wall_s": 8.270519701065496
+      },
+      {
+        "qid": 65,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the yellow text on the speaker read?",
+        "wall_s": 8.650256961002015
+      },
+      {
+        "qid": 66,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What is written in white text on the black board above the bed?",
+        "wall_s": 8.336705646011978
+      },
+      {
+        "qid": 67,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the black text say on the blue surface?",
+        "wall_s": 8.293905558995903
+      },
+      {
+        "qid": 68,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What text is visible on the dark blue and black packet placed on the brown wooden chair?",
+        "wall_s": 8.805549139971845
+      },
+      {
+        "qid": 69,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What is written in black text on the white book?",
+        "wall_s": 8.374460872961208
+      },
+      {
+        "qid": 70,
+        "gt": "A",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 8.4155893829884
+      },
+      {
+        "qid": 71,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the red text on the black button say?",
+        "wall_s": 8.373452641069889
+      },
+      {
+        "qid": 72,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black amplifier say?",
+        "wall_s": 8.85428614995908
+      },
+      {
+        "qid": 73,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What does the black text say on the white barcode?",
+        "wall_s": 8.74359499802813
+      },
+      {
+        "qid": 74,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black square object located on the orange shirt?",
+        "wall_s": 8.587646294967271
+      },
+      {
+        "qid": 75,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What is written on the white text displayed on the TV with a brown background?",
+        "wall_s": 8.554056784021668
+      },
+      {
+        "qid": 76,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black headphone?",
+        "wall_s": 8.704691338003613
+      },
+      {
+        "qid": 77,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "In the upper left of the image, what does the white text say?",
+        "wall_s": 9.104918666998856
+      },
+      {
+        "qid": 78,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What color is the text on the first button of the nine gray buttons on the screen?",
+        "wall_s": 8.69536396395415
+      },
+      {
+        "qid": 113,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 8.936852082028054
+      },
+      {
+        "qid": 114,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the black text on the grey switch say?",
+        "wall_s": 8.560177615028806
+      },
+      {
+        "qid": 115,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the white-outlined black text on the black digital mixer read?",
+        "wall_s": 8.685240070917644
+      },
+      {
+        "qid": 116,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black digital mixer?",
+        "wall_s": 8.926665719947778
+      },
+      {
+        "qid": 117,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the screen read?",
+        "wall_s": 8.627981438999996
+      },
+      {
+        "qid": 118,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the purple text say on the brown screen display?",
+        "wall_s": 8.466796766966581
+      },
+      {
+        "qid": 119,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What is written in white text along the bottom of the television screen?",
+        "wall_s": 10.104847267037258
+      },
+      {
+        "qid": 120,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What color is the soap bottle by the sink?",
+        "wall_s": 8.743149041081779
+      },
+      {
+        "qid": 121,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What name is written in the credits on the TV?",
+        "wall_s": 8.680335389915854
+      },
+      {
+        "qid": 122,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What does the black text on the black rectangular object say?",
+        "wall_s": 9.568448288016953
+      },
+      {
+        "qid": 123,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the black button inside the black phone?",
+        "wall_s": 9.379119409946725
+      },
+      {
+        "qid": 124,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is written in white text on the black book?",
+        "wall_s": 9.105555496062152
+      },
+      {
+        "qid": 125,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black tag say?",
+        "wall_s": 9.617383764008991
+      },
+      {
+        "qid": 151,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is written on the gray bag?",
+        "wall_s": 4.596072048065253
+      },
+      {
+        "qid": 152,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black object?",
+        "wall_s": 5.363228152040392
+      },
+      {
+        "qid": 153,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the green background of the pack on the top of the shelf?",
+        "wall_s": 4.582094919984229
+      },
+      {
+        "qid": 154,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written in orange text on the purple book?",
+        "wall_s": 6.075361632974818
+      },
+      {
+        "qid": 155,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written in black text on the white book?",
+        "wall_s": 4.960519131040201
+      },
+      {
+        "qid": 156,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What are the white texts displayed on the black electronic device?",
+        "wall_s": 4.849284257972613
+      },
+      {
+        "qid": 157,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What color is the stamp next to the black Chinese text?",
+        "wall_s": 5.486040694988333
+      },
+      {
+        "qid": 158,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black box?",
+        "wall_s": 4.837108381092548
+      },
+      {
+        "qid": 159,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is written in white text on the brown book?",
+        "wall_s": 6.044547840952873
+      },
+      {
+        "qid": 160,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What are the black texts on the beige book?",
+        "wall_s": 4.901758033083752
+      },
+      {
+        "qid": 177,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What is displayed in the fourth movie tab?",
+        "wall_s": 9.072342554922216
+      },
+      {
+        "qid": 178,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What is written on the white soap label?",
+        "wall_s": 7.908060817979276
+      },
+      {
+        "qid": 191,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the red text on the grey button say?",
+        "wall_s": 7.671534687979147
+      },
+      {
+        "qid": 192,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the gray text say on the white object?",
+        "wall_s": 7.733529084944166
+      },
+      {
+        "qid": 197,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "Which ocean is labeled on the framed poster?",
+        "wall_s": 8.649001582991332
+      },
+      {
+        "qid": 245,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is written on the yellow book?",
+        "wall_s": 8.985889811068773
+      },
+      {
+        "qid": 246,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the black text on the white button read?",
+        "wall_s": 8.425919717992656
+      },
+      {
+        "qid": 247,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the motherboard?",
+        "wall_s": 8.360878692008555
+      },
+      {
+        "qid": 248,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What colors are indicated by the white text \"+12V G R B\" on the motherboard?",
+        "wall_s": 8.443394138012081
+      },
+      {
+        "qid": 249,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What brown figure is on the top shelf?",
+        "wall_s": 7.2538782940246165
+      },
+      {
+        "qid": 250,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What time is shown on the open microwave?",
+        "wall_s": 7.952579987933859
+      },
+      {
+        "qid": 251,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the black text say on the white box located on the brown surface?",
+        "wall_s": 4.146433254005387
+      },
+      {
+        "qid": 252,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What numbers are displayed on the white text with a black background located at the bottom right side?",
+        "wall_s": 5.394099520985037
+      },
+      {
+        "qid": 253,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the orange background on the black text of the TV read?",
+        "wall_s": 4.9954853360541165
+      },
+      {
+        "qid": 254,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is the white text on the orange sweatshirt?",
+        "wall_s": 4.637545965029858
+      },
+      {
+        "qid": 255,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What number is displayed on the circular black button of the camcorder?",
+        "wall_s": 5.1207603310467675
+      },
+      {
+        "qid": 256,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is written in black text on the light beige book?",
+        "wall_s": 4.953737716074102
+      },
+      {
+        "qid": 257,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "How many spikes are visible in the bathroom mirror?",
+        "wall_s": 5.49142923601903
+      },
+      {
+        "qid": 258,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What numbers are displayed on the black telephone?",
+        "wall_s": 4.48730953305494
+      },
+      {
+        "qid": 259,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is written on the orange soap bottle?",
+        "wall_s": 5.7063770419918
+      },
+      {
+        "qid": 260,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the white text on the blue keypad say?",
+        "wall_s": 4.75277774001006
+      },
+      {
+        "qid": 261,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What does the black text say on the bottom part of the motherboard, above the button?",
+        "wall_s": 6.155604287050664
+      },
+      {
+        "qid": 262,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What do the two sideway white texts on the black object say?",
+        "wall_s": 4.466712974011898
+      },
+      {
+        "qid": 263,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the black text on the gray button say?",
+        "wall_s": 7.996822007000446
+      },
+      {
+        "qid": 264,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the black text on the book say?",
+        "wall_s": 8.061084332992323
+      },
+      {
+        "qid": 265,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What device name is displayed in white text below the partially visible screen?",
+        "wall_s": 8.39521268894896
+      },
+      {
+        "qid": 266,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the white text visible on the black electronic device?",
+        "wall_s": 9.046170481014997
+      },
+      {
+        "qid": 267,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the black text say on the white book?",
+        "wall_s": 9.046044380986132
+      }
+    ],
+    "nvila_attn_rand": [
+      {
+        "qid": 8,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the green background of the pack on the top of the shelf?",
+        "wall_s": 8.363915472989902
+      },
+      {
+        "qid": 9,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the gray text say inside the beige toaster?",
+        "wall_s": 9.60808633302804
+      },
+      {
+        "qid": 10,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What text is visible on the dark blue and black packet placed on the brown wooden chair?",
+        "wall_s": 9.005962481955066
+      },
+      {
+        "qid": 11,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What device name is displayed in white text below the partially visible screen?",
+        "wall_s": 8.232961886096746
+      },
+      {
+        "qid": 12,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the black text say on the white box located on the brown surface?",
+        "wall_s": 8.60373219801113
+      },
+      {
+        "qid": 13,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 7.487154423957691
+      },
+      {
+        "qid": 14,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black screen read?",
+        "wall_s": 8.416808267007582
+      },
+      {
+        "qid": 15,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is displayed on the black screen?",
+        "wall_s": 8.388475031009875
+      },
+      {
+        "qid": 16,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 7.706017985008657
+      },
+      {
+        "qid": 17,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the black text on the yellow cover say?",
+        "wall_s": 7.742488064919598
+      },
+      {
+        "qid": 18,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black square object located on the orange shirt?",
+        "wall_s": 7.367467885022052
+      },
+      {
+        "qid": 19,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is the white text on the orange sweatshirt?",
+        "wall_s": 7.144517184002325
+      },
+      {
+        "qid": 20,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the screen read?",
+        "wall_s": 7.9356447119498625
+      },
+      {
+        "qid": 21,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What numbers are displayed on the black telephone?",
+        "wall_s": 8.218689753906801
+      },
+      {
+        "qid": 22,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is written on the white text visible on the black electronic device?",
+        "wall_s": 8.319915583007969
+      },
+      {
+        "qid": 23,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black headphone?",
+        "wall_s": 9.111770973075181
+      },
+      {
+        "qid": 24,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the gray rectangular object?",
+        "wall_s": 8.249487350927666
+      },
+      {
+        "qid": 25,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What does the white text on the blue keypad say?",
+        "wall_s": 8.350348470034078
+      },
+      {
+        "qid": 26,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the green text on the black button say, accompanied by a green phone icon?",
+        "wall_s": 8.719120395020582
+      },
+      {
+        "qid": 27,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is written on the black button inside the black phone?",
+        "wall_s": 9.413602171931416
+      },
+      {
+        "qid": 28,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black object?",
+        "wall_s": 8.50077074894216
+      },
+      {
+        "qid": 29,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is the text color on the vertical gray object?",
+        "wall_s": 8.201457547955215
+      },
+      {
+        "qid": 30,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text on the left read?",
+        "wall_s": 8.70921789307613
+      },
+      {
+        "qid": 31,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What brand is displayed in the white text on the black monitor?",
+        "wall_s": 8.947741137002595
+      },
+      {
+        "qid": 32,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the red text on the black button say?",
+        "wall_s": 8.239447150030173
+      },
+      {
+        "qid": 33,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the red text on the grey button say?",
+        "wall_s": 7.7010791500797495
+      },
+      {
+        "qid": 34,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What does the white text on the black background say?",
+        "wall_s": 8.123533069971018
+      },
+      {
+        "qid": 35,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What colors are indicated by the white text \"+12V G R B\" on the motherboard?",
+        "wall_s": 8.5343269869918
+      },
+      {
+        "qid": 36,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the black text say on the bottom part of the motherboard, above the button?",
+        "wall_s": 8.474985370994546
+      },
+      {
+        "qid": 37,
+        "gt": "A",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the motherboard?",
+        "wall_s": 8.497042467002757
+      },
+      {
+        "qid": 38,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is the white text on the black object?",
+        "wall_s": 8.723858974990435
+      },
+      {
+        "qid": 39,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What do the two sideway white texts on the black object say?",
+        "wall_s": 9.783670049975626
+      },
+      {
+        "qid": 40,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white sideway text on the black surface read?",
+        "wall_s": 9.29348068498075
+      },
+      {
+        "qid": 41,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the black text on the grey switch say?",
+        "wall_s": 8.784481175011024
+      },
+      {
+        "qid": 42,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is the white text on the black computer RAM?",
+        "wall_s": 8.827207073918544
+      },
+      {
+        "qid": 43,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the black text on the gray button say?",
+        "wall_s": 8.149886738974601
+      },
+      {
+        "qid": 44,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What are the white texts on the black motherboard?",
+        "wall_s": 8.289886850048788
+      },
+      {
+        "qid": 45,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the black text say on the white barcode?",
+        "wall_s": 8.220965850981884
+      },
+      {
+        "qid": 46,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black object?",
+        "wall_s": 8.378464570036158
+      },
+      {
+        "qid": 47,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black motherboard?",
+        "wall_s": 8.038384095998481
+      },
+      {
+        "qid": 48,
+        "gt": "A",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the black text on the pink barcode read?",
+        "wall_s": 8.536374330054969
+      },
+      {
+        "qid": 49,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What numbers are displayed on the white display on the black surface?",
+        "wall_s": 8.079701842041686
+      },
+      {
+        "qid": 50,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the black text say on the blue surface?",
+        "wall_s": 8.119720762013458
+      },
+      {
+        "qid": 51,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black tag say?",
+        "wall_s": 7.898861586931162
+      },
+      {
+        "qid": 52,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white-outlined black text on the black digital mixer read?",
+        "wall_s": 7.974215453956276
+      },
+      {
+        "qid": 53,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black digital mixer?",
+        "wall_s": 7.791221764055081
+      },
+      {
+        "qid": 54,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black amplifier say?",
+        "wall_s": 7.839406520011835
+      },
+      {
+        "qid": 55,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the amplifier?",
+        "wall_s": 8.001333703054115
+      },
+      {
+        "qid": 56,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the purple text say on the brown screen display?",
+        "wall_s": 7.96013800392393
+      },
+      {
+        "qid": 57,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the yellow text on the speaker read?",
+        "wall_s": 8.030247680959292
+      },
+      {
+        "qid": 58,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What numbers and letter are displayed on the black buttons?",
+        "wall_s": 8.16648718691431
+      },
+      {
+        "qid": 59,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black background with 2 antennas?",
+        "wall_s": 8.009923527017236
+      },
+      {
+        "qid": 60,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the brown text say on the black speaker?",
+        "wall_s": 7.93728077202104
+      },
+      {
+        "qid": 61,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black box?",
+        "wall_s": 7.594081212067977
+      },
+      {
+        "qid": 62,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What numbers are displayed on the white text with a black background located at the bottom right side?",
+        "wall_s": 8.067603943985887
+      },
+      {
+        "qid": 63,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black object?",
+        "wall_s": 8.19677490205504
+      },
+      {
+        "qid": 64,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the sign?",
+        "wall_s": 7.60138237697538
+      },
+      {
+        "qid": 65,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What are the white texts displayed on the black electronic device?",
+        "wall_s": 8.218464040081017
+      },
+      {
+        "qid": 66,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What color is the text on the first button of the nine gray buttons on the screen?",
+        "wall_s": 8.22642681596335
+      },
+      {
+        "qid": 67,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 8.3651453939965
+      },
+      {
+        "qid": 68,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "On the black background, what numbers are displayed in white text?",
+        "wall_s": 8.01901779603213
+      },
+      {
+        "qid": 69,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What numbers are displayed on the white surface of the black screen?",
+        "wall_s": 8.360231994069181
+      },
+      {
+        "qid": 70,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "On the gray surface, which combination of texts is correctly ordered from left to right?",
+        "wall_s": 8.30084690102376
+      },
+      {
+        "qid": 71,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What are the white text lines on the left side of the black section of the bottom screen reading?",
+        "wall_s": 8.622560741030611
+      },
+      {
+        "qid": 72,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the black text on the white button read?",
+        "wall_s": 8.473181209992617
+      },
+      {
+        "qid": 73,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What numbers are displayed on the white twelve lines in the center tab?",
+        "wall_s": 8.340950231999159
+      },
+      {
+        "qid": 74,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is the white text on the side of the black monitor screen?",
+        "wall_s": 8.456334250979125
+      },
+      {
+        "qid": 75,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What does the white text say on the black cable?",
+        "wall_s": 8.852842841064557
+      },
+      {
+        "qid": 76,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "In the upper left of the image, what does the white text say?",
+        "wall_s": 8.6715881859418
+      },
+      {
+        "qid": 77,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What number is displayed on the circular black button of the camcorder?",
+        "wall_s": 8.640464530093595
+      },
+      {
+        "qid": 78,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What number is displayed on the circular black button of the camcorder?",
+        "wall_s": 8.363606725004502
+      },
+      {
+        "qid": 113,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the gray text say on the white object?",
+        "wall_s": 8.553941963007674
+      },
+      {
+        "qid": 114,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What are the five lines of black text at the bottom of the white box?",
+        "wall_s": 8.36488972499501
+      },
+      {
+        "qid": 115,
+        "gt": "A",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black background?",
+        "wall_s": 8.518749556969851
+      },
+      {
+        "qid": 116,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black screen?",
+        "wall_s": 7.849136107950471
+      },
+      {
+        "qid": 117,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the orange background on the black text of the TV read?",
+        "wall_s": 8.884304979001172
+      },
+      {
+        "qid": 118,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is written on the white text displayed on the TV with a brown background?",
+        "wall_s": 8.352050720946863
+      },
+      {
+        "qid": 119,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What is written on the yellow book?",
+        "wall_s": 8.508414510055445
+      },
+      {
+        "qid": 120,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black book say?",
+        "wall_s": 8.620273992069997
+      },
+      {
+        "qid": 121,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text on the TV say?",
+        "wall_s": 8.020398233900778
+      },
+      {
+        "qid": 122,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What is written in silver on the white speaker?",
+        "wall_s": 8.77895947592333
+      },
+      {
+        "qid": 123,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the black text say on the white book?",
+        "wall_s": 8.00382878491655
+      },
+      {
+        "qid": 124,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What are the two white texts written on the black book?",
+        "wall_s": 8.441828679060563
+      },
+      {
+        "qid": 125,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What is displayed in the fourth movie tab?",
+        "wall_s": 7.984825063031167
+      },
+      {
+        "qid": 151,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is the text on the white watermark?",
+        "wall_s": 4.819201044971123
+      },
+      {
+        "qid": 152,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What brand is the TV?",
+        "wall_s": 4.262155040050857
+      },
+      {
+        "qid": 153,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "How many spikes are visible in the bathroom mirror?",
+        "wall_s": 4.611497928039171
+      },
+      {
+        "qid": 154,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written in white text on the black book?",
+        "wall_s": 4.988633611006662
+      },
+      {
+        "qid": 155,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What does the white text say on the black book?",
+        "wall_s": 5.2373635799158365
+      },
+      {
+        "qid": 156,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What are the black texts on the beige book?",
+        "wall_s": 6.119260395062156
+      },
+      {
+        "qid": 157,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "How many glasses are next to the bed?",
+        "wall_s": 4.6475244499742985
+      },
+      {
+        "qid": 158,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the white soap label?",
+        "wall_s": 5.834486136911437
+      },
+      {
+        "qid": 159,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is written in white on the brown book?",
+        "wall_s": 4.84754626697395
+      },
+      {
+        "qid": 160,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the gray text against the brown and gray backdrop say?",
+        "wall_s": 5.003228627028875
+      },
+      {
+        "qid": 177,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the black text on the book say?",
+        "wall_s": 9.001300322939642
+      },
+      {
+        "qid": 178,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What does the black text say on the framed art?",
+        "wall_s": 8.042399055906571
+      },
+      {
+        "qid": 191,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the black text located on the silver section of the oven?",
+        "wall_s": 7.658995841979049
+      },
+      {
+        "qid": 192,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What does the white text on the black frame say?",
+        "wall_s": 7.651852972921915
+      },
+      {
+        "qid": 197,
+        "gt": "B",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What does the white text on the dark blue sign read?",
+        "wall_s": 8.754671351984143
+      },
+      {
+        "qid": 245,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "How many holes are in the electrical outlet?",
+        "wall_s": 9.193897780030966
+      },
+      {
+        "qid": 246,
+        "gt": "C",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is written in white text on the orange clock?",
+        "wall_s": 8.848342624958605
+      },
+      {
+        "qid": 247,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written on the black glass candle?",
+        "wall_s": 8.763085589045659
+      },
+      {
+        "qid": 248,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What does the black text on the black rectangular object say?",
+        "wall_s": 8.367581238038838
+      },
+      {
+        "qid": 249,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is written in white text along the bottom of the television screen?",
+        "wall_s": 7.206807248061523
+      },
+      {
+        "qid": 250,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "Which ocean is labeled on the framed poster?",
+        "wall_s": 7.593400590005331
+      },
+      {
+        "qid": 251,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What is written in black text on the white book?",
+        "wall_s": 5.024053881992586
+      },
+      {
+        "qid": 252,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is written on the gray bag?",
+        "wall_s": 4.848851179936901
+      },
+      {
+        "qid": 253,
+        "gt": "C",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is written in black text on the white book?",
+        "wall_s": 5.897891583968885
+      },
+      {
+        "qid": 254,
+        "gt": "A",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What brown figure is on the top shelf?",
+        "wall_s": 4.645581091986969
+      },
+      {
+        "qid": 255,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What is written in white text on the brown book?",
+        "wall_s": 5.682143729995005
+      },
+      {
+        "qid": 256,
+        "gt": "D",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What name is written in the credits on the TV?",
+        "wall_s": 4.88820216502063
+      },
+      {
+        "qid": 257,
+        "gt": "B",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What shape is each hole in the electrical outlet?",
+        "wall_s": 5.353591168066487
+      },
+      {
+        "qid": 258,
+        "gt": "C",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What color is the soap bottle by the sink?",
+        "wall_s": 5.0594428380718455
+      },
+      {
+        "qid": 259,
+        "gt": "B",
+        "pred": "B",
+        "correct": 1,
+        "scoring_q": "What is written in black text on the light beige book?",
+        "wall_s": 4.796982858912088
+      },
+      {
+        "qid": 260,
+        "gt": "C",
+        "pred": "C",
+        "correct": 1,
+        "scoring_q": "What is the title of the top white book on the brown table?",
+        "wall_s": 4.893576281960122
+      },
+      {
+        "qid": 261,
+        "gt": "D",
+        "pred": "D",
+        "correct": 1,
+        "scoring_q": "What color is the stamp next to the black Chinese text?",
+        "wall_s": 4.7003050949424505
+      },
+      {
+        "qid": 262,
+        "gt": "A",
+        "pred": "A",
+        "correct": 1,
+        "scoring_q": "What is the title of the middle book in the stack on the brown table?",
+        "wall_s": 5.3026756750186905
+      },
+      {
+        "qid": 263,
+        "gt": "A",
+        "pred": "D",
+        "correct": 0,
+        "scoring_q": "What is written in orange text on the purple book?",
+        "wall_s": 7.969606408965774
+      },
+      {
+        "qid": 264,
+        "gt": "D",
+        "pred": "B",
+        "correct": 0,
+        "scoring_q": "What is written on the orange soap bottle?",
+        "wall_s": 8.138128543039784
+      },
+      {
+        "qid": 265,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What time is shown on the open microwave?",
+        "wall_s": 9.28109474608209
+      },
+      {
+        "qid": 266,
+        "gt": "D",
+        "pred": "C",
+        "correct": 0,
+        "scoring_q": "What is written in white text on the black board above the bed?",
+        "wall_s": 9.414416039944626
+      },
+      {
+        "qid": 267,
+        "gt": "B",
+        "pred": "A",
+        "correct": 0,
+        "scoring_q": "What is the color of the top of the wine bottle on the shelves?",
+        "wall_s": 9.473845737986267
+      }
+    ]
+  }
+}
