@@ -1,27 +1,57 @@
 """r/nvila-attention-distill Phase 2 step 2 — NVILA connector LLM-token-to-fine-patch mapping.
 
+# DEBUGGED 2026-04-26 — fine-grid assumption is WRONG
+
 Per modeling_nvila.py:_encode_vision (line 431+):
   shuffle_num = 9
   Per video: for each effective frame (tile-frames + thumbnail-frames):
-    - Take AutoGaze-kept fine patches (pad-removed)
+    - Take AutoGaze-kept patches (pad-removed)
     - Pad to multiple of 9 (replicate last token)
     - Concatenate
   Then TokenShuffle reshapes (N) -> (N//9) by grouping every 9 sequential tokens.
 
-So LLM token i corresponds to the 9 SEQUENTIAL "padded-effective-frames" tokens
-starting at position i*9 in the per-video padded sequence.
+CRITICAL INSIGHT: AutoGaze uses MULTI-SCALE patches, NOT just the fine 14x14
+grid. From actual gazing_info inspection:
+  - num_vision_tokens_each_frame = 265 (= 4 + 16 + 49 + 196 across 4 scales:
+    2x2, 4x4, 7x7, 14x14)
+  - gazing_pos values range [0, 4240) = 16 frames × 265 multi-scale tokens
+  - num_gazing_each_frame is per-frame, NON-UNIFORM across frames (e.g., qid=8
+    frame-0 keeps 132 patches but frames 1-15 keep only 10 each — task_loss-driven)
 
-Each padded slot is either:
-  (a) a real fine patch position (kept by AutoGaze) — has a frame_idx + patch_idx
-  (b) a padding replica of the frame's last real fine patch — same frame_idx + patch_idx as the previous
+So the SUPERVISION mapping is more complex than the previous fine-grid plan:
+  fine 14x14 (196) + 7x7 (49) + 4x4 (16) + 2x2 (4) = 265 multi-scale per frame
+  → AutoGaze keeps a subset (varies by task_loss_requirement)
+  → per-frame pad to multiple of 9
+  → concatenate frames
+  → TokenShuffle by 9
 
-We can build the mapping LLM_token_idx -> set of (frame_idx, patch_idx) using
-the cached gazing_info.
+BigHead (existing arch) operates at the fine 14x14 grid only. Phase 2 needs
+either:
+  A) Re-architect BigHead to score at the multi-scale grid (4 sub-grids),
+     match NVILA's full pipeline. Higher fidelity but more complex training.
+  B) Restrict supervision to fine-14x14 components of NVILA attention. For
+     each LLM token, find which of its 9 grouped slots correspond to fine-grid
+     positions; supervise BigHead only at those positions. Drops attention
+     info from coarser scales.
 
-For supervision:
-  target_fine[frame_idx, patch_idx] = NVILA_attention[llm_token_idx]
+Pickup checklist for next session:
+  1. Decide architecture (A or B). B is faster to prototype.
+  2. Build mapping: per-qid, gazing_pos % 265 for each kept patch identifies
+     which multi-scale level (or use scale offsets:
+        2x2: positions 0-3  (4 patches per frame; offset 0)
+        4x4: positions 4-19 (16 patches per frame; offset 4)
+        7x7: positions 20-68 (49 patches per frame; offset 20)
+        14x14: positions 69-264 (196 patches per frame; offset 69)
+     )
+  3. For each LLM token i (NVILA attention[i]):
+     - Find its 9 slot range in the padded-per-frame-concat sequence
+     - For each slot that's a 14x14 (fine-grid) kept patch: supervise BigHead
+       at that fine position with attention[i]
+     - For coarser-scale slots: ignore (in option B)
+  4. Confirm reconstruction: predicted-num-LLM-tokens (from mapping) should
+     equal cached num_v.
 
-Where llm_token_idx is the LLM token whose 9-slot range contains (frame, patch).
+This is multi-day architectural work.
 """
 from __future__ import annotations
 import numpy as np
