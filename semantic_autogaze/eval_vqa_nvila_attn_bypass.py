@@ -73,6 +73,15 @@ class NVILAAttentionScoreProvider:
         d = np.load(path, allow_pickle=True)
         fg = d["fine_grid_scores"]  # (T_tile, 14, 14)
         self.current_qid = int(qid)
+        # NaN handling: extraction occasionally hits fp16 overflow (~7% of qids
+        # in original cache). Replace any NaN-frame with uniform random scores
+        # so the top-K selection remains well-defined.
+        if np.isnan(fg).any():
+            fg = fg.copy()
+            fg = np.where(np.isnan(fg), np.random.rand(*fg.shape).astype(fg.dtype), fg)
+            self._nan_fallback_used = True
+        else:
+            self._nan_fallback_used = False
         self._cur_tile_scores = torch.from_numpy(fg.reshape(fg.shape[0], -1)).to(self.device)
 
     # No-op for compatibility with patch_processor_with_semantic_filter calling
