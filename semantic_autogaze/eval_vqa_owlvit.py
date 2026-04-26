@@ -1,5 +1,51 @@
 """r/owlvit-hlvid-vqa cycle 1: end-to-end VQA test of OWL-ViT-as-filter on HLVid.
 
+# IMPLEMENTATION STATUS — PARTIALLY BLOCKED 2026-04-26
+
+The OWL-ViT score provider is implemented and tested in isolation (correct
+shape (B, T*196), reasonable score range). Plumbing into eval_vlm_benchmark.py
+is in place: `score_provider`, `random_scoring`, `bypass_autogaze_selection`
+(tile-only) flags wired into `_shrink_unit_batch`.
+
+BLOCKER: Smoke test on n=5 HLVid household samples reveals a **per-qid
+RuntimeError** in NVILA's downstream forward pass:
+
+  "RuntimeError: The size of tensor a (22|20|18|...) must match the size of
+   tensor b (16) at non-singleton dimension 1"
+
+Pattern:
+- Same video (qid=8 and qid=9 both use clip_household_video_0_000.mp4) but
+  different qids fail differently.
+- The "16" matches T_tile = num_video_frames_thumbnail. The 22/20/18/... is
+  per-qid systematic.
+- random_scoring config sometimes succeeds where score_provider+match fails,
+  but also fails on some qids. So it's NOT specific to OWL-ViT.
+- `filter_thumbnails=False` doesn't help (so it's not a thumbnail-shape issue
+  in our own _shrink path).
+- bypass_autogaze_selection (tile-only, matching e787e0a's path) is in use.
+
+Hypothesis: NVILA's siglip downstream gather has a per-frame K assertion that
+my bypass-replaced (4, 16) num_gazing_each_frame_tiles tensor doesn't satisfy
+exactly the way the original variable-K version did. cycle 2 of
+r/semantic-only-hlvid-baseline (e5870da) DID succeed at this with an
+identical config — so either NVILA was updated on disk between Apr 25 and
+Apr 26, or there's a subtle env/seed dependence I haven't pinned.
+
+Pickup checklist:
+- Compare the cycle 2 hlvid_subset.json (true_match) per-question failure
+  rate; if cycle 2 also had ~50% errors masked as wrong predictions, this
+  blocker is pre-existing and we just need to handle errors gracefully.
+- Try `gazing_ratio_thumbnail=1.0` + `task_loss_requirement_thumbnail=None`
+  to disable thumb gazing entirely.
+- Add try/except in _shrink_unit_batch and skip failed videos rather than
+  crashing the per-config inference.
+- Swap to gaze_only mode for failing qids to confirm NVILA itself can handle
+  these videos without our patch.
+
+# Original module docstring follows.
+
+
+
 Replaces BigHead + CLIP scoring in eval_vlm_benchmark with an OWL-ViT score
 provider that runs the trained-for-text-conditioned-detection class predictor
 on each (frame, query) pair. Uses bypass_autogaze_selection so OWL-ViT picks
@@ -166,9 +212,9 @@ def main(args):
         num_video_frames_thumbnail=args.num_frames_thumbnail,
         max_tiles_video=args.max_tiles,
         gazing_ratio_tile=args.gazing_ratio,
-        gazing_ratio_thumbnail=1.0,
+        gazing_ratio_thumbnail=args.gazing_ratio_thumbnail,
         task_loss_requirement_tile=0.6,
-        task_loss_requirement_thumbnail=None,
+        task_loss_requirement_thumbnail=0.6,
         max_batch_size_autogaze=8,
         autogaze_model_id="nvidia/AutoGaze",
         trust_remote_code=True,
@@ -227,6 +273,7 @@ def main(args):
                 device=str(device),
                 bypass_autogaze_selection=True,
                 random_scoring=True,
+                filter_thumbnails=False,
             )
         else:
             patch_processor_with_semantic_filter(
@@ -236,6 +283,7 @@ def main(args):
                 device=str(device),
                 bypass_autogaze_selection=True,
                 score_provider=owlvit_provider,
+                filter_thumbnails=False,
             )
 
         per_q = []
@@ -337,7 +385,7 @@ def main(args):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--device", default="cuda:0")
-    p.add_argument("--model_path", default="Efficient-Large-Model/NVILA-8B-HD-Video")
+    p.add_argument("--model_path", default="nvidia/NVILA-8B-HD-Video")
     p.add_argument("--autogaze_model", default="nvidia/AutoGaze")
     p.add_argument("--ckpt", default="results/bighead/best_bighead.pt",
                    help="(BigHead checkpoint kept for SemanticAutoGazeWrapper plumbing only)")
@@ -350,6 +398,7 @@ if __name__ == "__main__":
     p.add_argument("--num_frames_thumbnail", type=int, default=16)
     p.add_argument("--max_tiles", type=int, default=4)
     p.add_argument("--gazing_ratio", type=float, default=0.20)
+    p.add_argument("--gazing_ratio_thumbnail", type=float, default=0.75)
     p.add_argument("--semantic_keep_ratio", type=float, default=0.14)
     p.add_argument("--output_dir", default="results/owlvit_hlvid_vqa")
     args = p.parse_args()

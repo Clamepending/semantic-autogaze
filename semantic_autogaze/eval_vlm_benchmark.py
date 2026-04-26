@@ -273,22 +273,10 @@ def patch_processor_with_semantic_filter(
                 )
                 nge = gazing_info["num_gazing_each_frame_tiles"][vid_idx]
                 gazing_info["num_gazing_each_frame_tiles"][vid_idx] = _torch.full_like(nge, N_per_frame)
-            if thumbs_autogaze is not None:
-                for vid_idx in range(len(thumbs_autogaze)):
-                    th = thumbs_autogaze[vid_idx]  # (num_thumb, T_thumb, C, H, W)
-                    num_t, T_thumb_v = th.shape[:2]
-                    N_per_frame = 196
-                    K_total = T_thumb_v * N_per_frame
-                    full_pos = _torch.arange(K_total, device=gazing_info["gazing_pos_thumbnails"][vid_idx].device,
-                                             dtype=gazing_info["gazing_pos_thumbnails"][vid_idx].dtype)
-                    full_pos = full_pos.unsqueeze(0).expand(num_t, -1).contiguous()
-                    gazing_info["gazing_pos_thumbnails"][vid_idx] = full_pos
-                    gazing_info["if_padded_gazing_thumbnails"][vid_idx] = _torch.zeros(
-                        num_t, K_total,
-                        device=full_pos.device, dtype=_torch.bool,
-                    )
-                    nge = gazing_info["num_gazing_each_frame_thumbnails"][vid_idx]
-                    gazing_info["num_gazing_each_frame_thumbnails"][vid_idx] = _torch.full_like(nge, N_per_frame)
+            # Note: r/owlvit-hlvid-vqa only bypasses TILES. Thumbnails keep
+            # their AutoGaze pruning so NVILA's downstream siglip thumb
+            # forward gets the K it expects (the 14x14 grid assumption fails
+            # for thumbs at higher patch resolutions).
 
         nonlocal query_text
         q = query_text or "important content"
