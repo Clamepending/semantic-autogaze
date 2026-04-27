@@ -52,6 +52,9 @@ DEFAULT_QUERIES = [
     ("bicycle", "bicycle"),
     ("tv", "screen"),
     ("cat", "cat"),
+    ("dog", "dog"),
+    ("car", "car"),
+    ("pizza", "pizza"),
 ]
 
 
@@ -300,15 +303,45 @@ def main(args):
             "raw CLIP": hm_clip, "raw SigLIP-2": hm_siglip2, "OWL-ViT": hm_owlvit,
         })
 
+    # ---- Compute per-method IoU at 14x14 vs GT (top-K binarization, K = # GT-positive patches) ----
+    methods = ["AutoGaze", "CLIPSeg", "BigHead", "raw CLIP", "raw SigLIP-2", "OWL-ViT"]
+    for pd in pairs_data:
+        # GT [H, W] -> [14, 14] via adaptive max-pool: any 14x14 patch overlapping
+        # GT counts as positive. Threshold the result to a strict binary at any-overlap.
+        gt = pd["gt"].astype(np.float32)
+        gt_t = torch.from_numpy(gt).unsqueeze(0).unsqueeze(0)
+        gt14 = F.adaptive_max_pool2d(gt_t, (GRID, GRID)).squeeze().numpy() > 0.5
+        K = int(gt14.sum())
+        pd["gt14_K"] = K
+        pd["iou"] = {}
+        for m in methods:
+            hm = pd[m]
+            # Top-K patches by raw heatmap value (higher = better match for all our scorers)
+            flat = hm.reshape(-1)
+            if K <= 0 or K >= flat.size:
+                pd["iou"][m] = float("nan"); continue
+            topk_idx = np.argpartition(-flat, K - 1)[:K]
+            mask14 = np.zeros_like(flat, dtype=bool)
+            mask14[topk_idx] = True
+            mask14 = mask14.reshape(GRID, GRID)
+            inter = np.logical_and(mask14, gt14).sum()
+            union = np.logical_or(mask14, gt14).sum()
+            pd["iou"][m] = float(inter / max(1, union))
+
     np.savez(out_dir / "qual_method_grid_coco_data.npz",
              pairs=np.array(pairs_data, dtype=object))
 
     # ---- Render grid ----
-    methods = ["AutoGaze", "CLIPSeg", "BigHead", "raw CLIP", "raw SigLIP-2", "OWL-ViT"]
     cols = ["input frame", "GT (COCO)"] + methods
     n_rows = len(pairs_data); n_cols = len(cols)
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(2.4 * n_cols, 2.6 * n_rows))
     if n_rows == 1: axes = np.array([axes])
+
+    # Per-method mean IoU across rows (for column header annotation).
+    mean_iou = {}
+    for m in methods:
+        vals = [pd["iou"][m] for pd in pairs_data if not np.isnan(pd["iou"][m])]
+        mean_iou[m] = float(np.mean(vals)) if vals else float("nan")
 
     for r, pd in enumerate(pairs_data):
         frame = pd["frame"]; H, W = frame.shape[:2]
@@ -340,12 +373,23 @@ def main(args):
             overlay = (frame / 255.0) * 0.45 + colored * 0.55
             axes[r, c_idx].imshow(overlay.clip(0, 1))
             axes[r, c_idx].set_xticks([]); axes[r, c_idx].set_yticks([])
+            iou = pd["iou"][m]
+            iou_str = f"IoU {iou:.2f}" if not np.isnan(iou) else "IoU n/a"
+            axes[r, c_idx].text(0.04, 0.96, iou_str, transform=axes[r, c_idx].transAxes,
+                                fontsize=9, fontweight="bold", color="white",
+                                ha="left", va="top",
+                                bbox=dict(facecolor="black", alpha=0.55, edgecolor="none",
+                                          boxstyle="round,pad=0.2"))
             if r == 0:
                 ms = bench_for_grid[m]["mean_ms"]
-                axes[r, c_idx].set_title(f"{m}\n{ms:.1f} ms", fontsize=10, fontweight="bold")
+                miou = mean_iou[m]
+                miou_str = f"mIoU {miou:.2f}" if not np.isnan(miou) else "mIoU n/a"
+                axes[r, c_idx].set_title(f"{m}\n{ms:.1f} ms · {miou_str}",
+                                         fontsize=10, fontweight="bold")
 
-    fig.suptitle("Per-patch heatmaps for each candidate scorer on COCO val2017 with GT mask "
-                 "(middle frame; query in row label).", fontsize=12, y=0.995)
+    fig.suptitle("Per-patch heatmaps for each candidate scorer on COCO val2017 with GT mask. "
+                 "Per-cell IoU at 14×14 vs GT (top-K binarization, K = # GT-positive 14×14 patches); "
+                 "column-header mIoU averages over rows.", fontsize=11, y=0.995)
     plt.tight_layout()
     grid_path = out_dir / "qualitative-method-grid.png"
     plt.savefig(grid_path, dpi=130, bbox_inches="tight")
