@@ -25,10 +25,12 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 sys.path.insert(0, "/home/ogata/semantic-autogaze")
+sys.path.insert(0, "/home/ogata/semantic-autogaze/scripts")
 from autogaze.models.autogaze import AutoGaze, AutoGazeImageProcessor
 from autogaze.datasets.video_utils import transform_video_for_pytorch
 from semantic_autogaze.semantic_autogaze_wrapper import SemanticAutoGazeWrapper
 from semantic_autogaze.train_bighead import BigSimilarityHead
+from train_independent_scorer import TextScorerHead
 from pycocotools.coco import COCO
 from pycocotools import mask as pycoco_mask
 
@@ -41,6 +43,7 @@ CLIPSEG_NAME = "CIDAS/clipseg-rd64-refined"
 SIGLIP2_NAME = "google/siglip2-base-patch16-224"
 OWLVIT_NAME = "google/owlvit-base-patch32"
 BIGHEAD_CKPT = "/home/ogata/semantic-autogaze/results/bighead/best_bighead.pt"
+OURS_CKPT = "/home/ogata/semantic-autogaze/results/independent_scorer/best_v1.pt"
 AUTOGAZE_NAME = "nvidia/AutoGaze"
 
 # (coco_category_name, scoring_query_text). The category name is COCO's; the
@@ -176,6 +179,22 @@ def heatmap_siglip2(siglip2_model, siglip2_tok, raw_image, query, device, size, 
 
 
 @torch.no_grad()
+def heatmap_ours(ours_head, clip_model, clip_tok, raw_image, query, device, clip_mean, clip_std):
+    """Independent scorer (CLIP frozen + small text-conditional head trained on COCO+CLIPSeg)."""
+    img = torch.from_numpy(raw_image).permute(2, 0, 1).float().unsqueeze(0).to(device) / 255.0
+    img = F.interpolate(img, size=(224, 224), mode="bicubic", align_corners=False)
+    img = (img - clip_mean[None, :, None, None]) / clip_std[None, :, None, None]
+    clip_model.visual.output_tokens = True
+    pooled, patch_tokens = clip_model.visual(img)  # (1, 196, 768)
+    clip_model.visual.output_tokens = False
+    toks = clip_tok([query]).to(device)
+    text_emb = F.normalize(clip_model.encode_text(toks), dim=-1)  # (1, 512)
+    scores = ours_head(patch_tokens, text_emb)  # (1, 196) logits
+    sm = torch.sigmoid(scores).reshape(GRID, GRID).cpu().numpy()
+    return sm
+
+
+@torch.no_grad()
 def heatmap_owlvit(owlvit_det, owlvit_tok, raw_image, query, device, size, mean, std):
     img = torch.from_numpy(raw_image).permute(2, 0, 1).float().unsqueeze(0).to(device) / 255.0
     img = F.interpolate(img, size=(size, size), mode="bicubic", align_corners=False)
@@ -231,6 +250,14 @@ def main(args):
                                 n_attn_heads=6, n_attn_layers=2, grid_size=GRID).to(device).eval()
     bighead.load_state_dict(torch.load(BIGHEAD_CKPT, map_location=device))
 
+    print("[setup] Ours v1 (independent text scorer) ...", flush=True)
+    ours_head = TextScorerHead(patch_dim=768, text_dim=512, hidden_dim=384,
+                               n_attn_heads=6, n_attn_layers=2, grid_size=GRID).to(device).eval()
+    _ckpt = torch.load(OURS_CKPT, map_location=device)
+    ours_head.load_state_dict(_ckpt["head"] if isinstance(_ckpt, dict) and "head" in _ckpt else _ckpt)
+    print(f"  Ours v1 ckpt val_iou={_ckpt.get('val_iou', float('nan')):.3f} epoch={_ckpt.get('epoch', '?')}",
+          flush=True)
+
     print("[setup] CLIPSeg ...", flush=True)
     from transformers import CLIPSegProcessor, CLIPSegForImageSegmentation
     clipseg_proc = CLIPSegProcessor.from_pretrained(CLIPSEG_NAME)
@@ -269,10 +296,47 @@ def main(args):
         print(f"[bench] reusing prior bench from {bench_path_prior}", flush=True)
     else:
         raise SystemExit("Prior bench.json not found; run scripts.qual_method_grid first")
+    # Bench Ours v1 (CLIP visual fwd batched over 16 frames + head + text encode, per video)
+    # Use the first chosen image tiled to 16 frames as the bench input.
+    print("[bench] timing Ours v1 (mean of 30 trials, 5 warmup) ...", flush=True)
+    bench_pil = Image.open(chosen[0]["image_path"]).convert("RGB")
+    bench_arr_HWC = np.array(bench_pil)
+    bench_video_THWC = np.repeat(bench_arr_HWC[None], T_FRAMES, axis=0)  # (16, H, W, 3)
+    bench_query = chosen[0]["query"]
+    def _ours_one_video():
+        # Batch all 16 frames through CLIP visual once
+        imgs = []
+        for t in range(T_FRAMES):
+            arr = bench_video_THWC[t]
+            tt = torch.from_numpy(arr).permute(2, 0, 1).float().to(device) / 255.0
+            tt = F.interpolate(tt.unsqueeze(0), size=(224, 224), mode="bicubic",
+                               align_corners=False).squeeze(0)
+            tt = (tt - CLIP_MEAN[:, None, None]) / CLIP_STD[:, None, None]
+            imgs.append(tt)
+        img_batch = torch.stack(imgs, dim=0)  # (16, 3, 224, 224) on device
+        clip_model.visual.output_tokens = True
+        _, patches = clip_model.visual(img_batch)  # (16, 196, 768)
+        clip_model.visual.output_tokens = False
+        toks = clip_tok([bench_query]).to(device)
+        text_emb = F.normalize(clip_model.encode_text(toks), dim=-1).expand(T_FRAMES, -1)  # (16, 512)
+        ours_head(patches, text_emb)  # (16, 196)
+    n_warmup, n_trials = 5, 30
+    for _ in range(n_warmup):
+        _ours_one_video(); torch.cuda.synchronize()
+    times = []
+    for _ in range(n_trials):
+        torch.cuda.synchronize(); t0 = time.perf_counter()
+        _ours_one_video(); torch.cuda.synchronize()
+        times.append((time.perf_counter() - t0) * 1000.0)
+    arr = np.array(times)
+    bench["Ours v1"] = {"mean_ms": float(arr.mean()), "std_ms": float(arr.std())}
+    print(f"  Ours v1                {arr.mean():8.2f} ± {arr.std():5.2f} ms", flush=True)
+
     bench_for_grid = {
         "AutoGaze":     bench["AutoGaze (deployed)"],
         "CLIPSeg":      bench["CLIPSeg"],
         "BigHead":      bench["BigHead"],
+        "Ours v1":      bench["Ours v1"],
         "raw CLIP":     bench["raw CLIP"],
         "raw SigLIP-2": bench["raw SigLIP-2"],
         "OWL-ViT":      bench["OWL-ViT"],
@@ -290,6 +354,8 @@ def main(args):
         hm_clipseg = heatmap_clipseg(clipseg_model, clipseg_proc, raw_image, c["query"], device)
         hm_autogaze = heatmap_autogaze(autogaze, video_autogaze)
         hm_bighead = heatmap_bighead(wrapper, bighead, video_autogaze, clip_text_emb)
+        hm_ours = heatmap_ours(ours_head, clip_model, clip_tok, raw_image, c["query"],
+                               device, CLIP_MEAN, CLIP_STD)
         hm_clip = heatmap_raw_clip(clip_model, clip_text_emb, raw_image, device, CLIP_MEAN, CLIP_STD)
         hm_siglip2 = heatmap_siglip2(siglip2_model, siglip2_tok, raw_image, c["query"],
                                      device, siglip2_size, siglip2_mean, siglip2_std)
@@ -300,11 +366,12 @@ def main(args):
             "category": c["category"], "query": c["query"], "file_name": c["file_name"],
             "frame": raw_image, "gt": c["gt_mask"],
             "AutoGaze": hm_autogaze, "CLIPSeg": hm_clipseg, "BigHead": hm_bighead,
+            "Ours v1": hm_ours,
             "raw CLIP": hm_clip, "raw SigLIP-2": hm_siglip2, "OWL-ViT": hm_owlvit,
         })
 
     # ---- Compute per-method IoU at 14x14 vs GT (top-K binarization, K = # GT-positive patches) ----
-    methods = ["AutoGaze", "CLIPSeg", "BigHead", "raw CLIP", "raw SigLIP-2", "OWL-ViT"]
+    methods = ["AutoGaze", "CLIPSeg", "BigHead", "Ours v1", "raw CLIP", "raw SigLIP-2", "OWL-ViT"]
     for pd in pairs_data:
         # GT [H, W] -> [14, 14] via adaptive max-pool: any 14x14 patch overlapping
         # GT counts as positive. Threshold the result to a strict binary at any-overlap.
