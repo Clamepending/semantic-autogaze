@@ -14,7 +14,7 @@ Loads:
   /home/ogata/semantic-autogaze/results/independent_scorer/best_v1.pt
 """
 from __future__ import annotations
-import os, sys, json, time, random, argparse
+import os, sys, json, time, random, gc, argparse
 from typing import Optional
 import numpy as np
 import torch
@@ -56,13 +56,21 @@ class OursV1ScoreProvider:
     via a separate path so this class is only used for matched / shuffled).
     """
 
-    def __init__(self, head_ckpt: str, device: torch.device):
-        import open_clip
+    def __init__(self, head_ckpt: str, device: torch.device,
+                 clip_model=None, clip_tok=None):
+        # Reuse the caller-provided CLIP backbone + tokenizer when available to
+        # avoid loading a duplicate ~600 MB on the same GPU as NVILA NF4 +
+        # AutoGaze. If absent, load fresh.
         self.device = device
-        self.clip_model, _, _ = open_clip.create_model_and_transforms(
-            "ViT-B-16", pretrained="openai")
-        self.clip_tok = open_clip.get_tokenizer("ViT-B-16")
-        self.clip_model = self.clip_model.to(device).eval()
+        if clip_model is None or clip_tok is None:
+            import open_clip
+            self.clip_model, _, _ = open_clip.create_model_and_transforms(
+                "ViT-B-16", pretrained="openai")
+            self.clip_tok = open_clip.get_tokenizer("ViT-B-16")
+            self.clip_model = self.clip_model.to(device).eval()
+        else:
+            self.clip_model = clip_model
+            self.clip_tok = clip_tok
         for p in self.clip_model.parameters(): p.requires_grad_(False)
 
         ckpt = torch.load(head_ckpt, map_location=device)
@@ -133,14 +141,24 @@ def main(args):
         autogaze_model_name=args.autogaze_model,
         head_ckpt=args.ckpt, head_type=args.head_type, device=str(device),
     )
+    torch.cuda.empty_cache()
 
-    print("Loading Ours v1 score provider...", flush=True)
-    ours_match = OursV1ScoreProvider(args.ours_ckpt, device)
-    ours_shuf = OursV1ScoreProvider(args.ours_ckpt, device)
+    print("Loading Ours v1 score provider (sharing CLIP with patch_processor)...", flush=True)
+    ours_match = OursV1ScoreProvider(args.ours_ckpt, device,
+                                     clip_model=clip_model, clip_tok=clip_tokenizer)
+    ours_shuf = OursV1ScoreProvider(args.ours_ckpt, device,
+                                    clip_model=clip_model, clip_tok=clip_tokenizer)
+    torch.cuda.empty_cache()
 
     print("Loading NVILA-8B-HD-Video...", flush=True)
+    # NVILA's processor.__init__ defaults autogaze_model_id to "bfshi/AutoGaze",
+    # whose HF cache on this box is incomplete (preprocessor_config.json mismatch
+    # under newer transformers). Pin to nvidia/AutoGaze so the per-batch
+    # AutoGazeImageProcessor.from_pretrained call inside processor.__call__ resolves.
     processor = AutoProcessor.from_pretrained(
         args.model_path,
+        trust_remote_code=True,
+        autogaze_model_id=args.autogaze_model,
         num_video_frames=args.num_frames,
         num_video_frames_thumbnail=args.num_frames_thumbnail,
         max_tiles_video=args.max_tiles,
@@ -156,6 +174,7 @@ def main(args):
         device_map=args.device, max_batch_size_siglip=8,
     )
     model.eval()
+    torch.cuda.empty_cache()
     print("Model loaded.", flush=True)
 
     print(f"\nLoading HLVid samples (filter category=household)...", flush=True)
@@ -181,9 +200,25 @@ def main(args):
         else:
             processor._original_get_gazing = processor._get_gazing_info_from_videos
 
-        per_q = []; correct = 0; total = 0; latencies = []
+        # Resume from any per-qid checkpoint to recover from prior crashes.
+        per_qid_path = os.path.join(args.output_dir, f"per_qid_{cfg}.json")
+        if os.path.exists(per_qid_path):
+            with open(per_qid_path) as _f:
+                saved = json.load(_f)
+            per_q = saved.get("per_q", [])
+            done_qids = {p["qid"] for p in per_q if p.get("pred", "ERROR") != "ERROR"}
+            correct = sum(p["correct"] for p in per_q)
+            latencies = [p["wall_s"] for p in per_q if p.get("wall_s", -1) > 0]
+            print(f"  [resume] loaded {len(per_q)} per-qid records from {per_qid_path} "
+                  f"({correct} correct, {len(done_qids)} done qids)", flush=True)
+        else:
+            per_q = []; correct = 0; latencies = []
+            done_qids = set()
+        total = len(done_qids)
         for i, sample in enumerate(samples):
             qid = sample["question_id"]
+            if qid in done_qids:
+                continue
             try:
                 processor._get_gazing_info_from_videos = processor._original_get_gazing
 
@@ -237,6 +272,13 @@ def main(args):
                     print(f"  [{i+1}/{len(samples)}] qid={qid} gt={gt} pred={pred} "
                           f"acc={correct}/{total} avg_lat={sum(latencies)/len(latencies):.2f}s",
                           flush=True)
+                # Per-qid incremental save + memory hygiene.
+                with open(per_qid_path, "w") as _f:
+                    json.dump({"cfg": cfg, "per_q": per_q,
+                               "correct": correct, "total": total}, _f)
+                if (i + 1) % 10 == 0:
+                    gc.collect()
+                    torch.cuda.empty_cache()
             except Exception as e:
                 import traceback; tb = traceback.format_exc()
                 print(f"  [error] qid={qid}: {type(e).__name__}: {e}", flush=True)
@@ -253,6 +295,12 @@ def main(args):
         }
         print(f"\n  >>> ours_v1_{cfg}: {correct}/{total} = {correct/max(total,1):.4f}, "
               f"avg_lat={sum(latencies)/max(len(latencies),1):.2f}s")
+
+        # Incremental save after each config so a mid-run crash doesn't lose per_q.
+        partial_path = os.path.join(args.output_dir, f"partial_{cfg}.json")
+        with open(partial_path, "w") as f:
+            json.dump(all_results[f"ours_v1_{cfg}"], f, indent=2)
+        print(f"  [saved partial] {partial_path}", flush=True)
 
     print(f"\n{'='*60}\nPaired-flip\n{'='*60}")
     paired = {}
