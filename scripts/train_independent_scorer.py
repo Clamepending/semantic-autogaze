@@ -125,9 +125,10 @@ class TextScorerHead(nn.Module):
     Output: scores (B, 196) logits
     """
     def __init__(self, patch_dim=768, text_dim=512, hidden_dim=384,
-                 n_attn_heads=6, n_attn_layers=2, grid_size=GRID):
+                 n_attn_heads=6, n_attn_layers=2, grid_size=GRID, use_spatial=True):
         super().__init__()
         self.grid_size = grid_size
+        self.use_spatial = use_spatial
 
         self.patch_proj = nn.Sequential(
             nn.Linear(patch_dim, hidden_dim), nn.GELU(), nn.LayerNorm(hidden_dim),
@@ -156,11 +157,14 @@ class TextScorerHead(nn.Module):
             nn.Linear(hidden_dim, hidden_dim // 2), nn.GELU(),
             nn.Linear(hidden_dim // 2, 1),
         )
-        self.spatial = nn.Sequential(
-            nn.Conv2d(1, 64, kernel_size=3, padding=1), nn.GELU(),
-            nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.GELU(),
-            nn.Conv2d(64, 1, kernel_size=3, padding=1),
-        )
+        if use_spatial:
+            self.spatial = nn.Sequential(
+                nn.Conv2d(1, 64, kernel_size=3, padding=1), nn.GELU(),
+                nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.GELU(),
+                nn.Conv2d(64, 1, kernel_size=3, padding=1),
+            )
+        else:
+            self.spatial = None
 
     def forward(self, patch_feats, text_emb):
         B = patch_feats.shape[0]
@@ -180,6 +184,8 @@ class TextScorerHead(nn.Module):
         x = self.cross_norm(x + cross_out)
 
         scores = self.score_mlp(x).squeeze(-1)  # (B, 196)
+        if self.spatial is None:
+            return scores
         grids = scores.reshape(B, 1, G, G)
         refined = grids + self.spatial(grids)
         return refined.reshape(B, G * G)
@@ -192,15 +198,15 @@ def encode_clip_patches_and_text(clip_model, clip_tok,
                                  pil_images, queries, device,
                                  mean, std):
     """Batch through CLIP visual + text. Returns patch_feats (B, 196, 768), text_emb (B, 512)."""
-    # Image tensor batch
+    # Image tensor batch — move to device before normalization with device-resident mean/std
     imgs = []
     for pil in pil_images:
         arr = np.array(pil)  # H,W,3
-        t = torch.from_numpy(arr).permute(2, 0, 1).float() / 255.0
+        t = torch.from_numpy(arr).permute(2, 0, 1).float().to(device) / 255.0
         t = F.interpolate(t.unsqueeze(0), size=(224, 224), mode="bicubic", align_corners=False).squeeze(0)
         t = (t - mean[:, None, None]) / std[:, None, None]
         imgs.append(t)
-    img_batch = torch.stack(imgs, dim=0).to(device)  # (B, 3, 224, 224)
+    img_batch = torch.stack(imgs, dim=0)  # (B, 3, 224, 224) on device
 
     clip_model.visual.output_tokens = True
     pooled, patch_tokens = clip_model.visual(img_batch)  # patch_tokens: (B, 196, 768)

@@ -98,9 +98,15 @@ def main(args):
         teacher = ("v1", v1_head)
 
     print("[setup] head + datasets ...", flush=True)
-    head = TextScorerHead(patch_dim=embed_dim, text_dim=512, hidden_dim=384,
-                          n_attn_heads=6, n_attn_layers=2, grid_size=GRID).to(device)
-    print(f"  head: {sum(p.numel() for p in head.parameters())/1e6:.2f}M params (patch_dim={embed_dim})", flush=True)
+    head = TextScorerHead(patch_dim=embed_dim, text_dim=512,
+                          hidden_dim=args.head_hidden_dim,
+                          n_attn_heads=args.head_attn_heads,
+                          n_attn_layers=args.head_attn_layers,
+                          grid_size=GRID,
+                          use_spatial=args.head_use_spatial).to(device)
+    print(f"  head: {sum(p.numel() for p in head.parameters())/1e6:.2f}M params "
+          f"(patch_dim={embed_dim}, hidden={args.head_hidden_dim}, "
+          f"n_attn={args.head_attn_layers}, spatial={args.head_use_spatial})", flush=True)
 
     train_ds = CocoCatScorerDataset(args.coco_root, split="train")
     val_ds = CocoCatScorerDataset(args.coco_root, split="val")
@@ -205,6 +211,11 @@ if __name__ == "__main__":
     p.add_argument("--gamma", type=float, default=0.4, help="MSE on Ours-v1-soft (distillation) weight; 0 disables")
     p.add_argument("--distill_v1", action="store_true", default=True,
                    help="Add Ours v1 outputs as a soft-target loss (distillation)")
+    p.add_argument("--head_hidden_dim", type=int, default=384)
+    p.add_argument("--head_attn_layers", type=int, default=2)
+    p.add_argument("--head_attn_heads", type=int, default=6)
+    p.add_argument("--head_use_spatial", action="store_true", default=False,
+                   help="Enable 3-conv spatial-refinement layer in head")
     p.add_argument("--seed", type=int, default=42)
     args = p.parse_args()
     main(args)

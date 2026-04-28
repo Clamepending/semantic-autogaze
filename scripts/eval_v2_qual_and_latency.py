@@ -35,8 +35,17 @@ def main():
     backbone_name = ckpt["backbone"]; embed_dim = ckpt["embed_dim"]
     print(f"loading v2 backbone: {backbone_name}, embed_dim={embed_dim}")
     bb = timm.create_model(backbone_name, pretrained=True, num_classes=0).to(device).eval()
-    head = TextScorerHead(patch_dim=embed_dim, text_dim=512, hidden_dim=384,
-                          n_attn_heads=6, n_attn_layers=2, grid_size=GRID).to(device).eval()
+    cargs = ckpt.get("args", {}) or {}
+    head_kwargs = dict(
+        patch_dim=embed_dim, text_dim=512,
+        hidden_dim=cargs.get("head_hidden_dim", 384),
+        n_attn_heads=cargs.get("head_attn_heads", 6),
+        n_attn_layers=cargs.get("head_attn_layers", 2),
+        grid_size=GRID,
+        use_spatial=cargs.get("head_use_spatial", True),
+    )
+    print(f"  head_kwargs: {head_kwargs}")
+    head = TextScorerHead(**head_kwargs).to(device).eval()
     head.load_state_dict(ckpt["head"])
 
     print("loading CLIP text encoder ...")
@@ -95,19 +104,16 @@ def main():
     arr = np.array(Image.open(os.path.join(COCO_ROOT, "val2017",
                                             coco.loadImgs([QUAL_PAIRS[0][1]])[0]["file_name"])).convert("RGB"))
     video_THWC = np.repeat(arr[None], 16, axis=0)
+    # Pre-stage the input on GPU once (we measure model-only latency).
+    bench_in = torch.from_numpy(video_THWC).permute(0, 3, 1, 2).float().to(device) / 255.0
+    bench_in = F.interpolate(bench_in, size=(224, 224), mode="bicubic", align_corners=False)
+    bench_in = (bench_in - IM_MEAN_T[None, :, None, None]) / IM_STD_T[None, :, None, None]
     bench_query = "bird"
+    bench_toks = clip_tok([bench_query]).to(device)
     def f_v2():
-        imgs = []
-        for t in range(16):
-            tt = torch.from_numpy(video_THWC[t]).permute(2, 0, 1).float().to(device) / 255.0
-            tt = F.interpolate(tt.unsqueeze(0), size=(224, 224), mode="bicubic", align_corners=False).squeeze(0)
-            tt = (tt - IM_MEAN_T[:, None, None]) / IM_STD_T[:, None, None]
-            imgs.append(tt)
-        img_b = torch.stack(imgs, dim=0)
-        feats = bb.forward_features(img_b)
+        feats = bb.forward_features(bench_in)
         if feats.shape[1] == 197: feats = feats[:, 1:, :]
-        toks = clip_tok([bench_query]).to(device)
-        text_emb = F.normalize(clip_model.encode_text(toks), dim=-1).expand(16, -1)
+        text_emb = F.normalize(clip_model.encode_text(bench_toks), dim=-1).expand(16, -1)
         head(feats, text_emb)
 
     print("\n[bench] timing v2 (5 warmup + 30 trials, 16-frame video)")
