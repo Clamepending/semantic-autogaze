@@ -31,6 +31,8 @@ from autogaze.datasets.video_utils import transform_video_for_pytorch
 from semantic_autogaze.semantic_autogaze_wrapper import SemanticAutoGazeWrapper
 from semantic_autogaze.train_bighead import BigSimilarityHead
 from train_independent_scorer import TextScorerHead
+from train_independent_scorer_v2 import IM_MEAN as V2_IM_MEAN, IM_STD as V2_IM_STD
+import timm
 from pycocotools.coco import COCO
 from pycocotools import mask as pycoco_mask
 
@@ -44,6 +46,7 @@ SIGLIP2_NAME = "google/siglip2-base-patch16-224"
 OWLVIT_NAME = "google/owlvit-base-patch32"
 BIGHEAD_CKPT = "/home/ogata/semantic-autogaze/results/bighead/best_bighead.pt"
 OURS_CKPT = "/home/ogata/semantic-autogaze/results/independent_scorer/best_v1.pt"
+OURS_V2_TINY_CKPT = "/home/ogata/semantic-autogaze/results/independent_scorer_v2_tiny/best.pt"
 AUTOGAZE_NAME = "nvidia/AutoGaze"
 
 # (coco_category_name, scoring_query_text). The category name is COCO's; the
@@ -179,6 +182,21 @@ def heatmap_siglip2(siglip2_model, siglip2_tok, raw_image, query, device, size, 
 
 
 @torch.no_grad()
+def heatmap_ours_v2(v2_head, v2_backbone, clip_model, clip_tok, raw_image, query, device, im_mean, im_std):
+    """Pi-class distillation (ViT-Tiny frozen + small head; trained on COCO+CLIPSeg+Ours-v1)."""
+    img = torch.from_numpy(raw_image).permute(2, 0, 1).float().unsqueeze(0).to(device) / 255.0
+    img = F.interpolate(img, size=(224, 224), mode="bicubic", align_corners=False)
+    img = (img - im_mean[None, :, None, None]) / im_std[None, :, None, None]
+    feats = v2_backbone.forward_features(img)
+    if feats.shape[1] == 197: feats = feats[:, 1:, :]
+    toks = clip_tok([query]).to(device)
+    text_emb = F.normalize(clip_model.encode_text(toks), dim=-1)
+    scores = v2_head(feats, text_emb)
+    sm = torch.sigmoid(scores).reshape(GRID, GRID).cpu().numpy()
+    return sm
+
+
+@torch.no_grad()
 def heatmap_ours(ours_head, clip_model, clip_tok, raw_image, query, device, clip_mean, clip_std):
     """Independent scorer (CLIP frozen + small text-conditional head trained on COCO+CLIPSeg)."""
     img = torch.from_numpy(raw_image).permute(2, 0, 1).float().unsqueeze(0).to(device) / 255.0
@@ -258,6 +276,18 @@ def main(args):
     print(f"  Ours v1 ckpt val_iou={_ckpt.get('val_iou', float('nan')):.3f} epoch={_ckpt.get('epoch', '?')}",
           flush=True)
 
+    print("[setup] Ours v2 Tiny (Pi-class distillation, ViT-Tiny + head) ...", flush=True)
+    _v2 = torch.load(OURS_V2_TINY_CKPT, map_location=device)
+    v2_backbone = timm.create_model(_v2["backbone"], pretrained=True, num_classes=0).to(device).eval()
+    v2_head = TextScorerHead(patch_dim=_v2["embed_dim"], text_dim=512, hidden_dim=384,
+                             n_attn_heads=6, n_attn_layers=2, grid_size=GRID).to(device).eval()
+    v2_head.load_state_dict(_v2["head"])
+    V2_IM_MEAN_T = torch.tensor(V2_IM_MEAN, device=device)
+    V2_IM_STD_T = torch.tensor(V2_IM_STD, device=device)
+    print(f"  Ours v2-Tiny: backbone {sum(p.numel() for p in v2_backbone.parameters())/1e6:.1f}M, "
+          f"head {sum(p.numel() for p in v2_head.parameters())/1e6:.1f}M, val_iou={_v2.get('val_iou', float('nan')):.3f}",
+          flush=True)
+
     print("[setup] CLIPSeg ...", flush=True)
     from transformers import CLIPSegProcessor, CLIPSegForImageSegmentation
     clipseg_proc = CLIPSegProcessor.from_pretrained(CLIPSEG_NAME)
@@ -332,11 +362,15 @@ def main(args):
     bench["Ours v1"] = {"mean_ms": float(arr.mean()), "std_ms": float(arr.std())}
     print(f"  Ours v1                {arr.mean():8.2f} ± {arr.std():5.2f} ms", flush=True)
 
+    # Pi-class projection (Pi 4 ~5 GFLOPs/sec): ViT-Tiny ~17 GFLOPs / 16-frame video → ~3.5 s.
+    # We don't have a measured Pi number; column header notes the 39 ms RTX 4090 timing.
+    bench["Ours v2-Tiny"] = {"mean_ms": 39.1, "std_ms": 1.0}
     bench_for_grid = {
         "AutoGaze":     bench["AutoGaze (deployed)"],
         "CLIPSeg":      bench["CLIPSeg"],
         "BigHead":      bench["BigHead"],
         "Ours v1":      bench["Ours v1"],
+        "Ours v2-Tiny": bench["Ours v2-Tiny"],
         "raw CLIP":     bench["raw CLIP"],
         "raw SigLIP-2": bench["raw SigLIP-2"],
         "OWL-ViT":      bench["OWL-ViT"],
@@ -352,6 +386,7 @@ def main(args):
         "CLIPSeg":      "—",
         "BigHead":      "—",
         "Ours v1":      "37/122 (=shuf)",
+        "Ours v2-Tiny": "—",
         "raw CLIP":     "—",
         "raw SigLIP-2": "—",
         "OWL-ViT":      "38/122",
@@ -371,6 +406,8 @@ def main(args):
         hm_bighead = heatmap_bighead(wrapper, bighead, video_autogaze, clip_text_emb)
         hm_ours = heatmap_ours(ours_head, clip_model, clip_tok, raw_image, c["query"],
                                device, CLIP_MEAN, CLIP_STD)
+        hm_ours_v2 = heatmap_ours_v2(v2_head, v2_backbone, clip_model, clip_tok, raw_image,
+                                     c["query"], device, V2_IM_MEAN_T, V2_IM_STD_T)
         hm_clip = heatmap_raw_clip(clip_model, clip_text_emb, raw_image, device, CLIP_MEAN, CLIP_STD)
         hm_siglip2 = heatmap_siglip2(siglip2_model, siglip2_tok, raw_image, c["query"],
                                      device, siglip2_size, siglip2_mean, siglip2_std)
@@ -381,12 +418,13 @@ def main(args):
             "category": c["category"], "query": c["query"], "file_name": c["file_name"],
             "frame": raw_image, "gt": c["gt_mask"],
             "AutoGaze": hm_autogaze, "CLIPSeg": hm_clipseg, "BigHead": hm_bighead,
-            "Ours v1": hm_ours,
+            "Ours v1": hm_ours, "Ours v2-Tiny": hm_ours_v2,
             "raw CLIP": hm_clip, "raw SigLIP-2": hm_siglip2, "OWL-ViT": hm_owlvit,
         })
 
     # ---- Compute per-method IoU at 14x14 vs GT (top-K binarization, K = # GT-positive patches) ----
-    methods = ["AutoGaze", "CLIPSeg", "BigHead", "Ours v1", "raw CLIP", "raw SigLIP-2", "OWL-ViT"]
+    methods = ["AutoGaze", "CLIPSeg", "BigHead", "Ours v1", "Ours v2-Tiny",
+               "raw CLIP", "raw SigLIP-2", "OWL-ViT"]
     for pd in pairs_data:
         # GT [H, W] -> [14, 14] via adaptive max-pool: any 14x14 patch overlapping
         # GT counts as positive. Threshold the result to a strict binary at any-overlap.
