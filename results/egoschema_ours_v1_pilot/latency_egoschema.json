@@ -1,0 +1,17 @@
+{
+  "v1": {
+    "mean_ms": 20.11334820650518,
+    "std_ms": 0.08915213958940199,
+    "note": "deployment-realistic: pre-cached text emb on EgoSchema 16-frame 3-min ego clip"
+  },
+  "v2-Tiny": {
+    "mean_ms": 10.318207158707082,
+    "std_ms": 1.1561610862071552,
+    "note": "deployment-realistic: pre-cached text emb on EgoSchema 16-frame 3-min ego clip"
+  },
+  "D-Mobile": {
+    "mean_ms": 11.951627158559859,
+    "std_ms": 1.3952459012524139,
+    "note": "deployment-realistic: pre-cached text emb on EgoSchema 16-frame 3-min ego clip"
+  }
+}
