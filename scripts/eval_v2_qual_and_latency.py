@@ -12,6 +12,17 @@ sys.path.insert(0, "/home/ogata/semantic-autogaze/scripts")
 from train_independent_scorer import TextScorerHead, GRID
 from train_independent_scorer_v2 import IM_MEAN, IM_STD, BACKBONES
 
+
+def _adapt_features(feats):
+    """Convert backbone output to (B, 196, C). ViT: drop CLS if present.
+    CNN (B, C, h, w): bilinear upsample to (B, C, 14, 14), then reshape."""
+    if feats.dim() == 4:
+        feats = F.interpolate(feats, size=(GRID, GRID), mode="bilinear", align_corners=False)
+        return feats.permute(0, 2, 3, 1).reshape(feats.shape[0], GRID * GRID, feats.shape[1])
+    if feats.shape[1] == 197:
+        return feats[:, 1:, :]
+    return feats
+
 import pycocotools.coco as cc
 COCO_ROOT = "/home/ogata/semantic-autogaze/data/coco_val2017"
 QUAL_PAIRS = [
@@ -81,8 +92,7 @@ def main():
             t = F.interpolate(t.unsqueeze(0), size=(224, 224), mode="bicubic",
                               align_corners=False).squeeze(0)
             t = (t - IM_MEAN_T[:, None, None]) / IM_STD_T[:, None, None]
-            feats = bb.forward_features(t.unsqueeze(0))
-            if feats.shape[1] == 197: feats = feats[:, 1:, :]
+            feats = _adapt_features(bb.forward_features(t.unsqueeze(0)))
             toks = clip_tok([query]).to(device)
             text_emb = F.normalize(clip_model.encode_text(toks), dim=-1)
             scores = head(feats, text_emb)
@@ -111,8 +121,7 @@ def main():
     bench_query = "bird"
     bench_toks = clip_tok([bench_query]).to(device)
     def f_v2():
-        feats = bb.forward_features(bench_in)
-        if feats.shape[1] == 197: feats = feats[:, 1:, :]
+        feats = _adapt_features(bb.forward_features(bench_in))
         text_emb = F.normalize(clip_model.encode_text(bench_toks), dim=-1).expand(16, -1)
         head(feats, text_emb)
 

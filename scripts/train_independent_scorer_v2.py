@@ -33,18 +33,28 @@ from train_independent_scorer import (
 
 # ---- Backbone registry ----
 BACKBONES = {
-    "tiny":  "vit_tiny_patch16_224.augreg_in21k_ft_in1k",   # 5.5M, embed_dim=192
-    "small": "vit_small_patch16_224.augreg_in21k_ft_in1k",  # 21.7M, embed_dim=384
+    "tiny":      "vit_tiny_patch16_224.augreg_in21k_ft_in1k",   # 5.5M, ViT, embed=192, 196 patches
+    "small":     "vit_small_patch16_224.augreg_in21k_ft_in1k",  # 21.7M, ViT, embed=384, 196 patches
+    "mobilenet": "mobilenetv3_small_100",                        # 1.5M, CNN, 576 ch, 7x7 → upsample 14x14
 }
-# Standard ImageNet normalization for timm ViTs above.
+# Standard ImageNet normalization for timm models.
 IM_MEAN = (0.485, 0.456, 0.406)
 IM_STD = (0.229, 0.224, 0.225)
 
 
+def _is_cnn_backbone(name: str) -> bool:
+    return "mobilenet" in name.lower() or "efficientnet" in name.lower()
+
+
 @torch.no_grad()
 def encode_timm_patches(timm_model, pil_images, device, mean, std):
-    """Run timm ViT visual on a list of PIL images, return (B, 196, embed_dim)
-    pre-norm patch tokens (without CLS)."""
+    """Run timm visual on a list of PIL images, return (B, 196, embed_dim).
+
+    For ViT backbones (patch=16 at 224 res) the token dimension is naturally 196
+    (drop CLS token if present). For CNN backbones (e.g. MobileNet-V3-Small),
+    forward_features returns (B, C, 7, 7) — bilinear-upsample to (B, C, 14, 14)
+    and flatten to (B, 196, C) so the same head can consume the features.
+    """
     imgs = []
     for pil in pil_images:
         arr = np.array(pil)
@@ -53,9 +63,13 @@ def encode_timm_patches(timm_model, pil_images, device, mean, std):
         t = (t - mean[:, None, None]) / std[:, None, None]
         imgs.append(t)
     img_batch = torch.stack(imgs, dim=0)
-    feats = timm_model.forward_features(img_batch)  # (B, 197, embed_dim) — CLS + 196 patches
-    if feats.shape[1] == 197:
-        feats = feats[:, 1:, :]  # drop CLS, keep 196 patches
+    feats = timm_model.forward_features(img_batch)
+    if feats.dim() == 4:
+        # CNN feature map (B, C, h, w) — bilinear upsample to 14x14, flatten
+        feats = F.interpolate(feats, size=(GRID, GRID), mode="bilinear", align_corners=False)
+        feats = feats.permute(0, 2, 3, 1).reshape(feats.shape[0], GRID * GRID, feats.shape[1])
+    elif feats.shape[1] == 197:
+        feats = feats[:, 1:, :]  # ViT with CLS token, drop CLS
     return feats
 
 
@@ -67,8 +81,15 @@ def main(args):
     print(f"[setup] backbone = {BACKBONES[args.backbone]}", flush=True)
     bb = timm.create_model(BACKBONES[args.backbone], pretrained=True, num_classes=0).to(device).eval()
     for p in bb.parameters(): p.requires_grad_(False)
-    embed_dim = bb.embed_dim
-    print(f"  embed_dim={embed_dim}, params={sum(p.numel() for p in bb.parameters())/1e6:.2f}M", flush=True)
+    # Probe embed_dim by running a dummy forward (handles CNN vs ViT uniformly).
+    with torch.no_grad():
+        _probe = bb.forward_features(torch.zeros(1, 3, 224, 224, device=device))
+    if _probe.dim() == 4:  # CNN
+        embed_dim = _probe.shape[1]
+    else:  # ViT
+        embed_dim = _probe.shape[-1]
+    print(f"  feature shape={tuple(_probe.shape)}, channel/embed_dim={embed_dim}, "
+          f"params={sum(p.numel() for p in bb.parameters())/1e6:.2f}M", flush=True)
 
     print("[setup] CLIP text encoder for query embeddings (frozen) ...", flush=True)
     import open_clip
