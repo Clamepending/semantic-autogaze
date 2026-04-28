@@ -341,6 +341,21 @@ def main(args):
         "raw SigLIP-2": bench["raw SigLIP-2"],
         "OWL-ViT":      bench["OWL-ViT"],
     }
+    # HLVid household VQA bypass accuracy at K=27 (n=122). Only populated for
+    # methods we have actually measured end-to-end via bypass_autogaze_selection.
+    # Vanilla AutoGaze rank-1 baseline = 53/122 (it's not bypass — it IS the gater);
+    # OWL-ViT from r/owlvit-hlvid-vqa@7e622c9; Ours v1 from r/independent-text-scorer-v1
+    # cycle 2 (this run, summary.json). Other methods never tested at end-to-end VQA
+    # bypass — only at fidelity / mIoU level — so we leave a dash.
+    HLVID_HH_K27 = {
+        "AutoGaze":     "53/122 (vanilla)",
+        "CLIPSeg":      "—",
+        "BigHead":      "—",
+        "Ours v1":      "37/122 (=shuf)",
+        "raw CLIP":     "—",
+        "raw SigLIP-2": "—",
+        "OWL-ViT":      "38/122",
+    }
 
     # ---- Per-pair: extract heatmaps + frame ----
     pairs_data = []
@@ -451,12 +466,14 @@ def main(args):
                 ms = bench_for_grid[m]["mean_ms"]
                 miou = mean_iou[m]
                 miou_str = f"mIoU {miou:.2f}" if not np.isnan(miou) else "mIoU n/a"
-                axes[r, c_idx].set_title(f"{m}\n{ms:.1f} ms · {miou_str}",
-                                         fontsize=10, fontweight="bold")
+                hlvid = HLVID_HH_K27.get(m, "—")
+                axes[r, c_idx].set_title(f"{m}\n{ms:.1f} ms · {miou_str}\nHLVid: {hlvid}",
+                                         fontsize=9, fontweight="bold")
 
     fig.suptitle("Per-patch heatmaps for each candidate scorer on COCO val2017 with GT mask. "
                  "Per-cell IoU at 14×14 vs GT (top-K binarization, K = # GT-positive 14×14 patches); "
-                 "column-header mIoU averages over rows.", fontsize=11, y=0.995)
+                 "column-header mIoU averages over rows. HLVid line = HLVid household VQA bypass "
+                 "accuracy at K=27 (n=122) where measured (— if not run).", fontsize=10, y=0.995)
     plt.tight_layout()
     grid_path = out_dir / "qualitative-method-grid.png"
     plt.savefig(grid_path, dpi=130, bbox_inches="tight")
