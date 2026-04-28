@@ -40,13 +40,36 @@ python demo/realtime_webcam_demo.py --query "hand"
 
 The first run downloads the head checkpoint (~14 MB) from the GH release and pulls the backbone weights via `timm` / `open_clip` (one-time, ~50 MB combined). After that it's all local.
 
+### Multi-query (late fusion)
+
+Pass a comma-separated list of queries to score multiple at once:
+
+```bash
+# Union (any of these lights up):
+python demo/realtime_webcam_demo.py --query "hand,coffee cup,laptop" --reduce max
+# Intersection (relevant to ALL queries):
+python demo/realtime_webcam_demo.py --query "hand,wearable" --reduce min
+# Self-weighted softmax (most-confident query softly wins):
+python demo/realtime_webcam_demo.py --query "person,laptop,phone,coffee" --reduce softmax
+```
+
+**Late fusion makes this nearly free.** The expensive text-INdependent prefix of the head (`patch_proj` + `pos_embed` + 2× `self_attn` over patches; ~80 % of head compute) runs once per frame; only the cheap text-conditional tail (`text_proj` + `cross_attn` + `score_mlp` + `spatial`; ~20 %) runs per-query, batched in a single `cross_attn` call. Measured scaling on D-Mobile (RTX 4090): **1 query 9.3 ms, 3 queries 8.1 ms, 5 queries 8.3 ms, 10 queries 8.1 ms** — flat within noise out to ≥ 10 simultaneous queries.
+
+Reductions:
+- `max` (default) — **union**: max score per patch across queries
+- `min` — **intersection**: min score per patch across queries
+- `mean` — average score across queries
+- `sum` — additive
+- `softmax` — self-weighted average (most-confident query softly wins)
+
 ### Hotkeys
 
 Focus the OpenCV window first, then:
 
 | key | action |
 |---|---|
-| `q` | type a new query in the terminal (e.g. `"laptop"`, `"the person's face"`, `"a coffee cup"`) |
+| `q` | enter a new query (or comma-separated list) in the terminal |
+| `r` | cycle reduction: `max → min → mean → sum → softmax` |
 | `space` | pause / resume the inference loop (still streams camera) |
 | `m` | cycle model: D-Mobile → v2-Tiny → v1 |
 | `esc` | quit |
@@ -55,13 +78,14 @@ Focus the OpenCV window first, then:
 
 ```bash
 python demo/realtime_webcam_demo.py \
-  --query "hand"               # initial query
-  --model d-mobile             # d-mobile / v2-tiny / v1
-  --cam 0                      # 0 is the FaceTime / built-in camera on most Macs
-  --cam_w 640 --cam_h 480      # capture resolution; lower = faster
-  --device mps                 # override autodetect; mps / cuda / cpu
-  --ckpt /path/to/best.pt      # use a local checkpoint instead of downloading
-  --download_from_release      # force-download the latest release ckpt
+  --query "hand,laptop,coffee cup"   # one query, or comma-separated list
+  --reduce max                        # max | min | mean | sum | softmax
+  --model d-mobile                    # d-mobile / v2-tiny / v1
+  --cam 0                             # 0 = FaceTime camera on most Macs
+  --cam_w 640 --cam_h 480             # capture resolution; lower = faster
+  --device mps                        # override autodetect; mps / cuda / cpu
+  --ckpt /path/to/best.pt             # use a local checkpoint instead of downloading
+  --download_from_release             # force-download the latest release ckpt
 ```
 
 ## What the heatmap means
