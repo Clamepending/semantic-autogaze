@@ -1,0 +1,22 @@
+{
+  "model": "v1",
+  "ckpt": "v1.pt",
+  "device": "cpu",
+  "torch_threads": 4,
+  "n_trials": 5,
+  "video_shape": "(16, 3, 224, 224)",
+  "deployment_realistic": true,
+  "pre_cached_text_emb": true,
+  "latency_ms_mean": 8723.12026959844,
+  "latency_ms_std": 255.87127004469,
+  "latency_ms_median": 8851.299508009106,
+  "backbone_params_M": 86.19264,
+  "head_params_M": 3.641218,
+  "all_trials_ms": [
+    8872.436413977994,
+    9047.666511993157,
+    8454.255198012106,
+    8851.299508009106,
+    8389.943715999834
+  ]
+}
