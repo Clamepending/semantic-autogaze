@@ -367,8 +367,20 @@ def train(args):
             # Most patches are 0 even on positive pairs; off-diagonal pairs are entirely 0.
             # pos_weight upweights positive locations.
             pos_weight = torch.tensor(args.bce_pos_weight, device=device)
-            L_dense = F.binary_cross_entropy_with_logits(
-                cal_logits, target, reduction="mean", pos_weight=pos_weight)
+            if args.lambda_off_diagonal < 1.0:
+                # Ablation: weight diagonal vs off-diagonal pair losses separately.
+                # lambda=0 becomes direct regression on diagonal positives only
+                # (non-contrastive baseline; user's suggested fallback recipe).
+                diag_mask = torch.zeros(B, B, device=device)
+                for b in range(B): diag_mask[b, b] = 1.0
+                weight = diag_mask + (1.0 - diag_mask) * args.lambda_off_diagonal
+                bce_per_pos = F.binary_cross_entropy_with_logits(
+                    cal_logits, target, reduction="none", pos_weight=pos_weight)
+                w_full = weight.unsqueeze(-1).unsqueeze(-1).expand_as(bce_per_pos)
+                L_dense = (bce_per_pos * w_full).sum() / w_full.sum().clamp(min=1)
+            else:
+                L_dense = F.binary_cross_entropy_with_logits(
+                    cal_logits, target, reduction="mean", pos_weight=pos_weight)
 
             # 7) L_pool: image-level presence loss using mean-pooled logits.
             # Diagonal positives are ~B of B*B = 1/B fraction; upweight them.
@@ -464,6 +476,8 @@ if __name__ == "__main__":
     p.add_argument("--bias_init", type=float, default=-4.0)
     p.add_argument("--bce_pos_weight", type=float, default=20.0,
                    help="upweight positive patches in dense BCE; ~20-50 useful for sparse masks")
+    p.add_argument("--lambda_off_diagonal", type=float, default=1.0,
+                   help="weight on off-diagonal pair losses (0=non-contrastive direct regression, 1=full SigLIP)")
     p.add_argument("--pool_pos_weight", type=float, default=5.0,
                    help="upweight diagonal positives in image-level pool BCE; ~B is right scale")
     p.add_argument("--positive_only", action="store_true",
