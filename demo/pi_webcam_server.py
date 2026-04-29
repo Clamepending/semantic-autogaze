@@ -395,6 +395,11 @@ def main():
                     help="initial heatmap threshold; UI slider can change live")
     ap.add_argument("--rotate", type=int, default=0, choices=[0, 90, 180, 270],
                     help="initial frame rotation; UI dropdown can change live")
+    ap.add_argument("--remote_inference", default=None,
+                    help="if set, POST frames to <URL>/infer (Grounded-SAM GPU server) "
+                         "instead of running the local trained scorer. The URL should NOT "
+                         "end with /infer (we add it). Example: "
+                         "http://cthulhu1.tail8dd042.ts.net:8001")
     ap.add_argument("--cam", type=int, default=0)
     ap.add_argument("--cam_w", type=int, default=0,
                     help="0 = let camera report native resolution (preserves aspect)")
@@ -445,6 +450,46 @@ def main():
     print(f"[cam] native frame size: {actual_w}x{actual_h}", flush=True)
 
     # ---- Worker thread: capture, score, jpeg-encode, store ----
+    use_remote = args.remote_inference is not None and args.remote_inference != ""
+    if use_remote:
+        import urllib.request as _ur
+        infer_url = args.remote_inference.rstrip("/") + "/infer"
+        print(f"[remote] inference offloaded to {infer_url}", flush=True)
+
+    def remote_infer(frame_bgr_local, query_text):
+        """Send frame as JPEG to remote /infer; receive PNG mask."""
+        ok2, jpeg_bytes = cv2.imencode(".jpg", frame_bgr_local,
+                                       [int(cv2.IMWRITE_JPEG_QUALITY), 70])
+        if not ok2:
+            return None
+        boundary = "----semantic-autogaze-mp"
+        body = []
+        body.append(f"--{boundary}\r\n".encode())
+        body.append(b'Content-Disposition: form-data; name="image"; filename="f.jpg"\r\n')
+        body.append(b"Content-Type: image/jpeg\r\n\r\n")
+        body.append(jpeg_bytes.tobytes())
+        body.append(b"\r\n")
+        body.append(f"--{boundary}\r\n".encode())
+        body.append(b'Content-Disposition: form-data; name="query"\r\n\r\n')
+        body.append(query_text.encode())
+        body.append(b"\r\n")
+        body.append(f"--{boundary}--\r\n".encode())
+        body_bytes = b"".join(body)
+        req = _ur.Request(infer_url, data=body_bytes,
+                         headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+        try:
+            with _ur.urlopen(req, timeout=30) as resp:
+                png = resp.read()
+                meta = {"n_boxes": resp.headers.get("X-N-Boxes", "0"),
+                        "top_score": resp.headers.get("X-Top-Score", "0"),
+                        "infer_ms": resp.headers.get("X-Inference-Ms", "0")}
+        except Exception as e:
+            return None, {"error": str(e)[:80]}
+        # decode PNG → uint8 mask 0/255
+        png_arr = np.frombuffer(png, dtype=np.uint8)
+        mask = cv2.imdecode(png_arr, cv2.IMREAD_GRAYSCALE)
+        return mask, meta
+
     def worker():
         last_t = time.time(); fps_ema = 0.0
         while True:
@@ -459,15 +504,35 @@ def main():
                 rot = state.rotate
             if rot:
                 frame_bgr = rotate_frame(frame_bgr, rot)
+
             try:
-                with torch.no_grad():
-                    x = normalize_frame(frame_bgr, mean, std, device)
-                    if kind == "clip-visual":
-                        _, feats = clip_model.visual(x)
+                if use_remote:
+                    # Remote Grounded-SAM inference: returns full-res binary mask.
+                    out = remote_infer(frame_bgr, qs[0])
+                    if out is None or out[0] is None:
+                        disp = frame_bgr.copy()
+                        cv2.putText(disp, f"remote infer failed", (10, 60),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
                     else:
-                        feats = adapt_features(backbone.forward_features(x))
-                    h14 = mq(feats, te, reduce=rd, apply_sigmoid=True).reshape(GRID, GRID).cpu().numpy()
-                disp = overlay_heatmap(frame_bgr, h14, threshold=thr)
+                        full_mask, meta = out
+                        # Render mask as overlay (bypasses the 14x14 path).
+                        H, W = frame_bgr.shape[:2]
+                        if full_mask.shape != (H, W):
+                            full_mask = cv2.resize(full_mask, (W, H), interpolation=cv2.INTER_NEAREST)
+                        keep = full_mask > 127
+                        heat_bgr = cv2.applyColorMap(full_mask, cv2.COLORMAP_HOT)
+                        bright = cv2.addWeighted(frame_bgr, 0.55, heat_bgr, 0.45, 0)
+                        dim = (frame_bgr * 0.30).astype(np.uint8)
+                        disp = np.where(keep[..., None], bright, dim)
+                else:
+                    with torch.no_grad():
+                        x = normalize_frame(frame_bgr, mean, std, device)
+                        if kind == "clip-visual":
+                            _, feats = clip_model.visual(x)
+                        else:
+                            feats = adapt_features(backbone.forward_features(x))
+                        h14 = mq(feats, te, reduce=rd, apply_sigmoid=True).reshape(GRID, GRID).cpu().numpy()
+                    disp = overlay_heatmap(frame_bgr, h14, threshold=thr)
             except Exception as e:
                 disp = frame_bgr.copy()
                 cv2.putText(disp, f"err: {e}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
@@ -477,11 +542,10 @@ def main():
                 inst = 1.0 / dt
                 fps_ema = inst if fps_ema == 0 else 0.9 * fps_ema + 0.1 * inst
             label = ", ".join(qs) if len(qs) > 1 else qs[0]
-            kept_pct = (1.0 - float(thr)) * 100  # percentile cutoff -> kept fraction
-            kept_n = max(1, int(round((1.0 - float(thr)) * GRID * GRID)))
-            cv2.putText(disp, f"q: {label}  [{rd}]  thr={thr:.2f} (top {kept_pct:.0f}% = {kept_n}/196)",
+            mode_label = f"REMOTE-GSAM" if use_remote else f"{args.model}"
+            cv2.putText(disp, f"q: {label}  [{mode_label}]",
                         (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 255), 2, cv2.LINE_AA)
-            cv2.putText(disp, f"{args.model} | {fps_ema:.1f} fps | rotate={rot} | n_queries={len(qs)}",
+            cv2.putText(disp, f"{fps_ema:.1f} fps | rotate={rot}",
                         (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2, cv2.LINE_AA)
 
             ok2, jpeg = cv2.imencode(".jpg", disp,
