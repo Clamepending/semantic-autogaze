@@ -262,11 +262,18 @@ class State:
         self.lock = threading.Lock()
         self.queries = ["hand"]
         self.reduce = "max"
-        self.threshold = 0.0  # 0..1 — patches below threshold are dimmed in overlay
+        self.threshold = 0.0  # 0..1 — patches below threshold are dimmed in overlay (local-mode only)
         self.rotate = 0       # 0/90/180/270
         self.fps = 0.0
         self.last_jpeg = None  # bytes
         self.text_embs = None  # (Q, 512) tensor
+        # Remote Grounded-SAM tunables (only used when --remote_inference is set)
+        self.gsam_box_thr = 0.35
+        self.gsam_text_thr = 0.25
+        self.gsam_max_box_area = 0.55
+        self.gsam_last_n_boxes = 0
+        self.gsam_last_top_score = 0.0
+        self.gsam_last_infer_ms = 0.0
 
     def set_query(self, q_str: str, encode_fn):
         qs = [q.strip() for q in q_str.split(",") if q.strip()]
@@ -292,6 +299,18 @@ class State:
             return
         with self.lock:
             self.rotate = deg
+
+    def set_gsam_box_thr(self, v: float):
+        v = max(0.05, min(0.95, float(v)))
+        with self.lock: self.gsam_box_thr = v
+
+    def set_gsam_text_thr(self, v: float):
+        v = max(0.05, min(0.95, float(v)))
+        with self.lock: self.gsam_text_thr = v
+
+    def set_gsam_max_box_area(self, v: float):
+        v = max(0.10, min(1.00, float(v)))
+        with self.lock: self.gsam_max_box_area = v
 
 
 # ---- HTML page ----
@@ -322,11 +341,26 @@ button:hover { background: #3b5; }
   <button onclick="apply()">apply</button>
 </div>
 <div class="row">
-  <label>top-K (percentile):
+  <label>top-K (percentile, local-only):
     <input id="thr" type="range" min="0" max="1" step="0.01" value="0">
     <span id="thrval" class="thrval">0.00</span>
   </label>
   <span class="muted">(0 = show all 196 patches; 0.86 ≈ top-K=27 deployment; 1.0 = top patch only)</span>
+</div>
+<div class="row">
+  <label>GSAM box thr:
+    <input id="gbox" type="range" min="0.05" max="0.95" step="0.01" value="0.35">
+    <span id="gboxval" class="thrval">0.35</span>
+  </label>
+  <label>GSAM text thr:
+    <input id="gtext" type="range" min="0.05" max="0.95" step="0.01" value="0.25">
+    <span id="gtextval" class="thrval">0.25</span>
+  </label>
+  <label>max box area:
+    <input id="garea" type="range" min="0.10" max="1.00" step="0.01" value="0.55">
+    <span id="gareaval" class="thrval">0.55</span>
+  </label>
+  <br><span class="muted">(remote-mode only — lower thresholds = more detections, more false positives)</span>
 </div>
 <div class="row">
   <label>rotate:
@@ -352,10 +386,22 @@ async function refreshState() {
     document.getElementById('thr').value = j.threshold;
     document.getElementById('thrval').textContent = j.threshold.toFixed(2);
     document.getElementById('rot').value = j.rotate;
+    if ('gsam_box_thr' in j) {
+      document.getElementById('gbox').value = j.gsam_box_thr;
+      document.getElementById('gboxval').textContent = j.gsam_box_thr.toFixed(2);
+      document.getElementById('gtext').value = j.gsam_text_thr;
+      document.getElementById('gtextval').textContent = j.gsam_text_thr.toFixed(2);
+      document.getElementById('garea').value = j.gsam_max_box_area;
+      document.getElementById('gareaval').textContent = j.gsam_max_box_area.toFixed(2);
+    }
     firstLoad = false;
   }
+  let extra = '';
+  if (j.mode === 'remote' && 'gsam_last_top_score' in j) {
+    extra = ` | gsam: ${j.gsam_last_n_boxes} boxes, top_score=${j.gsam_last_top_score.toFixed(2)}, ${j.gsam_last_infer_ms.toFixed(0)}ms`;
+  }
   document.getElementById('status').textContent =
-    `server: queries=[${j.queries.join(', ')}] reduce=${j.reduce} thr=${j.threshold.toFixed(2)} rotate=${j.rotate}° | ${j.model} | ${j.fps.toFixed(1)} fps`;
+    `[${j.mode}] queries=[${j.queries.join(', ')}] reduce=${j.reduce} thr=${j.threshold.toFixed(2)} rotate=${j.rotate}° | ${j.model} | ${j.fps.toFixed(1)} fps` + extra;
 }
 async function apply() {
   const q = document.getElementById('q').value;
@@ -371,12 +417,20 @@ async function postThr(v) {
 async function postRot(v) {
   await fetch('/api/rotate', {method:'POST', body: v});
 }
+async function postGsam(field, v) {
+  document.getElementById(field + 'val').textContent = parseFloat(v).toFixed(2);
+  await fetch('/api/gsam_' + field.replace('g', ''), {method:'POST', body: v});
+}
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('q').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') { e.preventDefault(); apply(); }
   });
   document.getElementById('thr').addEventListener('input', (e) => postThr(e.target.value));
   document.getElementById('rot').addEventListener('change', (e) => postRot(e.target.value));
+  for (const f of ['gbox', 'gtext', 'garea']) {
+    const el = document.getElementById(f);
+    if (el) el.addEventListener('input', (e) => postGsam(f, e.target.value));
+  }
   refreshState();
   setInterval(refreshState, 1000);
 });
@@ -456,12 +510,12 @@ def main():
         infer_url = args.remote_inference.rstrip("/") + "/infer"
         print(f"[remote] inference offloaded to {infer_url}", flush=True)
 
-    def remote_infer(frame_bgr_local, query_text):
-        """Send frame as JPEG to remote /infer; receive PNG mask."""
+    def remote_infer(frame_bgr_local, query_text, box_thr, text_thr, max_area):
+        """Send frame as JPEG to remote /infer; receive PNG mask + meta headers."""
         ok2, jpeg_bytes = cv2.imencode(".jpg", frame_bgr_local,
                                        [int(cv2.IMWRITE_JPEG_QUALITY), 70])
         if not ok2:
-            return None
+            return None, {"error": "encode-failed"}
         boundary = "----semantic-autogaze-mp"
         body = []
         body.append(f"--{boundary}\r\n".encode())
@@ -476,16 +530,18 @@ def main():
         body.append(f"--{boundary}--\r\n".encode())
         body_bytes = b"".join(body)
         req = _ur.Request(infer_url, data=body_bytes,
-                         headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+                         headers={"Content-Type": f"multipart/form-data; boundary={boundary}",
+                                  "X-Box-Threshold": f"{box_thr:.3f}",
+                                  "X-Text-Threshold": f"{text_thr:.3f}",
+                                  "X-Max-Box-Area-Frac": f"{max_area:.3f}"})
         try:
             with _ur.urlopen(req, timeout=30) as resp:
                 png = resp.read()
-                meta = {"n_boxes": resp.headers.get("X-N-Boxes", "0"),
-                        "top_score": resp.headers.get("X-Top-Score", "0"),
-                        "infer_ms": resp.headers.get("X-Inference-Ms", "0")}
+                meta = {"n_boxes": int(resp.headers.get("X-N-Boxes", "0")),
+                        "top_score": float(resp.headers.get("X-Top-Score", "0")),
+                        "infer_ms": float(resp.headers.get("X-Inference-Ms", "0"))}
         except Exception as e:
             return None, {"error": str(e)[:80]}
-        # decode PNG → uint8 mask 0/255
         png_arr = np.frombuffer(png, dtype=np.uint8)
         mask = cv2.imdecode(png_arr, cv2.IMREAD_GRAYSCALE)
         return mask, meta
@@ -507,15 +563,21 @@ def main():
 
             try:
                 if use_remote:
-                    # Remote Grounded-SAM inference: returns full-res binary mask.
-                    out = remote_infer(frame_bgr, qs[0])
-                    if out is None or out[0] is None:
+                    with state.lock:
+                        bx_thr = state.gsam_box_thr
+                        tx_thr = state.gsam_text_thr
+                        ma = state.gsam_max_box_area
+                    out = remote_infer(frame_bgr, qs[0], bx_thr, tx_thr, ma)
+                    full_mask, meta = out
+                    if full_mask is None:
                         disp = frame_bgr.copy()
-                        cv2.putText(disp, f"remote infer failed", (10, 60),
-                                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+                        cv2.putText(disp, f"remote infer failed: {meta.get('error', '?')}",
+                                    (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
                     else:
-                        full_mask, meta = out
-                        # Render mask as overlay (bypasses the 14x14 path).
+                        with state.lock:
+                            state.gsam_last_n_boxes = int(meta.get("n_boxes", 0))
+                            state.gsam_last_top_score = float(meta.get("top_score", 0.0))
+                            state.gsam_last_infer_ms = float(meta.get("infer_ms", 0.0))
                         H, W = frame_bgr.shape[:2]
                         if full_mask.shape != (H, W):
                             full_mask = cv2.resize(full_mask, (W, H), interpolation=cv2.INTER_NEAREST)
@@ -583,14 +645,25 @@ def main():
     @app.get("/api/state")
     def api_state():
         with state.lock:
-            return {
+            d = {
                 "queries": state.queries,
                 "reduce": state.reduce,
                 "threshold": state.threshold,
                 "rotate": state.rotate,
                 "fps": state.fps,
-                "model": args.model,
+                "model": "REMOTE-GSAM" if use_remote else args.model,
+                "mode": "remote" if use_remote else "local",
             }
+            if use_remote:
+                d.update({
+                    "gsam_box_thr": state.gsam_box_thr,
+                    "gsam_text_thr": state.gsam_text_thr,
+                    "gsam_max_box_area": state.gsam_max_box_area,
+                    "gsam_last_n_boxes": state.gsam_last_n_boxes,
+                    "gsam_last_top_score": state.gsam_last_top_score,
+                    "gsam_last_infer_ms": state.gsam_last_infer_ms,
+                })
+            return d
 
     @app.post("/api/query")
     def api_query():
@@ -631,6 +704,27 @@ def main():
         except ValueError:
             pass
         with state.lock: return {"rotate": state.rotate}
+
+    @app.post("/api/gsam_box")
+    def api_gsam_box():
+        body = request.get_data(as_text=True).strip()
+        try: state.set_gsam_box_thr(float(body))
+        except ValueError: pass
+        with state.lock: return {"gsam_box_thr": state.gsam_box_thr}
+
+    @app.post("/api/gsam_text")
+    def api_gsam_text():
+        body = request.get_data(as_text=True).strip()
+        try: state.set_gsam_text_thr(float(body))
+        except ValueError: pass
+        with state.lock: return {"gsam_text_thr": state.gsam_text_thr}
+
+    @app.post("/api/gsam_area")
+    def api_gsam_area():
+        body = request.get_data(as_text=True).strip()
+        try: state.set_gsam_max_box_area(float(body))
+        except ValueError: pass
+        with state.lock: return {"gsam_max_box_area": state.gsam_max_box_area}
 
     print(f"\n[server] listening on http://{args.host}:{args.port}/", flush=True)
     print(f"[server] open in browser: http://<pi-host>:{args.port}/  (or http://<pi-tailscale-name>:{args.port}/)", flush=True)
