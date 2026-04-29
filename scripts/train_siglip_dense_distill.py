@@ -55,13 +55,14 @@ CLIP_STD = (0.26862954, 0.26130258, 0.27577711)
 class TargetDataset(Dataset):
     """Streams (image, query, mask14, presence, clip_sim) from phase2 npz files.
 
-    Each __getitem__ returns ONE pair. Batches mix positive + negative pairs
-    naturally because we sample uniformly from the npz directory.
+    Pre-scans all files to identify which are presence=True so we can sample
+    a balanced positive-rate per batch (avoids the trivial 'predict zero
+    everywhere' attractor when off-diagonal pairs dominate).
     """
 
     def __init__(self, target_dir: str, image_dir: str,
                  image_size: int = 224, mean=CLIP_MEAN, std=CLIP_STD,
-                 limit: int | None = None):
+                 limit: int | None = None, positive_only: bool = False):
         self.target_dir = Path(target_dir)
         self.image_dir = Path(image_dir)
         self.image_size = image_size
@@ -70,9 +71,27 @@ class TargetDataset(Dataset):
         files = sorted(self.target_dir.glob("*.npz"))
         if limit:
             files = files[:limit]
-        self.files = files
-        # Precompute (img_id, query_slug) splits for fast lookup
-        print(f"[dataset] {len(self.files)} npz files in {target_dir}", flush=True)
+        # Pre-scan presence flags. ~5k files takes ~3s.
+        print(f"[dataset] scanning {len(files)} npz files for presence ...", flush=True)
+        keep = []
+        n_pos = 0
+        for f in files:
+            try:
+                d = np.load(f, allow_pickle=False)
+                pres = bool(d["presence"])
+            except Exception:
+                continue
+            if pres: n_pos += 1
+            if positive_only and not pres:
+                continue
+            keep.append((f, pres))
+        self.files = [t[0] for t in keep]
+        self.is_pos = np.array([t[1] for t in keep], dtype=bool)
+        self.pos_indices = np.where(self.is_pos)[0]
+        self.neg_indices = np.where(~self.is_pos)[0]
+        print(f"[dataset] kept {len(self.files)} (positive={int(self.is_pos.sum())}, "
+              f"negative={int((~self.is_pos).sum())}) | original positive rate {n_pos}/{len(files)}",
+              flush=True)
 
     def __len__(self): return len(self.files)
 
@@ -112,6 +131,48 @@ def collate(batch):
         "clip_sim": torch.tensor([b["clip_sim"] for b in batch]),
         "gate_passed": torch.tensor([b["gate_passed"] for b in batch], dtype=torch.bool),
     }
+
+
+from torch.utils.data import Sampler
+
+class BalancedSampler(Sampler):
+    """Samples 'pos_frac' positives + (1-pos_frac) negatives per epoch.
+
+    Iterates through the larger pool (negatives or positives) once; pads with
+    sampled-from the smaller pool to maintain target rate. The yields are
+    SHUFFLED, so each batch should have ~pos_frac * batch_size positives.
+    """
+    def __init__(self, pos_indices, neg_indices, pos_frac=0.7, seed=42):
+        self.pos = np.asarray(pos_indices)
+        self.neg = np.asarray(neg_indices)
+        self.pos_frac = pos_frac
+        self.seed = seed
+        self._epoch = 0
+
+    def __iter__(self):
+        rng = np.random.default_rng(self.seed + self._epoch)
+        # Total epoch size = max(pos, neg) such that ratio matches pos_frac
+        n_pos = len(self.pos); n_neg = len(self.neg)
+        if n_pos == 0:
+            yield from rng.permutation(self.neg).tolist(); return
+        if n_neg == 0:
+            yield from rng.permutation(self.pos).tolist(); return
+        # Use all positives, sample negs to match neg_frac
+        pos_target = n_pos
+        neg_target = int(round(pos_target * (1 - self.pos_frac) / max(self.pos_frac, 1e-9)))
+        sampled_pos = self.pos
+        sampled_neg = rng.choice(self.neg, size=min(neg_target, n_neg * 5), replace=(n_neg < neg_target))
+        all_idx = np.concatenate([sampled_pos, sampled_neg])
+        rng.shuffle(all_idx)
+        self._epoch += 1
+        yield from all_idx.tolist()
+
+    def __len__(self):
+        n_pos = len(self.pos); n_neg = len(self.neg)
+        if n_pos == 0: return n_neg
+        if n_neg == 0: return n_pos
+        neg_target = int(round(n_pos * (1 - self.pos_frac) / max(self.pos_frac, 1e-9)))
+        return n_pos + min(neg_target, n_neg * 5)
 
 
 # ---- Backbone factory ----
@@ -238,12 +299,21 @@ def train(args):
     # Data
     ds = TargetDataset(args.target_dir, args.image_dir,
                        image_size=224, mean=mean, std=std,
-                       limit=args.limit)
-    loader = DataLoader(ds, batch_size=args.batch_size, shuffle=True,
-                        num_workers=args.num_workers, collate_fn=collate,
-                        drop_last=True, pin_memory=True)
-    print(f"[data] {len(ds)} pairs, batch_size={args.batch_size}, "
-          f"{len(loader)} steps/epoch", flush=True)
+                       limit=args.limit, positive_only=args.positive_only)
+    if args.balanced_pos_frac > 0:
+        sampler = BalancedSampler(ds.pos_indices, ds.neg_indices,
+                                  pos_frac=args.balanced_pos_frac)
+        loader = DataLoader(ds, batch_size=args.batch_size, sampler=sampler,
+                            num_workers=args.num_workers, collate_fn=collate,
+                            drop_last=True, pin_memory=True)
+        print(f"[data] {len(ds)} pairs (pos_frac={args.balanced_pos_frac:.2f}), "
+              f"batch_size={args.batch_size}, {len(loader)} steps/epoch", flush=True)
+    else:
+        loader = DataLoader(ds, batch_size=args.batch_size, shuffle=True,
+                            num_workers=args.num_workers, collate_fn=collate,
+                            drop_last=True, pin_memory=True)
+        print(f"[data] {len(ds)} pairs, batch_size={args.batch_size}, "
+              f"{len(loader)} steps/epoch", flush=True)
 
     log_path = os.path.join(args.output_dir, "train_log.jsonl")
     log_f = open(log_path, "a")
@@ -293,12 +363,19 @@ def train(args):
             # already from the head, so we apply learnable t/bias as a calibration)
             cal_logits = sb(logits)
 
-            # 6) L_dense: per-patch BCEWithLogits over (B, Q, H, W)
-            L_dense = F.binary_cross_entropy_with_logits(cal_logits, target, reduction="mean")
+            # 6) L_dense: per-patch BCEWithLogits with pos_weight to fight class imbalance.
+            # Most patches are 0 even on positive pairs; off-diagonal pairs are entirely 0.
+            # pos_weight upweights positive locations.
+            pos_weight = torch.tensor(args.bce_pos_weight, device=device)
+            L_dense = F.binary_cross_entropy_with_logits(
+                cal_logits, target, reduction="mean", pos_weight=pos_weight)
 
-            # 7) L_pool: image-level presence loss using mean-pooled logits
+            # 7) L_pool: image-level presence loss using mean-pooled logits.
+            # Diagonal positives are ~B of B*B = 1/B fraction; upweight them.
+            pool_pos_weight = torch.tensor(args.pool_pos_weight, device=device)
             pooled = cal_logits.mean(dim=(-2, -1))  # (B, Q)
-            L_pool = F.binary_cross_entropy_with_logits(pooled, target_present, reduction="mean")
+            L_pool = F.binary_cross_entropy_with_logits(
+                pooled, target_present, reduction="mean", pos_weight=pool_pos_weight)
 
             # 8) L_dice on diagonal pairs only (where mask is meaningful)
             diag_idx = torch.arange(B, device=device)
@@ -385,6 +462,14 @@ if __name__ == "__main__":
     p.add_argument("--lambda_dice", type=float, default=0.3)
     p.add_argument("--t_init", type=float, default=10.0)
     p.add_argument("--bias_init", type=float, default=-4.0)
+    p.add_argument("--bce_pos_weight", type=float, default=20.0,
+                   help="upweight positive patches in dense BCE; ~20-50 useful for sparse masks")
+    p.add_argument("--pool_pos_weight", type=float, default=5.0,
+                   help="upweight diagonal positives in image-level pool BCE; ~B is right scale")
+    p.add_argument("--positive_only", action="store_true",
+                   help="filter dataset to presence=True only; ensures every diagonal slot has a real mask")
+    p.add_argument("--balanced_pos_frac", type=float, default=0.7,
+                   help="fraction of positive samples per epoch (0=disable, use shuffle); default 0.7")
 
     # Head config
     p.add_argument("--head_hidden_dim", type=int, default=384)
