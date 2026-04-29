@@ -201,12 +201,33 @@ def adapt_features(feats):
     return feats
 
 
-def overlay_heatmap(frame_bgr, heatmap_14):
+def overlay_heatmap(frame_bgr, heatmap_14, threshold=0.0):
+    """Overlay heatmap on frame. Patches with score < threshold are zeroed out
+    in the overlay (useful for visualizing the K-patch filter deployment)."""
     H, W = frame_bgr.shape[:2]
-    heat = cv2.resize(heatmap_14.astype(np.float32), (W, H), interpolation=cv2.INTER_LINEAR)
+    h = heatmap_14.astype(np.float32).copy()
+    if threshold > 0.0:
+        h = np.where(h >= threshold, h, 0.0)
+    heat = cv2.resize(h, (W, H), interpolation=cv2.INTER_LINEAR)
     heat_uint = np.clip(heat * 255, 0, 255).astype(np.uint8)
     heat_bgr = cv2.applyColorMap(heat_uint, cv2.COLORMAP_HOT)
+    if threshold > 0.0:
+        # Where heat is exactly 0 (below-threshold), keep frame visible — dim it.
+        mask = (heat > 0).astype(np.uint8)[..., None]  # (H, W, 1)
+        dim = (frame_bgr * 0.35).astype(np.uint8)
+        bright = cv2.addWeighted(frame_bgr, 0.55, heat_bgr, 0.45, 0)
+        return np.where(mask > 0, bright, dim)
     return cv2.addWeighted(frame_bgr, 0.55, heat_bgr, 0.45, 0)
+
+
+def rotate_frame(frame_bgr: np.ndarray, deg: int) -> np.ndarray:
+    if deg == 90:
+        return cv2.rotate(frame_bgr, cv2.ROTATE_90_CLOCKWISE)
+    if deg == 180:
+        return cv2.rotate(frame_bgr, cv2.ROTATE_180)
+    if deg == 270:
+        return cv2.rotate(frame_bgr, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    return frame_bgr
 
 
 # ---- Shared state ----
@@ -215,6 +236,8 @@ class State:
         self.lock = threading.Lock()
         self.queries = ["hand"]
         self.reduce = "max"
+        self.threshold = 0.0  # 0..1 — patches below threshold are dimmed in overlay
+        self.rotate = 0       # 0/90/180/270
         self.fps = 0.0
         self.last_jpeg = None  # bytes
         self.text_embs = None  # (Q, 512) tensor
@@ -232,21 +255,37 @@ class State:
         with self.lock:
             self.reduce = r
 
+    def set_threshold(self, t: float):
+        t = max(0.0, min(1.0, float(t)))
+        with self.lock:
+            self.threshold = t
+
+    def set_rotate(self, deg: int):
+        deg = int(deg) % 360
+        if deg not in (0, 90, 180, 270):
+            return
+        with self.lock:
+            self.rotate = deg
+
 
 # ---- HTML page ----
 INDEX_HTML = """<!doctype html>
 <html><head><title>semantic-autogaze pi webcam</title>
 <style>
 body { font-family: -apple-system, sans-serif; background: #111; color: #eee; margin: 16px; }
-img { max-width: 100%; border: 1px solid #444; }
-input, select, button { font-size: 16px; padding: 6px 10px; }
-input[type=text] { width: 60%; }
+img { max-width: 100%; height: auto; border: 1px solid #444; display: block; }
+input, select, button { font-size: 16px; padding: 6px 10px; background: #222; color: #eee; border: 1px solid #444; }
+input[type=text] { width: 50%; }
+input[type=range] { width: 300px; vertical-align: middle; }
+button { background: #2a4; color: #fff; border: none; cursor: pointer; }
+button:hover { background: #3b5; }
 .row { margin: 10px 0; }
-.muted { color: #888; font-size: 13px; }
+.muted { color: #888; font-size: 13px; margin-left: 10px; }
+.thrval { display: inline-block; width: 60px; text-align: right; font-family: monospace; }
 </style></head><body>
 <h2>semantic-autogaze — pi webcam stream</h2>
 <div class="row">
-  <label>queries (comma-separated): <input id="q" type="text" value=""></label>
+  <label>query (comma-separated for multi): <input id="q" type="text" value=""></label>
   <select id="r">
     <option value="max">max (union)</option>
     <option value="min">min (intersection)</option>
@@ -255,22 +294,42 @@ input[type=text] { width: 60%; }
     <option value="softmax">softmax</option>
   </select>
   <button onclick="apply()">apply</button>
+</div>
+<div class="row">
+  <label>threshold:
+    <input id="thr" type="range" min="0" max="1" step="0.01" value="0">
+    <span id="thrval" class="thrval">0.00</span>
+  </label>
+  <span class="muted">(patches with score &lt; threshold are dimmed in overlay)</span>
+</div>
+<div class="row">
+  <label>rotate:
+    <select id="rot">
+      <option value="0">0°</option>
+      <option value="90">90° CW</option>
+      <option value="180">180°</option>
+      <option value="270">270° CW (= 90 CCW)</option>
+    </select>
+  </label>
   <span id="status" class="muted"></span>
 </div>
 <img id="stream" src="/stream" alt="camera">
 <script>
-// Don't clobber user input. Only populate the form on first load; afterwards
-// only the status footer auto-updates.
+// First-load populates the form; afterwards only the status footer auto-updates,
+// so we don't clobber user typing.
 let firstLoad = true;
 async function refreshState() {
   const r = await fetch('/api/state'); const j = await r.json();
   if (firstLoad) {
     document.getElementById('q').value = j.queries.join(', ');
     document.getElementById('r').value = j.reduce;
+    document.getElementById('thr').value = j.threshold;
+    document.getElementById('thrval').textContent = j.threshold.toFixed(2);
+    document.getElementById('rot').value = j.rotate;
     firstLoad = false;
   }
   document.getElementById('status').textContent =
-    `server: queries=[${j.queries.join(', ')}] reduce=${j.reduce} | model: ${j.model} | fps: ${j.fps.toFixed(1)}`;
+    `server: queries=[${j.queries.join(', ')}] reduce=${j.reduce} thr=${j.threshold.toFixed(2)} rotate=${j.rotate}° | ${j.model} | ${j.fps.toFixed(1)} fps`;
 }
 async function apply() {
   const q = document.getElementById('q').value;
@@ -279,11 +338,19 @@ async function apply() {
   await fetch('/api/reduce', {method:'POST', body: r});
   await refreshState();
 }
+async function postThr(v) {
+  document.getElementById('thrval').textContent = parseFloat(v).toFixed(2);
+  await fetch('/api/threshold', {method:'POST', body: v});
+}
+async function postRot(v) {
+  await fetch('/api/rotate', {method:'POST', body: v});
+}
 window.addEventListener('DOMContentLoaded', () => {
-  // Apply on Enter in the input
   document.getElementById('q').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') { e.preventDefault(); apply(); }
   });
+  document.getElementById('thr').addEventListener('input', (e) => postThr(e.target.value));
+  document.getElementById('rot').addEventListener('change', (e) => postRot(e.target.value));
   refreshState();
   setInterval(refreshState, 1000);
 });
@@ -298,9 +365,14 @@ def main():
     ap.add_argument("--model", default="d-mobile", choices=["d-mobile", "v2-tiny", "v1"])
     ap.add_argument("--query", default="hand")
     ap.add_argument("--reduce", default="max", choices=REDUCE_MODES)
+    ap.add_argument("--threshold", type=float, default=0.0,
+                    help="initial heatmap threshold; UI slider can change live")
+    ap.add_argument("--rotate", type=int, default=0, choices=[0, 90, 180, 270],
+                    help="initial frame rotation; UI dropdown can change live")
     ap.add_argument("--cam", type=int, default=0)
-    ap.add_argument("--cam_w", type=int, default=640)
-    ap.add_argument("--cam_h", type=int, default=480)
+    ap.add_argument("--cam_w", type=int, default=0,
+                    help="0 = let camera report native resolution (preserves aspect)")
+    ap.add_argument("--cam_h", type=int, default=0)
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--host", default="0.0.0.0")
     ap.add_argument("--jpeg_quality", type=int, default=70)
@@ -333,13 +405,18 @@ def main():
     state = State()
     state.set_query(args.query, encode_texts)
     state.reduce = args.reduce
+    state.threshold = args.threshold
+    state.rotate = args.rotate
 
     print(f"[cam] opening index {args.cam} ...", flush=True)
     cap = cv2.VideoCapture(args.cam)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, args.cam_w)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, args.cam_h)
+    if args.cam_w > 0: cap.set(cv2.CAP_PROP_FRAME_WIDTH, args.cam_w)
+    if args.cam_h > 0: cap.set(cv2.CAP_PROP_FRAME_HEIGHT, args.cam_h)
     if not cap.isOpened():
         raise RuntimeError(f"camera {args.cam} not openable")
+    actual_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    actual_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    print(f"[cam] native frame size: {actual_w}x{actual_h}", flush=True)
 
     # ---- Worker thread: capture, score, jpeg-encode, store ----
     def worker():
@@ -352,6 +429,10 @@ def main():
                 te = state.text_embs
                 rd = state.reduce
                 qs = list(state.queries)
+                thr = state.threshold
+                rot = state.rotate
+            if rot:
+                frame_bgr = rotate_frame(frame_bgr, rot)
             try:
                 with torch.no_grad():
                     x = normalize_frame(frame_bgr, mean, std, device)
@@ -360,7 +441,7 @@ def main():
                     else:
                         feats = adapt_features(backbone.forward_features(x))
                     h14 = mq(feats, te, reduce=rd, apply_sigmoid=True).reshape(GRID, GRID).cpu().numpy()
-                disp = overlay_heatmap(frame_bgr, h14)
+                disp = overlay_heatmap(frame_bgr, h14, threshold=thr)
             except Exception as e:
                 disp = frame_bgr.copy()
                 cv2.putText(disp, f"err: {e}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
@@ -370,9 +451,10 @@ def main():
                 inst = 1.0 / dt
                 fps_ema = inst if fps_ema == 0 else 0.9 * fps_ema + 0.1 * inst
             label = ", ".join(qs) if len(qs) > 1 else qs[0]
-            cv2.putText(disp, f"q: {label}  [{rd}]", (10, 25),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2, cv2.LINE_AA)
-            cv2.putText(disp, f"{args.model} | {fps_ema:.1f} fps | n_queries={len(qs)}",
+            kept_pct = float((h14 >= thr).mean() * 100) if thr > 0 else 100.0
+            cv2.putText(disp, f"q: {label}  [{rd}]  thr={thr:.2f} keeps {kept_pct:.0f}%",
+                        (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 255), 2, cv2.LINE_AA)
+            cv2.putText(disp, f"{args.model} | {fps_ema:.1f} fps | rotate={rot} | n_queries={len(qs)}",
                         (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2, cv2.LINE_AA)
 
             ok2, jpeg = cv2.imencode(".jpg", disp,
@@ -413,6 +495,8 @@ def main():
             return {
                 "queries": state.queries,
                 "reduce": state.reduce,
+                "threshold": state.threshold,
+                "rotate": state.rotate,
                 "fps": state.fps,
                 "model": args.model,
             }
@@ -434,6 +518,28 @@ def main():
         if body:
             state.set_reduce(body)
         with state.lock: return {"reduce": state.reduce}
+
+    @app.post("/api/threshold")
+    def api_threshold():
+        body = request.get_data(as_text=True).strip()
+        if body.startswith("{"):
+            body = json.loads(body).get("threshold", "0")
+        try:
+            state.set_threshold(float(body))
+        except ValueError:
+            pass
+        with state.lock: return {"threshold": state.threshold}
+
+    @app.post("/api/rotate")
+    def api_rotate():
+        body = request.get_data(as_text=True).strip()
+        if body.startswith("{"):
+            body = json.loads(body).get("rotate", "0")
+        try:
+            state.set_rotate(int(body))
+        except ValueError:
+            pass
+        with state.lock: return {"rotate": state.rotate}
 
     print(f"\n[server] listening on http://{args.host}:{args.port}/", flush=True)
     print(f"[server] open in browser: http://<pi-host>:{args.port}/  (or http://<pi-tailscale-name>:{args.port}/)", flush=True)
