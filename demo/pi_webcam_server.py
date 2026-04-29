@@ -202,21 +202,47 @@ def adapt_features(feats):
 
 
 def overlay_heatmap(frame_bgr, heatmap_14, threshold=0.0):
-    """Overlay heatmap on frame. Patches with score < threshold are zeroed out
-    in the overlay (useful for visualizing the K-patch filter deployment)."""
+    """Overlay per-frame max-normalized heatmap on frame. Threshold is
+    interpreted as a *percentile* on the per-frame score distribution:
+    threshold=0.0 keeps all 196 patches; threshold=0.5 keeps the top 50%
+    (98 patches); threshold=0.86 keeps the top ~14% (top 27, the K=27
+    deployment value); threshold=1.0 keeps only the single top patch.
+
+    This is robust to the sigmoid scores' calibration (the trained head
+    produces useful *relative* rankings even when absolute scores are
+    bunched in [0.5, 0.9])."""
     H, W = frame_bgr.shape[:2]
     h = heatmap_14.astype(np.float32).copy()
+    flat = h.flatten()
+    n = flat.size
+
+    # Per-frame max-normalize for display intensity (so the most-relevant
+    # patch in this frame is always saturated red).
+    hmin, hmax = float(flat.min()), float(flat.max())
+    if hmax > hmin:
+        h_disp = (h - hmin) / (hmax - hmin)
+    else:
+        h_disp = np.zeros_like(h)
+
+    # Threshold = percentile cutoff on the raw scores.
+    keep_mask_14 = None
     if threshold > 0.0:
-        h = np.where(h >= threshold, h, 0.0)
-    heat = cv2.resize(h, (W, H), interpolation=cv2.INTER_LINEAR)
+        cutoff = np.quantile(flat, float(threshold))
+        keep_mask_14 = (h >= cutoff).astype(np.float32)
+        h_disp = h_disp * keep_mask_14  # zero out below-cutoff in the overlay
+
+    heat = cv2.resize(h_disp, (W, H), interpolation=cv2.INTER_LINEAR)
     heat_uint = np.clip(heat * 255, 0, 255).astype(np.uint8)
     heat_bgr = cv2.applyColorMap(heat_uint, cv2.COLORMAP_HOT)
+
     if threshold > 0.0:
-        # Where heat is exactly 0 (below-threshold), keep frame visible — dim it.
-        mask = (heat > 0).astype(np.uint8)[..., None]  # (H, W, 1)
-        dim = (frame_bgr * 0.35).astype(np.uint8)
+        # Where the kept-mask is 0 (below cutoff), dim the frame so the
+        # selected patches stand out.
+        keep_full = cv2.resize(keep_mask_14, (W, H), interpolation=cv2.INTER_NEAREST)
+        keep_full = (keep_full > 0.5)[..., None]  # (H, W, 1) bool
+        dim = (frame_bgr * 0.30).astype(np.uint8)
         bright = cv2.addWeighted(frame_bgr, 0.55, heat_bgr, 0.45, 0)
-        return np.where(mask > 0, bright, dim)
+        return np.where(keep_full, bright, dim)
     return cv2.addWeighted(frame_bgr, 0.55, heat_bgr, 0.45, 0)
 
 
@@ -296,11 +322,11 @@ button:hover { background: #3b5; }
   <button onclick="apply()">apply</button>
 </div>
 <div class="row">
-  <label>threshold:
+  <label>top-K (percentile):
     <input id="thr" type="range" min="0" max="1" step="0.01" value="0">
     <span id="thrval" class="thrval">0.00</span>
   </label>
-  <span class="muted">(patches with score &lt; threshold are dimmed in overlay)</span>
+  <span class="muted">(0 = show all 196 patches; 0.86 ≈ top-K=27 deployment; 1.0 = top patch only)</span>
 </div>
 <div class="row">
   <label>rotate:
@@ -451,8 +477,9 @@ def main():
                 inst = 1.0 / dt
                 fps_ema = inst if fps_ema == 0 else 0.9 * fps_ema + 0.1 * inst
             label = ", ".join(qs) if len(qs) > 1 else qs[0]
-            kept_pct = float((h14 >= thr).mean() * 100) if thr > 0 else 100.0
-            cv2.putText(disp, f"q: {label}  [{rd}]  thr={thr:.2f} keeps {kept_pct:.0f}%",
+            kept_pct = (1.0 - float(thr)) * 100  # percentile cutoff -> kept fraction
+            kept_n = max(1, int(round((1.0 - float(thr)) * GRID * GRID)))
+            cv2.putText(disp, f"q: {label}  [{rd}]  thr={thr:.2f} (top {kept_pct:.0f}% = {kept_n}/196)",
                         (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 255), 2, cv2.LINE_AA)
             cv2.putText(disp, f"{args.model} | {fps_ema:.1f} fps | rotate={rot} | n_queries={len(qs)}",
                         (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2, cv2.LINE_AA)
