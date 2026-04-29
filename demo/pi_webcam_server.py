@@ -140,6 +140,9 @@ class MultiQueryScorer:
             grids = scores.reshape(B * Q, 1, G, G)
             scores = (grids + h.spatial(grids)).reshape(B * Q, N)
         scores = scores.reshape(B, Q, N)
+        # Apply SigLIP calibration if loaded from a Phase 2 ckpt.
+        if hasattr(h, "_siglip_t") and (h._siglip_t != 1.0 or h._siglip_bias != 0.0):
+            scores = scores * h._siglip_t + h._siglip_bias
         if apply_sigmoid: scores = torch.sigmoid(scores)
         if reduce == "max": return scores.amax(dim=1)
         if reduce == "min": return scores.amin(dim=1)
@@ -176,10 +179,25 @@ def build_model(model_name: str, ckpt_path: Path, device):
     )
     head = TextScorerHead(**head_kwargs).to(device).eval()
     head.load_state_dict(ck["head"])
+    # SigLIP-Phase-2 ckpts include a "sb" module: learnable t/bias that
+    # calibrates the head's raw logits. Bake into head as scalar attributes.
+    head._siglip_t = 1.0
+    head._siglip_bias = 0.0
+    if "sb" in ck:
+        sb = ck["sb"]
+        log_t = sb["log_t"].item() if hasattr(sb["log_t"], "item") else float(sb["log_t"])
+        bias = sb["bias"].item() if hasattr(sb["bias"], "item") else float(sb["bias"])
+        head._siglip_t = float(np.exp(log_t))
+        head._siglip_bias = float(bias)
+        print(f"[siglip] calibration t={head._siglip_t:.2f} bias={head._siglip_bias:.2f}", flush=True)
     if model_name == "v1":
         return None, head, CLIP_MEAN, CLIP_STD, "clip-visual"
     import timm
-    bb = timm.create_model(ck["backbone"], pretrained=True, num_classes=0).to(device).eval()
+    bb_name = ck.get("backbone", "")
+    if not bb_name:
+        bb_name = ("vit_tiny_patch16_224.augreg_in21k_ft_in1k" if model_name == "v2-tiny"
+                   else "mobilenetv3_small_100")
+    bb = timm.create_model(bb_name, pretrained=True, num_classes=0).to(device).eval()
     return bb, head, IM_MEAN, IM_STD, "timm"
 
 
