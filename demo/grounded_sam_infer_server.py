@@ -59,7 +59,12 @@ def main():
     print(f"[sam] ok, {sum(p.numel() for p in sam.parameters()) / 1e6:.1f} M params", flush=True)
 
     @torch.no_grad()
-    def infer(pil: Image.Image, query: str, box_thr: float, text_thr: float, top1: bool):
+    def infer(pil: Image.Image, query: str, box_thr: float, text_thr: float, top1: bool,
+              max_box_area_frac: float = 0.55):
+        """If GroundingDINO returns a box whose area covers more than
+        max_box_area_frac of the frame, treat it as a 'no detection' (the
+        common false-positive mode where DINO emits a frame-spanning box
+        when the queried object isn't actually present)."""
         H, W = pil.height, pil.width
         text = query.lower().strip()
         if not text.endswith("."): text += "."
@@ -73,6 +78,20 @@ def main():
         full_mask = np.zeros((H, W), dtype=np.uint8)
         if boxes.numel() == 0:
             return full_mask, 0, 0.0
+
+        # Reject huge "whole-frame" boxes — usually false positives.
+        frame_area = float(H * W)
+        keep = []
+        for i in range(boxes.shape[0]):
+            x1, y1, x2, y2 = boxes[i].tolist()
+            barea = max(0.0, x2 - x1) * max(0.0, y2 - y1)
+            if barea / max(frame_area, 1.0) <= max_box_area_frac:
+                keep.append(i)
+        if not keep:
+            return full_mask, 0, 0.0
+        keep_idx = torch.tensor(keep, device=boxes.device)
+        boxes = boxes[keep_idx]; scores = scores[keep_idx]
+
         if top1:
             idx = int(torch.argmax(scores).item())
             boxes = boxes[idx:idx + 1]
@@ -113,12 +132,13 @@ def main():
         query = request.form.get("query", "").strip() or request.headers.get("X-Query", "").strip()
         if not query:
             return ("missing 'query'", 400)
-        box_thr = float(request.headers.get("X-Box-Threshold", "0.30"))
-        text_thr = float(request.headers.get("X-Text-Threshold", "0.25"))
+        box_thr = float(request.headers.get("X-Box-Threshold", "0.40"))
+        text_thr = float(request.headers.get("X-Text-Threshold", "0.30"))
         top1 = request.headers.get("X-Top1", "1") == "1"
+        max_area = float(request.headers.get("X-Max-Box-Area-Frac", "0.55"))
         img_bytes = request.files["image"].read()
         pil = Image.open(io.BytesIO(img_bytes)).convert("RGB")
-        full_mask, n_boxes, top_score = infer(pil, query, box_thr, text_thr, top1)
+        full_mask, n_boxes, top_score = infer(pil, query, box_thr, text_thr, top1, max_area)
         # PNG-encode the mask (1-channel uint8 0/255)
         out = io.BytesIO()
         Image.fromarray(full_mask, mode="L").save(out, format="PNG")
