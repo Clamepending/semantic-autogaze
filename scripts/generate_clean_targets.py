@@ -112,8 +112,13 @@ def write_npz(path: Path, *, img_id: str, query: str, presence: bool,
     )
 
 
-def process_coco(args, ann_path: str, output_dir: Path):
-    print(f"[coco] loading {ann_path} ...", flush=True)
+def process_coco(args, ann_path: str, output_dir: Path,
+                 source_label: str = "coco", filename_prefix: str = ""):
+    """Process a COCO-format JSON (instances OR stuff). Both share schema.
+    `source_label` is written into npz['source']; `filename_prefix` is added
+    in front of the slug to namespace stuff files (e.g., 'stuff_').
+    """
+    print(f"[{source_label}] loading {ann_path} ...", flush=True)
     coco = COCO(ann_path)
     cat_ids = coco.getCatIds()
     cat_id_to_name = {c["id"]: c["name"] for c in coco.loadCats(cat_ids)}
@@ -142,7 +147,7 @@ def process_coco(args, ann_path: str, output_dir: Path):
 
         for cat_id in cat_ids:
             cat_name = cat_id_to_name[cat_id]
-            slug = slugify(cat_name)
+            slug = filename_prefix + slugify(cat_name)
             out_path = output_dir / f"{img_id_str}__{slug}.npz"
             if out_path.exists() and not args.overwrite:
                 n_skip += 1
@@ -155,7 +160,7 @@ def process_coco(args, ann_path: str, output_dir: Path):
                           img_id=img_id_str, query=cat_name, presence=True,
                           mask_full=(mask_full * 255), mask14=mask14,
                           H=H, W=W, n_boxes=len(by_cat[cat_id]),
-                          source="coco")
+                          source=source_label)
                 n_pos += 1
             else:
                 # COCO doesn't verify absents, but writing a zero target gives
@@ -168,7 +173,7 @@ def process_coco(args, ann_path: str, output_dir: Path):
                     write_npz(out_path,
                               img_id=img_id_str, query=cat_name, presence=False,
                               mask_full=mask_full, mask14=mask14,
-                              H=H, W=W, n_boxes=0, source="coco")
+                              H=H, W=W, n_boxes=0, source=source_label)
                     n_neg += 1
 
         if (ix + 1) % 200 == 0:
@@ -296,23 +301,248 @@ def process_lvis(args, ann_path: str, output_dir: Path):
           f"skip={n_skip} in {(time.time()-t0)/60:.1f} min", flush=True)
 
 
+def process_pascal_part(args, ann_dir: str, image_dir: str, output_dir: Path):
+    """Process Pascal-Part .mat files. Pascal-Part is on VOC2010 images.
+
+    Emits a unified `<voc_id>__pp_<query>.npz` per (image, body-part query).
+    Body-part queries are aggregated from L/R variants:
+      - 'hand'   = lhand U rhand (person only)
+      - 'arm'    = luarm U ruarm U llarm U rlarm (person)
+      - 'head'   = head (person, dog, cat, cow, sheep, horse, bird)
+      - 'foot'   = lfoot U rfoot (person)
+      - 'leg'    = luleg U ruleg U llleg U rlleg (person)
+      - 'paw'    = lfpa U rfpa U lbpa U rbpa (dog, cat)
+      - 'wing'   = lwing U rwing (bird, aeroplane)
+      - 'wheel'  = wheel_* (car) or fwheel U bwheel (bicycle, motorbike)
+      - 'screen' = screen (tvmonitor)
+    Negative-pair handling: skip; the trainer's BalancedSampler will get
+    negatives from cross-pair off-diagonals at training time.
+    """
+    import scipy.io as sio
+    print(f"[pascal-part] scanning {ann_dir} ...", flush=True)
+    ann_dir_path = Path(ann_dir)
+    img_dir_path = Path(image_dir)
+    files = sorted(ann_dir_path.glob("*.mat"))
+    print(f"  {len(files)} .mat files", flush=True)
+    if args.image_limit:
+        files = files[:args.image_limit]
+
+    QUERY_RULES = [
+        ("hand",   "person", lambda n: n in ("lhand", "rhand")),
+        ("arm",    "person", lambda n: n in ("luarm", "ruarm", "llarm", "rlarm")),
+        ("head",   "person", lambda n: n == "head"),
+        ("face",   "person", lambda n: n in ("leye", "reye", "lear", "rear",
+                                              "nose", "mouth", "lebrow", "rebrow")),
+        ("nose",   "person", lambda n: n == "nose"),
+        ("mouth",  "person", lambda n: n == "mouth"),
+        ("hair",   "person", lambda n: n == "hair"),
+        ("torso",  "person", lambda n: n == "torso"),
+        ("leg",    "person", lambda n: n in ("luleg", "ruleg", "llleg", "rlleg")),
+        ("foot",   "person", lambda n: n in ("lfoot", "rfoot")),
+        ("dog_head",  "dog", lambda n: n == "head"),
+        ("dog_paw",   "dog", lambda n: n in ("lfpa", "rfpa", "lbpa", "rbpa")),
+        ("cat_head",  "cat", lambda n: n == "head"),
+        ("cat_paw",   "cat", lambda n: n in ("lfpa", "rfpa", "lbpa", "rbpa")),
+        ("bird_wing", "bird", lambda n: n in ("lwing", "rwing")),
+        ("bird_beak", "bird", lambda n: n == "beak"),
+        ("car_wheel", "car",  lambda n: n.startswith("wheel")),
+        ("bicycle_wheel", "bicycle", lambda n: n in ("fwheel", "bwheel")),
+        ("aeroplane_wing", "aeroplane", lambda n: n in ("lwing", "rwing")),
+        ("tv_screen", "tvmonitor", lambda n: n == "screen"),
+    ]
+
+    n_pos = 0; n_skip = 0; n_no_img = 0; t0 = time.time()
+    for ix, f in enumerate(files):
+        img_id = f.stem  # like "2008_000002"
+        img_path = img_dir_path / f"{img_id}.jpg"
+        if not img_path.exists():
+            n_no_img += 1
+            continue
+        try:
+            mat = sio.loadmat(f)
+            anno = mat.get('anno')
+            if anno is None: continue
+            objects = anno[0,0]['objects']
+        except Exception:
+            continue
+
+        # Get image dims from any mask we'll process
+        H = None; W = None
+        # Build per-query mask
+        for query, target_cls, predicate in QUERY_RULES:
+            slug = f"pp_{query}"
+            out_path = output_dir / f"{img_id}__{slug}.npz"
+            if out_path.exists() and not args.overwrite:
+                n_skip += 1
+                continue
+
+            union = None
+            for obj in objects[0]:
+                cls = str(obj['class'][0]) if 'class' in obj.dtype.names else ''
+                if cls != target_cls: continue
+                parts = obj['parts'] if 'parts' in obj.dtype.names else None
+                if parts is None or parts.size == 0: continue
+                for p in parts[0]:
+                    pname = str(p['part_name'][0])
+                    if not predicate(pname): continue
+                    pmask = p['mask']
+                    if H is None: H, W = pmask.shape
+                    if union is None:
+                        union = pmask.astype(bool).copy()
+                    else:
+                        union |= pmask.astype(bool)
+
+            if union is None: continue
+            if int(union.sum()) < 50: continue
+            mask14 = pool_to_14(union.astype(np.uint8) * 255)
+            write_npz(out_path,
+                      img_id=img_id, query=query.replace("_", " "), presence=True,
+                      mask_full=(union.astype(np.uint8) * 255), mask14=mask14,
+                      H=int(H), W=int(W), n_boxes=1, source="pascal_part")
+            n_pos += 1
+
+        if (ix + 1) % 500 == 0:
+            elapsed = time.time() - t0
+            rate = (ix + 1) / elapsed
+            eta = (len(files) - ix - 1) / rate
+            print(f"  [{ix+1}/{len(files)}] pos={n_pos} no_img={n_no_img} "
+                  f"skip={n_skip} rate={rate:.1f} img/s eta={eta/60:.1f} min", flush=True)
+
+    print(f"[pascal-part] done. pos={n_pos} no_img={n_no_img} skip={n_skip} "
+          f"in {(time.time()-t0)/60:.1f} min", flush=True)
+
+
+def process_panoptic(args, ann_path: str, png_dir: str, output_dir: Path):
+    """Process COCO Panoptic annotations. Each segment becomes a contribution
+    to a (image, category) mask. Multiple segments of the same category in
+    the same image are unioned. Stuff classes are kept; thing classes are
+    skipped here (they're already covered by COCO instances + LVIS).
+
+    Since COCO Panoptic is on val2017 images that we already process via
+    `process_coco(instances)`, we add ONLY stuff classes here to avoid
+    duplicate npz writes.
+    """
+    print(f"[panoptic] loading {ann_path} ...", flush=True)
+    with open(ann_path) as fh:
+        pan = json.load(fh)
+    cats_by_id = {c['id']: c for c in pan['categories']}
+    img_by_id = {i['id']: i for i in pan['images']}
+    print(f"  {len(pan['images'])} images, {len(pan['categories'])} cats "
+          f"({sum(c['isthing']==1 for c in pan['categories'])} thing, "
+          f"{sum(c['isthing']==0 for c in pan['categories'])} stuff)", flush=True)
+
+    image_dir_path = Path(args.image_dir)
+    png_dir_path = Path(png_dir)
+
+    n_pos = 0; n_neg = 0; n_skip = 0; n_no_img = 0; t0 = time.time()
+    annotations = pan['annotations']
+    if args.image_limit:
+        annotations = annotations[:args.image_limit]
+
+    for ix, ann in enumerate(annotations):
+        img_id = ann['image_id']
+        info = img_by_id[img_id]
+        H, W = info['height'], info['width']
+        img_id_str = f"{img_id:012d}"
+        if not (image_dir_path / f"{img_id_str}.jpg").exists():
+            n_no_img += 1
+            continue
+        png_path = png_dir_path / ann['file_name']
+        if not png_path.exists():
+            n_no_img += 1
+            continue
+        png = np.array(Image.open(png_path).convert("RGB"))
+        ids = png[..., 0].astype(np.int64) + (png[..., 1].astype(np.int64) << 8) + (png[..., 2].astype(np.int64) << 16)
+
+        # Group segments by category — keep stuff only
+        present_cats: dict[int, list[int]] = {}
+        for seg in ann['segments_info']:
+            cid = seg['category_id']
+            if cats_by_id[cid].get('isthing', 0) == 1:
+                continue  # things are covered by COCO instances
+            present_cats.setdefault(cid, []).append(seg['id'])
+
+        # Emit positives + negatives for stuff cats
+        stuff_cat_ids = [c['id'] for c in pan['categories'] if c['isthing'] == 0]
+        for cid in stuff_cat_ids:
+            cat_meta = cats_by_id[cid]
+            cat_name = cat_meta['name']
+            slug = f"stuff_{slugify(cat_name)}"
+            out_path = output_dir / f"{img_id_str}__{slug}.npz"
+            if out_path.exists() and not args.overwrite:
+                n_skip += 1
+                continue
+            if cid in present_cats:
+                # Union all segments of this stuff class
+                seg_ids = present_cats[cid]
+                mask = np.zeros((H, W), dtype=bool)
+                for sid in seg_ids:
+                    mask |= (ids == sid)
+                if not mask.any(): continue
+                mask14 = pool_to_14(mask.astype(np.uint8) * 255)
+                write_npz(out_path,
+                          img_id=img_id_str, query=cat_name, presence=True,
+                          mask_full=(mask.astype(np.uint8) * 255), mask14=mask14,
+                          H=H, W=W, n_boxes=len(seg_ids), source="panoptic")
+                n_pos += 1
+            else:
+                if not args.skip_negatives:
+                    mask_full = np.zeros((H, W), dtype=np.uint8)
+                    mask14 = np.zeros((14, 14), dtype=np.uint8)
+                    write_npz(out_path,
+                              img_id=img_id_str, query=cat_name, presence=False,
+                              mask_full=mask_full, mask14=mask14,
+                              H=H, W=W, n_boxes=0, source="panoptic")
+                    n_neg += 1
+
+        if (ix + 1) % 200 == 0:
+            elapsed = time.time() - t0
+            rate = (ix + 1) / elapsed
+            eta = (len(annotations) - ix - 1) / rate
+            print(f"  [{ix+1}/{len(annotations)}] pos={n_pos} neg={n_neg} "
+                  f"skip={n_skip} no_img={n_no_img} rate={rate:.1f} img/s eta={eta/60:.1f} min",
+                  flush=True)
+
+    print(f"[panoptic] done. pos={n_pos} neg={n_neg} skip={n_skip} no_img={n_no_img} "
+          f"in {(time.time()-t0)/60:.1f} min", flush=True)
+
+
 def main(args):
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     if args.coco_ann:
-        process_coco(args, args.coco_ann, output_dir)
+        process_coco(args, args.coco_ann, output_dir,
+                     source_label="coco", filename_prefix="")
+    if args.stuff_ann:
+        process_coco(args, args.stuff_ann, output_dir,
+                     source_label="stuff", filename_prefix="stuff_")
     if args.lvis_ann:
         process_lvis(args, args.lvis_ann, output_dir)
+    if args.panoptic_ann and args.panoptic_png_dir:
+        process_panoptic(args, args.panoptic_ann, args.panoptic_png_dir, output_dir)
+    if args.pascal_part_ann_dir and args.pascal_part_image_dir:
+        process_pascal_part(args, args.pascal_part_ann_dir,
+                            args.pascal_part_image_dir, output_dir)
 
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--coco_ann", default=None,
                    help="Path to COCO instances JSON (val or train).")
+    p.add_argument("--stuff_ann", default=None,
+                   help="Path to COCO-Stuff annotations JSON (val or train).")
     p.add_argument("--lvis_ann", default=None,
                    help="Path to LVIS v1 annotations JSON.")
+    p.add_argument("--panoptic_ann", default=None,
+                   help="Path to COCO Panoptic JSON.")
+    p.add_argument("--panoptic_png_dir", default=None,
+                   help="Directory of Panoptic PNG masks (e.g. annotations/panoptic_val2017/).")
+    p.add_argument("--pascal_part_ann_dir", default=None,
+                   help="Pascal-Part Annotations_Part directory.")
+    p.add_argument("--pascal_part_image_dir", default=None,
+                   help="VOC2010 JPEGImages directory.")
     p.add_argument("--image_dir", required=True,
-                   help="Directory of source JPEG images (used implicitly via train script).")
+                   help="Directory of source JPEG images for COCO/LVIS/Panoptic processing.")
     p.add_argument("--output_dir", required=True)
     p.add_argument("--image_limit", type=int, default=None,
                    help="If set, process only the first N images (debug).")
