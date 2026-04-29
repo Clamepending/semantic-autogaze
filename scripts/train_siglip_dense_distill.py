@@ -62,7 +62,8 @@ class TargetDataset(Dataset):
 
     def __init__(self, target_dir: str, image_dir: str,
                  image_size: int = 224, mean=CLIP_MEAN, std=CLIP_STD,
-                 limit: int | None = None, positive_only: bool = False):
+                 limit: int | None = None, positive_only: bool = False,
+                 build_presence_lookup: bool = False):
         self.target_dir = Path(target_dir)
         self.image_dir = Path(image_dir)
         self.image_size = image_size
@@ -75,6 +76,9 @@ class TargetDataset(Dataset):
         print(f"[dataset] scanning {len(files)} npz files for presence ...", flush=True)
         keep = []
         n_pos = 0
+        # presence_lookup: (img_id, query_str) → True if Grounded-SAM said yes.
+        # Used to filter false-negative off-diagonal pairs in SigLIP loss.
+        presence_lookup: dict = {}
         for f in files:
             try:
                 d = np.load(f, allow_pickle=False)
@@ -82,6 +86,10 @@ class TargetDataset(Dataset):
             except Exception:
                 continue
             if pres: n_pos += 1
+            if build_presence_lookup:
+                stem = f.stem
+                img_id, _, query_slug = stem.partition("__")
+                presence_lookup[(img_id, query_slug)] = pres
             if positive_only and not pres:
                 continue
             keep.append((f, pres))
@@ -89,9 +97,13 @@ class TargetDataset(Dataset):
         self.is_pos = np.array([t[1] for t in keep], dtype=bool)
         self.pos_indices = np.where(self.is_pos)[0]
         self.neg_indices = np.where(~self.is_pos)[0]
+        self.presence_lookup = presence_lookup
         print(f"[dataset] kept {len(self.files)} (positive={int(self.is_pos.sum())}, "
               f"negative={int((~self.is_pos).sum())}) | original positive rate {n_pos}/{len(files)}",
               flush=True)
+        if build_presence_lookup:
+            print(f"[dataset] presence_lookup has {len(presence_lookup)} (img_id, query) keys",
+                  flush=True)
 
     def __len__(self): return len(self.files)
 
@@ -100,19 +112,22 @@ class TargetDataset(Dataset):
         d = np.load(npz_path, allow_pickle=True)
         img_id = str(d["img_id"]) if "img_id" in d else npz_path.stem.split("__")[0]
         query = str(d["query"]) if "query" in d else npz_path.stem.split("__", 1)[1]
+        # Slug stored in filename for cross-pair presence_lookup
+        query_slug = npz_path.stem.split("__", 1)[1]
         img_path = self.image_dir / f"{img_id}.jpg"
         try:
             pil = Image.open(img_path).convert("RGB")
         except Exception:
             return None
-        # Resize + normalize
         arr = np.array(pil.resize((self.image_size, self.image_size), Image.BICUBIC))
         x = (arr.astype(np.float32) / 255.0 - self.mean) / self.std
-        x = torch.from_numpy(x).permute(2, 0, 1).float()  # (3, H, W)
-        mask14 = torch.from_numpy(d["mask14"].astype(np.float32) / 255.0)  # (14, 14) {0,1}
+        x = torch.from_numpy(x).permute(2, 0, 1).float()
+        mask14 = torch.from_numpy(d["mask14"].astype(np.float32) / 255.0)
         return {
             "image": x,
             "query": query,
+            "query_slug": query_slug,
+            "img_id": img_id,
             "mask14": mask14,
             "presence": bool(d["presence"]),
             "clip_sim": float(d["clip_sim"]),
@@ -126,6 +141,8 @@ def collate(batch):
     return {
         "image": torch.stack([b["image"] for b in batch]),
         "query": [b["query"] for b in batch],
+        "query_slug": [b.get("query_slug", "") for b in batch],
+        "img_id": [b.get("img_id", "") for b in batch],
         "mask14": torch.stack([b["mask14"] for b in batch]),
         "presence": torch.tensor([b["presence"] for b in batch], dtype=torch.float32),
         "clip_sim": torch.tensor([b["clip_sim"] for b in batch]),
@@ -299,7 +316,8 @@ def train(args):
     # Data
     ds = TargetDataset(args.target_dir, args.image_dir,
                        image_size=224, mean=mean, std=std,
-                       limit=args.limit, positive_only=args.positive_only)
+                       limit=args.limit, positive_only=args.positive_only,
+                       build_presence_lookup=args.fn_filter)
     if args.balanced_pos_frac > 0:
         sampler = BalancedSampler(ds.pos_indices, ds.neg_indices,
                                   pos_frac=args.balanced_pos_frac)
@@ -363,31 +381,41 @@ def train(args):
             # already from the head, so we apply learnable t/bias as a calibration)
             cal_logits = sb(logits)
 
+            # FN filter: if off-diagonal pair (img_i, query_j) has presence=True in the
+            # offline lookup, mask out that loss term — it's actually a positive that was
+            # mislabeled as zero. Cleans up the SigLIP off-diagonal supervision signal.
+            fn_keep = torch.ones(B, B, device=device)
+            n_fn = 0
+            if args.fn_filter and ds.presence_lookup:
+                img_ids = batch.get("img_id", [])
+                slugs = batch.get("query_slug", [])
+                for i in range(B):
+                    for j in range(B):
+                        if i == j: continue
+                        if ds.presence_lookup.get((img_ids[i], slugs[j]), False):
+                            fn_keep[i, j] = 0.0
+                            n_fn += 1
+
             # 6) L_dense: per-patch BCEWithLogits with pos_weight to fight class imbalance.
-            # Most patches are 0 even on positive pairs; off-diagonal pairs are entirely 0.
-            # pos_weight upweights positive locations.
             pos_weight = torch.tensor(args.bce_pos_weight, device=device)
-            if args.lambda_off_diagonal < 1.0:
-                # Ablation: weight diagonal vs off-diagonal pair losses separately.
-                # lambda=0 becomes direct regression on diagonal positives only
-                # (non-contrastive baseline; user's suggested fallback recipe).
-                diag_mask = torch.zeros(B, B, device=device)
-                for b in range(B): diag_mask[b, b] = 1.0
-                weight = diag_mask + (1.0 - diag_mask) * args.lambda_off_diagonal
-                bce_per_pos = F.binary_cross_entropy_with_logits(
-                    cal_logits, target, reduction="none", pos_weight=pos_weight)
-                w_full = weight.unsqueeze(-1).unsqueeze(-1).expand_as(bce_per_pos)
-                L_dense = (bce_per_pos * w_full).sum() / w_full.sum().clamp(min=1)
-            else:
-                L_dense = F.binary_cross_entropy_with_logits(
-                    cal_logits, target, reduction="mean", pos_weight=pos_weight)
+            # Combined per-pair weight = lambda_off_diagonal weighting * fn_keep
+            diag_mask = torch.zeros(B, B, device=device)
+            for b in range(B): diag_mask[b, b] = 1.0
+            weight_pair = diag_mask + (1.0 - diag_mask) * args.lambda_off_diagonal
+            weight_pair = weight_pair * fn_keep  # zero out FN-filtered off-diagonals
+            bce_per_pos = F.binary_cross_entropy_with_logits(
+                cal_logits, target, reduction="none", pos_weight=pos_weight)
+            w_full = weight_pair.unsqueeze(-1).unsqueeze(-1).expand_as(bce_per_pos)
+            L_dense = (bce_per_pos * w_full).sum() / w_full.sum().clamp(min=1)
 
             # 7) L_pool: image-level presence loss using mean-pooled logits.
-            # Diagonal positives are ~B of B*B = 1/B fraction; upweight them.
+            # FN-filter applies here too — don't push off-diagonal toward "absent" if
+            # the query is actually in the image.
             pool_pos_weight = torch.tensor(args.pool_pos_weight, device=device)
             pooled = cal_logits.mean(dim=(-2, -1))  # (B, Q)
-            L_pool = F.binary_cross_entropy_with_logits(
-                pooled, target_present, reduction="mean", pos_weight=pool_pos_weight)
+            pool_bce = F.binary_cross_entropy_with_logits(
+                pooled, target_present, reduction="none", pos_weight=pool_pos_weight)
+            L_pool = (pool_bce * fn_keep).sum() / fn_keep.sum().clamp(min=1)
 
             # 8) L_dice on diagonal pairs only (where mask is meaningful)
             diag_idx = torch.arange(B, device=device)
@@ -400,6 +428,8 @@ def train(args):
             opt.zero_grad(); L.backward(); opt.step()
             step += 1
 
+            if step == 1 and args.fn_filter:
+                print(f"  [fn_filter] step 1: n_fn={n_fn} of {B*(B-1)} off-diagonal pairs masked", flush=True)
             if step % args.log_every == 0:
                 with torch.no_grad():
                     diag_iou = ((torch.sigmoid(diag_logits) > 0.5) & (diag_target > 0.5)).sum() / max(
@@ -478,6 +508,10 @@ if __name__ == "__main__":
                    help="upweight positive patches in dense BCE; ~20-50 useful for sparse masks")
     p.add_argument("--lambda_off_diagonal", type=float, default=1.0,
                    help="weight on off-diagonal pair losses (0=non-contrastive direct regression, 1=full SigLIP)")
+    p.add_argument("--fn_filter", action="store_true",
+                   help="filter false-negative off-diagonal pairs (img_i actually contains query_j)"
+                        " using the offline presence lookup. Critical for clean SigLIP supervision"
+                        " when training on >50k pairs.")
     p.add_argument("--pool_pos_weight", type=float, default=5.0,
                    help="upweight diagonal positives in image-level pool BCE; ~B is right scale")
     p.add_argument("--positive_only", action="store_true",
