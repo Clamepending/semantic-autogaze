@@ -271,8 +271,11 @@ class State:
         self.gsam_box_thr = 0.35
         self.gsam_text_thr = 0.25
         self.gsam_max_box_area = 0.55
+        self.gsam_clip_gate = 0.18  # CLIP image-text cosine gate; below this -> empty mask
         self.gsam_last_n_boxes = 0
         self.gsam_last_top_score = 0.0
+        self.gsam_last_clip_sim = 0.0
+        self.gsam_last_gated_out = False
         self.gsam_last_infer_ms = 0.0
 
     def set_query(self, q_str: str, encode_fn):
@@ -311,6 +314,10 @@ class State:
     def set_gsam_max_box_area(self, v: float):
         v = max(0.10, min(1.00, float(v)))
         with self.lock: self.gsam_max_box_area = v
+
+    def set_gsam_clip_gate(self, v: float):
+        v = max(0.00, min(0.50, float(v)))
+        with self.lock: self.gsam_clip_gate = v
 
 
 # ---- HTML page ----
@@ -360,7 +367,13 @@ button:hover { background: #3b5; }
     <input id="garea" type="range" min="0.10" max="1.00" step="0.01" value="0.55">
     <span id="gareaval" class="thrval">0.55</span>
   </label>
-  <br><span class="muted">(remote-mode only — lower thresholds = more detections, more false positives)</span>
+  <br>
+  <label>CLIP gate (presence detector):
+    <input id="ggate" type="range" min="0.00" max="0.40" step="0.01" value="0.18">
+    <span id="ggateval" class="thrval">0.18</span>
+  </label>
+  <span class="muted">(image-text cosine cutoff — below this, mask is suppressed entirely. Stops the
+   "Hugging Face emoji segmented as a hand" failure when the queried object is absent.)</span>
 </div>
 <div class="row">
   <label>rotate:
@@ -393,12 +406,17 @@ async function refreshState() {
       document.getElementById('gtextval').textContent = j.gsam_text_thr.toFixed(2);
       document.getElementById('garea').value = j.gsam_max_box_area;
       document.getElementById('gareaval').textContent = j.gsam_max_box_area.toFixed(2);
+      if ('gsam_clip_gate' in j) {
+        document.getElementById('ggate').value = j.gsam_clip_gate;
+        document.getElementById('ggateval').textContent = j.gsam_clip_gate.toFixed(2);
+      }
     }
     firstLoad = false;
   }
   let extra = '';
   if (j.mode === 'remote' && 'gsam_last_top_score' in j) {
-    extra = ` | gsam: ${j.gsam_last_n_boxes} boxes, top_score=${j.gsam_last_top_score.toFixed(2)}, ${j.gsam_last_infer_ms.toFixed(0)}ms`;
+    const gated = j.gsam_last_gated_out ? ' GATED' : '';
+    extra = ` | clip_sim=${(j.gsam_last_clip_sim||0).toFixed(2)}${gated} | gdino: ${j.gsam_last_n_boxes} boxes, top=${j.gsam_last_top_score.toFixed(2)}, ${j.gsam_last_infer_ms.toFixed(0)}ms`;
   }
   document.getElementById('status').textContent =
     `[${j.mode}] queries=[${j.queries.join(', ')}] reduce=${j.reduce} thr=${j.threshold.toFixed(2)} rotate=${j.rotate}° | ${j.model} | ${j.fps.toFixed(1)} fps` + extra;
@@ -427,7 +445,7 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('thr').addEventListener('input', (e) => postThr(e.target.value));
   document.getElementById('rot').addEventListener('change', (e) => postRot(e.target.value));
-  for (const f of ['gbox', 'gtext', 'garea']) {
+  for (const f of ['gbox', 'gtext', 'garea', 'ggate']) {
     const el = document.getElementById(f);
     if (el) el.addEventListener('input', (e) => postGsam(f, e.target.value));
   }
@@ -510,7 +528,7 @@ def main():
         infer_url = args.remote_inference.rstrip("/") + "/infer"
         print(f"[remote] inference offloaded to {infer_url}", flush=True)
 
-    def remote_infer(frame_bgr_local, query_text, box_thr, text_thr, max_area):
+    def remote_infer(frame_bgr_local, query_text, box_thr, text_thr, max_area, clip_gate):
         """Send frame as JPEG to remote /infer; receive PNG mask + meta headers."""
         ok2, jpeg_bytes = cv2.imencode(".jpg", frame_bgr_local,
                                        [int(cv2.IMWRITE_JPEG_QUALITY), 70])
@@ -533,12 +551,15 @@ def main():
                          headers={"Content-Type": f"multipart/form-data; boundary={boundary}",
                                   "X-Box-Threshold": f"{box_thr:.3f}",
                                   "X-Text-Threshold": f"{text_thr:.3f}",
-                                  "X-Max-Box-Area-Frac": f"{max_area:.3f}"})
+                                  "X-Max-Box-Area-Frac": f"{max_area:.3f}",
+                                  "X-Clip-Gate": f"{clip_gate:.3f}"})
         try:
             with _ur.urlopen(req, timeout=30) as resp:
                 png = resp.read()
                 meta = {"n_boxes": int(resp.headers.get("X-N-Boxes", "0")),
                         "top_score": float(resp.headers.get("X-Top-Score", "0")),
+                        "clip_sim": float(resp.headers.get("X-Clip-Sim", "0")),
+                        "gated_out": resp.headers.get("X-Gated-Out", "0") == "1",
                         "infer_ms": float(resp.headers.get("X-Inference-Ms", "0"))}
         except Exception as e:
             return None, {"error": str(e)[:80]}
@@ -567,7 +588,8 @@ def main():
                         bx_thr = state.gsam_box_thr
                         tx_thr = state.gsam_text_thr
                         ma = state.gsam_max_box_area
-                    out = remote_infer(frame_bgr, qs[0], bx_thr, tx_thr, ma)
+                        cg = state.gsam_clip_gate
+                    out = remote_infer(frame_bgr, qs[0], bx_thr, tx_thr, ma, cg)
                     full_mask, meta = out
                     if full_mask is None:
                         disp = frame_bgr.copy()
@@ -577,6 +599,8 @@ def main():
                         with state.lock:
                             state.gsam_last_n_boxes = int(meta.get("n_boxes", 0))
                             state.gsam_last_top_score = float(meta.get("top_score", 0.0))
+                            state.gsam_last_clip_sim = float(meta.get("clip_sim", 0.0))
+                            state.gsam_last_gated_out = bool(meta.get("gated_out", False))
                             state.gsam_last_infer_ms = float(meta.get("infer_ms", 0.0))
                         H, W = frame_bgr.shape[:2]
                         if full_mask.shape != (H, W):
@@ -659,8 +683,11 @@ def main():
                     "gsam_box_thr": state.gsam_box_thr,
                     "gsam_text_thr": state.gsam_text_thr,
                     "gsam_max_box_area": state.gsam_max_box_area,
+                    "gsam_clip_gate": state.gsam_clip_gate,
                     "gsam_last_n_boxes": state.gsam_last_n_boxes,
                     "gsam_last_top_score": state.gsam_last_top_score,
+                    "gsam_last_clip_sim": state.gsam_last_clip_sim,
+                    "gsam_last_gated_out": state.gsam_last_gated_out,
                     "gsam_last_infer_ms": state.gsam_last_infer_ms,
                 })
             return d
@@ -725,6 +752,13 @@ def main():
         try: state.set_gsam_max_box_area(float(body))
         except ValueError: pass
         with state.lock: return {"gsam_max_box_area": state.gsam_max_box_area}
+
+    @app.post("/api/gsam_gate")
+    def api_gsam_gate():
+        body = request.get_data(as_text=True).strip()
+        try: state.set_gsam_clip_gate(float(body))
+        except ValueError: pass
+        with state.lock: return {"gsam_clip_gate": state.gsam_clip_gate}
 
     print(f"\n[server] listening on http://{args.host}:{args.port}/", flush=True)
     print(f"[server] open in browser: http://<pi-host>:{args.port}/  (or http://<pi-tailscale-name>:{args.port}/)", flush=True)

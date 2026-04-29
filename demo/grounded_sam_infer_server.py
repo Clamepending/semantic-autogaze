@@ -58,6 +58,29 @@ def main():
     sam = SamModel.from_pretrained(args.sam).to(device).eval()
     print(f"[sam] ok, {sum(p.numel() for p in sam.parameters()) / 1e6:.1f} M params", flush=True)
 
+    # CLIP for the open-set gate: image-text cosine tells us whether the
+    # queried concept is plausibly in the frame at all (much better-calibrated
+    # for absence than gdino's per-box score).
+    print("[clip] loading CLIP-B/16 for gate ...", flush=True)
+    import open_clip
+    clip_model, _, _ = open_clip.create_model_and_transforms("ViT-B-16", pretrained="openai")
+    clip_tok = open_clip.get_tokenizer("ViT-B-16")
+    clip_model = clip_model.to(device).eval()
+    CLIP_MEAN_T = torch.tensor([0.48145466, 0.4578275, 0.40821073], device=device)
+    CLIP_STD_T  = torch.tensor([0.26862954, 0.26130258, 0.27577711], device=device)
+
+    @torch.no_grad()
+    def clip_gate_score(pil: Image.Image, query: str) -> float:
+        """Returns CLIP image-text cosine similarity in roughly [-0.1, 0.4].
+        Empirically: ~0.10-0.15 when concept absent; 0.20-0.30 when present."""
+        arr = np.array(pil.resize((224, 224), Image.BICUBIC))
+        x = torch.from_numpy(arr).permute(2, 0, 1).float().to(device) / 255.0
+        x = (x.unsqueeze(0) - CLIP_MEAN_T[None, :, None, None]) / CLIP_STD_T[None, :, None, None]
+        img_emb = torch.nn.functional.normalize(clip_model.encode_image(x), dim=-1)
+        toks = clip_tok([query]).to(device)
+        txt_emb = torch.nn.functional.normalize(clip_model.encode_text(toks), dim=-1)
+        return float((img_emb @ txt_emb.T).squeeze().item())
+
     @torch.no_grad()
     def infer(pil: Image.Image, query: str, box_thr: float, text_thr: float, top1: bool,
               max_box_area_frac: float = 0.55):
@@ -136,9 +159,17 @@ def main():
         text_thr = float(request.headers.get("X-Text-Threshold", "0.30"))
         top1 = request.headers.get("X-Top1", "1") == "1"
         max_area = float(request.headers.get("X-Max-Box-Area-Frac", "0.55"))
+        clip_gate = float(request.headers.get("X-Clip-Gate", "0.18"))
         img_bytes = request.files["image"].read()
         pil = Image.open(io.BytesIO(img_bytes)).convert("RGB")
-        full_mask, n_boxes, top_score = infer(pil, query, box_thr, text_thr, top1, max_area)
+        # Stage 1: CLIP gate — is the concept plausibly in the frame at all?
+        sim = clip_gate_score(pil, query)
+        if sim < clip_gate:
+            full_mask = np.zeros((pil.height, pil.width), dtype=np.uint8)
+            n_boxes = 0; top_score = 0.0
+        else:
+            # Stage 2: full Grounded-SAM segmentation.
+            full_mask, n_boxes, top_score = infer(pil, query, box_thr, text_thr, top1, max_area)
         # PNG-encode the mask (1-channel uint8 0/255)
         out = io.BytesIO()
         Image.fromarray(full_mask, mode="L").save(out, format="PNG")
@@ -147,6 +178,9 @@ def main():
         resp = Response(out.read(), mimetype="image/png")
         resp.headers["X-N-Boxes"] = str(n_boxes)
         resp.headers["X-Top-Score"] = f"{top_score:.4f}"
+        resp.headers["X-Clip-Sim"] = f"{sim:.4f}"
+        resp.headers["X-Clip-Gate"] = f"{clip_gate:.4f}"
+        resp.headers["X-Gated-Out"] = "1" if sim < clip_gate else "0"
         resp.headers["X-Inference-Ms"] = f"{ms:.1f}"
         return resp
 
