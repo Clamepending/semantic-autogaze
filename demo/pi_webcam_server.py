@@ -259,11 +259,18 @@ input[type=text] { width: 60%; }
 </div>
 <img id="stream" src="/stream" alt="camera">
 <script>
+// Don't clobber user input. Only populate the form on first load; afterwards
+// only the status footer auto-updates.
+let firstLoad = true;
 async function refreshState() {
   const r = await fetch('/api/state'); const j = await r.json();
-  document.getElementById('q').value = j.queries.join(', ');
-  document.getElementById('r').value = j.reduce;
-  document.getElementById('status').textContent = `model: ${j.model} | fps: ${j.fps.toFixed(1)} | n_queries: ${j.queries.length}`;
+  if (firstLoad) {
+    document.getElementById('q').value = j.queries.join(', ');
+    document.getElementById('r').value = j.reduce;
+    firstLoad = false;
+  }
+  document.getElementById('status').textContent =
+    `server: queries=[${j.queries.join(', ')}] reduce=${j.reduce} | model: ${j.model} | fps: ${j.fps.toFixed(1)}`;
 }
 async function apply() {
   const q = document.getElementById('q').value;
@@ -272,7 +279,14 @@ async function apply() {
   await fetch('/api/reduce', {method:'POST', body: r});
   await refreshState();
 }
-refreshState(); setInterval(refreshState, 1000);
+window.addEventListener('DOMContentLoaded', () => {
+  // Apply on Enter in the input
+  document.getElementById('q').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); apply(); }
+  });
+  refreshState();
+  setInterval(refreshState, 1000);
+});
 </script>
 </body></html>
 """
