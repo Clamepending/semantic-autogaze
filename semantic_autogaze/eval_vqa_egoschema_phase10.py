@@ -240,7 +240,13 @@ def main(args):
     qid_to_question = {s["question_id"]: s["question_stem"] for s in samples}
     qid_to_shufq = {qids[i]: qid_to_question[shuffled_qids[i]] for i in range(len(qids))}
 
-    configs = ["vanilla", "match", "shuf", "rand"]
+    all_configs = ["vanilla", "match", "shuf", "rand"]
+    requested = [c.strip() for c in getattr(args, "configs", "vanilla,match,shuf,rand").split(",") if c.strip()]
+    bad = [c for c in requested if c not in all_configs]
+    if bad:
+        raise SystemExit(f"Unknown --configs entries: {bad}; valid: {all_configs}")
+    configs = [c for c in all_configs if c in requested]
+    print(f"[main] running configs: {configs}", flush=True)
     all_results = {}
 
     for cfg in configs:
@@ -411,5 +417,9 @@ if __name__ == "__main__":
     p.add_argument("--semantic_keep_ratio", type=float, default=0.1378)
     p.add_argument("--output_dir", required=True,
                    help="results/egoschema_phase10_<scorer> recommended")
+    p.add_argument("--configs", default="vanilla,match,shuf,rand",
+                   help="Comma-separated subset of {vanilla,match,shuf,rand}. "
+                        "Use to parallelize one config per GPU across separate processes "
+                        "writing to a shared --output_dir (per_qid_<cfg>.json files don't collide).")
     args = p.parse_args()
     main(args)
