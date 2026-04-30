@@ -575,6 +575,70 @@ def build_backbone(model: str, device, finetune_blocks: int = 0):
 
 # ---- Loss ----
 
+class ObjectnessHead(nn.Module):
+    """OWLv2-style query-agnostic objectness head.
+
+    Predicts a per-cell scalar "is there ANY queryable object in this image
+    cell?" — independent of any text query. At inference, the per-query dense
+    score can be gated by sigmoid(objectness) to suppress activations on
+    background cells (ceiling, sky, blurred background, etc.) that share
+    scene-context features with positives but contain no actual object.
+
+    Architecture mirrors the prefix of TextScorerHead: a small patch projector,
+    a learned positional embedding, and 1-2 layers of self-attention over
+    patches, followed by a Linear(hidden, 1). The last Linear's bias is
+    initialised to `bias_init` (default -2.0) so that at step 0 the head emits
+    sigmoid(-2) ~= 0.12 everywhere — a low constant prior rather than a noisy
+    output.
+
+    Input:  patch_feats (B, 196, patch_dim)
+    Output: per-cell objectness logits (B, 14, 14)
+    """
+    def __init__(self, patch_dim, hidden_dim=256, n_attn_heads=4,
+                 n_attn_layers=1, grid_size=GRID, bias_init=-2.0):
+        super().__init__()
+        self.grid_size = grid_size
+        self.bias_init = float(bias_init)
+
+        self.patch_proj = nn.Sequential(
+            nn.Linear(patch_dim, hidden_dim), nn.GELU(), nn.LayerNorm(hidden_dim),
+        )
+        self.pos_embed = nn.Parameter(
+            torch.randn(1, grid_size * grid_size, hidden_dim) * 0.02
+        )
+
+        self.self_attn_layers = nn.ModuleList()
+        for _ in range(n_attn_layers):
+            self.self_attn_layers.append(nn.ModuleDict({
+                "attn": nn.MultiheadAttention(hidden_dim, n_attn_heads, batch_first=True),
+                "norm1": nn.LayerNorm(hidden_dim),
+                "ffn": nn.Sequential(
+                    nn.Linear(hidden_dim, hidden_dim * 2), nn.GELU(),
+                    nn.Linear(hidden_dim * 2, hidden_dim),
+                ),
+                "norm2": nn.LayerNorm(hidden_dim),
+            }))
+
+        self.score = nn.Linear(hidden_dim, 1)
+        # Init last Linear so initial output == bias_init for any input —
+        # head emits sigmoid(bias_init) everywhere at step 0.
+        with torch.no_grad():
+            self.score.weight.zero_()
+            self.score.bias.fill_(self.bias_init)
+
+    def forward(self, patch_feats):
+        B = patch_feats.shape[0]
+        G = self.grid_size
+        x = self.patch_proj(patch_feats)  # (B, 196, hidden)
+        x = x + self.pos_embed
+        for layer in self.self_attn_layers:
+            r = x; x = layer["norm1"](x)
+            x_a, _ = layer["attn"](x, x, x); x = r + x_a
+            r = x; x = layer["norm2"](x); x = r + layer["ffn"](x)
+        logits = self.score(x).squeeze(-1)  # (B, 196)
+        return logits.reshape(B, G, G)
+
+
 class SiglipBias(nn.Module):
     """Learnable temperature + bias used in SigLIP-style sigmoid contrastive."""
     def __init__(self, t_init=10.0, bias_init=-4.0):
@@ -707,8 +771,19 @@ def train(args):
     else:
         sb = SiglipBias(t_init=args.t_init, bias_init=args.bias_init).to(device)
 
+    # Optional: OWLv2-style query-agnostic objectness head. Only constructed
+    # when --objectness_weight > 0; saves params + compute otherwise.
+    objectness_head = None
+    if args.objectness_weight > 0.0:
+        objectness_head = ObjectnessHead(patch_dim=patch_dim).to(device)
+        objectness_head.train()
+        print(f"[objectness] head constructed (weight={args.objectness_weight}, "
+              f"pos_weight={args.objectness_pos_weight}, bias_init=-2.0)", flush=True)
+
     # Optimizer
     params = [p for p in head.parameters()] + [p for p in sb.parameters()]
+    if objectness_head is not None:
+        params += [p for p in objectness_head.parameters()]
     if args.finetune_backbone_blocks > 0:
         params += [p for p in bb_module.parameters() if p.requires_grad]
     opt = torch.optim.AdamW(params, lr=args.lr, weight_decay=args.weight_decay)
@@ -739,6 +814,19 @@ def train(args):
             print(f"[resume] loaded head from {args.resume_from} (sb partial)", flush=True)
         if args.finetune_backbone_blocks > 0 and "backbone_state" in rk:
             bb_module.load_state_dict(rk["backbone_state"])
+        # Optionally resume the objectness head. Old (pre-phase21) ckpts have
+        # no "obj" key -> init fresh; phase21+ ckpts do -> load. Either is
+        # fine; never crash.
+        if objectness_head is not None:
+            try:
+                if "obj" in rk and rk["obj"] is not None:
+                    objectness_head.load_state_dict(rk["obj"])
+                    print(f"[resume] loaded objectness head from {args.resume_from}", flush=True)
+                else:
+                    print(f"[resume] no 'obj' key in ckpt; objectness head starts fresh", flush=True)
+            except (RuntimeError, KeyError) as _e:
+                print(f"[resume][warn] objectness head load failed ({_e!r}); starting fresh",
+                      flush=True)
 
     # Data
     ds = TargetDataset(args.target_dir, args.image_dir,
@@ -1144,7 +1232,20 @@ def train(args):
             else:
                 L_calib = torch.tensor(0.0, device=device)
 
-            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill + args.hard_neg_weight * L_hard_neg + args.lambda_calib * L_calib
+            # 9c) L_objectness: query-agnostic per-cell "is there any object?" head.
+            # Supervises objectness_head(patches) -> (B, 14, 14) against the on-
+            # diagonal mask14[b]: cells positive for at least one query in this
+            # batch are treated as "object-here". Disabled (zero tensor) when
+            # --objectness_weight == 0 (head is also not constructed).
+            if objectness_head is not None:
+                obj_logits = objectness_head(patches)  # (B, 14, 14)
+                obj_pos_weight = torch.tensor(args.objectness_pos_weight, device=device)
+                L_objectness = F.binary_cross_entropy_with_logits(
+                    obj_logits, mask14, reduction="mean", pos_weight=obj_pos_weight)
+            else:
+                L_objectness = torch.tensor(0.0, device=device)
+
+            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill + args.hard_neg_weight * L_hard_neg + args.lambda_calib * L_calib + args.objectness_weight * L_objectness
 
             opt.zero_grad(); L.backward(); opt.step()
             step += 1
@@ -1171,6 +1272,7 @@ def train(args):
                     "L_hard_neg": float(L_hard_neg.item()) if isinstance(L_hard_neg, torch.Tensor) else 0.0,
                     "L_distill": float(L_distill.item()) if isinstance(L_distill, torch.Tensor) else 0.0,
                     "L_calib": float(L_calib.item()) if isinstance(L_calib, torch.Tensor) else 0.0,
+                    "L_objectness": float(L_objectness.item()) if isinstance(L_objectness, torch.Tensor) else 0.0,
                     "diag_iou": float(diag_iou.item()),
                     "t": float(sb.log_t.exp().item()),
                     "bias": b_mean,
@@ -1252,6 +1354,8 @@ def train(args):
                             "head": head.state_dict(), "sb": sb.state_dict(),
                             "args": vars(args), "val_diag_iou": val_diag_iou,
                         }
+                        if objectness_head is not None:
+                            ckpt["obj"] = objectness_head.state_dict()
                         if args.finetune_backbone_blocks > 0:
                             ckpt["backbone_state"] = bb_module.state_dict()
                         torch.save(ckpt, os.path.join(args.output_dir, "best_val.pt"))
@@ -1271,6 +1375,8 @@ def train(args):
                         "mobilenetv3_small_100"
                     ),
                 }
+                if objectness_head is not None:
+                    ckpt["obj"] = objectness_head.state_dict()
                 if args.finetune_backbone_blocks > 0:
                     ckpt["backbone_state"] = bb_module.state_dict()
                 save_path = os.path.join(args.output_dir, f"ckpt_step{step}.pt")
@@ -1388,6 +1494,19 @@ if __name__ == "__main__":
     p.add_argument("--head_attn_heads", type=int, default=6)
     p.add_argument("--head_attn_layers", type=int, default=2)
     p.add_argument("--head_use_spatial", action="store_true", default=True)
+
+    # OWLv2-style query-agnostic objectness head (optional, training-only).
+    # When >0, an ObjectnessHead is constructed alongside the main per-query
+    # head, supervised by mask14 (the on-diagonal positive mask) with
+    # BCEWithLogits(pos_weight=objectness_pos_weight). At inference, the head
+    # produces a per-cell "is there ANY queryable object here?" score that
+    # can gate the per-query heatmap. 0.0 = head not constructed.
+    p.add_argument("--objectness_weight", type=float, default=0.0,
+                   help="Loss weight for the OWLv2-style query-agnostic objectness head. "
+                        "0.0 disables (head is not constructed). Try 0.1-1.0.")
+    p.add_argument("--objectness_pos_weight", type=float, default=5.0,
+                   help="pos_weight for objectness BCE. Lower than per-query bce_pos_weight "
+                        "(default 30) since 'any object anywhere' has a much higher base rate.")
 
     p.add_argument("--log_every", type=int, default=10)
     p.add_argument("--save_every", type=int, default=200)
