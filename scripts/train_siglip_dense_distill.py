@@ -527,6 +527,15 @@ def train(args):
     n_train_params = sum(p.numel() for p in params)
     print(f"[opt] {n_train_params/1e6:.2f} M trainable params (lr={args.lr})", flush=True)
 
+    # Optional: resume head + sb (and backbone if finetuning) from an existing ckpt.
+    if args.resume_from:
+        rk = torch.load(args.resume_from, map_location=device, weights_only=False)
+        head.load_state_dict(rk["head"])
+        sb.load_state_dict(rk["sb"])
+        if args.finetune_backbone_blocks > 0 and "backbone_state" in rk:
+            bb_module.load_state_dict(rk["backbone_state"])
+        print(f"[resume] loaded head+sb from {args.resume_from}", flush=True)
+
     # Data
     ds = TargetDataset(args.target_dir, args.image_dir,
                        image_size=args.image_size, mean=mean, std=std,
@@ -833,6 +842,52 @@ def train(args):
             diag_target = target[diag_idx, diag_idx]       # (B, H, W)
             L_dice = soft_dice_loss(torch.sigmoid(diag_logits), diag_target)
 
+            # 8b) L_hard_neg: hard-negative mining on positive (on-diagonal) pairs.
+            # The standard L_dense weighs positive cells `pos_weight` (default 30) higher
+            # than negative cells; that catches thin/small objects but makes false
+            # positives "cheap." On categories with strong scene context (snowboard, knife,
+            # skateboard), the head learns to fire broadly when the text matches the scene
+            # rather than the object. To fight this, on each positive (on-diagonal) sample
+            # we mine the top-K negative cells by predicted score (where mask14 < 0.5) and
+            # add an extra BCE-toward-zero penalty with weight `hard_neg_weight`.
+            if args.hard_neg_weight > 0:
+                # Per-sample hard negatives within the diagonal pairs only.
+                # diag_logits / diag_target shape: (B, H, W) for the diagonal queries.
+                B_d, H_d, W_d = diag_logits.shape
+                diag_pres_mask = presence > 0.5  # only mine on present-class pairs
+                if diag_pres_mask.any():
+                    sel_logits = diag_logits[diag_pres_mask]
+                    sel_target = diag_target[diag_pres_mask]
+                    # Negative cells = mask14 < 0.5 within positive samples.
+                    is_neg = (sel_target < 0.5).float()  # (B', H, W)
+                    # Predicted prob, cells outside negatives masked to -inf so they
+                    # don't get picked as "hard negatives".
+                    pred_prob = torch.sigmoid(sel_logits)
+                    masked_score = pred_prob * is_neg + (1 - is_neg) * (-1e9)
+                    # Top-K hard negatives per sample.
+                    k = max(1, int(args.hard_neg_topk))
+                    flat = masked_score.view(masked_score.shape[0], -1)
+                    # Cells available (>=0) — exclude positives (now -1e9) and dont overshoot
+                    n_neg_per = is_neg.view(is_neg.shape[0], -1).sum(dim=1).clamp(min=1)
+                    k_per = torch.minimum(
+                        torch.full_like(n_neg_per, float(k)), n_neg_per
+                    ).long()
+                    # Pick top-k indices per sample; we pad k uniformly with the global k
+                    # then mask by k_per. Simpler: take top-k everywhere; the mask is_neg
+                    # already excluded positives.
+                    topk_vals, topk_idx = flat.topk(k=k, dim=1)
+                    # Gather logits at topk_idx
+                    sel_logits_flat = sel_logits.view(sel_logits.shape[0], -1)
+                    hn_logits = torch.gather(sel_logits_flat, 1, topk_idx)
+                    hn_target = torch.zeros_like(hn_logits)
+                    L_hard_neg = F.binary_cross_entropy_with_logits(
+                        hn_logits, hn_target, reduction="mean"
+                    )
+                else:
+                    L_hard_neg = torch.tensor(0.0, device=device)
+            else:
+                L_hard_neg = torch.tensor(0.0, device=device)
+
             # 9) Optional distillation: MSE(student logits, teacher logits) on cal_logits.
             L_distill = torch.tensor(0.0, device=device)
             if teacher is not None and args.lambda_distill > 0:
@@ -856,7 +911,7 @@ def train(args):
                 w = weight_pair.unsqueeze(-1).unsqueeze(-1).expand_as(s_probs)
                 L_distill = ((s_probs - t_probs) ** 2 * w).sum() / w.sum().clamp(min=1)
 
-            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill
+            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill + args.hard_neg_weight * L_hard_neg
 
             opt.zero_grad(); L.backward(); opt.step()
             step += 1
@@ -871,13 +926,14 @@ def train(args):
                     "step": step, "epoch": epoch, "L": float(L.item()),
                     "L_dense": float(L_dense.item()), "L_pool": float(L_pool.item()),
                     "L_dice": float(L_dice.item()),
+                    "L_hard_neg": float(L_hard_neg.item()) if isinstance(L_hard_neg, torch.Tensor) else 0.0,
                     "L_distill": float(L_distill.item()) if isinstance(L_distill, torch.Tensor) else 0.0,
                     "diag_iou": float(diag_iou.item()),
                     "t": float(sb.log_t.exp().item()), "bias": float(sb.bias.item()),
                     "lr": float(opt.param_groups[0]['lr']),
                     "elapsed_min": (time.time() - t_start) / 60,
                 }
-                print(f"  step {step:5d} | L={L:.3f} (dense={L_dense:.3f} pool={L_pool:.3f} dice={L_dice:.3f} distill={line['L_distill']:.3f}) | diag_iou={diag_iou:.3f} | t={line['t']:.1f} bias={line['bias']:.2f}",
+                print(f"  step {step:5d} | L={L:.3f} (dense={L_dense:.3f} pool={L_pool:.3f} dice={L_dice:.3f} hn={line['L_hard_neg']:.3f} distill={line['L_distill']:.3f}) | diag_iou={diag_iou:.3f} | t={line['t']:.1f} bias={line['bias']:.2f}",
                       flush=True)
                 log_f.write(json.dumps(line) + "\n"); log_f.flush()
                 if wb is not None:
@@ -1015,6 +1071,12 @@ if __name__ == "__main__":
     p.add_argument("--bias_init", type=float, default=-4.0)
     p.add_argument("--bce_pos_weight", type=float, default=20.0,
                    help="upweight positive patches in dense BCE; ~20-50 useful for sparse masks")
+    p.add_argument("--hard_neg_weight", type=float, default=0.0,
+                   help="weight on hard-negative-mining loss (top-K negative cells per positive sample, BCE-toward-zero); attacks scene-context shortcut learning. 0 = disabled. Try 0.5-2.0.")
+    p.add_argument("--hard_neg_topk", type=int, default=20,
+                   help="Per-sample K for hard-negative mining (top-K predicted-prob cells where mask14<0.5).")
+    p.add_argument("--resume_from", default=None,
+                   help="Optional ckpt path to resume head+sb (and backbone if finetuning) from. Used for fine-tuning experiments on top of an existing release ckpt.")
     p.add_argument("--wandb_project", default="semantic-autogaze",
                    help="W&B project name; pass empty string to disable.")
     p.add_argument("--wandb_run_name", default=None,
