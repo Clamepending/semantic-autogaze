@@ -374,7 +374,7 @@ def main(args):
                            "med_lat": all_results[cfg]["med_lat"]}
                     for cfg in configs},
     }
-    if all(c in all_results for c in configs):
+    if all(c in all_results for c in ("vanilla", "match", "shuf", "rand")):
         ms_w, ms_l, ms_n = _paired(all_results["match"]["per_q"], all_results["shuf"]["per_q"])
         mr_w, mr_l, mr_n = _paired(all_results["match"]["per_q"], all_results["rand"]["per_q"])
         sr_w, sr_l, sr_n = _paired(all_results["shuf"]["per_q"], all_results["rand"]["per_q"])
