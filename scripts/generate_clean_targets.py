@@ -507,9 +507,79 @@ def process_panoptic(args, ann_path: str, png_dir: str, output_dir: Path):
           f"in {(time.time()-t0)/60:.1f} min", flush=True)
 
 
+def process_ade20k(args, ade_root: str, output_dir: Path):
+    """Process ADE20K Challenge 2016 — 150 categories, pixel-perfect labels.
+
+    Layout (after unzip):
+      <ade_root>/objectInfo150.txt       — class list
+      <ade_root>/images/{training,validation}/ADE_*.jpg
+      <ade_root>/annotations/{training,validation}/ADE_*.png   pixel value = class id (0..150)
+
+    Emits npz with prefix `ade_<slug>` so it doesn't collide with COCO/LVIS.
+    Image filename is ADE_train_00000001 (not 12-digit COCO id), so we'll
+    keep the bare stem as img_id and require the trainer's --image_dir to
+    be a unified directory containing these jpgs.
+    """
+    print(f"[ade20k] loading {ade_root} ...", flush=True)
+    ade_path = Path(ade_root)
+    classes = []
+    with open(ade_path / "objectInfo150.txt") as f:
+        next(f)  # header
+        for line in f:
+            parts = line.rstrip("\n").split("\t")
+            if len(parts) >= 5:
+                idx = int(parts[0])
+                name = parts[4].split(",")[0].strip()
+                classes.append((idx, name))
+    print(f"  {len(classes)} categories", flush=True)
+    cls_id_to_name = {idx: n for idx, n in classes}
+
+    splits = ["training", "validation"]
+    n_pos = 0; n_skip = 0; t0 = time.time()
+    for split in splits:
+        ann_dir = ade_path / "annotations" / split
+        img_dir = ade_path / "images" / split
+        ann_files = sorted(ann_dir.glob("*.png"))
+        if args.image_limit:
+            ann_files = ann_files[:args.image_limit]
+        print(f"[ade20k:{split}] {len(ann_files)} images", flush=True)
+        for ix, ann_f in enumerate(ann_files):
+            img_id = ann_f.stem  # ADE_train_00000001
+            img_f = img_dir / f"{img_id}.jpg"
+            if not img_f.exists(): continue
+            ann = np.array(Image.open(ann_f))
+            H, W = ann.shape
+            present_ids = np.unique(ann)
+            present_ids = present_ids[present_ids > 0]
+            for cls_id in present_ids:
+                cls_id = int(cls_id)
+                if cls_id not in cls_id_to_name: continue
+                name = cls_id_to_name[cls_id]
+                slug = f"ade_{slugify(name)}"
+                out_path = output_dir / f"{img_id}__{slug}.npz"
+                if out_path.exists() and not args.overwrite:
+                    n_skip += 1
+                    continue
+                mask_full = (ann == cls_id).astype(np.uint8) * 255
+                if mask_full.sum() == 0: continue
+                mask14 = pool_to_14(mask_full)
+                write_npz(out_path,
+                          img_id=img_id, query=name, presence=True,
+                          mask_full=mask_full, mask14=mask14,
+                          H=H, W=W, n_boxes=1, source="ade20k")
+                n_pos += 1
+            if (ix + 1) % 1000 == 0:
+                el = time.time() - t0
+                print(f"  [ade:{split} {ix+1}/{len(ann_files)}] pos={n_pos} skip={n_skip} "
+                      f"rate={(ix+1)/max(1,el):.1f} img/s", flush=True)
+    print(f"[ade20k] done. pos={n_pos} skip={n_skip} in {(time.time()-t0)/60:.1f} min", flush=True)
+
+
 def main(args):
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+    if args.ade20k_root:
+        process_ade20k(args, args.ade20k_root, output_dir)
     if args.coco_ann:
         process_coco(args, args.coco_ann, output_dir,
                      source_label="coco", filename_prefix="")
@@ -541,6 +611,8 @@ if __name__ == "__main__":
                    help="Pascal-Part Annotations_Part directory.")
     p.add_argument("--pascal_part_image_dir", default=None,
                    help="VOC2010 JPEGImages directory.")
+    p.add_argument("--ade20k_root", default=None,
+                   help="ADEChallengeData2016 root (containing objectInfo150.txt + images/ + annotations/).")
     p.add_argument("--image_dir", required=True,
                    help="Directory of source JPEG images for COCO/LVIS/Panoptic processing.")
     p.add_argument("--output_dir", required=True)

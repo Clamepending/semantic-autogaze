@@ -63,12 +63,14 @@ class TargetDataset(Dataset):
     def __init__(self, target_dir: str, image_dir: str,
                  image_size: int = 224, mean=CLIP_MEAN, std=CLIP_STD,
                  limit: int | None = None, positive_only: bool = False,
-                 build_presence_lookup: bool = False):
+                 build_presence_lookup: bool = False,
+                 augment: bool = False):
         self.target_dir = Path(target_dir)
         self.image_dir = Path(image_dir)
         self.image_size = image_size
         self.mean = np.array(mean, dtype=np.float32)
         self.std = np.array(std, dtype=np.float32)
+        self.augment = augment
         files = sorted(self.target_dir.glob("*.npz"))
         if limit:
             files = files[:limit]
@@ -100,6 +102,17 @@ class TargetDataset(Dataset):
         self.presence_lookup = presence_lookup
         # Category slug per index — used by BalancedSampler for category-weighted sampling
         self.cat_per_index = [f.stem.partition("__")[2] for f in self.files]
+        # Source per index — derived from slug prefix:
+        #   pp_*    → pascal_part (body parts)
+        #   stuff_* → coco-stuff / panoptic stuff
+        #   lvis_*  → LVIS rare/common categories
+        #   else    → COCO 80 things
+        self.source_per_index = []
+        for slug in self.cat_per_index:
+            if slug.startswith("pp_"): self.source_per_index.append("pp")
+            elif slug.startswith("stuff_"): self.source_per_index.append("stuff")
+            elif slug.startswith("lvis_"): self.source_per_index.append("lvis")
+            else: self.source_per_index.append("coco")
         print(f"[dataset] kept {len(self.files)} (positive={int(self.is_pos.sum())}, "
               f"negative={int((~self.is_pos).sum())}) | original positive rate {n_pos}/{len(files)}",
               flush=True)
@@ -122,9 +135,25 @@ class TargetDataset(Dataset):
         except Exception:
             return None
         arr = np.array(pil.resize((self.image_size, self.image_size), Image.BICUBIC))
+        mask14 = d["mask14"].astype(np.float32) / 255.0  # (14, 14)
+        if self.augment:
+            # Horizontal flip with p=0.5
+            if np.random.rand() < 0.5:
+                arr = arr[:, ::-1, :].copy()
+                mask14 = mask14[:, ::-1].copy()
+            # Color jitter: gentle brightness/contrast/saturation
+            if np.random.rand() < 0.5:
+                # brightness in [0.8, 1.2]
+                b = 0.8 + 0.4 * np.random.rand()
+                arr = np.clip(arr.astype(np.float32) * b, 0, 255).astype(np.uint8)
+            if np.random.rand() < 0.5:
+                # contrast in [0.8, 1.2]
+                c = 0.8 + 0.4 * np.random.rand()
+                m = arr.mean(axis=(0,1), keepdims=True)
+                arr = np.clip((arr.astype(np.float32) - m) * c + m, 0, 255).astype(np.uint8)
         x = (arr.astype(np.float32) / 255.0 - self.mean) / self.std
         x = torch.from_numpy(x).permute(2, 0, 1).float()
-        mask14 = torch.from_numpy(d["mask14"].astype(np.float32) / 255.0)
+        mask14 = torch.from_numpy(mask14)
         return {
             "image": x,
             "query": query,
@@ -167,7 +196,8 @@ class BalancedSampler(Sampler):
     sampled-from the smaller pool to maintain target rate.
     """
     def __init__(self, pos_indices, neg_indices, pos_frac=0.7, seed=42,
-                 cat_per_index=None, category_alpha=0.0):
+                 cat_per_index=None, category_alpha=0.0,
+                 source_per_index=None, source_weights=None):
         self.pos = np.asarray(pos_indices)
         self.neg = np.asarray(neg_indices)
         self.pos_frac = pos_frac
@@ -185,6 +215,18 @@ class BalancedSampler(Sampler):
             print(f"[sampler] category-weighted positives enabled: alpha={self.category_alpha} "
                   f"({len(cat_freq)} unique cats; rarest={min(cat_freq.values())} freq, "
                   f"most-common={max(cat_freq.values())} freq)", flush=True)
+        # Source-based weighting: e.g. {"pp": 5.0, "stuff": 1.0, "lvis": 1.0, "coco": 1.0}
+        # Multiplies the existing weight by source_weights[source]; then renormalizes.
+        if source_weights and source_per_index is not None and len(self.pos) > 0:
+            src = [source_per_index[i] for i in self.pos.tolist()]
+            mult = np.array([float(source_weights.get(s, 1.0)) for s in src])
+            base = self.pos_weights if self.pos_weights is not None else np.ones(len(self.pos))
+            w = base * mult
+            self.pos_weights = w / w.sum()
+            from collections import Counter
+            sc = Counter(src)
+            print(f"[sampler] source-weighted positives: {dict(sc)} → weights {source_weights}",
+                  flush=True)
 
     def __iter__(self):
         rng = np.random.default_rng(self.seed + self._epoch)
@@ -262,6 +304,55 @@ def build_backbone(model: str, device, finetune_blocks: int = 0):
             f = F.interpolate(f, size=(GRID, GRID), mode="bilinear", align_corners=False)
             return f.permute(0, 2, 3, 1).reshape(f.shape[0], GRID * GRID, f.shape[1])
         return fn, 576, IM_MEAN, IM_STD, "timm-cnn", bb
+    if model in ("fastvit-t8", "mobilevit-xs", "convnext-atto", "repvit-m1", "efficientformerv2-s0"):
+        # Small/mobile architectures from timm. All output 4D spatial features
+        # which we interpolate to GRID×GRID.
+        timm_name_map = {
+            "fastvit-t8":          "fastvit_t8.apple_in1k",
+            "mobilevit-xs":        "mobilevit_xs.cvnets_in1k",
+            "convnext-atto":       "convnext_atto.d2_in1k",
+            "repvit-m1":           "repvit_m1.dist_in1k",
+            "efficientformerv2-s0": "efficientformerv2_s0.snap_dist_in1k",
+        }
+        bb = timm.create_model(timm_name_map[model], pretrained=True,
+                               num_classes=0).to(device)
+        for p in bb.parameters(): p.requires_grad_(False)
+        # Probe shape
+        # Most of these expect 224 or 256
+        in_size = bb.default_cfg.get("input_size", (3, 224, 224))[1]
+        # Always use 224 to keep the rest of the pipeline consistent (dataset resizes to 224)
+        with torch.no_grad():
+            x_probe = torch.randn(1, 3, 224, 224, device=device)
+            try:
+                feat_probe = bb.forward_features(x_probe)
+            except Exception:
+                # Some models need exact native size
+                bb_native = timm.create_model(timm_name_map[model], pretrained=True,
+                                              num_classes=0, img_size=in_size).to(device)
+                bb = bb_native
+                for p in bb.parameters(): p.requires_grad_(False)
+                x_probe = torch.randn(1, 3, in_size, in_size, device=device)
+                feat_probe = bb.forward_features(x_probe)
+        embed_dim = feat_probe.shape[1] if feat_probe.dim() == 4 else feat_probe.shape[-1]
+        print(f"[backbone] {model}: timm={timm_name_map[model]} feat_shape={tuple(feat_probe.shape)} → embed_dim={embed_dim}", flush=True)
+        def fn(x):
+            f = bb.forward_features(x)
+            if f.dim() == 4:
+                f = F.interpolate(f, size=(GRID, GRID), mode="bilinear", align_corners=False)
+                return f.permute(0, 2, 3, 1).reshape(f.shape[0], GRID * GRID, f.shape[1])
+            elif f.dim() == 3:
+                # (B, N, D) — drop CLS if present, interpolate spatial
+                if f.shape[1] == 197:  # 14x14 + cls
+                    return f[:, 1:, :]
+                side = int(f.shape[1] ** 0.5)
+                if side * side == f.shape[1]:
+                    B, N, D = f.shape
+                    g = f.permute(0, 2, 1).reshape(B, D, side, side)
+                    g = F.interpolate(g, size=(GRID, GRID), mode="bilinear", align_corners=False)
+                    return g.permute(0, 2, 3, 1).reshape(B, GRID * GRID, D)
+                return f[:, :GRID*GRID, :]  # last resort
+            raise RuntimeError(f"unexpected feat shape: {f.shape}")
+        return fn, embed_dim, IM_MEAN, IM_STD, "timm-mobile-hybrid", bb
     if model == "dinov2-s":
         # DINOv2 ViT-Small/14 — self-supervised, very strong patch features.
         # 22M params. Patch 14 → 16x16 patches at 224 input.
@@ -434,12 +525,72 @@ def train(args):
     ds = TargetDataset(args.target_dir, args.image_dir,
                        image_size=224, mean=mean, std=std,
                        limit=args.limit, positive_only=args.positive_only,
-                       build_presence_lookup=args.fn_filter)
+                       build_presence_lookup=args.fn_filter,
+                       augment=args.augment)
+
+    # ---- Train/val split by image_id ----
+    # Hold out fraction of unique image_ids so val images are NEVER seen in training pairs.
+    # This is the right unit because the dataset is (image, query) pairs with images shared.
+    train_ds = ds
+    val_ds = None
+    if args.val_split_frac > 0:
+        unique_imgs = sorted({f.stem.partition("__")[0] for f in ds.files})
+        rng_split = np.random.default_rng(2026)
+        rng_split.shuffle(unique_imgs)
+        n_val = int(len(unique_imgs) * args.val_split_frac)
+        val_imgs = set(unique_imgs[:n_val])
+        train_mask = np.array([f.stem.partition("__")[0] not in val_imgs for f in ds.files])
+        val_mask = ~train_mask
+        # Build train_ds and val_ds as Subset-style filtered indexers without
+        # re-creating the dataset (saves another scan).
+        # Simpler: replace ds.files in-place to train-only, expose val files separately.
+        all_files = ds.files; all_is_pos = ds.is_pos; all_cat = ds.cat_per_index; all_src = ds.source_per_index
+        train_idx = np.where(train_mask)[0]
+        val_idx = np.where(val_mask)[0]
+        ds.files = [all_files[i] for i in train_idx]
+        ds.is_pos = all_is_pos[train_idx]
+        ds.pos_indices = np.where(ds.is_pos)[0]
+        ds.neg_indices = np.where(~ds.is_pos)[0]
+        ds.cat_per_index = [all_cat[i] for i in train_idx]
+        ds.source_per_index = [all_src[i] for i in train_idx]
+        # Build a lightweight val_ds sharing presence_lookup but with val files only
+        class _ValSubset(TargetDataset):
+            def __init__(self, parent, idxs):
+                self.target_dir = parent.target_dir
+                self.image_dir = parent.image_dir
+                self.image_size = parent.image_size
+                self.mean = parent.mean
+                self.std = parent.std
+                self.augment = False  # never augment val
+                self.files = [all_files[i] for i in idxs]
+                self.is_pos = all_is_pos[idxs]
+                self.pos_indices = np.where(self.is_pos)[0]
+                self.neg_indices = np.where(~self.is_pos)[0]
+                self.cat_per_index = [all_cat[i] for i in idxs]
+                self.source_per_index = [all_src[i] for i in idxs]
+                self.presence_lookup = parent.presence_lookup
+            def __len__(self): return len(self.files)
+            __getitem__ = TargetDataset.__getitem__
+        val_ds = _ValSubset(ds, val_idx)
+        print(f"[split] val_frac={args.val_split_frac:.2f} → train_imgs={len(unique_imgs)-n_val} val_imgs={n_val}",
+              flush=True)
+        print(f"  train pairs={len(ds.files)} (pos={int(ds.is_pos.sum())})  val pairs={len(val_ds.files)} (pos={int(val_ds.is_pos.sum())})",
+              flush=True)
+    train_ds = ds  # update reference
     if args.balanced_pos_frac > 0:
+        # Parse --source_weights "pp:5,stuff:1,lvis:1,coco:1" → dict
+        source_w = None
+        if args.source_weights:
+            source_w = {}
+            for kv in args.source_weights.split(","):
+                k, _, v = kv.partition(":")
+                source_w[k.strip()] = float(v.strip())
         sampler = BalancedSampler(ds.pos_indices, ds.neg_indices,
                                   pos_frac=args.balanced_pos_frac,
                                   cat_per_index=ds.cat_per_index,
-                                  category_alpha=args.category_alpha)
+                                  category_alpha=args.category_alpha,
+                                  source_per_index=ds.source_per_index,
+                                  source_weights=source_w)
         loader = DataLoader(ds, batch_size=args.batch_size, sampler=sampler,
                             num_workers=args.num_workers, collate_fn=collate,
                             drop_last=True, pin_memory=True)
@@ -468,8 +619,129 @@ def train(args):
             print(f"[wandb] init failed ({e}); continuing without wandb", flush=True)
             wb = None
 
+    # Pick a fixed B-positive validation batch for matrix logging (deterministic seed)
+    val_batch = None
+    if wb is not None and args.wandb_log_matrix_every > 0 and len(ds.pos_indices) > 0:
+        rng_val = np.random.default_rng(2026)
+        # Sample B distinct positive indices with distinct queries + images
+        seen_q, seen_i, chosen_idx = set(), set(), []
+        perm = rng_val.permutation(ds.pos_indices)
+        for ix in perm:
+            item = ds[int(ix)]
+            if item is None: continue
+            if item["query"] in seen_q or item["img_id"] in seen_i: continue
+            seen_q.add(item["query"]); seen_i.add(item["img_id"])
+            chosen_idx.append(int(ix))
+            if len(chosen_idx) >= args.wandb_matrix_batch_size: break
+        if len(chosen_idx) >= 2:
+            B_val = len(chosen_idx)
+            items = [ds[int(i)] for i in chosen_idx]
+            val_batch = {
+                "images": torch.stack([it["image"] for it in items]).to(device),
+                "queries": [it["query"] for it in items],
+                "img_ids": [it["img_id"] for it in items],
+                "slugs": [it["query_slug"] for it in items],
+                "diag_full": [],  # filled below
+                "raw_pil": [],
+                "B": B_val,
+            }
+            from PIL import Image as PILImage
+            for it in items:
+                # Reload mask_full at full resolution for crisp contour
+                npz_p = ds.target_dir / f"{it['img_id']}__{it['query_slug']}.npz"
+                d_full = np.load(npz_p, allow_pickle=False)
+                m = d_full["mask_full"].astype(np.float32)
+                if m.max() > 1: m /= 255.0
+                m224 = np.array(PILImage.fromarray((m * 255).astype(np.uint8))
+                                .resize((224, 224), PILImage.NEAREST)) / 255.0
+                val_batch["diag_full"].append(m224)
+                # Cache the input image as displayable RGB
+                arr = it["image"].cpu().numpy().transpose(1, 2, 0)
+                arr = arr * np.array(std) + np.array(mean)
+                arr = np.clip(arr, 0, 1)
+                val_batch["raw_pil"].append(arr)
+            print(f"[wandb-matrix] cached B={B_val} validation batch (seed=2026)", flush=True)
+
+    def render_and_log_matrix(step_n):
+        """Render BxB cross-pair prediction matrix and log to wandb."""
+        if wb is None or val_batch is None: return
+        import matplotlib.pyplot as _plt
+        import io
+        head.eval()
+        try:
+            with torch.no_grad():
+                B_v = val_batch["B"]
+                v_patches = bb_fn(val_batch["images"])
+                # Build text embs for the val queries
+                v_text = encode_text_batch(clip_model_text, clip_tok, val_batch["queries"], device)
+                pred = np.zeros((B_v, B_v, GRID, GRID), dtype=np.float32)
+                for i in range(B_v):
+                    for j in range(B_v):
+                        logits = head(v_patches[i:i+1], v_text[j:j+1]).reshape(GRID, GRID)
+                        cal = sb(logits)
+                        pred[i, j] = torch.sigmoid(cal).cpu().numpy()
+                # FN-flagged off-diag pairs
+                fn_flags = np.zeros((B_v, B_v), dtype=bool)
+                for i in range(B_v):
+                    for j in range(B_v):
+                        if i == j: continue
+                        if ds.presence_lookup.get((val_batch["img_ids"][i], val_batch["slugs"][j]), False):
+                            fn_flags[i, j] = True
+                # Render
+                fig = _plt.figure(figsize=(2.0 * (B_v + 1), 2.0 * (B_v + 1)))
+                gs = fig.add_gridspec(B_v + 1, B_v + 1, hspace=0.05, wspace=0.05)
+                # Column headers
+                for j in range(B_v):
+                    ax = fig.add_subplot(gs[0, j + 1])
+                    ax.imshow(val_batch["raw_pil"][j])
+                    ax.contour(val_batch["diag_full"][j], levels=[0.5], colors="lime", linewidths=1.0)
+                    ax.set_xticks([]); ax.set_yticks([])
+                    ax.set_title(f"q{j}: {val_batch['queries'][j][:14]}", fontsize=7)
+                ax = fig.add_subplot(gs[0, 0])
+                ax.text(0.5, 0.5, f"step {step_n}", ha="center", va="center", fontsize=8)
+                ax.set_xticks([]); ax.set_yticks([])
+                # Body
+                for i in range(B_v):
+                    ax_l = fig.add_subplot(gs[i + 1, 0])
+                    ax_l.imshow(val_batch["raw_pil"][i])
+                    ax_l.contour(val_batch["diag_full"][i], levels=[0.5], colors="lime", linewidths=1.0)
+                    ax_l.set_xticks([]); ax_l.set_yticks([])
+                    ax_l.set_title(f"i{i}: {val_batch['queries'][i][:14]}", fontsize=7)
+                    arr_i = val_batch["raw_pil"][i]
+                    for j in range(B_v):
+                        ax_c = fig.add_subplot(gs[i + 1, j + 1])
+                        ax_c.imshow(arr_i, alpha=0.55)
+                        h = pred[i, j]
+                        h_up = np.kron(h, np.ones((arr_i.shape[0] // GRID + 1,
+                                                    arr_i.shape[1] // GRID + 1)))[:arr_i.shape[0], :arr_i.shape[1]]
+                        ax_c.imshow(h_up, alpha=0.6, cmap="hot", vmin=0, vmax=1)
+                        ax_c.set_xticks([]); ax_c.set_yticks([])
+                        if i == j:
+                            border = "limegreen"
+                        elif fn_flags[i, j]:
+                            border = "red"
+                        else:
+                            border = "dimgray"
+                        for s_e in ax_c.spines.values():
+                            s_e.set_visible(True); s_e.set_edgecolor(border); s_e.set_linewidth(2.0)
+                        ax_c.text(0.03, 0.97, f"{h.max():.2f}", color="white", fontsize=6,
+                                  transform=ax_c.transAxes, va="top",
+                                  bbox=dict(facecolor="black", alpha=0.55, pad=1, edgecolor="none"))
+                _plt.tight_layout()
+                buf = io.BytesIO()
+                _plt.savefig(buf, dpi=90, bbox_inches="tight"); _plt.close(fig)
+                buf.seek(0)
+                import wandb as _wb
+                wb.log({"validation_matrix": _wb.Image(PILImage.open(buf))}, step=step_n)
+        except Exception as _e:
+            print(f"[wandb-matrix] render failed: {_e}", flush=True)
+        finally:
+            head.train()
+
     step = 0
     best_loss = float("inf")
+    best_val_iou = -1.0
+    latest_val_iou = None
     t_start = time.time()
     for epoch in range(args.epochs):
         for batch in loader:
@@ -606,6 +878,73 @@ def train(args):
                     try: wb.log(line, step=step)
                     except Exception: pass
 
+            # Periodic validation matrix to wandb
+            if (wb is not None and args.wandb_log_matrix_every > 0
+                and step % args.wandb_log_matrix_every == 0):
+                render_and_log_matrix(step)
+
+            # Periodic val-set eval (held-out images)
+            if val_ds is not None and args.val_eval_every > 0 and step % args.val_eval_every == 0:
+                head.eval()
+                with torch.no_grad():
+                    # Build a quick val DataLoader on the fly, capped at val_max_batches
+                    val_loader = DataLoader(val_ds, batch_size=args.batch_size,
+                                            shuffle=True,
+                                            num_workers=2, collate_fn=collate, drop_last=True)
+                    iou_sum, iou_n = 0.0, 0
+                    bce_sum, bce_n = 0.0, 0
+                    for v_idx, v_batch in enumerate(val_loader):
+                        if v_idx >= args.val_max_batches: break
+                        if v_batch is None: continue
+                        Bv = v_batch["image"].shape[0]
+                        v_images = v_batch["image"].to(device)
+                        v_queries = v_batch["query"]
+                        v_mask14 = v_batch["mask14"].to(device)
+                        v_pres = v_batch["presence"].to(device)
+                        v_text = encode_text_batch(clip_model_text, clip_tok, v_queries, device)
+                        v_patches = bb_fn(v_images)
+                        # Diagonal-only forward (cheaper than BxB; enough for diag_iou)
+                        v_diag_logits = []
+                        for k in range(Bv):
+                            ll = head(v_patches[k:k+1], v_text[k:k+1]).reshape(GRID, GRID)
+                            v_diag_logits.append(sb(ll))
+                        v_dl = torch.stack(v_diag_logits)  # (Bv, GRID, GRID)
+                        v_p = torch.sigmoid(v_dl)
+                        gt = v_mask14
+                        # Per-positive diag IoU (only positives have meaningful masks)
+                        pos_mask = (v_pres > 0.5)
+                        if pos_mask.any():
+                            gt_pos = gt[pos_mask] > 0.5
+                            pred_pos = v_p[pos_mask] > 0.5
+                            inter = (gt_pos & pred_pos).sum().item()
+                            union = (gt_pos | pred_pos).sum().item()
+                            if union > 0:
+                                iou_sum += inter / union; iou_n += 1
+                        bce = F.binary_cross_entropy_with_logits(v_dl, gt, reduction="mean")
+                        bce_sum += bce.item(); bce_n += 1
+                    val_diag_iou = iou_sum / max(1, iou_n)
+                    val_bce = bce_sum / max(1, bce_n)
+                    latest_val_iou = val_diag_iou
+                    print(f"  [val] step {step} val_diag_iou={val_diag_iou:.3f}  val_bce={val_bce:.3f}  ({iou_n} batches)",
+                          flush=True)
+                    if wb is not None:
+                        try:
+                            wb.log({"val/diag_iou": val_diag_iou, "val/bce": val_bce}, step=step)
+                        except Exception: pass
+                    # Save best-by-val-iou whenever we have a new high
+                    if val_diag_iou > best_val_iou:
+                        best_val_iou = val_diag_iou
+                        ckpt = {
+                            "step": step, "epoch": epoch, "model": args.model,
+                            "head": head.state_dict(), "sb": sb.state_dict(),
+                            "args": vars(args), "val_diag_iou": val_diag_iou,
+                        }
+                        if args.finetune_backbone_blocks > 0:
+                            ckpt["backbone_state"] = bb_module.state_dict()
+                        torch.save(ckpt, os.path.join(args.output_dir, "best_val.pt"))
+                        print(f"    [save] best_val.pt  val_diag_iou={val_diag_iou:.3f}", flush=True)
+                head.train()
+
             if step % args.save_every == 0:
                 ckpt = {
                     "step": step, "epoch": epoch, "model": args.model,
@@ -643,7 +982,9 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--device", default="cuda:0")
     p.add_argument("--model", required=True,
-                   choices=["v1", "v2-tiny", "d-mobile", "dinov2-s", "mobileclip-s2"])
+                   choices=["v1", "v2-tiny", "d-mobile", "dinov2-s", "mobileclip-s2",
+                            "fastvit-t8", "mobilevit-xs", "convnext-atto",
+                            "repvit-m1", "efficientformerv2-s0"])
     p.add_argument("--target_dir", default="/home/ogata/semantic-autogaze/results/phase2_targets")
     p.add_argument("--image_dir", default="/home/ogata/semantic-autogaze/data/coco_val2017/val2017")
     p.add_argument("--output_dir", required=True)
@@ -671,12 +1012,26 @@ if __name__ == "__main__":
                    help="W&B project name; pass empty string to disable.")
     p.add_argument("--wandb_run_name", default=None,
                    help="W&B run display name; defaults to output_dir basename.")
+    p.add_argument("--wandb_log_matrix_every", type=int, default=1000,
+                   help="Render BxB cross-pair matrix on a fixed val batch and log to wandb every N steps. 0 = disable.")
+    p.add_argument("--wandb_matrix_batch_size", type=int, default=5,
+                   help="Size of the BxB validation matrix logged to wandb.")
+    p.add_argument("--val_split_frac", type=float, default=0.05,
+                   help="Fraction of unique image_ids to hold out as validation. 0 = no split.")
+    p.add_argument("--val_eval_every", type=int, default=2000,
+                   help="Compute val-set diag_iou + per-pair BCE every N steps. 0 = disable.")
+    p.add_argument("--val_max_batches", type=int, default=20,
+                   help="Cap number of val batches per eval (speed control).")
     p.add_argument("--distill_teacher_ckpt", default=None,
                    help="Path to teacher ckpt (e.g. DINOv2-small). Adds MSE-on-teacher-prob loss.")
     p.add_argument("--lambda_distill", type=float, default=0.5,
                    help="Weight on the teacher-MSE distillation loss term.")
     p.add_argument("--category_alpha", type=float, default=0.0,
                    help="Category-rebalance exponent for BalancedSampler. 0=uniform per-positive (Phase 1-4), 0.5=sqrt-balance, 1.0=full inverse-frequency.")
+    p.add_argument("--source_weights", default=None,
+                   help="Per-source sampling-weight multipliers, e.g. 'pp:5,stuff:1,lvis:1,coco:1'. Multiplies the existing per-positive weight. Slug-prefix-based: pp_*=pascal_part, stuff_*=coco-stuff/panoptic, lvis_*=LVIS, else=COCO.")
+    p.add_argument("--augment", action="store_true",
+                   help="Enable horizontal-flip + color jitter (brightness/contrast) augmentation in TargetDataset.")
     p.add_argument("--lambda_off_diagonal", type=float, default=1.0,
                    help="weight on off-diagonal pair losses (0=non-contrastive direct regression, 1=full SigLIP)")
     p.add_argument("--fn_filter", action="store_true",
