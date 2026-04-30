@@ -51,6 +51,48 @@ CLIP_MEAN = (0.48145466, 0.4578275, 0.40821073)
 CLIP_STD = (0.26862954, 0.26130258, 0.27577711)
 
 
+# ---- Higher-grid head variant ----
+
+class TextScorerHeadGrid28(TextScorerHead):
+    """TextScorerHead variant whose forward output is upsampled from 14x14 to 28x28.
+
+    Architecture is IDENTICAL to TextScorerHead (same patch_proj / pos_embed at
+    14*14=196 cells / self-attention / cross-attention / score_mlp / spatial
+    refiner). The ONLY difference is a final F.interpolate(..., size=28,
+    mode='bilinear') applied to the (B, 1, 14, 14) score grid. This keeps the
+    head's parameter count, learnable-weight set, and state_dict keys
+    BIT-IDENTICAL to the parent class -- so a v0.5.0 ckpt trained at grid=14
+    loads cleanly into this subclass via head.load_state_dict(rk["head"]).
+
+    Motivation: thin-object localization (knife/skis/baseball-bat/sports-ball)
+    fails at 14x14 because each cell is ~16px on a 224 input and thin objects
+    span <1 cell. 28x28 halves the cell footprint to ~8px, recovering thin
+    objects without retraining the head from scratch.
+
+    Note: forward() returns the SAME shape contract as the parent
+    (flattened (B, G_out*G_out)), so the calling code's
+    `logits_flat.reshape(B, B, G_out, G_out)` continues to work when G_out=28.
+    """
+
+    def __init__(self, *args, grid_size_out: int = 28, **kwargs):
+        # Force the inherited grid_size to 14 so positional embed / self-attn
+        # / cross-attn shapes match the saved v0.5.0 head.
+        kwargs["grid_size"] = GRID
+        super().__init__(*args, **kwargs)
+        self.grid_size_out = int(grid_size_out)
+
+    def forward(self, patch_feats, text_emb):
+        B = patch_feats.shape[0]
+        # Parent returns (B, 14*14) flat logits.
+        scores_flat = super().forward(patch_feats, text_emb)  # (B, 196)
+        scores = scores_flat.reshape(B, 1, GRID, GRID)        # (B, 1, 14, 14)
+        scores_up = F.interpolate(
+            scores, size=(self.grid_size_out, self.grid_size_out),
+            mode="bilinear", align_corners=False,
+        )  # (B, 1, 28, 28)
+        return scores_up.reshape(B, self.grid_size_out * self.grid_size_out)
+
+
 # ---- Dataset ----
 
 class TargetDataset(Dataset):
@@ -66,12 +108,19 @@ class TargetDataset(Dataset):
                  limit: int | None = None, positive_only: bool = False,
                  build_presence_lookup: bool = False,
                  augment: bool = False,
-                 augment_aggressive: bool = False):
+                 augment_aggressive: bool = False,
+                 grid_size_out: int = 14):
         self.target_dir = Path(target_dir)
         self.image_dir = Path(image_dir)
         self.image_size = image_size
         self.mean = np.array(mean, dtype=np.float32)
         self.std = np.array(std, dtype=np.float32)
+        # Output grid size for the per-query mask target. 14 = legacy (load
+        # mask14 directly from the npz). 28 = on-the-fly resample: prefer
+        # max-pool of mask_full > 0.5 (mirrors generate_clean_targets.pool_to_14
+        # at higher resolution); fall back to nearest-upsample of mask14 when
+        # the npz lacks mask_full (legacy files).
+        self.grid_size_out = int(grid_size_out)
         # augment_aggressive supersedes augment when both are passed: the
         # aggressive pipeline is strictly stronger (it includes h-flip + color
         # jitter as its final stages).
@@ -260,11 +309,14 @@ class TargetDataset(Dataset):
             arr = arr_scaled[y0:y0 + S, x0:x0 + S, :].copy()
             mask_cropped = mask_scaled[y0:y0 + S, x0:x0 + S].copy()
 
-            # 5) Re-pool post-transform mask to 14x14 with the canonical
-            #    max-pool > 0.5 recipe (matches generate_clean_targets.pool_to_14).
+            # 5) Re-pool post-transform mask to grid_size_out x grid_size_out
+            #    with the canonical max-pool > 0.5 recipe (matches
+            #    generate_clean_targets.pool_to_14 at higher resolution when
+            #    grid_size_out > 14).
             mt = torch.from_numpy(mask_cropped.astype(np.float32) / 255.0)
             mt = mt.unsqueeze(0).unsqueeze(0)
-            pooled = F.adaptive_max_pool2d(mt, (14, 14)).squeeze().numpy()
+            G_out = self.grid_size_out
+            pooled = F.adaptive_max_pool2d(mt, (G_out, G_out)).squeeze().numpy()
             mask14 = (pooled > 0.5).astype(np.float32)
 
             # 6) Color jitter on the post-geometric image (same as legacy).
@@ -278,7 +330,28 @@ class TargetDataset(Dataset):
         else:
             # --- Legacy path: simple resize, optional h-flip + color jitter. ---
             arr = np.array(pil.resize((S, S), Image.BICUBIC))
-            mask14 = d["mask14"].astype(np.float32) / 255.0  # (14, 14)
+            G_out = self.grid_size_out
+            if G_out == 14:
+                # Direct load — the npz already stores mask14 at the canonical
+                # 14x14 max-pool > 0.5 resolution.
+                mask14 = d["mask14"].astype(np.float32) / 255.0  # (14, 14)
+            else:
+                # On-the-fly resample to G_out x G_out. Prefer mask_full +
+                # max-pool > 0.5 (matches generate_clean_targets.pool_to_14
+                # recipe at higher resolution). Fall back to nearest-upsample
+                # of mask14 when mask_full is absent (legacy npz files).
+                if "mask_full" in d.files:
+                    mf = d["mask_full"].astype(np.float32)
+                    if mf.max() > 1.0:
+                        mf = mf / 255.0
+                    mt = torch.from_numpy(mf).unsqueeze(0).unsqueeze(0)
+                    pooled = F.adaptive_max_pool2d(mt, (G_out, G_out)).squeeze().numpy()
+                    mask14 = (pooled > 0.5).astype(np.float32)
+                else:
+                    m14 = d["mask14"].astype(np.float32) / 255.0  # (14, 14)
+                    mt = torch.from_numpy(m14).unsqueeze(0).unsqueeze(0)
+                    up = F.interpolate(mt, size=(G_out, G_out), mode="nearest")
+                    mask14 = (up.squeeze().numpy() > 0.5).astype(np.float32)
             if self.augment:
                 # Horizontal flip with p=0.5
                 if np.random.rand() < 0.5:
@@ -756,12 +829,28 @@ def train(args):
         print(f"  teacher: model={t_model}, patch_dim={t_pd}, mean={t_mean}", flush=True)
 
     # Head
-    head = TextScorerHead(
-        patch_dim=patch_dim, text_dim=512,
-        hidden_dim=args.head_hidden_dim, n_attn_heads=args.head_attn_heads,
-        n_attn_layers=args.head_attn_layers, grid_size=GRID,
-        use_spatial=args.head_use_spatial,
-    ).to(device)
+    if args.grid_size_out == GRID:
+        head = TextScorerHead(
+            patch_dim=patch_dim, text_dim=512,
+            hidden_dim=args.head_hidden_dim, n_attn_heads=args.head_attn_heads,
+            n_attn_layers=args.head_attn_layers, grid_size=GRID,
+            use_spatial=args.head_use_spatial,
+        ).to(device)
+    else:
+        # Higher-grid head: identical params to TextScorerHead (positional
+        # embed still 14*14=196), but forward() upsamples logits to
+        # grid_size_out via bilinear. State_dict keys/shapes are bit-identical
+        # to TextScorerHead, so a v0.5.0 ckpt loads cleanly below.
+        head = TextScorerHeadGrid28(
+            patch_dim=patch_dim, text_dim=512,
+            hidden_dim=args.head_hidden_dim, n_attn_heads=args.head_attn_heads,
+            n_attn_layers=args.head_attn_layers,
+            use_spatial=args.head_use_spatial,
+            grid_size_out=args.grid_size_out,
+        ).to(device)
+        print(f"[head] TextScorerHeadGrid28 (internal grid={GRID}, "
+              f"output upsampled to {args.grid_size_out}x{args.grid_size_out} "
+              f"via bilinear; same params as TextScorerHead)", flush=True)
     head.train()
 
     # SigLIP bias / temperature
@@ -834,7 +923,8 @@ def train(args):
                        limit=args.limit, positive_only=args.positive_only,
                        build_presence_lookup=args.fn_filter,
                        augment=args.augment,
-                       augment_aggressive=args.augment_aggressive)
+                       augment_aggressive=args.augment_aggressive,
+                       grid_size_out=args.grid_size_out)
 
     # ---- Train/val split by image_id ----
     # Hold out fraction of unique image_ids so val images are NEVER seen in training pairs.
@@ -871,6 +961,7 @@ def train(args):
                 self.std = parent.std
                 self.augment = False  # never augment val
                 self.augment_aggressive = False  # never augment val (gates aggressive pipeline too)
+                self.grid_size_out = parent.grid_size_out
                 self.files = [all_files[i] for i in idxs]
                 self.is_pos = all_is_pos[idxs]
                 self.pos_indices = np.where(self.is_pos)[0]
@@ -977,20 +1068,22 @@ def train(args):
         import matplotlib.pyplot as _plt
         import io
         head.eval()
+        # Head's output grid (14 by default, 28 with --grid_size_out 28).
+        G_render = int(args.grid_size_out)
         try:
             with torch.no_grad():
                 B_v = val_batch["B"]
                 v_patches = bb_fn(val_batch["images"])
                 # Build text embs for the val queries
                 v_text = encode_text_batch(clip_model_text, clip_tok, val_batch["queries"], device)
-                pred = np.zeros((B_v, B_v, GRID, GRID), dtype=np.float32)
+                pred = np.zeros((B_v, B_v, G_render, G_render), dtype=np.float32)
                 for i in range(B_v):
                     for j in range(B_v):
-                        logits = head(v_patches[i:i+1], v_text[j:j+1]).reshape(GRID, GRID)
+                        logits = head(v_patches[i:i+1], v_text[j:j+1]).reshape(G_render, G_render)
                         if args.per_query_bias:
                             # SiglipBiasPerQuery expects (B, B, H, W) + text_emb (B, 512).
-                            cal = sb(logits.view(1, 1, GRID, GRID),
-                                     v_text[j:j+1]).view(GRID, GRID)
+                            cal = sb(logits.view(1, 1, G_render, G_render),
+                                     v_text[j:j+1]).view(G_render, G_render)
                         else:
                             cal = sb(logits)
                         pred[i, j] = torch.sigmoid(cal).cpu().numpy()
@@ -1057,6 +1150,9 @@ def train(args):
     best_val_iou = -1.0
     latest_val_iou = None
     t_start = time.time()
+    # Per-query head output spatial side. The backbone still produces GRID*GRID
+    # patch tokens (==196); only the head's output grid is variable.
+    G_out = int(args.grid_size_out)
     for epoch in range(args.epochs):
         for batch in loader:
             if batch is None: continue
@@ -1078,17 +1174,21 @@ def train(args):
                     patches = bb_fn(images)
 
             # 3) Run the head Q times = B times for each row (image) against ALL queries.
-            # We construct the (B, Q, 196) heatmap as: for each (b, q), run head(patches[b], text_embs[q]).
+            # We construct the (B, Q, G_out*G_out) heatmap as: for each (b, q), run head(patches[b], text_embs[q]).
             # Vectorize via broadcasting: replicate patches B times, replicate text Q times, run.
+            # NOTE: patches always have GRID*GRID=196 tokens (backbone-side spatial
+            # side is fixed at 14). Only the head OUTPUT grid varies with G_out.
             patches_rep = patches.unsqueeze(1).expand(B, B, -1, -1).reshape(B * B, GRID * GRID, patch_dim)
             text_rep = text_embs.unsqueeze(0).expand(B, B, -1).reshape(B * B, -1)
-            logits_flat = head(patches_rep, text_rep)  # (B*B, 196)
-            logits = logits_flat.reshape(B, B, GRID, GRID)  # (B, Q, H, W)
+            logits_flat = head(patches_rep, text_rep)  # (B*B, G_out*G_out)
+            logits = logits_flat.reshape(B, B, G_out, G_out)  # (B, Q, H, W)
 
-            # 4) Build target: (B, Q, 14, 14)
-            #    On-diagonal: mask14[b]
+            # 4) Build target: (B, Q, G_out, G_out)
+            #    On-diagonal: mask14[b]  (which is already at G_out resolution
+            #                              when args.grid_size_out != 14;
+            #                              the dataset resamples on-the-fly.)
             #    Off-diagonal: zeros
-            target = torch.zeros(B, B, GRID, GRID, device=device)
+            target = torch.zeros(B, B, G_out, G_out, device=device)
             for b in range(B):
                 target[b, b] = mask14[b]
             target_present = torch.zeros(B, B, device=device)
@@ -1206,8 +1306,17 @@ def train(args):
                     t_patches = teacher["bb_fn"](images_t)
                     t_patches_rep = t_patches.unsqueeze(1).expand(B, B, -1, -1).reshape(B * B, GRID * GRID, t_patches.shape[-1])
                     t_logits_flat = teacher["head"](t_patches_rep, text_rep)
+                    # Teacher is always a v0.5.0-style head at GRID=14. If the
+                    # student outputs at G_out>14, bilinearly upsample teacher
+                    # logits to match before MSE.
                     t_logits = t_logits_flat.reshape(B, B, GRID, GRID)
                     t_cal = teacher["sb"](t_logits)
+                    if G_out != GRID:
+                        t_cal = F.interpolate(
+                            t_cal.reshape(B * B, 1, GRID, GRID),
+                            size=(G_out, G_out), mode="bilinear",
+                            align_corners=False,
+                        ).reshape(B, B, G_out, G_out)
                     t_probs = torch.sigmoid(t_cal)
                 # Student probs
                 s_probs = torch.sigmoid(cal_logits)
@@ -1316,14 +1425,14 @@ def train(args):
                         # Diagonal-only forward (cheaper than BxB; enough for diag_iou)
                         v_diag_logits = []
                         for k in range(Bv):
-                            ll = head(v_patches[k:k+1], v_text[k:k+1]).reshape(GRID, GRID)
+                            ll = head(v_patches[k:k+1], v_text[k:k+1]).reshape(G_out, G_out)
                             if args.per_query_bias:
                                 v_diag_logits.append(
-                                    sb(ll.view(1, 1, GRID, GRID),
-                                       v_text[k:k+1]).view(GRID, GRID))
+                                    sb(ll.view(1, 1, G_out, G_out),
+                                       v_text[k:k+1]).view(G_out, G_out))
                             else:
                                 v_diag_logits.append(sb(ll))
-                        v_dl = torch.stack(v_diag_logits)  # (Bv, GRID, GRID)
+                        v_dl = torch.stack(v_diag_logits)  # (Bv, G_out, G_out)
                         v_p = torch.sigmoid(v_dl)
                         gt = v_mask14
                         # Per-positive diag IoU (only positives have meaningful masks)
