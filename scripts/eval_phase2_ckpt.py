@@ -63,6 +63,11 @@ def load_ckpt(ckpt_path, device):
         n_attn_layers=args.get("head_attn_layers", 2),
         grid_size=GRID, use_spatial=args.get("head_use_spatial", True),
     ).to(device).eval()
+    # Note: phase20 ckpts trained with --grid_size_out 28 have a state_dict
+    # that is parameter-bit-identical to this 14x14 head (the only difference
+    # is a bilinear upsample at the end of forward(); zero learnable params).
+    # So load_state_dict works cleanly and eval runs at 14x14 — which is the
+    # right resolution for the existing iou_topk + heatmap_one downstream.
     head.load_state_dict(ck["head"])
     sb = SiglipBias().to(device).eval()
     sb.load_state_dict(ck["sb"])
