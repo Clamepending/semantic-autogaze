@@ -529,7 +529,7 @@ def train(args):
 
     # Data
     ds = TargetDataset(args.target_dir, args.image_dir,
-                       image_size=224, mean=mean, std=std,
+                       image_size=args.image_size, mean=mean, std=std,
                        limit=args.limit, positive_only=args.positive_only,
                        build_presence_lookup=args.fn_filter,
                        augment=args.augment)
@@ -1039,6 +1039,8 @@ if __name__ == "__main__":
                    help="Per-source sampling-weight multipliers, e.g. 'pp:5,stuff:1,lvis:1,coco:1'. Multiplies the existing per-positive weight. Slug-prefix-based: pp_*=pascal_part, stuff_*=coco-stuff/panoptic, lvis_*=LVIS, else=COCO.")
     p.add_argument("--augment", action="store_true",
                    help="Enable horizontal-flip + color jitter (brightness/contrast) augmentation in TargetDataset.")
+    p.add_argument("--image_size", type=int, default=224,
+                   help="Input image size. Default 224. Use 288/336 for higher spatial resolution at higher compute cost.")
     p.add_argument("--lambda_off_diagonal", type=float, default=1.0,
                    help="weight on off-diagonal pair losses (0=non-contrastive direct regression, 1=full SigLIP)")
     p.add_argument("--fn_filter", action="store_true",
