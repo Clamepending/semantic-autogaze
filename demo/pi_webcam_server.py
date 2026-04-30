@@ -48,11 +48,15 @@ RELEASE_URLS = {
     "d-mobile": "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.1.0-demo/D_mobilenet_std_best.pt",
     "v2-tiny":  "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.1.0-demo/v2_tiny_best.pt",
     "v1":       "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.1.0-demo/v1_best.pt",
-    # Phase 10 SigLIP-distilled (DINOv2-s teacher) ConvNeXt family — Pi-class.
-    # Populated when the v0.4.0-phase10-pi-demo release is cut.
+    # Phase 10 SigLIP-distilled (DINOv2-s teacher) ConvNeXt family — Pi-class
+    # baseline released as v0.4.0 (atto mIoU 0.696, headline pre-Phase-15).
     "phase10-atto":  "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.4.0-phase10-pi-demo/phase10_convnext_atto_best_val.pt",
     "phase10-femto": "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.4.0-phase10-pi-demo/phase10_convnext_femto_best_val.pt",
     "phase10-pico":  "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.4.0-phase10-pi-demo/phase10_convnext_pico_best_val.pt",
+    # Phase 15 ConvNeXt-atto with the longer-trained DINOv2-s teacher
+    # (phase13) and source-reweighted recipe — the first Pi-class scorer the
+    # project has produced above the §1 >=0.71 mIoU deployment floor.
+    "phase15-atto":  "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.5.0-phase15-pi-demo/phase15_convnext_atto_step35000_iou0722.pt",
 }
 
 # Mapping from `ckpt['args']['model']` (training-time identifier) to the timm
@@ -517,9 +521,10 @@ window.addEventListener('DOMContentLoaded', () => {
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", default="D_mobile.pt")
-    ap.add_argument("--model", default="phase10-atto",
+    ap.add_argument("--model", default="phase15-atto",
                     choices=["d-mobile", "v2-tiny", "v1",
-                             "phase10-atto", "phase10-femto", "phase10-pico"])
+                             "phase10-atto", "phase10-femto", "phase10-pico",
+                             "phase15-atto"])
     ap.add_argument("--query", default="hand")
     ap.add_argument("--reduce", default="max", choices=REDUCE_MODES)
     ap.add_argument("--threshold", type=float, default=0.0,

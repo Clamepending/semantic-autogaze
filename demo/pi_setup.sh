@@ -12,23 +12,30 @@
 
 set -euo pipefail
 
-MODEL="${MODEL:-phase10-atto}"
+MODEL="${MODEL:-phase15-atto}"
 QUERY="${QUERY:-hand,coffee cup,laptop,face}"
 REDUCE="${REDUCE:-max}"
 PORT="${PORT:-8000}"
 VENV="${VENV:-$HOME/.venv-pi-demo}"
 WORKDIR="${WORKDIR:-$HOME/semantic-autogaze-pi-demo}"
-RELEASE_TAG="v0.4.0-phase10-pi-demo"
-
-CKPT_FILE_MAP_atto="phase10_convnext_atto_best_val.pt"
-CKPT_FILE_MAP_femto="phase10_convnext_femto_best_val.pt"
-CKPT_FILE_MAP_pico="phase10_convnext_pico_best_val.pt"
-
 case "$MODEL" in
-  phase10-atto)  CKPT="$CKPT_FILE_MAP_atto"  ;;
-  phase10-femto) CKPT="$CKPT_FILE_MAP_femto" ;;
-  phase10-pico)  CKPT="$CKPT_FILE_MAP_pico"  ;;
-  *) echo "Unknown MODEL=$MODEL (expected phase10-atto|phase10-femto|phase10-pico)"; exit 1 ;;
+  phase15-atto)
+    RELEASE_TAG="v0.5.0-phase15-pi-demo"
+    CKPT="phase15_convnext_atto_step35000_iou0722.pt"
+    ;;
+  phase10-atto)
+    RELEASE_TAG="v0.4.0-phase10-pi-demo"
+    CKPT="phase10_convnext_atto_best_val.pt"
+    ;;
+  phase10-femto)
+    RELEASE_TAG="v0.4.0-phase10-pi-demo"
+    CKPT="phase10_convnext_femto_best_val.pt"
+    ;;
+  phase10-pico)
+    RELEASE_TAG="v0.4.0-phase10-pi-demo"
+    CKPT="phase10_convnext_pico_best_val.pt"
+    ;;
+  *) echo "Unknown MODEL=$MODEL (expected phase15-atto|phase10-atto|phase10-femto|phase10-pico)"; exit 1 ;;
 esac
 
 echo "[pi_setup] model=$MODEL ckpt=$CKPT port=$PORT venv=$VENV"
