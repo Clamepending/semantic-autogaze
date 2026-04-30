@@ -69,8 +69,19 @@ def load_ckpt(ckpt_path, device):
     # So load_state_dict works cleanly and eval runs at 14x14 — which is the
     # right resolution for the existing iou_topk + heatmap_one downstream.
     head.load_state_dict(ck["head"])
-    sb = SiglipBias().to(device).eval()
-    sb.load_state_dict(ck["sb"])
+    # phase19b/e/f compat: ckpts trained with --per_query_bias have an MLP-bias
+    # SiglipBiasPerQuery sb instead of the global SiglipBias. Detect by sb
+    # state_dict keys and instantiate the right class.
+    sb_state = ck["sb"]
+    if any(k.startswith("bias_mlp.") for k in sb_state.keys()):
+        from train_siglip_dense_distill import SiglipBiasPerQuery  # type: ignore
+        sb = SiglipBiasPerQuery().to(device).eval()
+        sb.load_state_dict(sb_state)
+        sb._is_per_query = True
+    else:
+        sb = SiglipBias().to(device).eval()
+        sb.load_state_dict(sb_state)
+        sb._is_per_query = False
     if "backbone_state" in ck:
         bb_module.load_state_dict(ck["backbone_state"])
     return bb_fn, head, sb, mean, std, model, kind, bb_module
@@ -85,7 +96,12 @@ def heatmap_one(pil, query, bb_fn, head, sb, mean, std, clip_model_text, clip_to
     toks = clip_tok([query]).to(device)
     text = F.normalize(clip_model_text.encode_text(toks), dim=-1)
     logits = head(patches, text).reshape(GRID, GRID)
-    cal = sb(logits)
+    if getattr(sb, "_is_per_query", False):
+        # SiglipBiasPerQuery expects (B, B, H, W) + (B, dim) text. Wrap singleton.
+        logits_wrapped = logits.unsqueeze(0).unsqueeze(0)  # (1, 1, GRID, GRID)
+        cal = sb(logits_wrapped, text).squeeze(0).squeeze(0)
+    else:
+        cal = sb(logits)
     return torch.sigmoid(cal).cpu().numpy()
 
 

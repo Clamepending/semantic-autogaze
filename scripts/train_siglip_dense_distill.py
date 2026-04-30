@@ -882,6 +882,11 @@ def train(args):
     # Optional: resume head + sb (and backbone if finetuning) from an existing ckpt.
     if args.resume_from:
         rk = torch.load(args.resume_from, map_location=device, weights_only=False)
+        # TextScorerHeadGrid28 sets the parent's grid_size to 14 in __init__,
+        # so its state_dict keys/shapes are bit-identical to a v0.5.0
+        # TextScorerHead trained at grid=14. The bilinear upsample at the
+        # tail has zero learnable parameters, so this load_state_dict is
+        # always strict-clean even when args.grid_size_out == 28.
         head.load_state_dict(rk["head"])
         # If we're using SiglipBiasPerQuery but the resume ckpt was saved from
         # global-bias SiglipBias, the state_dict keys/shapes don't match
@@ -1119,8 +1124,8 @@ def train(args):
                         ax_c = fig.add_subplot(gs[i + 1, j + 1])
                         ax_c.imshow(arr_i, alpha=0.55)
                         h = pred[i, j]
-                        h_up = np.kron(h, np.ones((arr_i.shape[0] // GRID + 1,
-                                                    arr_i.shape[1] // GRID + 1)))[:arr_i.shape[0], :arr_i.shape[1]]
+                        h_up = np.kron(h, np.ones((arr_i.shape[0] // G_render + 1,
+                                                    arr_i.shape[1] // G_render + 1)))[:arr_i.shape[0], :arr_i.shape[1]]
                         ax_c.imshow(h_up, alpha=0.6, cmap="hot", vmin=0, vmax=1)
                         ax_c.set_xticks([]); ax_c.set_yticks([])
                         if i == j:
@@ -1603,6 +1608,18 @@ if __name__ == "__main__":
     p.add_argument("--head_attn_heads", type=int, default=6)
     p.add_argument("--head_attn_layers", type=int, default=2)
     p.add_argument("--head_use_spatial", action="store_true", default=True)
+    p.add_argument("--grid_size_out", type=int, default=14, choices=[14, 28],
+                   help="Output spatial grid for the per-query dense head. "
+                        "14 (default) preserves v0.5.0 behaviour. 28 activates "
+                        "TextScorerHeadGrid28 — same parameters as TextScorerHead, "
+                        "but final logits are bilinearly upsampled from 14x14 to "
+                        "28x28. Targets are resampled on-the-fly: max-pool of "
+                        "mask_full > 0.5 (preferred), or nearest-upsample of "
+                        "mask14 (fallback for legacy npz). Addresses the "
+                        "thin-object localization failure (knife/skis/baseball-bat/"
+                        "sports-ball) where pixels span <1 cell at 14x14. "
+                        "v0.5.0 ckpts load cleanly into the 28-grid head via "
+                        "--resume_from since the parameter set is identical.")
 
     # OWLv2-style query-agnostic objectness head (optional, training-only).
     # When >0, an ObjectnessHead is constructed alongside the main per-query
