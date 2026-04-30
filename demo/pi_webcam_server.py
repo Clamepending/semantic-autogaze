@@ -262,49 +262,44 @@ def adapt_features(feats):
     return feats
 
 
-def overlay_heatmap(frame_bgr, heatmap_14, threshold=0.0):
-    """Overlay per-frame max-normalized heatmap on frame. Threshold is
-    interpreted as a *percentile* on the per-frame score distribution:
-    threshold=0.0 keeps all 196 patches; threshold=0.5 keeps the top 50%
-    (98 patches); threshold=0.86 keeps the top ~14% (top 27, the K=27
-    deployment value); threshold=1.0 keeps only the single top patch.
+def overlay_heatmap(frame_bgr, heatmap_14, threshold):
+    """Overlay heatmap on frame using ABSOLUTE sigmoid scores.
 
-    This is robust to the sigmoid scores' calibration (the trained head
-    produces useful *relative* rankings even when absolute scores are
-    bunched in [0.5, 0.9])."""
+    `heatmap_14` is the head's per-cell sigmoid output in [0, 1]. The same
+    `threshold` value means the same thing across queries and across frames:
+    cells with score >= threshold are highlighted, cells below are not.
+    No per-frame normalization, no percentile cutoff. The visualization
+    reads honestly: when the model abstains (max < threshold), nothing
+    is drawn over the frame.
+
+    Display intensity uses the raw cell score directly. A cell at score
+    0.40 is dim; a cell at 0.95 is saturated red. Calibration is the
+    model's responsibility — see paper.md §4.8 caveats and the phase18
+    hard-negative-mining direction."""
     H, W = frame_bgr.shape[:2]
-    h = heatmap_14.astype(np.float32).copy()
-    flat = h.flatten()
-    n = flat.size
+    h = heatmap_14.astype(np.float32)
 
-    # Per-frame max-normalize for display intensity (so the most-relevant
-    # patch in this frame is always saturated red).
-    hmin, hmax = float(flat.min()), float(flat.max())
-    if hmax > hmin:
-        h_disp = (h - hmin) / (hmax - hmin)
-    else:
-        h_disp = np.zeros_like(h)
+    # If nothing exceeds threshold, return the frame unchanged. This is
+    # the model abstaining; the visualization should show abstention,
+    # not amplified noise.
+    if float(h.max()) < threshold:
+        return frame_bgr
 
-    # Threshold = percentile cutoff on the raw scores.
-    keep_mask_14 = None
-    if threshold > 0.0:
-        cutoff = np.quantile(flat, float(threshold))
-        keep_mask_14 = (h >= cutoff).astype(np.float32)
-        h_disp = h_disp * keep_mask_14  # zero out below-cutoff in the overlay
+    # Mask = cells at or above absolute threshold.
+    keep_mask_14 = (h >= threshold).astype(np.float32)
+    # Display intensity = the raw score itself (clipped to [0, 1] for
+    # safety; the head outputs in this range already).
+    h_disp = np.clip(h, 0.0, 1.0) * keep_mask_14
 
     heat = cv2.resize(h_disp, (W, H), interpolation=cv2.INTER_LINEAR)
     heat_uint = np.clip(heat * 255, 0, 255).astype(np.uint8)
     heat_bgr = cv2.applyColorMap(heat_uint, cv2.COLORMAP_HOT)
 
-    if threshold > 0.0:
-        # Where the kept-mask is 0 (below cutoff), dim the frame so the
-        # selected patches stand out.
-        keep_full = cv2.resize(keep_mask_14, (W, H), interpolation=cv2.INTER_NEAREST)
-        keep_full = (keep_full > 0.5)[..., None]  # (H, W, 1) bool
-        dim = (frame_bgr * 0.30).astype(np.uint8)
-        bright = cv2.addWeighted(frame_bgr, 0.55, heat_bgr, 0.45, 0)
-        return np.where(keep_full, bright, dim)
-    return cv2.addWeighted(frame_bgr, 0.55, heat_bgr, 0.45, 0)
+    keep_full = cv2.resize(keep_mask_14, (W, H), interpolation=cv2.INTER_NEAREST)
+    keep_full = (keep_full > 0.5)[..., None]  # (H, W, 1) bool
+    dim = (frame_bgr * 0.30).astype(np.uint8)
+    bright = cv2.addWeighted(frame_bgr, 0.55, heat_bgr, 0.45, 0)
+    return np.where(keep_full, bright, dim)
 
 
 def rotate_frame(frame_bgr: np.ndarray, deg: int) -> np.ndarray:
@@ -318,26 +313,18 @@ def rotate_frame(frame_bgr: np.ndarray, deg: int) -> np.ndarray:
 
 
 # ---- Shared state ----
+# Two live UI knobs: comma-separated keywords, and an absolute sigmoid-score
+# threshold in [0, 1]. Multi-keyword always combined with `max` (union).
+# Rotation is a launch-time argument, not a UI control.
 class State:
     def __init__(self):
         self.lock = threading.Lock()
         self.queries = ["hand"]
-        self.reduce = "max"
-        self.threshold = 0.0  # 0..1 — patches below threshold are dimmed in overlay (local-mode only)
-        self.rotate = 0       # 0/90/180/270
+        self.threshold = 0.45   # absolute sigmoid-score cutoff
+        self.rotate = 0         # 0/90/180/270 (launch-time only)
         self.fps = 0.0
-        self.last_jpeg = None  # bytes
-        self.text_embs = None  # (Q, 512) tensor
-        # Remote Grounded-SAM tunables (only used when --remote_inference is set)
-        self.gsam_box_thr = 0.35
-        self.gsam_text_thr = 0.25
-        self.gsam_max_box_area = 0.55
-        self.gsam_clip_gate = 0.18  # CLIP image-text cosine gate; below this -> empty mask
-        self.gsam_last_n_boxes = 0
-        self.gsam_last_top_score = 0.0
-        self.gsam_last_clip_sim = 0.0
-        self.gsam_last_gated_out = False
-        self.gsam_last_infer_ms = 0.0
+        self.last_jpeg = None
+        self.text_embs = None   # (Q, 512) tensor
 
     def set_query(self, q_str: str, encode_fn):
         qs = [q.strip() for q in q_str.split(",") if q.strip()]
@@ -347,38 +334,10 @@ class State:
             self.queries = qs
             self.text_embs = embs
 
-    def set_reduce(self, r: str):
-        if r not in REDUCE_MODES: return
-        with self.lock:
-            self.reduce = r
-
     def set_threshold(self, t: float):
         t = max(0.0, min(1.0, float(t)))
         with self.lock:
             self.threshold = t
-
-    def set_rotate(self, deg: int):
-        deg = int(deg) % 360
-        if deg not in (0, 90, 180, 270):
-            return
-        with self.lock:
-            self.rotate = deg
-
-    def set_gsam_box_thr(self, v: float):
-        v = max(0.05, min(0.95, float(v)))
-        with self.lock: self.gsam_box_thr = v
-
-    def set_gsam_text_thr(self, v: float):
-        v = max(0.05, min(0.95, float(v)))
-        with self.lock: self.gsam_text_thr = v
-
-    def set_gsam_max_box_area(self, v: float):
-        v = max(0.10, min(1.00, float(v)))
-        with self.lock: self.gsam_max_box_area = v
-
-    def set_gsam_clip_gate(self, v: float):
-        v = max(0.00, min(0.50, float(v)))
-        with self.lock: self.gsam_clip_gate = v
 
 
 # ---- HTML page ----
@@ -387,125 +346,57 @@ INDEX_HTML = """<!doctype html>
 <style>
 body { font-family: -apple-system, sans-serif; background: #111; color: #eee; margin: 16px; }
 img { max-width: 100%; height: auto; border: 1px solid #444; display: block; }
-input, select, button { font-size: 16px; padding: 6px 10px; background: #222; color: #eee; border: 1px solid #444; }
-input[type=text] { width: 50%; }
-input[type=range] { width: 300px; vertical-align: middle; }
+input, button { font-size: 16px; padding: 6px 10px; background: #222; color: #eee; border: 1px solid #444; }
+input[type=text] { width: 60%; }
+input[type=range] { width: 320px; vertical-align: middle; }
 button { background: #2a4; color: #fff; border: none; cursor: pointer; }
 button:hover { background: #3b5; }
-.row { margin: 10px 0; }
-.muted { color: #888; font-size: 13px; margin-left: 10px; }
-.thrval { display: inline-block; width: 60px; text-align: right; font-family: monospace; }
+.row { margin: 14px 0; }
+.muted { color: #888; font-size: 13px; }
+.thrval { display: inline-block; width: 60px; text-align: right; font-family: monospace; color: #cfc; }
 </style></head><body>
 <h2>semantic-autogaze — pi webcam stream</h2>
 <div class="row">
-  <label>query (comma-separated for multi): <input id="q" type="text" value=""></label>
-  <select id="r">
-    <option value="max">max (union)</option>
-    <option value="min">min (intersection)</option>
-    <option value="mean">mean</option>
-    <option value="sum">sum</option>
-    <option value="softmax">softmax</option>
-  </select>
+  <label>keywords (comma-separated, combined with max): <input id="q" type="text" value=""></label>
   <button onclick="apply()">apply</button>
 </div>
 <div class="row">
-  <label>top-K (percentile, local-only):
-    <input id="thr" type="range" min="0" max="1" step="0.01" value="0">
-    <span id="thrval" class="thrval">0.00</span>
+  <label>threshold (absolute sigmoid score, same meaning across queries):
+    <input id="thr" type="range" min="0.0" max="1.0" step="0.01" value="0.45">
+    <span id="thrval" class="thrval">0.45</span>
   </label>
-  <span class="muted">(0 = show all 196 patches; 0.86 ≈ top-K=27 deployment; 1.0 = top patch only)</span>
+  <div class="muted">cells with predicted score &lt; threshold are not drawn. when the model abstains
+    (max &lt; threshold), the frame is shown unmodified.</div>
 </div>
-<div class="row">
-  <label>GSAM box thr:
-    <input id="gbox" type="range" min="0.05" max="0.95" step="0.01" value="0.35">
-    <span id="gboxval" class="thrval">0.35</span>
-  </label>
-  <label>GSAM text thr:
-    <input id="gtext" type="range" min="0.05" max="0.95" step="0.01" value="0.25">
-    <span id="gtextval" class="thrval">0.25</span>
-  </label>
-  <label>max box area:
-    <input id="garea" type="range" min="0.10" max="1.00" step="0.01" value="0.55">
-    <span id="gareaval" class="thrval">0.55</span>
-  </label>
-  <br>
-  <label>CLIP gate (presence detector):
-    <input id="ggate" type="range" min="0.00" max="0.40" step="0.01" value="0.18">
-    <span id="ggateval" class="thrval">0.18</span>
-  </label>
-  <span class="muted">(image-text cosine cutoff — below this, mask is suppressed entirely. Stops the
-   "Hugging Face emoji segmented as a hand" failure when the queried object is absent.)</span>
-</div>
-<div class="row">
-  <label>rotate:
-    <select id="rot">
-      <option value="0">0°</option>
-      <option value="90">90° CW</option>
-      <option value="180">180°</option>
-      <option value="270">270° CW (= 90 CCW)</option>
-    </select>
-  </label>
-  <span id="status" class="muted"></span>
-</div>
+<div class="row muted" id="status"></div>
 <img id="stream" src="/stream" alt="camera">
 <script>
-// First-load populates the form; afterwards only the status footer auto-updates,
-// so we don't clobber user typing.
 let firstLoad = true;
 async function refreshState() {
   const r = await fetch('/api/state'); const j = await r.json();
   if (firstLoad) {
     document.getElementById('q').value = j.queries.join(', ');
-    document.getElementById('r').value = j.reduce;
     document.getElementById('thr').value = j.threshold;
     document.getElementById('thrval').textContent = j.threshold.toFixed(2);
-    document.getElementById('rot').value = j.rotate;
-    if ('gsam_box_thr' in j) {
-      document.getElementById('gbox').value = j.gsam_box_thr;
-      document.getElementById('gboxval').textContent = j.gsam_box_thr.toFixed(2);
-      document.getElementById('gtext').value = j.gsam_text_thr;
-      document.getElementById('gtextval').textContent = j.gsam_text_thr.toFixed(2);
-      document.getElementById('garea').value = j.gsam_max_box_area;
-      document.getElementById('gareaval').textContent = j.gsam_max_box_area.toFixed(2);
-      if ('gsam_clip_gate' in j) {
-        document.getElementById('ggate').value = j.gsam_clip_gate;
-        document.getElementById('ggateval').textContent = j.gsam_clip_gate.toFixed(2);
-      }
-    }
     firstLoad = false;
   }
-  let extra = '';
-  if (j.mode === 'remote' && 'gsam_last_top_score' in j) {
-    const gated = j.gsam_last_gated_out ? ' GATED' : '';
-    extra = ` | clip_sim=${(j.gsam_last_clip_sim||0).toFixed(2)}${gated} | gdino: ${j.gsam_last_n_boxes} boxes, top=${j.gsam_last_top_score.toFixed(2)}, ${j.gsam_last_infer_ms.toFixed(0)}ms`;
-  }
   document.getElementById('status').textContent =
-    `[${j.mode}] queries=[${j.queries.join(', ')}] reduce=${j.reduce} thr=${j.threshold.toFixed(2)} rotate=${j.rotate}° | ${j.model} | ${j.fps.toFixed(1)} fps` + extra;
+    `keywords=[${j.queries.join(', ')}]  threshold=${j.threshold.toFixed(2)}  model=${j.model}  ${j.fps.toFixed(1)} fps`;
 }
 async function apply() {
   const q = document.getElementById('q').value;
-  const r = document.getElementById('r').value;
   await fetch('/api/query', {method:'POST', body: q});
-  await fetch('/api/reduce', {method:'POST', body: r});
   await refreshState();
 }
 async function postThr(v) {
   document.getElementById('thrval').textContent = parseFloat(v).toFixed(2);
   await fetch('/api/threshold', {method:'POST', body: v});
 }
-async function postRot(v) {
-  await fetch('/api/rotate', {method:'POST', body: v});
-}
-async function postGsam(field, v) {
-  document.getElementById(field + 'val').textContent = parseFloat(v).toFixed(2);
-  await fetch('/api/gsam_' + field.replace('g', ''), {method:'POST', body: v});
-}
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('q').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') { e.preventDefault(); apply(); }
   });
   document.getElementById('thr').addEventListener('input', (e) => postThr(e.target.value));
-  document.getElementById('rot').addEventListener('change', (e) => postRot(e.target.value));
   for (const f of ['gbox', 'gtext', 'garea', 'ggate']) {
     const el = document.getElementById(f);
     if (el) el.addEventListener('input', (e) => postGsam(f, e.target.value));
@@ -526,16 +417,11 @@ def main():
                              "phase10-atto", "phase10-femto", "phase10-pico",
                              "phase15-atto"])
     ap.add_argument("--query", default="hand")
-    ap.add_argument("--reduce", default="max", choices=REDUCE_MODES)
-    ap.add_argument("--threshold", type=float, default=0.0,
-                    help="initial heatmap threshold; UI slider can change live")
+    ap.add_argument("--threshold", type=float, default=0.45,
+                    help="initial absolute sigmoid-score threshold; UI slider can change live. "
+                         "Same number means the same thing across queries.")
     ap.add_argument("--rotate", type=int, default=0, choices=[0, 90, 180, 270],
-                    help="initial frame rotation; UI dropdown can change live")
-    ap.add_argument("--remote_inference", default=None,
-                    help="if set, POST frames to <URL>/infer (Grounded-SAM GPU server) "
-                         "instead of running the local trained scorer. The URL should NOT "
-                         "end with /infer (we add it). Example: "
-                         "http://cthulhu1.tail8dd042.ts.net:8001")
+                    help="frame rotation (launch-time only)")
     ap.add_argument("--cam", type=int, default=0)
     ap.add_argument("--cam_w", type=int, default=0,
                     help="0 = let camera report native resolution (preserves aspect)")
@@ -571,7 +457,6 @@ def main():
 
     state = State()
     state.set_query(args.query, encode_texts)
-    state.reduce = args.reduce
     state.threshold = args.threshold
     state.rotate = args.rotate
 
@@ -585,52 +470,6 @@ def main():
     actual_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     print(f"[cam] native frame size: {actual_w}x{actual_h}", flush=True)
 
-    # ---- Worker thread: capture, score, jpeg-encode, store ----
-    use_remote = args.remote_inference is not None and args.remote_inference != ""
-    if use_remote:
-        import urllib.request as _ur
-        infer_url = args.remote_inference.rstrip("/") + "/infer"
-        print(f"[remote] inference offloaded to {infer_url}", flush=True)
-
-    def remote_infer(frame_bgr_local, query_text, box_thr, text_thr, max_area, clip_gate):
-        """Send frame as JPEG to remote /infer; receive PNG mask + meta headers."""
-        ok2, jpeg_bytes = cv2.imencode(".jpg", frame_bgr_local,
-                                       [int(cv2.IMWRITE_JPEG_QUALITY), 70])
-        if not ok2:
-            return None, {"error": "encode-failed"}
-        boundary = "----semantic-autogaze-mp"
-        body = []
-        body.append(f"--{boundary}\r\n".encode())
-        body.append(b'Content-Disposition: form-data; name="image"; filename="f.jpg"\r\n')
-        body.append(b"Content-Type: image/jpeg\r\n\r\n")
-        body.append(jpeg_bytes.tobytes())
-        body.append(b"\r\n")
-        body.append(f"--{boundary}\r\n".encode())
-        body.append(b'Content-Disposition: form-data; name="query"\r\n\r\n')
-        body.append(query_text.encode())
-        body.append(b"\r\n")
-        body.append(f"--{boundary}--\r\n".encode())
-        body_bytes = b"".join(body)
-        req = _ur.Request(infer_url, data=body_bytes,
-                         headers={"Content-Type": f"multipart/form-data; boundary={boundary}",
-                                  "X-Box-Threshold": f"{box_thr:.3f}",
-                                  "X-Text-Threshold": f"{text_thr:.3f}",
-                                  "X-Max-Box-Area-Frac": f"{max_area:.3f}",
-                                  "X-Clip-Gate": f"{clip_gate:.3f}"})
-        try:
-            with _ur.urlopen(req, timeout=30) as resp:
-                png = resp.read()
-                meta = {"n_boxes": int(resp.headers.get("X-N-Boxes", "0")),
-                        "top_score": float(resp.headers.get("X-Top-Score", "0")),
-                        "clip_sim": float(resp.headers.get("X-Clip-Sim", "0")),
-                        "gated_out": resp.headers.get("X-Gated-Out", "0") == "1",
-                        "infer_ms": float(resp.headers.get("X-Inference-Ms", "0"))}
-        except Exception as e:
-            return None, {"error": str(e)[:80]}
-        png_arr = np.frombuffer(png, dtype=np.uint8)
-        mask = cv2.imdecode(png_arr, cv2.IMREAD_GRAYSCALE)
-        return mask, meta
-
     def worker():
         last_t = time.time(); fps_ema = 0.0
         while True:
@@ -639,7 +478,6 @@ def main():
                 time.sleep(0.05); continue
             with state.lock:
                 te = state.text_embs
-                rd = state.reduce
                 qs = list(state.queries)
                 thr = state.threshold
                 rot = state.rotate
@@ -647,42 +485,15 @@ def main():
                 frame_bgr = rotate_frame(frame_bgr, rot)
 
             try:
-                if use_remote:
-                    with state.lock:
-                        bx_thr = state.gsam_box_thr
-                        tx_thr = state.gsam_text_thr
-                        ma = state.gsam_max_box_area
-                        cg = state.gsam_clip_gate
-                    out = remote_infer(frame_bgr, qs[0], bx_thr, tx_thr, ma, cg)
-                    full_mask, meta = out
-                    if full_mask is None:
-                        disp = frame_bgr.copy()
-                        cv2.putText(disp, f"remote infer failed: {meta.get('error', '?')}",
-                                    (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+                with torch.no_grad():
+                    x = normalize_frame(frame_bgr, mean, std, device)
+                    if kind == "clip-visual":
+                        _, feats = clip_model.visual(x)
                     else:
-                        with state.lock:
-                            state.gsam_last_n_boxes = int(meta.get("n_boxes", 0))
-                            state.gsam_last_top_score = float(meta.get("top_score", 0.0))
-                            state.gsam_last_clip_sim = float(meta.get("clip_sim", 0.0))
-                            state.gsam_last_gated_out = bool(meta.get("gated_out", False))
-                            state.gsam_last_infer_ms = float(meta.get("infer_ms", 0.0))
-                        H, W = frame_bgr.shape[:2]
-                        if full_mask.shape != (H, W):
-                            full_mask = cv2.resize(full_mask, (W, H), interpolation=cv2.INTER_NEAREST)
-                        keep = full_mask > 127
-                        heat_bgr = cv2.applyColorMap(full_mask, cv2.COLORMAP_HOT)
-                        bright = cv2.addWeighted(frame_bgr, 0.55, heat_bgr, 0.45, 0)
-                        dim = (frame_bgr * 0.30).astype(np.uint8)
-                        disp = np.where(keep[..., None], bright, dim)
-                else:
-                    with torch.no_grad():
-                        x = normalize_frame(frame_bgr, mean, std, device)
-                        if kind == "clip-visual":
-                            _, feats = clip_model.visual(x)
-                        else:
-                            feats = adapt_features(backbone.forward_features(x))
-                        h14 = mq(feats, te, reduce=rd, apply_sigmoid=True).reshape(GRID, GRID).cpu().numpy()
-                    disp = overlay_heatmap(frame_bgr, h14, threshold=thr)
+                        feats = adapt_features(backbone.forward_features(x))
+                    # Multi-keyword always combined with `max` (union of per-keyword heatmaps).
+                    h14 = mq(feats, te, reduce="max", apply_sigmoid=True).reshape(GRID, GRID).cpu().numpy()
+                disp = overlay_heatmap(frame_bgr, h14, threshold=thr)
             except Exception as e:
                 disp = frame_bgr.copy()
                 cv2.putText(disp, f"err: {e}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
@@ -692,10 +503,9 @@ def main():
                 inst = 1.0 / dt
                 fps_ema = inst if fps_ema == 0 else 0.9 * fps_ema + 0.1 * inst
             label = ", ".join(qs) if len(qs) > 1 else qs[0]
-            mode_label = f"REMOTE-GSAM" if use_remote else f"{args.model}"
-            cv2.putText(disp, f"q: {label}  [{mode_label}]",
+            cv2.putText(disp, f"q: {label}  [{args.model}]  thr={thr:.2f}",
                         (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 255), 2, cv2.LINE_AA)
-            cv2.putText(disp, f"{fps_ema:.1f} fps | rotate={rot}",
+            cv2.putText(disp, f"{fps_ema:.1f} fps",
                         (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2, cv2.LINE_AA)
 
             ok2, jpeg = cv2.imencode(".jpg", disp,
@@ -733,28 +543,12 @@ def main():
     @app.get("/api/state")
     def api_state():
         with state.lock:
-            d = {
+            return {
                 "queries": state.queries,
-                "reduce": state.reduce,
                 "threshold": state.threshold,
-                "rotate": state.rotate,
                 "fps": state.fps,
-                "model": "REMOTE-GSAM" if use_remote else args.model,
-                "mode": "remote" if use_remote else "local",
+                "model": args.model,
             }
-            if use_remote:
-                d.update({
-                    "gsam_box_thr": state.gsam_box_thr,
-                    "gsam_text_thr": state.gsam_text_thr,
-                    "gsam_max_box_area": state.gsam_max_box_area,
-                    "gsam_clip_gate": state.gsam_clip_gate,
-                    "gsam_last_n_boxes": state.gsam_last_n_boxes,
-                    "gsam_last_top_score": state.gsam_last_top_score,
-                    "gsam_last_clip_sim": state.gsam_last_clip_sim,
-                    "gsam_last_gated_out": state.gsam_last_gated_out,
-                    "gsam_last_infer_ms": state.gsam_last_infer_ms,
-                })
-            return d
 
     @app.post("/api/query")
     def api_query():
@@ -764,15 +558,6 @@ def main():
         if body:
             state.set_query(body, encode_texts)
         with state.lock: return {"queries": state.queries}
-
-    @app.post("/api/reduce")
-    def api_reduce():
-        body = request.get_data(as_text=True).strip()
-        if body.startswith("{"):
-            body = json.loads(body).get("reduce", "")
-        if body:
-            state.set_reduce(body)
-        with state.lock: return {"reduce": state.reduce}
 
     @app.post("/api/threshold")
     def api_threshold():
@@ -784,45 +569,6 @@ def main():
         except ValueError:
             pass
         with state.lock: return {"threshold": state.threshold}
-
-    @app.post("/api/rotate")
-    def api_rotate():
-        body = request.get_data(as_text=True).strip()
-        if body.startswith("{"):
-            body = json.loads(body).get("rotate", "0")
-        try:
-            state.set_rotate(int(body))
-        except ValueError:
-            pass
-        with state.lock: return {"rotate": state.rotate}
-
-    @app.post("/api/gsam_box")
-    def api_gsam_box():
-        body = request.get_data(as_text=True).strip()
-        try: state.set_gsam_box_thr(float(body))
-        except ValueError: pass
-        with state.lock: return {"gsam_box_thr": state.gsam_box_thr}
-
-    @app.post("/api/gsam_text")
-    def api_gsam_text():
-        body = request.get_data(as_text=True).strip()
-        try: state.set_gsam_text_thr(float(body))
-        except ValueError: pass
-        with state.lock: return {"gsam_text_thr": state.gsam_text_thr}
-
-    @app.post("/api/gsam_area")
-    def api_gsam_area():
-        body = request.get_data(as_text=True).strip()
-        try: state.set_gsam_max_box_area(float(body))
-        except ValueError: pass
-        with state.lock: return {"gsam_max_box_area": state.gsam_max_box_area}
-
-    @app.post("/api/gsam_gate")
-    def api_gsam_gate():
-        body = request.get_data(as_text=True).strip()
-        try: state.set_gsam_clip_gate(float(body))
-        except ValueError: pass
-        with state.lock: return {"gsam_clip_gate": state.gsam_clip_gate}
 
     print(f"\n[server] listening on http://{args.host}:{args.port}/", flush=True)
     print(f"[server] open in browser: http://<pi-host>:{args.port}/  (or http://<pi-tailscale-name>:{args.port}/)", flush=True)
