@@ -48,6 +48,25 @@ RELEASE_URLS = {
     "d-mobile": "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.1.0-demo/D_mobilenet_std_best.pt",
     "v2-tiny":  "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.1.0-demo/v2_tiny_best.pt",
     "v1":       "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.1.0-demo/v1_best.pt",
+    # Phase 10 SigLIP-distilled (DINOv2-s teacher) ConvNeXt family — Pi-class.
+    # Populated when the v0.4.0-phase10-pi-demo release is cut.
+    "phase10-atto":  "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.4.0-phase10-pi-demo/phase10_convnext_atto_best_val.pt",
+    "phase10-femto": "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.4.0-phase10-pi-demo/phase10_convnext_femto_best_val.pt",
+    "phase10-pico":  "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.4.0-phase10-pi-demo/phase10_convnext_pico_best_val.pt",
+}
+
+# Mapping from `ckpt['args']['model']` (training-time identifier) to the timm
+# constructor name. Pi-class ConvNeXts are the Phase 10 deployment family.
+PHASE10_TIMM_NAMES = {
+    "convnext-atto":  "convnext_atto.d2_in1k",
+    "convnext-femto": "convnext_femto.d1_in1k",
+    "convnext-pico":  "convnext_pico.d1_in1k",
+    "convnext-nano":  "convnext_nano.in12k_ft_in1k",
+    "convnext-tiny":  "convnext_tiny.in12k_ft_in1k",
+    "fastvit-t8":     "fastvit_t8.apple_in1k",
+    "mobilevit-xs":   "mobilevit_xs.cvnets_in1k",
+    "repvit-m1":      "repvit_m1.dist_in1k",
+    "efficientformerv2-s0": "efficientformerv2_s0.snap_dist_in1k",
 }
 
 
@@ -168,8 +187,24 @@ def maybe_download(model: str, ckpt_path: Path):
 def build_model(model_name: str, ckpt_path: Path, device):
     ck = torch.load(str(ckpt_path), map_location=device, weights_only=False)
     ca = ck.get("args", {}) or {}
+    # Trust the ckpt's recorded backbone identifier when present; otherwise
+    # fall back to model_name from the CLI. Phase 3-10 ckpts written by
+    # train_siglip_dense_distill.py store args.model = "convnext-atto" etc.
+    arch = ca.get("model") if isinstance(ca, dict) else None
+    if not arch:
+        arch = model_name
+    # Phase 3-10 ckpts don't write `embed_dim` to the top-level dict; derive
+    # patch_dim from the head's first projection layer (always
+    # `patch_proj.0.weight` of shape (hidden_dim, patch_dim)).
+    derived_patch_dim = None
+    if "head" in ck and "patch_proj.0.weight" in ck["head"]:
+        derived_patch_dim = int(ck["head"]["patch_proj.0.weight"].shape[1])
+    embed_dim_default = (derived_patch_dim if derived_patch_dim is not None
+                        else ck.get("embed_dim", 768))
+    if arch == "v1":
+        embed_dim_default = 768
     head_kwargs = dict(
-        patch_dim=ck.get("embed_dim", 768) if model_name != "v1" else 768,
+        patch_dim=embed_dim_default,
         text_dim=512,
         hidden_dim=ca.get("head_hidden_dim", 384),
         n_attn_heads=ca.get("head_attn_heads", 6),
@@ -179,7 +214,7 @@ def build_model(model_name: str, ckpt_path: Path, device):
     )
     head = TextScorerHead(**head_kwargs).to(device).eval()
     head.load_state_dict(ck["head"])
-    # SigLIP-Phase-2 ckpts include a "sb" module: learnable t/bias that
+    # SigLIP-Phase-2/3-10 ckpts include a "sb" module: learnable t/bias that
     # calibrates the head's raw logits. Bake into head as scalar attributes.
     head._siglip_t = 1.0
     head._siglip_bias = 0.0
@@ -190,14 +225,18 @@ def build_model(model_name: str, ckpt_path: Path, device):
         head._siglip_t = float(np.exp(log_t))
         head._siglip_bias = float(bias)
         print(f"[siglip] calibration t={head._siglip_t:.2f} bias={head._siglip_bias:.2f}", flush=True)
-    if model_name == "v1":
+    if arch == "v1":
         return None, head, CLIP_MEAN, CLIP_STD, "clip-visual"
     import timm
-    bb_name = ck.get("backbone", "")
-    if not bb_name:
-        bb_name = ("vit_tiny_patch16_224.augreg_in21k_ft_in1k" if model_name == "v2-tiny"
-                   else "mobilenetv3_small_100")
+    if arch in PHASE10_TIMM_NAMES:
+        bb_name = PHASE10_TIMM_NAMES[arch]
+    else:
+        bb_name = ck.get("backbone", "")
+        if not bb_name:
+            bb_name = ("vit_tiny_patch16_224.augreg_in21k_ft_in1k" if arch == "v2-tiny"
+                       else "mobilenetv3_small_100")
     bb = timm.create_model(bb_name, pretrained=True, num_classes=0).to(device).eval()
+    print(f"[backbone] arch={arch} timm={bb_name}", flush=True)
     return bb, head, IM_MEAN, IM_STD, "timm"
 
 
@@ -478,7 +517,9 @@ window.addEventListener('DOMContentLoaded', () => {
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", default="D_mobile.pt")
-    ap.add_argument("--model", default="d-mobile", choices=["d-mobile", "v2-tiny", "v1"])
+    ap.add_argument("--model", default="phase10-atto",
+                    choices=["d-mobile", "v2-tiny", "v1",
+                             "phase10-atto", "phase10-femto", "phase10-pico"])
     ap.add_argument("--query", default="hand")
     ap.add_argument("--reduce", default="max", choices=REDUCE_MODES)
     ap.add_argument("--threshold", type=float, default=0.0,
