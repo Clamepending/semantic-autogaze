@@ -57,6 +57,10 @@ RELEASE_URLS = {
     # (phase13) and source-reweighted recipe — the first Pi-class scorer the
     # project has produced above the §1 >=0.71 mIoU deployment floor.
     "phase15-atto":  "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.5.0-phase15-pi-demo/phase15_convnext_atto_step35000_iou0722.pt",
+    # Phase 19b ConvNeXt-atto with per-query SigLIP bias (DAC-style, arxiv
+    # 2402.04655) — first ckpt that lifts mean failure-cat IoU by +0.13 with
+    # net 50-img mIoU still ABOVE v0.5.0. v0.6.0 release.
+    "phase19-atto":  "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.6.0-phase19-pi-demo/phase19b_convnext_atto_perquery_best_v060.pt",
 }
 
 # Mapping from `ckpt['args']['model']` (training-time identifier) to the timm
@@ -163,8 +167,13 @@ class MultiQueryScorer:
             grids = scores.reshape(B * Q, 1, G, G)
             scores = (grids + h.spatial(grids)).reshape(B * Q, N)
         scores = scores.reshape(B, Q, N)
-        # Apply SigLIP calibration if loaded from a Phase 2 ckpt.
-        if hasattr(h, "_siglip_t") and (h._siglip_t != 1.0 or h._siglip_bias != 0.0):
+        # Apply SigLIP calibration. Per-query bias path takes precedence.
+        if getattr(h, "_sb_per_query", None) is not None:
+            sb = h._sb_per_query
+            t = sb.log_t.exp()
+            b_q = sb.per_query_bias(text_embs)  # (Q,)
+            scores = scores * t + b_q.view(1, -1, 1)
+        elif hasattr(h, "_siglip_t") and (h._siglip_t != 1.0 or h._siglip_bias != 0.0):
             scores = scores * h._siglip_t + h._siglip_bias
         if apply_sigmoid: scores = torch.sigmoid(scores)
         if reduce == "max": return scores.amax(dim=1)
@@ -218,17 +227,42 @@ def build_model(model_name: str, ckpt_path: Path, device):
     )
     head = TextScorerHead(**head_kwargs).to(device).eval()
     head.load_state_dict(ck["head"])
-    # SigLIP-Phase-2/3-10 ckpts include a "sb" module: learnable t/bias that
-    # calibrates the head's raw logits. Bake into head as scalar attributes.
+    # SigLIP calibration. Two flavors:
+    #   - global SiglipBias (Phase 2 / Phase 10 / Phase 15 = v0.5.0 and earlier):
+    #     ck["sb"] has scalar log_t + scalar bias. Bake as attributes on head.
+    #   - SiglipBiasPerQuery (Phase 19 / v0.6.0): ck["sb"] has bias_mlp.* keys.
+    #     Construct the full module so per-query biases can be computed at
+    #     inference time when the keyword set changes.
     head._siglip_t = 1.0
     head._siglip_bias = 0.0
+    head._sb_per_query = None
     if "sb" in ck:
-        sb = ck["sb"]
-        log_t = sb["log_t"].item() if hasattr(sb["log_t"], "item") else float(sb["log_t"])
-        bias = sb["bias"].item() if hasattr(sb["bias"], "item") else float(sb["bias"])
-        head._siglip_t = float(np.exp(log_t))
-        head._siglip_bias = float(bias)
-        print(f"[siglip] calibration t={head._siglip_t:.2f} bias={head._siglip_bias:.2f}", flush=True)
+        sb_state = ck["sb"]
+        if any(str(k).startswith("bias_mlp.") for k in sb_state.keys()):
+            # Per-query bias module — construct the full SiglipBiasPerQuery.
+            class _SBPerQuery(nn.Module):
+                def __init__(self, text_dim=512, hidden=64):
+                    super().__init__()
+                    self.log_t = nn.Parameter(torch.tensor(0.0))
+                    self.bias_mlp = nn.Sequential(
+                        nn.Linear(text_dim, hidden),
+                        nn.GELU(),
+                        nn.Linear(hidden, 1),
+                    )
+                def per_query_bias(self, text_emb):
+                    return self.bias_mlp(text_emb).squeeze(-1)
+            sb_mod = _SBPerQuery().to(device).eval()
+            sb_mod.load_state_dict(sb_state)
+            head._sb_per_query = sb_mod
+            head._siglip_t = float(sb_mod.log_t.exp().item())
+            print(f"[siglip] per-query calibration loaded "
+                  f"(t={head._siglip_t:.2f}, bias=MLP from text emb)", flush=True)
+        else:
+            log_t = sb_state["log_t"].item() if hasattr(sb_state["log_t"], "item") else float(sb_state["log_t"])
+            bias = sb_state["bias"].item() if hasattr(sb_state["bias"], "item") else float(sb_state["bias"])
+            head._siglip_t = float(np.exp(log_t))
+            head._siglip_bias = float(bias)
+            print(f"[siglip] global calibration t={head._siglip_t:.2f} bias={head._siglip_bias:.2f}", flush=True)
     if arch == "v1":
         return None, head, CLIP_MEAN, CLIP_STD, "clip-visual"
     import timm
@@ -412,10 +446,10 @@ window.addEventListener('DOMContentLoaded', () => {
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", default="D_mobile.pt")
-    ap.add_argument("--model", default="phase15-atto",
+    ap.add_argument("--model", default="phase19-atto",
                     choices=["d-mobile", "v2-tiny", "v1",
                              "phase10-atto", "phase10-femto", "phase10-pico",
-                             "phase15-atto"])
+                             "phase15-atto", "phase19-atto"])
     ap.add_argument("--query", default="hand")
     ap.add_argument("--threshold", type=float, default=0.45,
                     help="initial absolute sigmoid-score threshold; UI slider can change live. "
