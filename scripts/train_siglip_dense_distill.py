@@ -34,6 +34,7 @@ import sys
 import time
 from pathlib import Path
 
+import cv2
 import numpy as np
 import torch
 import torch.nn as nn
@@ -64,13 +65,18 @@ class TargetDataset(Dataset):
                  image_size: int = 224, mean=CLIP_MEAN, std=CLIP_STD,
                  limit: int | None = None, positive_only: bool = False,
                  build_presence_lookup: bool = False,
-                 augment: bool = False):
+                 augment: bool = False,
+                 augment_aggressive: bool = False):
         self.target_dir = Path(target_dir)
         self.image_dir = Path(image_dir)
         self.image_size = image_size
         self.mean = np.array(mean, dtype=np.float32)
         self.std = np.array(std, dtype=np.float32)
-        self.augment = augment
+        # augment_aggressive supersedes augment when both are passed: the
+        # aggressive pipeline is strictly stronger (it includes h-flip + color
+        # jitter as its final stages).
+        self.augment = augment or augment_aggressive
+        self.augment_aggressive = augment_aggressive
         files = sorted(self.target_dir.glob("*.npz"))
         if limit:
             files = files[:limit]
@@ -123,6 +129,38 @@ class TargetDataset(Dataset):
     def __len__(self): return len(self.files)
 
     def __getitem__(self, idx):
+        # ------------------------------------------------------------------
+        # Augmentation pipeline.
+        #
+        # When self.augment_aggressive is True we apply a JOINT geometric
+        # transform to the (image, mask_full) pair: random h-flip, +/-20-deg
+        # rotation, perspective warp with up to 5% corner displacement,
+        # random uniform scale 0.7-1.5x, then center- or random-crop to
+        # (image_size, image_size). After the geometric stage we re-pool
+        # the transformed full-resolution mask down to 14x14 with the same
+        # max-pool > 0.5 recipe used by scripts/generate_clean_targets.py
+        # (`pool_to_14`). Color jitter (brightness + contrast) is applied
+        # last, on the post-geometric image only.
+        #
+        # Why: addresses C1 + C2 in
+        #   /home/ogata/mac-brain/projects/semantic-autogaze/CONCERNS.md
+        # -- the head currently overfits to the canonical (centered,
+        # upright, un-warped) viewpoint of COCO/LVIS crops, hurting mIoU
+        # on EgoSchema / VQA-style frames where objects appear at oblique
+        # angles, varying scales, and partial visibility. Aggressive
+        # geometric augmentation forces viewpoint/scale invariance into
+        # the head representations.
+        #
+        # Caveats:
+        #  - Falls back to the legacy (h-flip + color-jitter) path when
+        #    `mask_full` is missing from the npz, since the geometric warp
+        #    needs the full-resolution mask to re-pool correctly.
+        #  - If a random-scale + crop happens to drop the entire object out
+        #    of frame, mask14 will be all-zero. That is fine: the trainer
+        #    already handles all-zero masks (presence-style negatives),
+        #    and such samples teach the head "this view does not show the
+        #    queried object" -- a useful supervision signal.
+        # ------------------------------------------------------------------
         npz_path = self.files[idx]
         d = np.load(npz_path, allow_pickle=True)
         img_id = str(d["img_id"]) if "img_id" in d else npz_path.stem.split("__")[0]
@@ -134,26 +172,132 @@ class TargetDataset(Dataset):
             pil = Image.open(img_path).convert("RGB")
         except Exception:
             return None
-        arr = np.array(pil.resize((self.image_size, self.image_size), Image.BICUBIC))
-        mask14 = d["mask14"].astype(np.float32) / 255.0  # (14, 14)
-        if self.augment:
-            # Horizontal flip with p=0.5
+
+        S = self.image_size
+
+        # Decide whether we can run the aggressive pipeline for this sample.
+        # It requires `mask_full` in the npz so the joint geometric transform
+        # can be re-pooled to 14x14 cleanly. If absent, fall back to legacy.
+        can_aggressive = (getattr(self, "augment_aggressive", False)
+                          and ("mask_full" in d.files))
+
+        if can_aggressive:
+            # --- Aggressive joint geometric transform ---
+            # Work in the original image resolution so the mask warp is
+            # pixel-accurate, then crop down to (S, S).
+            arr_full = np.array(pil)  # (H, W, 3) uint8
+            H, W = arr_full.shape[:2]
+            mask_full = d["mask_full"]
+            # mask_full is uint8 0/255 at (H, W). If shape disagrees with
+            # the loaded image (rare -- happens when the image was
+            # re-encoded since the npz was written), resize the mask to
+            # the image's resolution with nearest-neighbour to preserve
+            # binary semantics.
+            if mask_full.shape[:2] != (H, W):
+                mask_full = cv2.resize(mask_full, (W, H),
+                                       interpolation=cv2.INTER_NEAREST)
+            mask_full = (mask_full > 127).astype(np.uint8) * 255
+
+            # 1) Random horizontal flip (p=0.5)
             if np.random.rand() < 0.5:
-                arr = arr[:, ::-1, :].copy()
-                mask14 = mask14[:, ::-1].copy()
-            # Color jitter: gentle brightness/contrast/saturation
+                arr_full = arr_full[:, ::-1, :].copy()
+                mask_full = mask_full[:, ::-1].copy()
+
+            # 2) Random rotation in +/-20 degrees about image center
+            angle = float(np.random.uniform(-20.0, 20.0))
+            R = cv2.getRotationMatrix2D((W / 2.0, H / 2.0), angle, 1.0)
+            arr_full = cv2.warpAffine(arr_full, R, (W, H),
+                                      flags=cv2.INTER_LINEAR,
+                                      borderMode=cv2.BORDER_CONSTANT,
+                                      borderValue=(0, 0, 0))
+            mask_full = cv2.warpAffine(mask_full, R, (W, H),
+                                       flags=cv2.INTER_NEAREST,
+                                       borderMode=cv2.BORDER_CONSTANT,
+                                       borderValue=0)
+
+            # 3) Perspective warp with up to 5% corner displacement
+            disp = 0.05
+            src_pts = np.array([[0, 0], [W, 0], [W, H], [0, H]], dtype=np.float32)
+            jitter = np.random.uniform(-disp, disp, size=(4, 2)).astype(np.float32)
+            jitter[:, 0] *= W
+            jitter[:, 1] *= H
+            dst_pts = src_pts + jitter
+            P = cv2.getPerspectiveTransform(src_pts, dst_pts)
+            arr_full = cv2.warpPerspective(arr_full, P, (W, H),
+                                           flags=cv2.INTER_LINEAR,
+                                           borderMode=cv2.BORDER_CONSTANT,
+                                           borderValue=(0, 0, 0))
+            mask_full = cv2.warpPerspective(mask_full, P, (W, H),
+                                            flags=cv2.INTER_NEAREST,
+                                            borderMode=cv2.BORDER_CONSTANT,
+                                            borderValue=0)
+
+            # 4) Random uniform scale 0.7x-1.5x then random/center crop
+            #    to S x S. Anchoring the scaled canvas on S keeps the crop
+            #    window well-defined regardless of the source resolution
+            #    while keeping (image, mask) pixel-aligned at every step.
+            scale = float(np.random.uniform(0.7, 1.5))
+            new_w = max(1, int(round(S * scale)))
+            new_h = max(1, int(round(S * scale)))
+            arr_scaled = cv2.resize(arr_full, (new_w, new_h),
+                                    interpolation=cv2.INTER_LINEAR)
+            mask_scaled = cv2.resize(mask_full, (new_w, new_h),
+                                     interpolation=cv2.INTER_NEAREST)
+
+            # Pad if smaller than crop, else random-crop
+            if new_h < S or new_w < S:
+                pad_h = max(0, S - new_h)
+                pad_w = max(0, S - new_w)
+                top = pad_h // 2; bot = pad_h - top
+                left = pad_w // 2; right = pad_w - left
+                arr_scaled = cv2.copyMakeBorder(arr_scaled, top, bot, left, right,
+                                                cv2.BORDER_CONSTANT, value=(0, 0, 0))
+                mask_scaled = cv2.copyMakeBorder(mask_scaled, top, bot, left, right,
+                                                 cv2.BORDER_CONSTANT, value=0)
+                new_h, new_w = arr_scaled.shape[:2]
+            y0 = int(np.random.randint(0, new_h - S + 1)) if new_h > S else 0
+            x0 = int(np.random.randint(0, new_w - S + 1)) if new_w > S else 0
+            arr = arr_scaled[y0:y0 + S, x0:x0 + S, :].copy()
+            mask_cropped = mask_scaled[y0:y0 + S, x0:x0 + S].copy()
+
+            # 5) Re-pool post-transform mask to 14x14 with the canonical
+            #    max-pool > 0.5 recipe (matches generate_clean_targets.pool_to_14).
+            mt = torch.from_numpy(mask_cropped.astype(np.float32) / 255.0)
+            mt = mt.unsqueeze(0).unsqueeze(0)
+            pooled = F.adaptive_max_pool2d(mt, (14, 14)).squeeze().numpy()
+            mask14 = (pooled > 0.5).astype(np.float32)
+
+            # 6) Color jitter on the post-geometric image (same as legacy).
             if np.random.rand() < 0.5:
-                # brightness in [0.8, 1.2]
                 b = 0.8 + 0.4 * np.random.rand()
                 arr = np.clip(arr.astype(np.float32) * b, 0, 255).astype(np.uint8)
             if np.random.rand() < 0.5:
-                # contrast in [0.8, 1.2]
                 c = 0.8 + 0.4 * np.random.rand()
-                m = arr.mean(axis=(0,1), keepdims=True)
+                m = arr.mean(axis=(0, 1), keepdims=True)
                 arr = np.clip((arr.astype(np.float32) - m) * c + m, 0, 255).astype(np.uint8)
+        else:
+            # --- Legacy path: simple resize, optional h-flip + color jitter. ---
+            arr = np.array(pil.resize((S, S), Image.BICUBIC))
+            mask14 = d["mask14"].astype(np.float32) / 255.0  # (14, 14)
+            if self.augment:
+                # Horizontal flip with p=0.5
+                if np.random.rand() < 0.5:
+                    arr = arr[:, ::-1, :].copy()
+                    mask14 = mask14[:, ::-1].copy()
+                # Color jitter: gentle brightness/contrast/saturation
+                if np.random.rand() < 0.5:
+                    # brightness in [0.8, 1.2]
+                    b = 0.8 + 0.4 * np.random.rand()
+                    arr = np.clip(arr.astype(np.float32) * b, 0, 255).astype(np.uint8)
+                if np.random.rand() < 0.5:
+                    # contrast in [0.8, 1.2]
+                    c = 0.8 + 0.4 * np.random.rand()
+                    m = arr.mean(axis=(0,1), keepdims=True)
+                    arr = np.clip((arr.astype(np.float32) - m) * c + m, 0, 255).astype(np.uint8)
+
         x = (arr.astype(np.float32) / 255.0 - self.mean) / self.std
         x = torch.from_numpy(x).permute(2, 0, 1).float()
-        mask14 = torch.from_numpy(mask14)
+        mask14 = torch.from_numpy(np.ascontiguousarray(mask14)).float()
         return {
             "image": x,
             "query": query,
@@ -442,6 +586,46 @@ class SiglipBias(nn.Module):
         return cosine * self.log_t.exp() + self.bias
 
 
+class SiglipBiasPerQuery(nn.Module):
+    """Per-query learnable bias: one global temperature + a small MLP that
+    maps each query's text_emb (512-d) -> a scalar bias. Lets the head shift
+    each text query to a common operating point (calibration fix).
+
+    forward(logits, text_emb):
+        logits   : (B, B, H, W)  -- pair grid; first B is image, second B is query
+        text_emb : (B, 512)      -- per-query text embeddings
+    Returns:
+        cal_logits : (B, B, H, W) where
+            cal_logits[i, j, :, :] = t * logits[i, j, :, :] + b(text_emb_j)
+    """
+    def __init__(self, t_init=10.0, bias_init=-4.0, text_dim=512, hidden=64):
+        super().__init__()
+        self.log_t = nn.Parameter(torch.tensor(float(np.log(t_init))))
+        self.bias_init = float(bias_init)
+        self.bias_mlp = nn.Sequential(
+            nn.Linear(text_dim, hidden),
+            nn.GELU(),
+            nn.Linear(hidden, 1),
+        )
+        # Initialize last Linear so initial output == bias_init for any input.
+        # (weight ~= 0, bias = bias_init -> module reproduces global-bias behavior at step 0.)
+        with torch.no_grad():
+            self.bias_mlp[-1].weight.zero_()
+            self.bias_mlp[-1].bias.fill_(self.bias_init)
+
+    def per_query_bias(self, text_emb):
+        """text_emb: (B, 512) -> (B,) scalar bias per query."""
+        return self.bias_mlp(text_emb).squeeze(-1)
+
+    def forward(self, logits, text_emb):
+        # b_q: (B,) one bias per query (the "j" / second-B / query axis of logits)
+        b_q = self.per_query_bias(text_emb)
+        # Broadcast: bias is constant across the image dim (first B) and across (H, W);
+        # only varies along the query dim. Shape (1, B, 1, 1) handles that for (B, B, H, W).
+        b_bcast = b_q.view(1, -1, 1, 1)
+        return logits * self.log_t.exp() + b_bcast
+
+
 def soft_dice_loss(probs, target, eps=1e-6):
     """probs, target: (..., H*W) or (..., H, W). Returns scalar."""
     p = probs.flatten(-2, -1) if probs.dim() >= 3 else probs
@@ -517,7 +701,11 @@ def train(args):
     head.train()
 
     # SigLIP bias / temperature
-    sb = SiglipBias(t_init=args.t_init, bias_init=args.bias_init).to(device)
+    if args.per_query_bias:
+        sb = SiglipBiasPerQuery(t_init=args.t_init, bias_init=args.bias_init).to(device)
+        print(f"[sb] using SiglipBiasPerQuery (MLP 512->64->1, init bias={args.bias_init})", flush=True)
+    else:
+        sb = SiglipBias(t_init=args.t_init, bias_init=args.bias_init).to(device)
 
     # Optimizer
     params = [p for p in head.parameters()] + [p for p in sb.parameters()]
@@ -531,17 +719,34 @@ def train(args):
     if args.resume_from:
         rk = torch.load(args.resume_from, map_location=device, weights_only=False)
         head.load_state_dict(rk["head"])
-        sb.load_state_dict(rk["sb"])
+        # If we're using SiglipBiasPerQuery but the resume ckpt was saved from
+        # global-bias SiglipBias, the state_dict keys/shapes don't match
+        # (old: "log_t", "bias"; new: "log_t", "bias_mlp.0.weight", ...).
+        # Fall back to loading just the temperature; the MLP starts fresh, but
+        # was initialized so its constant output == args.bias_init, matching
+        # the old global-bias operating point.
+        try:
+            sb.load_state_dict(rk["sb"])
+            print(f"[resume] loaded head+sb from {args.resume_from}", flush=True)
+        except (RuntimeError, KeyError) as _e:
+            print(f"[resume][warn] sb state_dict mismatch ({_e!r}); "
+                  f"loading log_t only and initializing MLP fresh "
+                  f"(bias_init={args.bias_init} matches old global bias).", flush=True)
+            old_sb = rk.get("sb", {})
+            if isinstance(old_sb, dict) and "log_t" in old_sb and hasattr(sb, "log_t"):
+                with torch.no_grad():
+                    sb.log_t.copy_(old_sb["log_t"].to(sb.log_t.device))
+            print(f"[resume] loaded head from {args.resume_from} (sb partial)", flush=True)
         if args.finetune_backbone_blocks > 0 and "backbone_state" in rk:
             bb_module.load_state_dict(rk["backbone_state"])
-        print(f"[resume] loaded head+sb from {args.resume_from}", flush=True)
 
     # Data
     ds = TargetDataset(args.target_dir, args.image_dir,
                        image_size=args.image_size, mean=mean, std=std,
                        limit=args.limit, positive_only=args.positive_only,
                        build_presence_lookup=args.fn_filter,
-                       augment=args.augment)
+                       augment=args.augment,
+                       augment_aggressive=args.augment_aggressive)
 
     # ---- Train/val split by image_id ----
     # Hold out fraction of unique image_ids so val images are NEVER seen in training pairs.
@@ -577,6 +782,7 @@ def train(args):
                 self.mean = parent.mean
                 self.std = parent.std
                 self.augment = False  # never augment val
+                self.augment_aggressive = False  # never augment val (gates aggressive pipeline too)
                 self.files = [all_files[i] for i in idxs]
                 self.is_pos = all_is_pos[idxs]
                 self.pos_indices = np.where(self.is_pos)[0]
@@ -693,7 +899,12 @@ def train(args):
                 for i in range(B_v):
                     for j in range(B_v):
                         logits = head(v_patches[i:i+1], v_text[j:j+1]).reshape(GRID, GRID)
-                        cal = sb(logits)
+                        if args.per_query_bias:
+                            # SiglipBiasPerQuery expects (B, B, H, W) + text_emb (B, 512).
+                            cal = sb(logits.view(1, 1, GRID, GRID),
+                                     v_text[j:j+1]).view(GRID, GRID)
+                        else:
+                            cal = sb(logits)
                         pred[i, j] = torch.sigmoid(cal).cpu().numpy()
                 # FN-flagged off-diag pairs
                 fn_flags = np.zeros((B_v, B_v), dtype=bool)
@@ -798,7 +1009,12 @@ def train(args):
 
             # 5) SigLIP bias on logits (treats as cosine-like; logits ARE arbitrary-scale
             # already from the head, so we apply learnable t/bias as a calibration)
-            cal_logits = sb(logits)
+            if args.per_query_bias:
+                # Per-query bias: each query j gets its own bias from a small MLP
+                # over text_embs[j]. Bias broadcasts across the image dim and (H, W).
+                cal_logits = sb(logits, text_embs)
+            else:
+                cal_logits = sb(logits)
 
             # FN filter: if off-diagonal pair (img_i, query_j) has presence=True in the
             # offline lookup, mask out that loss term — it's actually a positive that was
@@ -911,7 +1127,24 @@ def train(args):
                 w = weight_pair.unsqueeze(-1).unsqueeze(-1).expand_as(s_probs)
                 L_distill = ((s_probs - t_probs) ** 2 * w).sum() / w.sum().clamp(min=1)
 
-            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill + args.hard_neg_weight * L_hard_neg
+            # 9b) L_calib: clamp the worst false-positive cell on clean off-diagonal
+            # (absent) pairs. For each (i, j) with i != j AND fn_keep[i,j] == 1, take
+            # m_ij = sigmoid(cal_logits[i,j]).amax() over (H, W) — the per-pair worst
+            # cell — and penalize relu(m_ij - tau)^2 so small overshoots are mild and
+            # large overshoots are heavy. Avg over the kept off-diagonal pairs only.
+            # On-diagonal pairs are excluded; they are supervised by L_dense / L_dice.
+            if args.lambda_calib > 0:
+                offdiag_mask = (1.0 - diag_mask) * fn_keep  # (B, B), 1 on clean absent pairs
+                if offdiag_mask.sum() > 0:
+                    pair_max = torch.sigmoid(cal_logits).amax(dim=(-2, -1))  # (B, Q)
+                    overshoot = F.relu(pair_max - args.calib_target_max)
+                    L_calib = (overshoot.pow(2) * offdiag_mask).sum() / offdiag_mask.sum().clamp(min=1)
+                else:
+                    L_calib = torch.tensor(0.0, device=device)
+            else:
+                L_calib = torch.tensor(0.0, device=device)
+
+            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill + args.hard_neg_weight * L_hard_neg + args.lambda_calib * L_calib
 
             opt.zero_grad(); L.backward(); opt.step()
             step += 1
@@ -922,18 +1155,31 @@ def train(args):
                 with torch.no_grad():
                     diag_iou = ((torch.sigmoid(diag_logits) > 0.5) & (diag_target > 0.5)).sum() / max(
                         1, ((torch.sigmoid(diag_logits) > 0.5) | (diag_target > 0.5)).sum())
+                    # Per-query bias stats: mean/std of the bias across the batch's queries.
+                    # For global bias we report bias_mean = scalar bias, bias_std = 0.
+                    if args.per_query_bias:
+                        b_q_now = sb.per_query_bias(text_embs).detach()  # (B,)
+                        b_mean = float(b_q_now.mean().item())
+                        b_std = float(b_q_now.std(unbiased=False).item()) if b_q_now.numel() > 1 else 0.0
+                    else:
+                        b_mean = float(sb.bias.item())
+                        b_std = 0.0
                 line = {
                     "step": step, "epoch": epoch, "L": float(L.item()),
                     "L_dense": float(L_dense.item()), "L_pool": float(L_pool.item()),
                     "L_dice": float(L_dice.item()),
                     "L_hard_neg": float(L_hard_neg.item()) if isinstance(L_hard_neg, torch.Tensor) else 0.0,
                     "L_distill": float(L_distill.item()) if isinstance(L_distill, torch.Tensor) else 0.0,
+                    "L_calib": float(L_calib.item()) if isinstance(L_calib, torch.Tensor) else 0.0,
                     "diag_iou": float(diag_iou.item()),
-                    "t": float(sb.log_t.exp().item()), "bias": float(sb.bias.item()),
+                    "t": float(sb.log_t.exp().item()),
+                    "bias": b_mean,
+                    "b_mean": b_mean,
+                    "b_std": b_std,
                     "lr": float(opt.param_groups[0]['lr']),
                     "elapsed_min": (time.time() - t_start) / 60,
                 }
-                print(f"  step {step:5d} | L={L:.3f} (dense={L_dense:.3f} pool={L_pool:.3f} dice={L_dice:.3f} hn={line['L_hard_neg']:.3f} distill={line['L_distill']:.3f}) | diag_iou={diag_iou:.3f} | t={line['t']:.1f} bias={line['bias']:.2f}",
+                print(f"  step {step:5d} | L={L:.3f} (dense={L_dense:.3f} pool={L_pool:.3f} dice={L_dice:.3f} hn={line['L_hard_neg']:.3f} distill={line['L_distill']:.3f}) | diag_iou={diag_iou:.3f} | t={line['t']:.1f} b_mean={b_mean:.2f} b_std={b_std:.2f}",
                       flush=True)
                 log_f.write(json.dumps(line) + "\n"); log_f.flush()
                 if wb is not None:
@@ -969,7 +1215,12 @@ def train(args):
                         v_diag_logits = []
                         for k in range(Bv):
                             ll = head(v_patches[k:k+1], v_text[k:k+1]).reshape(GRID, GRID)
-                            v_diag_logits.append(sb(ll))
+                            if args.per_query_bias:
+                                v_diag_logits.append(
+                                    sb(ll.view(1, 1, GRID, GRID),
+                                       v_text[k:k+1]).view(GRID, GRID))
+                            else:
+                                v_diag_logits.append(sb(ll))
                         v_dl = torch.stack(v_diag_logits)  # (Bv, GRID, GRID)
                         v_p = torch.sigmoid(v_dl)
                         gt = v_mask14
@@ -1069,6 +1320,10 @@ if __name__ == "__main__":
     p.add_argument("--lambda_dice", type=float, default=0.3)
     p.add_argument("--t_init", type=float, default=10.0)
     p.add_argument("--bias_init", type=float, default=-4.0)
+    p.add_argument("--per_query_bias", action="store_true", default=False,
+                   help="Replace global SigLIP (t, b) with per-query bias: a small "
+                        "MLP from text_emb (512) -> scalar bias per query. "
+                        "Lets the head shift each query to a common operating point.")
     p.add_argument("--bce_pos_weight", type=float, default=20.0,
                    help="upweight positive patches in dense BCE; ~20-50 useful for sparse masks")
     p.add_argument("--hard_neg_weight", type=float, default=0.0,
@@ -1095,12 +1350,24 @@ if __name__ == "__main__":
                    help="Path to teacher ckpt (e.g. DINOv2-small). Adds MSE-on-teacher-prob loss.")
     p.add_argument("--lambda_distill", type=float, default=0.5,
                    help="Weight on the teacher-MSE distillation loss term.")
+    p.add_argument("--lambda_calib", type=float, default=0.0,
+                   help="Weight on the absent-pair max-prob calibration loss. Penalizes relu(max_cell_prob - calib_target_max)^2 over clean off-diagonal (absent) pairs to clamp worst false-positive cell. 0 = disabled.")
+    p.add_argument("--calib_target_max", type=float, default=0.30,
+                   help="Target ceiling for max predicted prob on absent (off-diagonal, fn-kept) pairs; cells above this incur quadratic penalty.")
     p.add_argument("--category_alpha", type=float, default=0.0,
                    help="Category-rebalance exponent for BalancedSampler. 0=uniform per-positive (Phase 1-4), 0.5=sqrt-balance, 1.0=full inverse-frequency.")
     p.add_argument("--source_weights", default=None,
                    help="Per-source sampling-weight multipliers, e.g. 'pp:5,stuff:1,lvis:1,coco:1'. Multiplies the existing per-positive weight. Slug-prefix-based: pp_*=pascal_part, stuff_*=coco-stuff/panoptic, lvis_*=LVIS, else=COCO.")
     p.add_argument("--augment", action="store_true",
                    help="Enable horizontal-flip + color jitter (brightness/contrast) augmentation in TargetDataset.")
+    p.add_argument("--augment_aggressive", action="store_true", default=False,
+                   help="Enable AGGRESSIVE geometric augmentation: joint h-flip, +/-20deg rotation, "
+                        "perspective warp (5%% corner displacement), random scale 0.7-1.5x, "
+                        "and random crop applied to (image, mask_full). The mask is then "
+                        "re-pooled to 14x14 (max-pool > 0.5). Color jitter from --augment is "
+                        "applied last on the post-geometric image. This flag supersedes --augment "
+                        "(strictly stronger) and is disabled for validation regardless. Falls "
+                        "back to legacy aug for npz files missing the `mask_full` field.")
     p.add_argument("--image_size", type=int, default=224,
                    help="Input image size. Default 224. Use 288/336 for higher spatial resolution at higher compute cost.")
     p.add_argument("--lambda_off_diagonal", type=float, default=1.0,
