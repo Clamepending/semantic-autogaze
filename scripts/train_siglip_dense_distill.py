@@ -304,13 +304,19 @@ def build_backbone(model: str, device, finetune_blocks: int = 0):
             f = F.interpolate(f, size=(GRID, GRID), mode="bilinear", align_corners=False)
             return f.permute(0, 2, 3, 1).reshape(f.shape[0], GRID * GRID, f.shape[1])
         return fn, 576, IM_MEAN, IM_STD, "timm-cnn", bb
-    if model in ("fastvit-t8", "mobilevit-xs", "convnext-atto", "repvit-m1", "efficientformerv2-s0"):
+    if model in ("fastvit-t8", "mobilevit-xs", "convnext-atto", "convnext-femto",
+                  "convnext-pico", "convnext-nano", "convnext-tiny",
+                  "repvit-m1", "efficientformerv2-s0"):
         # Small/mobile architectures from timm. All output 4D spatial features
         # which we interpolate to GRID×GRID.
         timm_name_map = {
             "fastvit-t8":          "fastvit_t8.apple_in1k",
             "mobilevit-xs":        "mobilevit_xs.cvnets_in1k",
             "convnext-atto":       "convnext_atto.d2_in1k",
+            "convnext-femto":      "convnext_femto.d1_in1k",
+            "convnext-pico":       "convnext_pico.d1_in1k",
+            "convnext-nano":       "convnext_nano.in12k_ft_in1k",
+            "convnext-tiny":       "convnext_tiny.in12k_ft_in1k",
             "repvit-m1":           "repvit_m1.dist_in1k",
             "efficientformerv2-s0": "efficientformerv2_s0.snap_dist_in1k",
         }
@@ -984,6 +990,7 @@ if __name__ == "__main__":
     p.add_argument("--model", required=True,
                    choices=["v1", "v2-tiny", "d-mobile", "dinov2-s", "mobileclip-s2",
                             "fastvit-t8", "mobilevit-xs", "convnext-atto",
+                            "convnext-femto", "convnext-pico", "convnext-nano", "convnext-tiny",
                             "repvit-m1", "efficientformerv2-s0"])
     p.add_argument("--target_dir", default="/home/ogata/semantic-autogaze/results/phase2_targets")
     p.add_argument("--image_dir", default="/home/ogata/semantic-autogaze/data/coco_val2017/val2017")
