@@ -98,6 +98,8 @@ class TargetDataset(Dataset):
         self.pos_indices = np.where(self.is_pos)[0]
         self.neg_indices = np.where(~self.is_pos)[0]
         self.presence_lookup = presence_lookup
+        # Category slug per index — used by BalancedSampler for category-weighted sampling
+        self.cat_per_index = [f.stem.partition("__")[2] for f in self.files]
         print(f"[dataset] kept {len(self.files)} (positive={int(self.is_pos.sum())}, "
               f"negative={int((~self.is_pos).sum())}) | original positive rate {n_pos}/{len(files)}",
               flush=True)
@@ -155,29 +157,49 @@ from torch.utils.data import Sampler
 class BalancedSampler(Sampler):
     """Samples 'pos_frac' positives + (1-pos_frac) negatives per epoch.
 
+    With category_alpha > 0, also re-weights positives so rare categories are
+    oversampled: weight ∝ 1 / (cat_freq ** category_alpha).
+      alpha=0   → uniform per-positive (default; Phase 1-4)
+      alpha=0.5 → sqrt-balanced (gentle oversample)
+      alpha=1.0 → fully cat-balanced (each cat has equal expected count)
+
     Iterates through the larger pool (negatives or positives) once; pads with
-    sampled-from the smaller pool to maintain target rate. The yields are
-    SHUFFLED, so each batch should have ~pos_frac * batch_size positives.
+    sampled-from the smaller pool to maintain target rate.
     """
-    def __init__(self, pos_indices, neg_indices, pos_frac=0.7, seed=42):
+    def __init__(self, pos_indices, neg_indices, pos_frac=0.7, seed=42,
+                 cat_per_index=None, category_alpha=0.0):
         self.pos = np.asarray(pos_indices)
         self.neg = np.asarray(neg_indices)
         self.pos_frac = pos_frac
         self.seed = seed
         self._epoch = 0
+        self.category_alpha = float(category_alpha)
+        self.cat_per_index = cat_per_index  # list[str] or None
+        self.pos_weights = None
+        if self.category_alpha > 0 and cat_per_index is not None and len(self.pos) > 0:
+            from collections import Counter
+            pos_cats = [cat_per_index[i] for i in self.pos.tolist()]
+            cat_freq = Counter(pos_cats)
+            inv = np.array([(1.0 / cat_freq[c]) ** self.category_alpha for c in pos_cats])
+            self.pos_weights = inv / inv.sum()
+            print(f"[sampler] category-weighted positives enabled: alpha={self.category_alpha} "
+                  f"({len(cat_freq)} unique cats; rarest={min(cat_freq.values())} freq, "
+                  f"most-common={max(cat_freq.values())} freq)", flush=True)
 
     def __iter__(self):
         rng = np.random.default_rng(self.seed + self._epoch)
-        # Total epoch size = max(pos, neg) such that ratio matches pos_frac
         n_pos = len(self.pos); n_neg = len(self.neg)
         if n_pos == 0:
             yield from rng.permutation(self.neg).tolist(); return
         if n_neg == 0:
             yield from rng.permutation(self.pos).tolist(); return
-        # Use all positives, sample negs to match neg_frac
         pos_target = n_pos
         neg_target = int(round(pos_target * (1 - self.pos_frac) / max(self.pos_frac, 1e-9)))
-        sampled_pos = self.pos
+        # Positive sampling: weighted if alpha>0, else use all once
+        if self.pos_weights is not None:
+            sampled_pos = rng.choice(self.pos, size=pos_target, replace=True, p=self.pos_weights)
+        else:
+            sampled_pos = self.pos
         sampled_neg = rng.choice(self.neg, size=min(neg_target, n_neg * 5), replace=(n_neg < neg_target))
         all_idx = np.concatenate([sampled_pos, sampled_neg])
         rng.shuffle(all_idx)
@@ -240,6 +262,73 @@ def build_backbone(model: str, device, finetune_blocks: int = 0):
             f = F.interpolate(f, size=(GRID, GRID), mode="bilinear", align_corners=False)
             return f.permute(0, 2, 3, 1).reshape(f.shape[0], GRID * GRID, f.shape[1])
         return fn, 576, IM_MEAN, IM_STD, "timm-cnn", bb
+    if model == "dinov2-s":
+        # DINOv2 ViT-Small/14 — self-supervised, very strong patch features.
+        # 22M params. Patch 14 → 16x16 patches at 224 input.
+        bb = timm.create_model("vit_small_patch14_dinov2.lvd142m",
+                               pretrained=True, num_classes=0,
+                               img_size=224, dynamic_img_size=True).to(device)
+        for p in bb.parameters(): p.requires_grad_(False)
+        if finetune_blocks > 0:
+            for blk in bb.blocks[-finetune_blocks:]:
+                for p in blk.parameters(): p.requires_grad_(True)
+        DINOV2_MEAN = (0.485, 0.456, 0.406)
+        DINOV2_STD = (0.229, 0.224, 0.225)
+        def fn(x):
+            f = bb.forward_features(x)  # (B, 257, 384) — 16x16 patches + cls
+            patches = f[:, 1:, :]  # (B, 256, 384) drop cls
+            # Reshape to spatial grid + interpolate to 14x14
+            B, N, D = patches.shape
+            side = int(N ** 0.5)
+            grid = patches.permute(0, 2, 1).reshape(B, D, side, side)
+            grid = F.interpolate(grid, size=(GRID, GRID), mode="bilinear", align_corners=False)
+            return grid.permute(0, 2, 3, 1).reshape(B, GRID * GRID, D)
+        return fn, 384, DINOV2_MEAN, DINOV2_STD, "timm-dinov2", bb
+    if model == "mobileclip-s2":
+        # Apple MobileCLIP-S2 — text-aware, mobile-optimized.
+        # 35.8M visual params, 256x256 input.
+        import open_clip
+        clip_model, _, _ = open_clip.create_model_and_transforms("MobileCLIP-S2",
+                                                                   pretrained="datacompdr")
+        clip_model = clip_model.to(device)
+        for p in clip_model.parameters(): p.requires_grad_(False)
+        # MobileCLIP visual returns (B, embed_dim) by default. We need patch tokens.
+        # Hook into forward to extract before pooling. The backbone is a ViT
+        # variant — we reuse forward_intermediates if available, or hook.
+        # Easier: extract via timm-style forward_features on the underlying trunk.
+        v = clip_model.visual
+        # MobileCLIP-S2 visual: FastViT or hybrid. Inspect structure.
+        # For simplicity: run trunk forward and grab last conv features.
+        def fn(x):
+            # MobileCLIP visual.trunk is the backbone returning patches/spatial.
+            with torch.no_grad():
+                if hasattr(v, "trunk"):
+                    feats = v.trunk.forward_features(x)
+                    if feats.dim() == 4:
+                        feats = F.interpolate(feats, size=(GRID, GRID),
+                                              mode="bilinear", align_corners=False)
+                        return feats.permute(0, 2, 3, 1).reshape(feats.shape[0], GRID*GRID, feats.shape[1])
+                    elif feats.dim() == 3:
+                        # (B, N, D) — interp to GRID*GRID
+                        side = int(feats.shape[1] ** 0.5)
+                        if side * side == feats.shape[1]:
+                            B, N, D = feats.shape
+                            g = feats.permute(0, 2, 1).reshape(B, D, side, side)
+                            g = F.interpolate(g, size=(GRID, GRID),
+                                              mode="bilinear", align_corners=False)
+                            return g.permute(0, 2, 3, 1).reshape(B, GRID*GRID, D)
+                        # Drop cls if present
+                        return feats[:, 1:, :]
+                # Fallback
+                return v(x)
+        # MobileCLIP uses standard ImageNet normalization
+        # Get embed dim by probing
+        x_probe = torch.randn(1, 3, 224, 224, device=device)
+        with torch.no_grad():
+            out = fn(x_probe)
+        embed_dim = out.shape[-1]
+        print(f"[backbone] mobileclip-s2 patch_dim={embed_dim}", flush=True)
+        return fn, embed_dim, IM_MEAN, IM_STD, "open_clip-mobileclip", clip_model.visual
     raise ValueError(f"unknown model {model}")
 
 
@@ -293,6 +382,34 @@ def train(args):
     bb_fn, patch_dim, mean, std, kind, bb_module = build_backbone(
         args.model, device, finetune_blocks=args.finetune_backbone_blocks)
 
+    # Optional: load distillation teacher (frozen, eval).
+    teacher = None
+    if args.distill_teacher_ckpt:
+        print(f"[distill] loading teacher {args.distill_teacher_ckpt} ...", flush=True)
+        ck = torch.load(args.distill_teacher_ckpt, map_location=device, weights_only=False)
+        t_args = ck.get("args", {})
+        t_model = t_args.get("model", "v1")
+        t_bb_fn, t_pd, t_mean, t_std, t_kind, t_bb_module = build_backbone(
+            t_model, device, finetune_blocks=0)
+        t_head = TextScorerHead(
+            patch_dim=t_pd, text_dim=512,
+            hidden_dim=t_args.get("head_hidden_dim", 384),
+            n_attn_heads=t_args.get("head_attn_heads", 6),
+            n_attn_layers=t_args.get("head_attn_layers", 2),
+            grid_size=GRID, use_spatial=t_args.get("head_use_spatial", True),
+        ).to(device).eval()
+        t_head.load_state_dict(ck["head"])
+        t_sb = SiglipBias().to(device).eval(); t_sb.load_state_dict(ck["sb"])
+        for p in t_head.parameters(): p.requires_grad_(False)
+        for p in t_sb.parameters(): p.requires_grad_(False)
+        teacher = {
+            "bb_fn": t_bb_fn, "head": t_head, "sb": t_sb,
+            "mean": np.array(t_mean, dtype=np.float32),
+            "std": np.array(t_std, dtype=np.float32),
+            "model": t_model,
+        }
+        print(f"  teacher: model={t_model}, patch_dim={t_pd}, mean={t_mean}", flush=True)
+
     # Head
     head = TextScorerHead(
         patch_dim=patch_dim, text_dim=512,
@@ -320,7 +437,9 @@ def train(args):
                        build_presence_lookup=args.fn_filter)
     if args.balanced_pos_frac > 0:
         sampler = BalancedSampler(ds.pos_indices, ds.neg_indices,
-                                  pos_frac=args.balanced_pos_frac)
+                                  pos_frac=args.balanced_pos_frac,
+                                  cat_per_index=ds.cat_per_index,
+                                  category_alpha=args.category_alpha)
         loader = DataLoader(ds, batch_size=args.batch_size, sampler=sampler,
                             num_workers=args.num_workers, collate_fn=collate,
                             drop_last=True, pin_memory=True)
@@ -335,6 +454,19 @@ def train(args):
 
     log_path = os.path.join(args.output_dir, "train_log.jsonl")
     log_f = open(log_path, "a")
+
+    # Optional: wandb logging
+    wb = None
+    if args.wandb_project:
+        try:
+            import wandb as _wb
+            run_name = args.wandb_run_name or os.path.basename(args.output_dir.rstrip("/"))
+            wb = _wb.init(project=args.wandb_project, name=run_name,
+                          config=vars(args), reinit=True, dir=args.output_dir)
+            print(f"[wandb] initialised → {wb.url}", flush=True)
+        except Exception as e:
+            print(f"[wandb] init failed ({e}); continuing without wandb", flush=True)
+            wb = None
 
     step = 0
     best_loss = float("inf")
@@ -423,7 +555,30 @@ def train(args):
             diag_target = target[diag_idx, diag_idx]       # (B, H, W)
             L_dice = soft_dice_loss(torch.sigmoid(diag_logits), diag_target)
 
-            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice
+            # 9) Optional distillation: MSE(student logits, teacher logits) on cal_logits.
+            L_distill = torch.tensor(0.0, device=device)
+            if teacher is not None and args.lambda_distill > 0:
+                # Re-normalize images for teacher
+                with torch.no_grad():
+                    s_mean = torch.tensor(np.array(mean, dtype=np.float32), device=device).view(1,3,1,1)
+                    s_std = torch.tensor(np.array(std, dtype=np.float32), device=device).view(1,3,1,1)
+                    t_mean_t = torch.tensor(teacher["mean"], device=device).view(1,3,1,1)
+                    t_std_t = torch.tensor(teacher["std"], device=device).view(1,3,1,1)
+                    images_01 = images * s_std + s_mean
+                    images_t = (images_01 - t_mean_t) / t_std_t
+                    t_patches = teacher["bb_fn"](images_t)
+                    t_patches_rep = t_patches.unsqueeze(1).expand(B, B, -1, -1).reshape(B * B, GRID * GRID, t_patches.shape[-1])
+                    t_logits_flat = teacher["head"](t_patches_rep, text_rep)
+                    t_logits = t_logits_flat.reshape(B, B, GRID, GRID)
+                    t_cal = teacher["sb"](t_logits)
+                    t_probs = torch.sigmoid(t_cal)
+                # Student probs
+                s_probs = torch.sigmoid(cal_logits)
+                # FN-filter applies to off-diagonal — we don't distill on FN-flagged pairs
+                w = weight_pair.unsqueeze(-1).unsqueeze(-1).expand_as(s_probs)
+                L_distill = ((s_probs - t_probs) ** 2 * w).sum() / w.sum().clamp(min=1)
+
+            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill
 
             opt.zero_grad(); L.backward(); opt.step()
             step += 1
@@ -437,14 +592,19 @@ def train(args):
                 line = {
                     "step": step, "epoch": epoch, "L": float(L.item()),
                     "L_dense": float(L_dense.item()), "L_pool": float(L_pool.item()),
-                    "L_dice": float(L_dice.item()), "diag_iou": float(diag_iou.item()),
+                    "L_dice": float(L_dice.item()),
+                    "L_distill": float(L_distill.item()) if isinstance(L_distill, torch.Tensor) else 0.0,
+                    "diag_iou": float(diag_iou.item()),
                     "t": float(sb.log_t.exp().item()), "bias": float(sb.bias.item()),
                     "lr": float(opt.param_groups[0]['lr']),
                     "elapsed_min": (time.time() - t_start) / 60,
                 }
-                print(f"  step {step:5d} | L={L:.3f} (dense={L_dense:.3f} pool={L_pool:.3f} dice={L_dice:.3f}) | diag_iou={diag_iou:.3f} | t={line['t']:.1f} bias={line['bias']:.2f}",
+                print(f"  step {step:5d} | L={L:.3f} (dense={L_dense:.3f} pool={L_pool:.3f} dice={L_dice:.3f} distill={line['L_distill']:.3f}) | diag_iou={diag_iou:.3f} | t={line['t']:.1f} bias={line['bias']:.2f}",
                       flush=True)
                 log_f.write(json.dumps(line) + "\n"); log_f.flush()
+                if wb is not None:
+                    try: wb.log(line, step=step)
+                    except Exception: pass
 
             if step % args.save_every == 0:
                 ckpt = {
@@ -482,7 +642,8 @@ def train(args):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--device", default="cuda:0")
-    p.add_argument("--model", required=True, choices=["v1", "v2-tiny", "d-mobile"])
+    p.add_argument("--model", required=True,
+                   choices=["v1", "v2-tiny", "d-mobile", "dinov2-s", "mobileclip-s2"])
     p.add_argument("--target_dir", default="/home/ogata/semantic-autogaze/results/phase2_targets")
     p.add_argument("--image_dir", default="/home/ogata/semantic-autogaze/data/coco_val2017/val2017")
     p.add_argument("--output_dir", required=True)
@@ -506,6 +667,16 @@ if __name__ == "__main__":
     p.add_argument("--bias_init", type=float, default=-4.0)
     p.add_argument("--bce_pos_weight", type=float, default=20.0,
                    help="upweight positive patches in dense BCE; ~20-50 useful for sparse masks")
+    p.add_argument("--wandb_project", default="semantic-autogaze",
+                   help="W&B project name; pass empty string to disable.")
+    p.add_argument("--wandb_run_name", default=None,
+                   help="W&B run display name; defaults to output_dir basename.")
+    p.add_argument("--distill_teacher_ckpt", default=None,
+                   help="Path to teacher ckpt (e.g. DINOv2-small). Adds MSE-on-teacher-prob loss.")
+    p.add_argument("--lambda_distill", type=float, default=0.5,
+                   help="Weight on the teacher-MSE distillation loss term.")
+    p.add_argument("--category_alpha", type=float, default=0.0,
+                   help="Category-rebalance exponent for BalancedSampler. 0=uniform per-positive (Phase 1-4), 0.5=sqrt-balance, 1.0=full inverse-frequency.")
     p.add_argument("--lambda_off_diagonal", type=float, default=1.0,
                    help="weight on off-diagonal pair losses (0=non-contrastive direct regression, 1=full SigLIP)")
     p.add_argument("--fn_filter", action="store_true",
