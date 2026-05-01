@@ -27,6 +27,7 @@ V050_REF_PATH = pathlib.Path('/home/ogata/semantic-autogaze/results/eval_phase15
 ROOTS = [
     pathlib.Path('/home/ogata/semantic-autogaze/results/eval_phase18'),
     pathlib.Path('/home/ogata/semantic-autogaze/results/eval_phase19'),
+    pathlib.Path('/home/ogata/semantic-autogaze/results/eval_phase23'),
 ]
 SUMMARY_OUT = pathlib.Path(
     '/home/ogata/mac-brain/projects/semantic-autogaze/figures/phase18_19_summary.md')
