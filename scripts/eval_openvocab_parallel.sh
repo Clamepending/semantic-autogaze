@@ -21,8 +21,8 @@ TRIPLES=(
   "phase21_atto_objectness_gated|results/phase21_atto_objectness_10k/best_val.pt|3|"
   "phase21_atto_objectness_ungated|results/phase21_atto_objectness_10k/best_val.pt|3|--no_objectness"
   "phase22c_atto_v060_reg_best|results/phase22c_atto_v060_reg_10k/best_val.pt|4|"
-  "phase22a_atto_perquery_aug_best|results/phase22a_atto_perquery_aug_50k/best_val.pt|5|"
-  "phase22b_atto_perquery_aug_reg_best|results/phase22b_atto_perquery_aug_reg_50k/best_val.pt|5|"
+  "phase22a_atto_perquery_aug_best|results/phase22a_atto_perquery_aug_50k/best_val.pt|4|"
+  "phase22b_atto_perquery_aug_reg_best|results/phase22b_atto_perquery_aug_reg_50k/best_val.pt|4|"
   "phase22d_atto_v060_reg005_best|results/phase22d_atto_v060_reg005_10k/best_val.pt|0|"
   "phase24_atto_multiprompt_best|results/phase24_atto_multiprompt_10k/best_val.pt|2|"
   "phase24a_atto_mpp025_best|results/phase24a_atto_mpp025_10k/best_val.pt|0|"
@@ -30,8 +30,8 @@ TRIPLES=(
   "phase24d_atto_mpp05_aggrAug_best|results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt|3|"
   "phase21b_atto_obj_from_v060_gated|results/phase21b_atto_obj_from_v060_10k/best_val.pt|4|"
   "phase21b_atto_obj_from_v060_ungated|results/phase21b_atto_obj_from_v060_10k/best_val.pt|4|--no_objectness"
-  "phase24f_atto_mpp05_fromphase15_50k_best|results/phase24f_atto_mpp05_fromphase15_50k/best_val.pt|5|"
-  "phase24g_atto_mpp05_nodistill_best|results/phase24g_atto_mpp05_nodistill_10k/best_val.pt|5|"
+  "phase24f_atto_mpp05_fromphase15_50k_best|results/phase24f_atto_mpp05_fromphase15_50k/best_val.pt|0|"
+  "phase24g_atto_mpp05_nodistill_best|results/phase24g_atto_mpp05_nodistill_10k/best_val.pt|2|"
   "phase26_atto_thingsonly_obj_gated|results/phase26_atto_thingsonly_obj_10k/best_val.pt|3|"
   "phase26_atto_thingsonly_obj_ungated|results/phase26_atto_thingsonly_obj_10k/best_val.pt|3|--no_objectness"
   "phase18c_atto_lowposw_10k|results/phase18c_atto_lowposw_10k/ckpt_step10000.pt|0|"
@@ -63,6 +63,8 @@ run_chain() {
 }
 
 echo "[parallel-openvocab-sweep] starting at $(date -Iseconds)"
-for g in 0 2 3 4 5; do run_chain "$g" & done
+# GPU 1 is reserved (unrelated work); GPU 5 is reserved (user constraint
+# 2026-05-01). Allocate across GPUs 0/2/3/4 only.
+for g in 0 2 3 4; do run_chain "$g" & done
 wait
 echo "[parallel-openvocab-sweep] done at $(date -Iseconds)"

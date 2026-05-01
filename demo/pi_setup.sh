@@ -12,13 +12,18 @@
 
 set -euo pipefail
 
-MODEL="${MODEL:-phase15-atto}"
+MODEL="${MODEL:-phase19-atto}"
 QUERY="${QUERY:-hand,coffee cup,laptop,face}"
-REDUCE="${REDUCE:-max}"
 PORT="${PORT:-8000}"
 VENV="${VENV:-$HOME/.venv-pi-demo}"
 WORKDIR="${WORKDIR:-$HOME/semantic-autogaze-pi-demo}"
 case "$MODEL" in
+  phase19-atto)
+    # v0.6.0: ConvNeXt-atto with per-query SigLIP bias (DAC-style). +0.13
+    # mean failure-cat IoU lift over v0.5.0; net 50-img mIoU 0.694 vs 0.681.
+    RELEASE_TAG="v0.6.0-phase19-pi-demo"
+    CKPT="phase19b_convnext_atto_perquery_best_v060.pt"
+    ;;
   phase15-atto)
     RELEASE_TAG="v0.5.0-phase15-pi-demo"
     CKPT="phase15_convnext_atto_step35000_iou0722.pt"
@@ -35,7 +40,7 @@ case "$MODEL" in
     RELEASE_TAG="v0.4.0-phase10-pi-demo"
     CKPT="phase10_convnext_pico_best_val.pt"
     ;;
-  *) echo "Unknown MODEL=$MODEL (expected phase15-atto|phase10-atto|phase10-femto|phase10-pico)"; exit 1 ;;
+  *) echo "Unknown MODEL=$MODEL (expected phase19-atto|phase15-atto|phase10-atto|phase10-femto|phase10-pico)"; exit 1 ;;
 esac
 
 echo "[pi_setup] model=$MODEL ckpt=$CKPT port=$PORT venv=$VENV"
@@ -64,10 +69,9 @@ fi
 
 echo
 echo "[pi_setup] starting server on port $PORT — open http://$(hostname -I | awk '{print $1}'):$PORT/"
-echo "[pi_setup]   query='$QUERY' reduce=$REDUCE model=$MODEL"
+echo "[pi_setup]   query='$QUERY' model=$MODEL"
 exec python pi_webcam_server.py \
     --ckpt "$CKPT" \
     --model "$MODEL" \
     --query "$QUERY" \
-    --reduce "$REDUCE" \
     --port "$PORT"

@@ -97,12 +97,8 @@ launch_one 4 phase24f_atto_mpp05_fromphase15_50k results/phase24f_atto_mpp05_fro
   --multi_prompt_training --multi_prompt_p 0.5
 sleep 60
 
-# 6. mpp05 no-distill — does the DINOv2 distillation teacher conflict with
-#    multi-prompt diversity? Set lambda_distill=0 to test.
-launch_one 5 phase24g_atto_mpp05_nodistill_10k results/phase24g_atto_mpp05_nodistill_10k \
-  --max_steps 10000 \
-  --resume_from results/phase19b_atto_perquery_10k/best_val.pt \
-  --multi_prompt_training --multi_prompt_p 0.5 \
-  --lambda_distill 0.0
+# GPU 5 is reserved (user constraint 2026-05-01) — phase24g is dropped from
+# this sweep launcher. If you want to run it later, target a free GPU in
+# {0,1,2,3,4}.
 
 echo "[done] all 6 launched at $(date -Iseconds)"
