@@ -78,6 +78,11 @@ def load_ckpt(ckpt_path, device):
         sb = SiglipBiasPerQuery().to(device).eval()
         sb.load_state_dict(sb_state)
         sb._is_per_query = True
+    elif any(k.startswith("bias_linear.") for k in sb_state.keys()):
+        from train_siglip_dense_distill import SiglipBiasPerQueryLinear  # type: ignore
+        sb = SiglipBiasPerQueryLinear().to(device).eval()
+        sb.load_state_dict(sb_state)
+        sb._is_per_query = True
     else:
         sb = SiglipBias().to(device).eval()
         sb.load_state_dict(sb_state)

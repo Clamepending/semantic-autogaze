@@ -763,6 +763,30 @@ class SiglipBiasPerQuery(nn.Module):
         return logits * self.log_t.exp() + b_bcast
 
 
+class SiglipBiasPerQueryLinear(nn.Module):
+    """Per-query bias as a single Linear(text_dim -> 1) (no hidden, no nonlinearity).
+    Ablation of SiglipBiasPerQuery's MLP — tests whether the GELU + 64-d hidden
+    layer is load-bearing or whether per-query bias is captured by a linear
+    projection of text_emb. Same forward semantics as SiglipBiasPerQuery."""
+    def __init__(self, t_init=10.0, bias_init=-4.0, text_dim=512):
+        super().__init__()
+        self.log_t = nn.Parameter(torch.tensor(float(np.log(t_init))))
+        self.bias_init = float(bias_init)
+        self.bias_linear = nn.Linear(text_dim, 1)
+        # init: weight = 0, bias = bias_init -> step-0 output equals global bias.
+        with torch.no_grad():
+            self.bias_linear.weight.zero_()
+            self.bias_linear.bias.fill_(self.bias_init)
+
+    def per_query_bias(self, text_emb):
+        return self.bias_linear(text_emb).squeeze(-1)
+
+    def forward(self, logits, text_emb):
+        b_q = self.per_query_bias(text_emb)
+        b_bcast = b_q.view(1, -1, 1, 1)
+        return logits * self.log_t.exp() + b_bcast
+
+
 def soft_dice_loss(probs, target, eps=1e-6):
     """probs, target: (..., H*W) or (..., H, W). Returns scalar."""
     p = probs.flatten(-2, -1) if probs.dim() >= 3 else probs
@@ -855,8 +879,12 @@ def train(args):
 
     # SigLIP bias / temperature
     if args.per_query_bias:
-        sb = SiglipBiasPerQuery(t_init=args.t_init, bias_init=args.bias_init).to(device)
-        print(f"[sb] using SiglipBiasPerQuery (MLP 512->64->1, init bias={args.bias_init})", flush=True)
+        if args.per_query_bias_kind == "linear":
+            sb = SiglipBiasPerQueryLinear(t_init=args.t_init, bias_init=args.bias_init).to(device)
+            print(f"[sb] using SiglipBiasPerQueryLinear (Linear 512->1, init bias={args.bias_init})", flush=True)
+        else:
+            sb = SiglipBiasPerQuery(t_init=args.t_init, bias_init=args.bias_init).to(device)
+            print(f"[sb] using SiglipBiasPerQuery (MLP 512->64->1, init bias={args.bias_init})", flush=True)
     else:
         sb = SiglipBias(t_init=args.t_init, bias_init=args.bias_init).to(device)
 
@@ -1559,6 +1587,10 @@ if __name__ == "__main__":
     p.add_argument("--lambda_dice", type=float, default=0.3)
     p.add_argument("--t_init", type=float, default=10.0)
     p.add_argument("--bias_init", type=float, default=-4.0)
+    p.add_argument("--per_query_bias_kind", default="mlp", choices=["mlp", "linear"],
+                   help="Form of the per-query bias module when --per_query_bias is on. "
+                        "'mlp' = SiglipBiasPerQuery (Linear 512->64 + GELU + Linear 64->1, the v0.6.0 default). "
+                        "'linear' = SiglipBiasPerQueryLinear (single Linear 512->1, ablation of the GELU+hidden).")
     p.add_argument("--per_query_bias", action="store_true", default=False,
                    help="Replace global SigLIP (t, b) with per-query bias: a small "
                         "MLP from text_emb (512) -> scalar bias per query. "
