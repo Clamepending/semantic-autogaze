@@ -51,6 +51,27 @@ CLIP_MEAN = (0.48145466, 0.4578275, 0.40821073)
 CLIP_STD = (0.26862954, 0.26130258, 0.27577711)
 
 
+# ---- Multi-prompt training templates ----
+# Per Phase 24 recommendation in
+#   /home/ogata/mac-brain/projects/semantic-autogaze/OPENVOCAB_VALIDATION.md
+# we broaden the head's text-emb coverage by sampling one prompt-template
+# variant per (image, mask, query) training pair at each step. The
+# supervision mask is unchanged; only the human-readable query string fed
+# into the CLIP text encoder is re-wrapped. PROMPT_TEMPLATES[0] is the
+# bare "{q}" identity (always available); PROMPT_TEMPLATES[1:] are the
+# non-identity wraps that get sampled when multi_prompt is active.
+PROMPT_TEMPLATES = [
+    "{q}",                          # bare (always available)
+    "a photo of {q}",
+    "a photo of a {q}",
+    "the {q}",
+    "{q} in the scene",
+    "{q} object",
+    "a picture containing {q}",
+    "{q} visible",
+]
+
+
 # ---- Higher-grid head variant ----
 
 class TextScorerHeadGrid28(TextScorerHead):
@@ -109,12 +130,21 @@ class TargetDataset(Dataset):
                  build_presence_lookup: bool = False,
                  augment: bool = False,
                  augment_aggressive: bool = False,
-                 grid_size_out: int = 14):
+                 grid_size_out: int = 14,
+                 multi_prompt: bool = False,
+                 multi_prompt_p: float = 0.5):
         self.target_dir = Path(target_dir)
         self.image_dir = Path(image_dir)
         self.image_size = image_size
         self.mean = np.array(mean, dtype=np.float32)
         self.std = np.array(std, dtype=np.float32)
+        # Multi-prompt training: sample one prompt-template variant per
+        # __getitem__ call (see PROMPT_TEMPLATES at top of file). Only the
+        # `query` string changes; query_slug / mask supervision are
+        # untouched so the FN-filter / presence_lookup behavior is
+        # preserved. Validation-side subclasses set multi_prompt=False.
+        self.multi_prompt = bool(multi_prompt)
+        self.multi_prompt_p = float(multi_prompt_p)
         # Output grid size for the per-query mask target. 14 = legacy (load
         # mask14 directly from the npz). 28 = on-the-fly resample: prefer
         # max-pool of mask_full > 0.5 (mirrors generate_clean_targets.pool_to_14
@@ -179,6 +209,33 @@ class TargetDataset(Dataset):
 
     def __getitem__(self, idx):
         # ------------------------------------------------------------------
+        # Multi-prompt training (Phase 24).
+        #
+        # When self.multi_prompt is True, with probability
+        # self.multi_prompt_p we replace the bare query string with a
+        # randomly-sampled non-identity prompt-template variant from
+        # PROMPT_TEMPLATES[1:] (e.g. "wall" -> "a photo of wall"). With
+        # probability 1 - self.multi_prompt_p we keep the bare query
+        # (identity / PROMPT_TEMPLATES[0]).
+        #
+        # Why: per the Phase 24 recommendation in
+        #   /home/ogata/mac-brain/projects/semantic-autogaze/OPENVOCAB_VALIDATION.md
+        # the head currently overfits to bare-noun text embeddings because
+        # every training pair feeds a single canonical noun ("wall",
+        # "knife", ...) into the CLIP text encoder. At eval time, callers
+        # (EgoSchema/VQA) often query with phrases like "a photo of a
+        # knife" or "the wall in the scene", whose text embeddings drift
+        # away from the bare-noun distribution the head was trained on.
+        # Sampling one of several semantically-equivalent wraps per step
+        # broadens the text-emb distribution the head must align against
+        # without changing supervision masks or FN-filter behavior.
+        #
+        # Critical: self.query_slug is NOT modified -- only the human-
+        # readable `query` string returned to the trainer changes. The
+        # FN-filter / presence_lookup keys are slug-based and stay correct.
+        # Validation never applies multi-prompt (see _ValSubset).
+        # ------------------------------------------------------------------
+        # ------------------------------------------------------------------
         # Augmentation pipeline.
         #
         # When self.augment_aggressive is True we apply a JOINT geometric
@@ -216,6 +273,15 @@ class TargetDataset(Dataset):
         query = str(d["query"]) if "query" in d else npz_path.stem.split("__", 1)[1]
         # Slug stored in filename for cross-pair presence_lookup
         query_slug = npz_path.stem.split("__", 1)[1]
+        # Multi-prompt wrap (see comment block at top of __getitem__).
+        # query_slug is intentionally NOT touched -- the FN-filter relies on
+        # the slug, not the wrapped text. Only the `query` string changes.
+        prompt_wrapped = 0
+        if getattr(self, "multi_prompt", False):
+            if np.random.rand() < float(getattr(self, "multi_prompt_p", 0.5)):
+                tpl = PROMPT_TEMPLATES[int(np.random.randint(1, len(PROMPT_TEMPLATES)))]
+                query = tpl.format(q=query)
+                prompt_wrapped = 1
         img_path = self.image_dir / f"{img_id}.jpg"
         try:
             pil = Image.open(img_path).convert("RGB")
@@ -380,6 +446,8 @@ class TargetDataset(Dataset):
             "presence": bool(d["presence"]),
             "clip_sim": float(d["clip_sim"]),
             "gate_passed": bool(d["gate_passed"]),
+            "prompt_wrapped": int(prompt_wrapped),
+            "source": self.source_per_index[idx] if hasattr(self, "source_per_index") else "coco",
         }
 
 
@@ -395,6 +463,9 @@ def collate(batch):
         "presence": torch.tensor([b["presence"] for b in batch], dtype=torch.float32),
         "clip_sim": torch.tensor([b["clip_sim"] for b in batch]),
         "gate_passed": torch.tensor([b["gate_passed"] for b in batch], dtype=torch.bool),
+        "prompt_wrapped": torch.tensor(
+            [b.get("prompt_wrapped", 0) for b in batch], dtype=torch.int64),
+        "source": [b.get("source", "coco") for b in batch],
     }
 
 
@@ -957,7 +1028,9 @@ def train(args):
                        build_presence_lookup=args.fn_filter,
                        augment=args.augment,
                        augment_aggressive=args.augment_aggressive,
-                       grid_size_out=args.grid_size_out)
+                       grid_size_out=args.grid_size_out,
+                       multi_prompt=args.multi_prompt_training,
+                       multi_prompt_p=args.multi_prompt_p)
 
     # ---- Train/val split by image_id ----
     # Hold out fraction of unique image_ids so val images are NEVER seen in training pairs.
@@ -994,6 +1067,8 @@ def train(args):
                 self.std = parent.std
                 self.augment = False  # never augment val
                 self.augment_aggressive = False  # never augment val (gates aggressive pipeline too)
+                self.multi_prompt = False  # never multi-prompt val (deterministic)
+                self.multi_prompt_p = 0.0
                 self.grid_size_out = parent.grid_size_out
                 self.files = [all_files[i] for i in idxs]
                 self.is_pos = all_is_pos[idxs]
@@ -1400,8 +1475,20 @@ def train(args):
             if objectness_head is not None:
                 obj_logits = objectness_head(patches)  # (B, 14, 14)
                 obj_pos_weight = torch.tensor(args.objectness_pos_weight, device=device)
-                L_objectness = F.binary_cross_entropy_with_logits(
-                    obj_logits, mask14, reduction="mean", pos_weight=obj_pos_weight)
+                if args.objectness_things_only:
+                    # Phase 26: mask out stuff-source samples from the objectness BCE
+                    # so the head learns "thing-here" rather than "supervised-region-here"
+                    # — avoids the horizon-band prior diagnosed in OPENVOCAB_REFLECTION.
+                    is_thing = torch.tensor(
+                        [1.0 if s != "stuff" else 0.0 for s in batch["source"]],
+                        device=device, dtype=torch.float32).reshape(-1, 1, 1)
+                    obj_loss_per = F.binary_cross_entropy_with_logits(
+                        obj_logits, mask14, reduction="none", pos_weight=obj_pos_weight)
+                    L_objectness = (obj_loss_per * is_thing).sum() / max(
+                        1.0, float(is_thing.sum().item()) * obj_logits.shape[-1] * obj_logits.shape[-2])
+                else:
+                    L_objectness = F.binary_cross_entropy_with_logits(
+                        obj_logits, mask14, reduction="mean", pos_weight=obj_pos_weight)
             else:
                 L_objectness = torch.tensor(0.0, device=device)
 
@@ -1425,6 +1512,15 @@ def train(args):
                     else:
                         b_mean = float(sb.bias.item())
                         b_std = 0.0
+                # multi_prompt_active: 1 iff at least one sample in this
+                # batch had its query wrapped by a non-identity template.
+                # Cheap single-bit-per-step signal so we can verify the
+                # multi-prompt path is firing during a run.
+                if "prompt_wrapped" in batch:
+                    _pw = batch["prompt_wrapped"]
+                    multi_prompt_active = int(int(_pw.max().item()) > 0) if _pw.numel() > 0 else 0
+                else:
+                    multi_prompt_active = 0
                 line = {
                     "step": step, "epoch": epoch, "L": float(L.item()),
                     "L_dense": float(L_dense.item()), "L_pool": float(L_pool.item()),
@@ -1441,6 +1537,7 @@ def train(args):
                     "b_std": b_std,
                     "lr": float(opt.param_groups[0]['lr']),
                     "elapsed_min": (time.time() - t_start) / 60,
+                    "multi_prompt_active": multi_prompt_active,
                 }
                 print(f"  step {step:5d} | L={L:.3f} (dense={L_dense:.3f} pool={L_pool:.3f} dice={L_dice:.3f} hn={line['L_hard_neg']:.3f} distill={line['L_distill']:.3f}) | diag_iou={diag_iou:.3f} | t={line['t']:.1f} b_mean={b_mean:.2f} b_std={b_std:.2f}",
                       flush=True)
@@ -1641,6 +1738,18 @@ if __name__ == "__main__":
                         "applied last on the post-geometric image. This flag supersedes --augment "
                         "(strictly stronger) and is disabled for validation regardless. Falls "
                         "back to legacy aug for npz files missing the `mask_full` field.")
+    p.add_argument("--multi_prompt_training", action="store_true", default=False,
+                   help="Sample one prompt-template variant per (image, mask, query) "
+                        "training pair at each step (Phase 24 — see "
+                        "OPENVOCAB_VALIDATION.md). Broadens the head's text-emb "
+                        "coverage without changing supervision masks. Validation "
+                        "is always deterministic (multi-prompt disabled).")
+    p.add_argument("--multi_prompt_p", type=float, default=0.5,
+                   help="Probability of applying a non-identity prompt template "
+                        "when --multi_prompt_training is on. 0.0 = identity always "
+                        "(equivalent to disabling); 1.0 = always wrap with one of "
+                        "PROMPT_TEMPLATES[1:]. Default 0.5 — half of training pairs "
+                        "see a wrapped query, half see the bare noun.")
     p.add_argument("--image_size", type=int, default=224,
                    help="Input image size. Default 224. Use 288/336 for higher spatial resolution at higher compute cost.")
     p.add_argument("--lambda_off_diagonal", type=float, default=1.0,
@@ -1683,6 +1792,11 @@ if __name__ == "__main__":
     p.add_argument("--objectness_weight", type=float, default=0.0,
                    help="Loss weight for the OWLv2-style query-agnostic objectness head. "
                         "0.0 disables (head is not constructed). Try 0.1-1.0.")
+    p.add_argument("--objectness_things_only", action="store_true", default=False,
+                   help="Phase 26: when set, the objectness BCE is masked to "
+                        "thing-source samples (pp/lvis/coco) only, excluding "
+                        "stuff-source samples. Avoids the horizon-band prior "
+                        "the phase21 head learned by including stuff cells.")
     p.add_argument("--objectness_pos_weight", type=float, default=5.0,
                    help="pos_weight for objectness BCE. Lower than per-query bce_pos_weight "
                         "(default 30) since 'any object anywhere' has a much higher base rate.")
