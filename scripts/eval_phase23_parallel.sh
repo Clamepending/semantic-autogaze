@@ -14,9 +14,12 @@ OUT_ROOT="results/eval_phase23"
 mkdir -p "$OUT_ROOT"
 
 # (slug, ckpt, gpu)
+# NOTE: GPU 0 is owned by phase23e training during the A5 training window;
+# A1-A4 evals are remapped to GPUs 1/2/3/4 so they can run in parallel WITH
+# A5 training. A5 evals stay on GPU 5 (they only fire after A5 saves ckpts).
 TRIPLES=(
-  "phase23a_atto_nodistill_10k|results/phase23a_atto_nodistill_10k/ckpt_step10000.pt|0"
-  "phase23a_atto_nodistill_best|results/phase23a_atto_nodistill_10k/best_val.pt|0"
+  "phase23a_atto_nodistill_10k|results/phase23a_atto_nodistill_10k/ckpt_step10000.pt|1"
+  "phase23a_atto_nodistill_best|results/phase23a_atto_nodistill_10k/best_val.pt|1"
   "phase23b_atto_perquery_linear_10k|results/phase23b_atto_perquery_linear_10k/ckpt_step10000.pt|2"
   "phase23b_atto_perquery_linear_best|results/phase23b_atto_perquery_linear_10k/best_val.pt|2"
   "phase23c_atto_noperquery_10k|results/phase23c_atto_noperquery_10k/ckpt_step10000.pt|3"
@@ -60,7 +63,7 @@ run_chain_for_gpu() {
   done
 }
 
-GPUS="${1:-0 2 3 4 5}"
+GPUS="${1:-1 2 3 4 5}"
 echo "[parallel-sweep] starting at $(date -Iseconds), GPUs: $GPUS"
 for g in $GPUS; do
   run_chain_for_gpu "$g" &

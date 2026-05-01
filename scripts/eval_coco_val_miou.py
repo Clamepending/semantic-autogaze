@@ -29,7 +29,7 @@ COCO_ROOT = "/home/ogata/semantic-autogaze/data/coco_val2017"
 
 def main(args):
     device = torch.device(args.device)
-    bb_fn, head, sb, mean, std, model, kind, bb_module = load_ckpt(args.ckpt, device)
+    bb_fn, head, sb, mean, std, model, kind, bb_module, _obj_head = load_ckpt(args.ckpt, device)
     print(f"[ckpt] loaded {args.ckpt}", flush=True)
 
     import open_clip
