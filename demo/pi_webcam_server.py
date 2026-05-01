@@ -61,6 +61,14 @@ RELEASE_URLS = {
     # 2402.04655) — first ckpt that lifts mean failure-cat IoU by +0.13 with
     # net 50-img mIoU still ABOVE v0.5.0. v0.6.0 release.
     "phase19-atto":  "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.6.0-phase19-pi-demo/phase19b_convnext_atto_perquery_best_v060.pt",
+    # Phase 24d: phase19b recipe + multi-prompt training (p=0.5, ECO/LMSeg
+    # style training-time prompt-template ensembling, arxiv 2412.00364) +
+    # aggressive geometric augmentation (rot/persp/scale/crop). Same
+    # ConvNeXt-atto / 14x14 grid / per-query MLP architecture, identical
+    # Pi 5 latency (~37 ms/frame, ~27 fps). Openvocab composite +22 vs
+    # v0.6.0 +17 on the user's street validation panels (rank 1 of 29
+    # ckpts evaluated 2026-05-01). v0.7.0 release.
+    "phase24d-atto": "https://github.com/Clamepending/semantic-autogaze/releases/download/v0.7.0-phase24d-pi-demo/phase24d_convnext_atto_mpp05_aggrAug_best_v070.pt",
 }
 
 # Mapping from `ckpt['args']['model']` (training-time identifier) to the timm
@@ -446,10 +454,10 @@ window.addEventListener('DOMContentLoaded', () => {
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", default="D_mobile.pt")
-    ap.add_argument("--model", default="phase19-atto",
+    ap.add_argument("--model", default="phase24d-atto",
                     choices=["d-mobile", "v2-tiny", "v1",
                              "phase10-atto", "phase10-femto", "phase10-pico",
-                             "phase15-atto", "phase19-atto"])
+                             "phase15-atto", "phase19-atto", "phase24d-atto"])
     ap.add_argument("--query", default="hand")
     ap.add_argument("--threshold", type=float, default=0.45,
                     help="initial absolute sigmoid-score threshold; UI slider can change live. "
