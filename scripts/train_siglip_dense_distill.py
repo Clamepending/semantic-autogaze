@@ -1346,6 +1346,24 @@ def train(args):
             else:
                 L_calib = torch.tensor(0.0, device=device)
 
+            # 9d) L_bias_var: penalizes variance of per-query biases across the
+            # batch when --per_query_bias is on. Reduces the "tennis racket
+            # query → MLP learns +0.5 bias → fires everywhere" overshoot
+            # observed qualitatively in v0.6.0 review. Encourages the MLP to
+            # only deviate from the mean bias when the query genuinely needs it.
+            # No-op when per_query_bias is off or lambda is 0.
+            if args.lambda_bias_var > 0 and args.per_query_bias:
+                with torch.no_grad():
+                    pass
+                # text_embs is (B, 512), already encoded above for L_dense.
+                b_q_train = sb.per_query_bias(text_embs)  # (B,)
+                if b_q_train.numel() > 1:
+                    L_bias_var = b_q_train.var(unbiased=False)
+                else:
+                    L_bias_var = torch.tensor(0.0, device=device)
+            else:
+                L_bias_var = torch.tensor(0.0, device=device)
+
             # 9c) L_objectness: query-agnostic per-cell "is there any object?" head.
             # Supervises objectness_head(patches) -> (B, 14, 14) against the on-
             # diagonal mask14[b]: cells positive for at least one query in this
@@ -1359,7 +1377,7 @@ def train(args):
             else:
                 L_objectness = torch.tensor(0.0, device=device)
 
-            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill + args.hard_neg_weight * L_hard_neg + args.lambda_calib * L_calib + args.objectness_weight * L_objectness
+            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill + args.hard_neg_weight * L_hard_neg + args.lambda_calib * L_calib + args.objectness_weight * L_objectness + args.lambda_bias_var * L_bias_var
 
             opt.zero_grad(); L.backward(); opt.step()
             step += 1
@@ -1386,6 +1404,7 @@ def train(args):
                     "L_hard_neg": float(L_hard_neg.item()) if isinstance(L_hard_neg, torch.Tensor) else 0.0,
                     "L_distill": float(L_distill.item()) if isinstance(L_distill, torch.Tensor) else 0.0,
                     "L_calib": float(L_calib.item()) if isinstance(L_calib, torch.Tensor) else 0.0,
+                    "L_bias_var": float(L_bias_var.item()) if isinstance(L_bias_var, torch.Tensor) else 0.0,
                     "L_objectness": float(L_objectness.item()) if isinstance(L_objectness, torch.Tensor) else 0.0,
                     "diag_iou": float(diag_iou.item()),
                     "t": float(sb.log_t.exp().item()),
@@ -1574,6 +1593,8 @@ if __name__ == "__main__":
                    help="Weight on the absent-pair max-prob calibration loss. Penalizes relu(max_cell_prob - calib_target_max)^2 over clean off-diagonal (absent) pairs to clamp worst false-positive cell. 0 = disabled.")
     p.add_argument("--calib_target_max", type=float, default=0.30,
                    help="Target ceiling for max predicted prob on absent (off-diagonal, fn-kept) pairs; cells above this incur quadratic penalty.")
+    p.add_argument("--lambda_bias_var", type=float, default=0.0,
+                   help="Weight on per-query bias variance regularizer (only with --per_query_bias). Penalizes Var[b_q] across the batch — discourages the MLP from learning extreme positive/negative biases for individual queries (the 'tennis racket fires everywhere' overshoot in v0.6.0 review). 0 = disabled. Try 0.05-0.5.")
     p.add_argument("--category_alpha", type=float, default=0.0,
                    help="Category-rebalance exponent for BalancedSampler. 0=uniform per-positive (Phase 1-4), 0.5=sqrt-balance, 1.0=full inverse-frequency.")
     p.add_argument("--source_weights", default=None,
