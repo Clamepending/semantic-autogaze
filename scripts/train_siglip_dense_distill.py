@@ -130,6 +130,7 @@ class TargetDataset(Dataset):
                  build_presence_lookup: bool = False,
                  augment: bool = False,
                  augment_aggressive: bool = False,
+                 augment_vshift: float = 0.0,
                  grid_size_out: int = 14,
                  multi_prompt: bool = False,
                  multi_prompt_p: float = 0.5):
@@ -156,6 +157,7 @@ class TargetDataset(Dataset):
         # jitter as its final stages).
         self.augment = augment or augment_aggressive
         self.augment_aggressive = augment_aggressive
+        self.augment_vshift = float(augment_vshift)
         files = sorted(self.target_dir.glob("*.npz"))
         if limit:
             files = files[:limit]
@@ -346,6 +348,29 @@ class TargetDataset(Dataset):
                                             flags=cv2.INTER_NEAREST,
                                             borderMode=cv2.BORDER_CONSTANT,
                                             borderValue=0)
+
+            # 3.5) Random vertical translation independent of scale+crop.
+            # Breaks the horizon-band y-position prior (Pattern 1 in
+            # mac-brain projects/semantic-autogaze/OPENVOCAB_REFLECTION.md):
+            # the head learned that "outdoor stuff appears at horizon level"
+            # because most training samples have horizon-aligned content.
+            # Shifting the whole frame +/- shift_frac * H y-translates that
+            # supervision pixel and forces the head to localize by content
+            # rather than by y-position. shift_frac is the fraction of H;
+            # default 0.0 disables.
+            shift_frac = float(getattr(self, "augment_vshift", 0.0))
+            if shift_frac > 0:
+                ty = int(round(np.random.uniform(-shift_frac, shift_frac) * H))
+                if ty != 0:
+                    M = np.float32([[1, 0, 0], [0, 1, ty]])
+                    arr_full = cv2.warpAffine(arr_full, M, (W, H),
+                                              flags=cv2.INTER_LINEAR,
+                                              borderMode=cv2.BORDER_CONSTANT,
+                                              borderValue=(0, 0, 0))
+                    mask_full = cv2.warpAffine(mask_full, M, (W, H),
+                                               flags=cv2.INTER_NEAREST,
+                                               borderMode=cv2.BORDER_CONSTANT,
+                                               borderValue=0)
 
             # 4) Random uniform scale 0.7x-1.5x then random/center crop
             #    to S x S. Anchoring the scaled canvas on S keeps the crop
@@ -1028,6 +1053,7 @@ def train(args):
                        build_presence_lookup=args.fn_filter,
                        augment=args.augment,
                        augment_aggressive=args.augment_aggressive,
+                       augment_vshift=args.augment_vshift,
                        grid_size_out=args.grid_size_out,
                        multi_prompt=args.multi_prompt_training,
                        multi_prompt_p=args.multi_prompt_p)
@@ -1730,6 +1756,11 @@ if __name__ == "__main__":
                    help="Per-source sampling-weight multipliers, e.g. 'pp:5,stuff:1,lvis:1,coco:1'. Multiplies the existing per-positive weight. Slug-prefix-based: pp_*=pascal_part, stuff_*=coco-stuff/panoptic, lvis_*=LVIS, else=COCO.")
     p.add_argument("--augment", action="store_true",
                    help="Enable horizontal-flip + color jitter (brightness/contrast) augmentation in TargetDataset.")
+    p.add_argument("--augment_vshift", type=float, default=0.0,
+                   help="Random vertical translation as a fraction of H "
+                        "(e.g. 0.2 = +/-20%% of image height). Breaks the "
+                        "horizon-band y-position prior. Only fires inside "
+                        "--augment_aggressive geometry path. Default 0.0 (off).")
     p.add_argument("--augment_aggressive", action="store_true", default=False,
                    help="Enable AGGRESSIVE geometric augmentation: joint h-flip, +/-20deg rotation, "
                         "perspective warp (5%% corner displacement), random scale 0.7-1.5x, "
