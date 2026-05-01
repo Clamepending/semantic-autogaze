@@ -75,8 +75,10 @@ def render_panel(pil, image_label, heats, save_path):
 
 def main(args):
     device = torch.device(args.device)
-    bb_fn, head, sb, mean, std, model, kind, bb_module = load_ckpt(args.ckpt, device)
-    print(f"[ckpt] loaded {args.ckpt}", flush=True)
+    bb_fn, head, sb, mean, std, model, kind, bb_module, obj_head = load_ckpt(args.ckpt, device)
+    if obj_head is not None and args.no_objectness:
+        obj_head = None
+    print(f"[ckpt] loaded {args.ckpt}  obj_gate={'on' if obj_head is not None else 'off'}", flush=True)
 
     import open_clip
     text_model, _, _ = open_clip.create_model_and_transforms("ViT-B-16", pretrained="openai")
@@ -92,7 +94,7 @@ def main(args):
         pil = _PIL.open(img_p).convert("RGB")
         heats = []
         for q in KEYWORDS:
-            heat = heatmap_one(pil, q, bb_fn, head, sb, mean, std, text_model, tok, device)
+            heat = heatmap_one(pil, q, bb_fn, head, sb, mean, std, text_model, tok, device, obj_head=obj_head)
             hmax = float(heat.max()); hmean = float(heat.mean())
             heats.append((q, heat, hmax, hmean))
             aggregate.append((img_p.stem, q, hmax, hmean))
@@ -116,4 +118,7 @@ if __name__ == "__main__":
     p.add_argument("--device", default="cpu")
     p.add_argument("--image_dir", default="/home/ogata/semantic-autogaze/data/eval_openvocab_streets")
     p.add_argument("--output_dir", required=True)
+    p.add_argument("--no_objectness", action="store_true",
+                   help="Disable obj-gate even if the ckpt has one. Used to A/B "
+                        "compare gated vs ungated on the same ckpt.")
     main(p.parse_args())

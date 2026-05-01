@@ -30,7 +30,7 @@ sys.path.insert(0, "/home/ogata/semantic-autogaze/scripts")
 from train_independent_scorer import TextScorerHead, GRID
 from train_independent_scorer_v2 import IM_MEAN, IM_STD
 from pycocotools.coco import COCO
-from train_siglip_dense_distill import build_backbone, SiglipBias, CLIP_MEAN, CLIP_STD
+from train_siglip_dense_distill import build_backbone, SiglipBias, CLIP_MEAN, CLIP_STD, ObjectnessHead
 
 # Same QUAL_PAIRS as cycle 2's qual grid for direct comparison
 QUAL_PAIRS = [
@@ -89,11 +89,20 @@ def load_ckpt(ckpt_path, device):
         sb._is_per_query = False
     if "backbone_state" in ck:
         bb_module.load_state_dict(ck["backbone_state"])
-    return bb_fn, head, sb, mean, std, model, kind, bb_module
+    # Optional objectness head (phase21+). When the ckpt has an 'obj' state-dict,
+    # construct an ObjectnessHead with the same patch_dim and load it. Inference
+    # callers can then multiply per-query sigmoid scores by sigmoid(objectness)
+    # to suppress query-agnostic background/context cells.
+    obj_head = None
+    if "obj" in ck and ck["obj"] is not None:
+        obj_head = ObjectnessHead(patch_dim=patch_dim).to(device).eval()
+        obj_head.load_state_dict(ck["obj"])
+    return bb_fn, head, sb, mean, std, model, kind, bb_module, obj_head
 
 
 @torch.no_grad()
-def heatmap_one(pil, query, bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device):
+def heatmap_one(pil, query, bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device,
+                obj_head=None, obj_gate: bool = True):
     arr = np.array(pil.resize((224, 224), Image.BICUBIC))
     x = (arr.astype(np.float32) / 255.0 - np.array(mean, dtype=np.float32)) / np.array(std, dtype=np.float32)
     x = torch.from_numpy(x).permute(2, 0, 1).float().unsqueeze(0).to(device)
@@ -107,7 +116,11 @@ def heatmap_one(pil, query, bb_fn, head, sb, mean, std, clip_model_text, clip_to
         cal = sb(logits_wrapped, text).squeeze(0).squeeze(0)
     else:
         cal = sb(logits)
-    return torch.sigmoid(cal).cpu().numpy()
+    prob = torch.sigmoid(cal)
+    if obj_gate and obj_head is not None:
+        obj_logits = obj_head(patches).squeeze(0)  # (GRID, GRID)
+        prob = prob * torch.sigmoid(obj_logits)
+    return prob.cpu().numpy()
 
 
 def iou_topk(soft_14, gt_full, K=None):
@@ -124,7 +137,7 @@ def iou_topk(soft_14, gt_full, K=None):
     return float(inter / max(1, union))
 
 
-def eval_qual_grid(bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device, output_dir):
+def eval_qual_grid(bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device, output_dir, obj_head=None):
     coco = COCO(os.path.join(COCO_ROOT, "annotations", "instances_val2017.json"))
     rows = []
     for cat, img_id, query in QUAL_PAIRS:
@@ -136,7 +149,7 @@ def eval_qual_grid(bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device
         info = coco.loadImgs([img_id])[0]
         img_path = os.path.join(COCO_ROOT, "val2017", info["file_name"])
         pil = Image.open(img_path).convert("RGB")
-        h = heatmap_one(pil, query, bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device)
+        h = heatmap_one(pil, query, bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device, obj_head=obj_head)
         iou = iou_topk(h, gt)
         rows.append((cat, query, h, iou, np.array(pil), gt))
         print(f"  {cat:8s} '{query}': IoU={iou:.3f}", flush=True)
@@ -169,7 +182,7 @@ def eval_qual_grid(bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device
     return {"miou": miou, "per_cat": {r[0]: r[3] for r in rows}}
 
 
-def eval_demo_frames(bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device, output_dir):
+def eval_demo_frames(bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device, output_dir, obj_head=None):
     rows = []
     for fpath in PI_FRAMES:
         if not os.path.exists(fpath): continue
@@ -203,8 +216,8 @@ def main(args):
     os.makedirs(args.output_dir, exist_ok=True)
 
     print(f"[ckpt] loading {args.ckpt}", flush=True)
-    bb_fn, head, sb, mean, std, model, kind, bb_module = load_ckpt(args.ckpt, device)
-    print(f"  model={model}", flush=True)
+    bb_fn, head, sb, mean, std, model, kind, bb_module, obj_head = load_ckpt(args.ckpt, device)
+    print(f"  model={model}  obj_head={'yes' if obj_head is not None else 'no'}", flush=True)
 
     print(f"[clip-text] loading ...", flush=True)
     import open_clip
@@ -214,10 +227,10 @@ def main(args):
 
     if not args.skip_qual:
         print("\n=== COCO qual grid ===", flush=True)
-        qual = eval_qual_grid(bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device, args.output_dir)
+        qual = eval_qual_grid(bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device, args.output_dir, obj_head=obj_head)
     if not args.skip_demo:
         print("\n=== demo failure-mode frames ===", flush=True)
-        eval_demo_frames(bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device, args.output_dir)
+        eval_demo_frames(bb_fn, head, sb, mean, std, clip_model_text, clip_tok, device, args.output_dir, obj_head=obj_head)
 
 
 if __name__ == "__main__":
