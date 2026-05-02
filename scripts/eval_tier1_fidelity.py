@@ -197,6 +197,29 @@ def load_question_pool(args):
     pool = []
     notes = []
 
+    # ---- (a-prime) explicit JSON via --question_source (cycle 2 stratified sampling) ----
+    if args.question_source and os.path.isfile(args.question_source) and args.question_source.endswith(".json"):
+        try:
+            with open(args.question_source) as f:
+                qj = json.load(f)
+            samples_in = qj.get("samples", qj if isinstance(qj, list) else [])
+            search_dirs = [
+                os.path.join(REPO_ROOT, "data/hlvid_videos"),
+                os.path.join(REPO_ROOT, "data/hlvid_subset_v3_kshrink"),
+                os.path.join(REPO_ROOT, "hlvid_videos/extracted_household/videos"),
+                os.path.join(REPO_ROOT, "hlvid_videos/extracted/videos"),
+            ]
+            matched = []
+            for s in samples_in:
+                vp = find_video(s.get("video", s.get("video_basename", "")), search_dirs)
+                if vp:
+                    matched.append({"video_path": vp, "question": s["question"]})
+            if matched:
+                notes.append(f"question_source JSON: {len(samples_in)} entries, matched {len(matched)} mp4s")
+                return matched, notes
+        except Exception as e:
+            notes.append(f"question_source JSON load failed: {type(e).__name__}: {e}")
+
     # ---- (a) sweep.log ----
     sweep_log = os.path.join(REPO_ROOT, "results/hlvid_household_expand/sweep.log")
     sweep_triples = parse_sweep_log(sweep_log)

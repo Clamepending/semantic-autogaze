@@ -1,0 +1,185 @@
+{
+  "samples": [
+    {
+      "question_id": 252,
+      "video": "clip_household_video_19_001.mp4",
+      "question": "What is written on the gray bag?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 65,
+      "video": "clip_household_video_14_002.mp4",
+      "question": "What are the white texts displayed on the black electronic device?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 70,
+      "video": "clip_household_video_14_002.mp4",
+      "question": "On the gray surface, which combination of texts is correctly ordered from left to right?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 44,
+      "video": "clip_household_video_14_000.mp4",
+      "question": "What are the white texts on the black motherboard?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 260,
+      "video": "clip_household_video_19_006.mp4",
+      "question": "What is the title of the top white book on the brown table?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 24,
+      "video": "clip_household_video_14_000.mp4",
+      "question": "What is written on the gray rectangular object?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 254,
+      "video": "clip_household_video_19_002.mp4",
+      "question": "What brown figure is on the top shelf?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 153,
+      "video": "clip_household_video_19_000.mp4",
+      "question": "How many spikes are visible in the bathroom mirror?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 258,
+      "video": "clip_household_video_19_005.mp4",
+      "question": "What color is the soap bottle by the sink?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 122,
+      "video": "clip_household_video_17_000.mp4",
+      "question": "What is written in silver on the white speaker?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 264,
+      "video": "clip_household_video_4_000.mp4",
+      "question": "What is written on the orange soap bottle?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 152,
+      "video": "clip_household_video_19_000.mp4",
+      "question": "What brand is the TV?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 27,
+      "video": "clip_household_video_14_000.mp4",
+      "question": "What is written on the black button inside the black phone?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 159,
+      "video": "clip_household_video_19_004.mp4",
+      "question": "What is written in white on the brown book?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 15,
+      "video": "clip_household_video_0_001.mp4",
+      "question": "What is displayed on the black screen?",
+      "is_ocr": false
+    },
+    {
+      "question_id": 68,
+      "video": "clip_household_video_14_002.mp4",
+      "question": "On the black background, what numbers are displayed in white text?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 115,
+      "video": "clip_household_video_16_001.mp4",
+      "question": "What does the white text say on the black background?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 248,
+      "video": "clip_household_video_17_000.mp4",
+      "question": "What does the black text on the black rectangular object say?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 31,
+      "video": "clip_household_video_14_000.mp4",
+      "question": "What brand is displayed in the white text on the black monitor?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 73,
+      "video": "clip_household_video_14_002.mp4",
+      "question": "What numbers are displayed on the white twelve lines in the center tab?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 158,
+      "video": "clip_household_video_19_003.mp4",
+      "question": "What is written on the white soap label?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 49,
+      "video": "clip_household_video_14_000.mp4",
+      "question": "What numbers are displayed on the white display on the black surface?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 28,
+      "video": "clip_household_video_14_000.mp4",
+      "question": "What does the white text say on the black object?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 75,
+      "video": "clip_household_video_14_002.mp4",
+      "question": "What does the white text say on the black cable?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 151,
+      "video": "clip_household_video_19_000.mp4",
+      "question": "What is the text on the white watermark?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 10,
+      "video": "clip_household_video_0_000.mp4",
+      "question": "What text is visible on the dark blue and black packet placed on the brown wooden chair?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 55,
+      "video": "clip_household_video_14_001.mp4",
+      "question": "What does the white text say on the amplifier?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 14,
+      "video": "clip_household_video_0_001.mp4",
+      "question": "What does the white text on the black screen read?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 60,
+      "video": "clip_household_video_14_001.mp4",
+      "question": "What does the brown text say on the black speaker?",
+      "is_ocr": true
+    },
+    {
+      "question_id": 20,
+      "video": "clip_household_video_14_000.mp4",
+      "question": "What does the white text on the screen read?",
+      "is_ocr": true
+    }
+  ],
+  "note": "Stratified 15 non-OCR + 15 OCR HLVid household questions, seed 2026, parquet derived"
+}
