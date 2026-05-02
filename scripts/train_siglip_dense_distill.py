@@ -619,6 +619,7 @@ def build_backbone(model: str, device, finetune_blocks: int = 0):
         return fn, 576, IM_MEAN, IM_STD, "timm-cnn", bb
     if model in ("fastvit-t8", "mobilevit-xs", "convnext-atto", "convnext-femto",
                   "convnext-pico", "convnext-nano", "convnext-tiny",
+                  "convnext-small", "convnext-base", "convnext-large",
                   "repvit-m1", "efficientformerv2-s0"):
         # Small/mobile architectures from timm. All output 4D spatial features
         # which we interpolate to GRID×GRID.
@@ -630,6 +631,9 @@ def build_backbone(model: str, device, finetune_blocks: int = 0):
             "convnext-pico":       "convnext_pico.d1_in1k",
             "convnext-nano":       "convnext_nano.in12k_ft_in1k",
             "convnext-tiny":       "convnext_tiny.in12k_ft_in1k",
+            "convnext-small":      "convnext_small.in12k_ft_in1k",
+            "convnext-base":       "convnext_base.fb_in22k_ft_in1k",
+            "convnext-large":      "convnext_large.fb_in22k_ft_in1k",
             "repvit-m1":           "repvit_m1.dist_in1k",
             "efficientformerv2-s0": "efficientformerv2_s0.snap_dist_in1k",
         }
@@ -672,6 +676,32 @@ def build_backbone(model: str, device, finetune_blocks: int = 0):
                 return f[:, :GRID*GRID, :]  # last resort
             raise RuntimeError(f"unexpected feat shape: {f.shape}")
         return fn, embed_dim, IM_MEAN, IM_STD, "timm-mobile-hybrid", bb
+    if model in ("dinov2-base", "dinov2-large"):
+        # DINOv2 base/large — 86M / 304M params. Patch 14, must be input divisible by 14.
+        timm_dinov2_map = {
+            "dinov2-base":  "vit_base_patch14_dinov2.lvd142m",
+            "dinov2-large": "vit_large_patch14_dinov2.lvd142m",
+        }
+        bb = timm.create_model(timm_dinov2_map[model],
+                               pretrained=True, num_classes=0,
+                               img_size=224, dynamic_img_size=True).to(device)
+        for p in bb.parameters(): p.requires_grad_(False)
+        if finetune_blocks > 0:
+            for blk in bb.blocks[-finetune_blocks:]:
+                for p in blk.parameters(): p.requires_grad_(True)
+        DINOV2_MEAN = (0.485, 0.456, 0.406)
+        DINOV2_STD = (0.229, 0.224, 0.225)
+        embed_dim = bb.embed_dim
+        def fn(x):
+            f = bb.forward_features(x)
+            patches = f[:, 1:, :]
+            B, N, D = patches.shape
+            side = int(N ** 0.5)
+            grid = patches.permute(0, 2, 1).reshape(B, D, side, side)
+            grid = F.interpolate(grid, size=(GRID, GRID), mode="bilinear", align_corners=False)
+            return grid.permute(0, 2, 3, 1).reshape(B, GRID * GRID, D)
+        print(f"[backbone] {model}: timm={timm_dinov2_map[model]} embed_dim={embed_dim}", flush=True)
+        return fn, embed_dim, DINOV2_MEAN, DINOV2_STD, "timm-dinov2", bb
     if model == "dinov2-s":
         # DINOv2 ViT-Small/14 — self-supervised, very strong patch features.
         # 22M params. Patch 14 → 16x16 patches at 224 input.
@@ -1142,7 +1172,8 @@ def train(args):
                                   cat_per_index=ds.cat_per_index,
                                   category_alpha=args.category_alpha,
                                   source_per_index=ds.source_per_index,
-                                  source_weights=source_w)
+                                  source_weights=source_w,
+                                  seed=args.seed)
         loader = DataLoader(ds, batch_size=args.batch_size, sampler=sampler,
                             num_workers=args.num_workers, collate_fn=collate,
                             drop_last=True, pin_memory=True)
@@ -1738,9 +1769,13 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--device", default="cuda:0")
     p.add_argument("--model", required=True,
-                   choices=["v1", "v2-tiny", "d-mobile", "dinov2-s", "mobileclip-s2",
-                            "fastvit-t8", "mobilevit-xs", "convnext-atto",
-                            "convnext-femto", "convnext-pico", "convnext-nano", "convnext-tiny",
+                   choices=["v1", "v2-tiny", "d-mobile",
+                            "dinov2-s", "dinov2-base", "dinov2-large",
+                            "mobileclip-s2",
+                            "fastvit-t8", "mobilevit-xs",
+                            "convnext-atto", "convnext-femto", "convnext-pico",
+                            "convnext-nano", "convnext-tiny",
+                            "convnext-small", "convnext-base", "convnext-large",
                             "repvit-m1", "efficientformerv2-s0"])
     p.add_argument("--target_dir", default="/home/ogata/semantic-autogaze/results/phase2_targets")
     p.add_argument("--image_dir", default="/home/ogata/semantic-autogaze/data/coco_val2017/val2017")
@@ -1900,5 +1935,15 @@ if __name__ == "__main__":
 
     p.add_argument("--log_every", type=int, default=10)
     p.add_argument("--save_every", type=int, default=200)
+    p.add_argument("--seed", type=int, default=42,
+                   help="Global RNG seed for reproducibility / noise-floor "
+                        "replication (n=3 seeds for the leader). Sets numpy, "
+                        "torch, and cuda RNGs; BalancedSampler also derives "
+                        "from it.")
     args = p.parse_args()
+    import random as _random
+    _random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    torch.cuda.manual_seed_all(args.seed)
     train(args)
