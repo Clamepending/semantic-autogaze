@@ -948,6 +948,24 @@ def train(args):
         }
         print(f"  teacher: model={t_model}, patch_dim={t_pd}, mean={t_mean}", flush=True)
 
+    # Phase 29: optional CLIPSeg-heatmap distillation teacher (HF
+    # CIDAS/clipseg-rd64-refined). Loaded once, frozen, eval. Per batch,
+    # CLIPSeg processes the on-diagonal (image, query) pairs, returning a
+    # 352x352 sigmoid mask that is max-pooled to G_out for an MSE target.
+    clipseg_model = None
+    clipseg_tokenizer = None
+    if args.clipseg_distill:
+        from transformers import CLIPSegProcessor, CLIPSegForImageSegmentation
+        print(f"[clipseg-distill] loading CLIPSeg {args.clipseg_model} ...", flush=True)
+        cs_processor = CLIPSegProcessor.from_pretrained(args.clipseg_model)
+        clipseg_tokenizer = cs_processor.tokenizer
+        clipseg_model = CLIPSegForImageSegmentation.from_pretrained(args.clipseg_model).to(device).eval()
+        for p in clipseg_model.parameters(): p.requires_grad_(False)
+        print(f"  CLIPSeg loaded (lambda_clipseg={args.lambda_clipseg}).", flush=True)
+    # CLIP image-mean/std (CLIPSeg uses CLIP-B/16 vision tower)
+    CLIPSEG_MEAN = (0.48145466, 0.4578275, 0.40821073)
+    CLIPSEG_STD = (0.26862954, 0.26130258, 0.27577711)
+
     # Head
     if args.grid_size_out == GRID:
         head = TextScorerHead(
@@ -1458,6 +1476,40 @@ def train(args):
                 w = weight_pair.unsqueeze(-1).unsqueeze(-1).expand_as(s_probs)
                 L_distill = ((s_probs - t_probs) ** 2 * w).sum() / w.sum().clamp(min=1)
 
+            # 9a-CLIPSeg) Phase 29 inline CLIPSeg distillation. On-diagonal only:
+            # the supervised (b, b) pair gets a CLIPSeg sigmoid map as soft target.
+            # Off-diagonal absence is already handled by L_dense's BCE-on-zero.
+            L_clipseg = torch.tensor(0.0, device=device)
+            if clipseg_model is not None and args.lambda_clipseg > 0:
+                with torch.no_grad():
+                    s_mean_t = torch.tensor(np.array(mean, dtype=np.float32), device=device).view(1, 3, 1, 1)
+                    s_std_t = torch.tensor(np.array(std, dtype=np.float32), device=device).view(1, 3, 1, 1)
+                    images_01 = (images * s_std_t + s_mean_t).clamp(0.0, 1.0)
+                    images_352 = F.interpolate(images_01, size=(352, 352), mode="bilinear", align_corners=False)
+                    cs_mean_t = torch.tensor(CLIPSEG_MEAN, device=device).view(1, 3, 1, 1)
+                    cs_std_t = torch.tensor(CLIPSEG_STD, device=device).view(1, 3, 1, 1)
+                    pixel_values = (images_352 - cs_mean_t) / cs_std_t
+                    tok = clipseg_tokenizer(list(queries), padding=True, return_tensors="pt")
+                    cs_input_ids = tok["input_ids"].to(device)
+                    cs_attn_mask = tok["attention_mask"].to(device)
+                    cs_out = clipseg_model(
+                        input_ids=cs_input_ids,
+                        attention_mask=cs_attn_mask,
+                        pixel_values=pixel_values,
+                    )
+                    cs_logits = cs_out.logits  # (B, 352, 352) or (B, 1, 352, 352)
+                    if cs_logits.dim() == 4:
+                        cs_logits = cs_logits.squeeze(1)
+                    cs_probs = torch.sigmoid(cs_logits).unsqueeze(1)  # (B, 1, 352, 352)
+                    cs_target = F.adaptive_max_pool2d(cs_probs, (G_out, G_out)).squeeze(1)  # (B, G, G)
+                # Student diagonal probs: cal_logits[b, b] for b in 0..B-1
+                diag_idx = torch.arange(B, device=device)
+                s_diag_logits = cal_logits[diag_idx, diag_idx]  # (B, G_out, G_out)
+                s_diag_probs = torch.sigmoid(s_diag_logits)
+                # Mask diagonal pairs to those with presence (skip absent rows)
+                pres_w = presence.float().view(B, 1, 1)
+                L_clipseg = ((s_diag_probs - cs_target) ** 2 * pres_w).sum() / pres_w.sum().clamp(min=1) / (G_out * G_out)
+
             # 9b) L_calib: clamp the worst false-positive cell on clean off-diagonal
             # (absent) pairs. For each (i, j) with i != j AND fn_keep[i,j] == 1, take
             # m_ij = sigmoid(cal_logits[i,j]).amax() over (H, W) — the per-pair worst
@@ -1518,7 +1570,7 @@ def train(args):
             else:
                 L_objectness = torch.tensor(0.0, device=device)
 
-            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill + args.hard_neg_weight * L_hard_neg + args.lambda_calib * L_calib + args.objectness_weight * L_objectness + args.lambda_bias_var * L_bias_var
+            L = L_dense + args.lambda_pool * L_pool + args.lambda_dice * L_dice + args.lambda_distill * L_distill + args.lambda_clipseg * L_clipseg + args.hard_neg_weight * L_hard_neg + args.lambda_calib * L_calib + args.objectness_weight * L_objectness + args.lambda_bias_var * L_bias_var
 
             opt.zero_grad(); L.backward(); opt.step()
             step += 1
@@ -1553,6 +1605,7 @@ def train(args):
                     "L_dice": float(L_dice.item()),
                     "L_hard_neg": float(L_hard_neg.item()) if isinstance(L_hard_neg, torch.Tensor) else 0.0,
                     "L_distill": float(L_distill.item()) if isinstance(L_distill, torch.Tensor) else 0.0,
+                    "L_clipseg": float(L_clipseg.item()) if isinstance(L_clipseg, torch.Tensor) else 0.0,
                     "L_calib": float(L_calib.item()) if isinstance(L_calib, torch.Tensor) else 0.0,
                     "L_bias_var": float(L_bias_var.item()) if isinstance(L_bias_var, torch.Tensor) else 0.0,
                     "L_objectness": float(L_objectness.item()) if isinstance(L_objectness, torch.Tensor) else 0.0,
@@ -1744,6 +1797,19 @@ if __name__ == "__main__":
                    help="Path to teacher ckpt (e.g. DINOv2-small). Adds MSE-on-teacher-prob loss.")
     p.add_argument("--lambda_distill", type=float, default=0.5,
                    help="Weight on the teacher-MSE distillation loss term.")
+    p.add_argument("--clipseg_distill", action="store_true", default=False,
+                   help="Phase29: enable inline CLIPSeg-heatmap distillation. "
+                        "Per batch, run CLIPSeg(image, query) on the on-diagonal "
+                        "(b, b) pairs, max-pool the 352x352 sigmoid map to G_out, "
+                        "MSE vs sigmoid(student diagonal logits). Adds ~150 ms / "
+                        "step on RTX 4090 at B=16. CLIPSeg is the phase28 indoor-"
+                        "winning teacher; goal is to inherit its localization at "
+                        "Pi-class latency.")
+    p.add_argument("--lambda_clipseg", type=float, default=1.0,
+                   help="Weight on the CLIPSeg-MSE distillation loss term. Only "
+                        "active when --clipseg_distill is set.")
+    p.add_argument("--clipseg_model", type=str, default="CIDAS/clipseg-rd64-refined",
+                   help="HuggingFace CLIPSeg model id for distillation teacher.")
     p.add_argument("--lambda_calib", type=float, default=0.0,
                    help="Weight on the absent-pair max-prob calibration loss. Penalizes relu(max_cell_prob - calib_target_max)^2 over clean off-diagonal (absent) pairs to clamp worst false-positive cell. 0 = disabled.")
     p.add_argument("--calib_target_max", type=float, default=0.30,
