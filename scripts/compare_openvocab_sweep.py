@@ -9,6 +9,7 @@ Usage:
 """
 from __future__ import annotations
 import argparse, csv, sys
+from itertools import combinations
 from pathlib import Path
 
 ROOT_OUTDOOR = Path("/home/ogata/mac-brain/projects/semantic-autogaze/figures/openvocab_eval")
@@ -150,35 +151,102 @@ def load(slug, root):
     return rows
 
 
-def score_ckpt(rows, annot):
-    """Composite score in [-N, +N]:
-       +1 for TP fires (max >= THRESH)
-       -1 for FP fires (max >= THRESH)
-       +0.5 for ABS abstains (max < THRESH)
-       0 for TP_low (low-contrast, hard to score)
-    """
+def score_at_threshold(rows, annot, thresh, frame_filter=None):
+    """Composite score with explicit threshold and optional frame filter.
+    +1 TP fire, -1 FP fire, +0.5 ABS abstain, -0.5 ABS fire, 0 TP_low."""
     s = 0.0; n_tp = n_tp_hit = n_fp = n_fp_hit = n_abs = n_abs_hit = 0
     for k, (tag, _) in annot.items():
         if k not in rows: continue
+        if frame_filter is not None and k[0] not in frame_filter: continue
         m = rows[k]
         if tag == "TP":
             n_tp += 1
-            if m >= THRESH:
+            if m >= thresh:
                 s += 1.0; n_tp_hit += 1
         elif tag == "FP":
             n_fp += 1
-            if m >= THRESH:
+            if m >= thresh:
                 s -= 1.0
             else:
-                n_fp_hit += 1  # correctly abstained
+                n_fp_hit += 1
         elif tag == "ABS":
             n_abs += 1
-            if m < THRESH:
+            if m < thresh:
                 s += 0.5; n_abs_hit += 1
             else:
                 s -= 0.5
-        # TP_low: skip
     return s, (n_tp_hit, n_tp, n_fp_hit, n_fp, n_abs_hit, n_abs)
+
+
+def score_ckpt(rows, annot):
+    """Composite score at the default deployment THRESH=0.45."""
+    return score_at_threshold(rows, annot, THRESH)
+
+
+def calibrated_score(rows, annot, frames, tau_grid=None):
+    """Per-model held-out threshold via leave-2-out CV across frames.
+
+    For each (cal, eval) split where cal and eval each have len(frames)//2 frames,
+    pick τ* maximizing composite on cal, evaluate on eval. Return:
+      - mean held-out eval composite (per-frame normalized to a full-bench equivalent)
+      - the τ chosen across all splits (modal value)
+      - the (TP, FP, ABS) breakdown averaged across eval splits, normalized to full-bench scale.
+
+    For a 4-frame bench, this produces 6 leave-2-out splits.
+    For a 2-frame bench (outdoor), only 2 splits are possible; falls back to
+    leave-1-out (2 splits).
+    """
+    if tau_grid is None:
+        tau_grid = [round(0.30 + 0.01 * i, 3) for i in range(70)]  # 0.30 .. 0.99
+    n_frames = len(frames)
+    half = max(1, n_frames // 2)
+
+    splits = list(combinations(frames, half))
+    # for each cal_set, the eval_set is the complement
+    cv_pairs = []
+    for cal in splits:
+        ev = tuple(f for f in frames if f not in cal)
+        # avoid duplicate (cal, ev) where ev == cal (only at n_frames=2 with half=1, we get
+        # (a,) cal -> (b,) ev AND (b,) cal -> (a,) ev — both useful)
+        cv_pairs.append((set(cal), set(ev)))
+
+    eval_total = 0.0
+    eval_tp = eval_tp_n = eval_fp = eval_fp_n = eval_abs = eval_abs_n = 0
+    tau_history = []
+    for cal_set, ev_set in cv_pairs:
+        # find best tau on cal
+        best_t = THRESH; best_cs = -1e9
+        for t in tau_grid:
+            cs, _ = score_at_threshold(rows, annot, t, frame_filter=cal_set)
+            if cs > best_cs:
+                best_cs = cs; best_t = t
+        tau_history.append(best_t)
+        # apply on eval
+        es, (tp, tp_n, fp, fp_n, ab, ab_n) = score_at_threshold(
+            rows, annot, best_t, frame_filter=ev_set
+        )
+        eval_total += es
+        eval_tp += tp; eval_tp_n += tp_n
+        eval_fp += fp; eval_fp_n += fp_n
+        eval_abs += ab; eval_abs_n += ab_n
+    # normalize to full-bench equivalent: each (cal,ev) split's eval covers
+    # ev_size / total_size of the bench. averaging the per-split eval scores
+    # gives the per-cv-fold score, which we scale by total_size / ev_size.
+    avg_eval = eval_total / len(cv_pairs)
+    scale = n_frames / half
+    full_equiv = avg_eval * scale
+    # average the breakdowns the same way
+    avg_tp = (eval_tp / len(cv_pairs)) * scale
+    avg_tp_n = (eval_tp_n / len(cv_pairs)) * scale
+    avg_fp = (eval_fp / len(cv_pairs)) * scale
+    avg_fp_n = (eval_fp_n / len(cv_pairs)) * scale
+    avg_abs = (eval_abs / len(cv_pairs)) * scale
+    avg_abs_n = (eval_abs_n / len(cv_pairs)) * scale
+    # modal tau
+    tau_mode = max(set(tau_history), key=tau_history.count)
+    return (full_equiv, tau_mode,
+            (avg_tp, avg_tp_n, avg_fp, avg_fp_n, avg_abs, avg_abs_n),
+            tau_history)
 
 
 def main():
@@ -190,6 +258,11 @@ def main():
     p.add_argument("--slugs", default=None,
                    help="comma-separated subset of slugs to score; "
                         "default scores every directory under the chosen bench root.")
+    p.add_argument("--calibrated", action="store_true",
+                   help="ALSO compute per-model held-out optimal threshold via "
+                        "leave-2-out CV across frames. Reports raw + calibrated "
+                        "composite side-by-side. Single-parameter (per-model τ) "
+                        "tuning, not per-query — robust against bench-size leakage.")
     args = p.parse_args()
 
     if args.bench == "openvocab":
@@ -216,17 +289,36 @@ def main():
         slugs = [s.strip() for s in args.slugs.split(",") if s.strip()]
     else:
         slugs = sorted([d.name for d in root.iterdir() if d.is_dir()])
+
+    # Frames inferred from annotations
+    frames = sorted(set(k[0] for k in annot.keys()))
+
     rows = []
     for slug in slugs:
         r = load(slug, root)
         if r is None: continue
         s, (tp, tp_n, fp, fp_n, ab, ab_n) = score_ckpt(r, annot)
-        rows.append((s, slug, tp, tp_n, fp, fp_n, ab, ab_n, r))
-    rows.sort(reverse=True)
-    print(f"\n=== open-vocab leaderboard ({THRESH=}, bench={bench_label}) — sorted by composite score ===\n")
-    print(f"{'rank':>4} {'slug':<54} {'score':>6} {'TP/TP':>8} {'AbsFP/FP':>10} {'Abs/ABS':>8}")
-    for i, (s, slug, tp, tp_n, fp, fp_n, ab, ab_n, _) in enumerate(rows, 1):
-        print(f"{i:>4} {slug:<54} {s:>+6.1f} {tp:>3}/{tp_n:<3}    {fp:>3}/{fp_n:<3}      {ab:>3}/{ab_n:<3}")
+        cal_score = None; cal_tau = None; cal_breakdown = None
+        if args.calibrated:
+            cal_score, cal_tau, cal_breakdown, _ = calibrated_score(r, annot, frames)
+        rows.append((s, slug, tp, tp_n, fp, fp_n, ab, ab_n, r,
+                     cal_score, cal_tau, cal_breakdown))
+    # Sort by calibrated score if requested, else raw
+    if args.calibrated:
+        rows.sort(key=lambda x: (x[9] if x[9] is not None else x[0]), reverse=True)
+    else:
+        rows.sort(reverse=True)
+    print(f"\n=== open-vocab leaderboard ({THRESH=}, bench={bench_label}) — sorted by {'calibrated' if args.calibrated else 'raw'} composite score ===\n")
+    if args.calibrated:
+        print(f"{'rank':>4} {'slug':<54} {'raw':>6} {'cal':>6} {'τ*':>5} {'TP/TP':>8} {'AbsFP/FP':>10} {'Abs/ABS':>8}")
+        for i, (s, slug, tp, tp_n, fp, fp_n, ab, ab_n, _, cs, ct, cb) in enumerate(rows, 1):
+            cal_str = f"{cs:>+6.1f}" if cs is not None else "  n/a"
+            tau_str = f"{ct:>.2f}" if ct is not None else "  n/a"
+            print(f"{i:>4} {slug:<54} {s:>+6.1f} {cal_str} {tau_str} {tp:>3}/{tp_n:<3}    {fp:>3}/{fp_n:<3}      {ab:>3}/{ab_n:<3}")
+    else:
+        print(f"{'rank':>4} {'slug':<54} {'score':>6} {'TP/TP':>8} {'AbsFP/FP':>10} {'Abs/ABS':>8}")
+        for i, (s, slug, tp, tp_n, fp, fp_n, ab, ab_n, _, *_extra) in enumerate(rows, 1):
+            print(f"{i:>4} {slug:<54} {s:>+6.1f} {tp:>3}/{tp_n:<3}    {fp:>3}/{fp_n:<3}      {ab:>3}/{ab_n:<3}")
 
     # FP-only view: which ckpts kill the absent-class FPs?
     print(f"\n=== FP-fires detail (5/6 means abstained on 5 = fired on 1, threshold {THRESH}) ===\n")
@@ -234,13 +326,15 @@ def main():
     if fp_keys:
         col_w = 12 if args.bench == "openvocab-indoor" else 8
         print(f"{'slug':<54}  " + " ".join(f"{(k[0][:6]+'/'+k[1][:8])[:col_w]:>{col_w}}" for k in fp_keys[:8]))
-        for _, slug, *_, r in rows:
+        for row in rows:
+            slug = row[1]; r = row[8]
             vals = " ".join(f"{r.get(k, 0):>{col_w}.2f}" for k in fp_keys[:8])
             print(f"{slug:<54}  {vals}")
 
     # elephant abstention
     print(f"\n=== elephant abstention (lower is better; threshold {THRESH}) ===\n")
-    for _, slug, *_, r in rows:
+    for row in rows:
+        slug = row[1]; r = row[8]
         vals = " ".join(f"{k[0]}={r.get(k, float('nan')):>4.2f}" for k in elephant_keys)
         print(f"  {slug:<54}  {vals}")
 
