@@ -197,10 +197,10 @@ def main(args):
 
     all_models = []
     for label, ckpt in [
-        ("phase29q (atto)", "/home/ogata/semantic-autogaze/results/phase29q_atto_lambda1_no_existing_distill_10k/best_val.pt"),
-        ("phase24d (v0.7.0 ship)", "/home/ogata/semantic-autogaze/results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt"),
-        ("phase32c (ConvNeXt-large 50K)", "/home/ogata/semantic-autogaze/results/phase32c_convnext_large_q_lr1e4_50k/best_val.pt"),
-        ("phase32d (DINOv2-large 50K)", "/home/ogata/semantic-autogaze/results/phase32d_dinov2l_q_lr1e4_50k/best_val.pt"),
+        ("phase24d (incumbent ship, joint cal +27.3)", "/home/ogata/semantic-autogaze/results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt"),
+        ("phase29i lambda=0.5 (joint cal +35.7)", "/home/ogata/semantic-autogaze/results/phase29i_lambda05_10k/best_val.pt"),
+        ("phase29u lambda=0.3 (joint cal +32.0)", "/home/ogata/semantic-autogaze/results/phase29u_atto_lambda03_10k/best_val.pt"),
+        ("phase31e DINOv2-s (joint cal +31.3)", "/home/ogata/semantic-autogaze/results/phase31e_dinov2s_q_lr1e4_25k/best_val.pt"),
     ]:
         if not Path(ckpt).exists():
             print(f"[skip] {label} ckpt missing: {ckpt}", flush=True)
