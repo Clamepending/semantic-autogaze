@@ -56,19 +56,42 @@ def load_ckpt(ckpt_path, device):
     model = args.get("model", "v1")
     bb_fn, patch_dim, mean, std, kind, bb_module = build_backbone(
         model, device, finetune_blocks=args.get("finetune_backbone_blocks", 0))
-    head = TextScorerHead(
-        patch_dim=patch_dim, text_dim=512,
-        hidden_dim=args.get("head_hidden_dim", 384),
-        n_attn_heads=args.get("head_attn_heads", 6),
-        n_attn_layers=args.get("head_attn_layers", 2),
-        grid_size=GRID, use_spatial=args.get("head_use_spatial", True),
-    ).to(device).eval()
-    # Note: phase20 ckpts trained with --grid_size_out 28 have a state_dict
-    # that is parameter-bit-identical to this 14x14 head (the only difference
-    # is a bilinear upsample at the end of forward(); zero learnable params).
-    # So load_state_dict works cleanly and eval runs at 14x14 — which is the
-    # right resolution for the existing iou_topk + heatmap_one downstream.
-    head.load_state_dict(ck["head"])
+    # Phase35 cost-volume head detection: ckpts trained with --head_type
+    # cost_volume have a state dict with `cost_proj`, `transformer.layers.*`,
+    # `out_proj` keys instead of TextScorerHead's `patch_proj.*` etc.
+    head_state = ck["head"]
+    is_cost_volume = "cost_proj.weight" in head_state and "transformer.layers.0.self_attn.in_proj_weight" in head_state
+    if is_cost_volume:
+        from train_siglip_dense_distill import CostVolumeHead  # type: ignore
+        # Infer config from state-dict shapes
+        embed_dim = head_state["cost_proj.weight"].shape[0]
+        n_layers = sum(1 for k in head_state.keys() if k.startswith("transformer.layers.") and k.endswith(".self_attn.in_proj_weight"))
+        n_heads = args.get("cv_n_heads", 8)
+        # grid_in is fixed at 14 (backbone always interpolates to GRID)
+        # grid_out is recoverable from training args
+        grid_out = args.get("grid_size_out", 14)
+        head = CostVolumeHead(
+            patch_dim=patch_dim, text_dim=512,
+            grid_in=GRID, grid_out=grid_out,
+            embed_dim=embed_dim, n_heads=n_heads, n_layers=n_layers,
+        ).to(device).eval()
+        head.load_state_dict(head_state)
+        print(f"[ckpt] CostVolumeHead grid_in={GRID} grid_out={grid_out} "
+              f"embed_dim={embed_dim} n_layers={n_layers}", flush=True)
+    else:
+        head = TextScorerHead(
+            patch_dim=patch_dim, text_dim=512,
+            hidden_dim=args.get("head_hidden_dim", 384),
+            n_attn_heads=args.get("head_attn_heads", 6),
+            n_attn_layers=args.get("head_attn_layers", 2),
+            grid_size=GRID, use_spatial=args.get("head_use_spatial", True),
+        ).to(device).eval()
+        # Note: phase20 ckpts trained with --grid_size_out 28 have a state_dict
+        # that is parameter-bit-identical to this 14x14 head (the only difference
+        # is a bilinear upsample at the end of forward(); zero learnable params).
+        # So load_state_dict works cleanly and eval runs at 14x14 — which is the
+        # right resolution for the existing iou_topk + heatmap_one downstream.
+        head.load_state_dict(head_state)
     # phase19b/e/f compat: ckpts trained with --per_query_bias have an MLP-bias
     # SiglipBiasPerQuery sb instead of the global SiglipBias. Detect by sb
     # state_dict keys and instantiate the right class.
@@ -109,10 +132,14 @@ def heatmap_one(pil, query, bb_fn, head, sb, mean, std, clip_model_text, clip_to
     patches = bb_fn(x)  # (1, 196, D)
     toks = clip_tok([query]).to(device)
     text = F.normalize(clip_model_text.encode_text(toks), dim=-1)
-    logits = head(patches, text).reshape(GRID, GRID)
+    # Head output is flat (B, G_out*G_out) where G_out matches the head's
+    # configured grid_size_out (default 14, can be 28 or 56 for cost_volume).
+    logits_flat = head(patches, text)  # (1, G_out*G_out)
+    G_out = int(round((logits_flat.shape[-1]) ** 0.5))
+    logits = logits_flat.reshape(G_out, G_out)
     if getattr(sb, "_is_per_query", False):
         # SiglipBiasPerQuery expects (B, B, H, W) + (B, dim) text. Wrap singleton.
-        logits_wrapped = logits.unsqueeze(0).unsqueeze(0)  # (1, 1, GRID, GRID)
+        logits_wrapped = logits.unsqueeze(0).unsqueeze(0)  # (1, 1, G_out, G_out)
         cal = sb(logits_wrapped, text).squeeze(0).squeeze(0)
     else:
         cal = sb(logits)
