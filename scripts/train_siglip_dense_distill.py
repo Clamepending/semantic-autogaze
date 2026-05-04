@@ -114,6 +114,94 @@ class TextScorerHeadGrid28(TextScorerHead):
         return scores_up.reshape(B, self.grid_size_out * self.grid_size_out)
 
 
+# ---- Cost-volume head (phase35 / CAT-Seg-style) ----
+
+class CostVolumeHead(nn.Module):
+    """CAT-Seg-style cost-volume + transformer head (per-query spatial aggregation).
+
+    Replaces the dot-product head with: cosine_sim(patch_feats, text_emb) →
+    cost (B, HW) → embed each cell to D_embed via cost-conditional linear →
+    4-layer transformer encoder over HW tokens → linear project to scalar →
+    reshape to (B, G_in, G_in) → bilinear upsample to (B, G_out, G_out).
+
+    Interface contract matches TextScorerHead/Grid28: forward returns
+    (B, G_out*G_out) flat logits, called as head(patch_feats, text_emb)
+    where patch_feats is (B, GRID*GRID, patch_dim) and text_emb is (B, text_dim).
+
+    Why "per-query" spatial only: the existing trainer broadcasts the head
+    call to (B*B, ...) one (image, query) pair at a time, so we can't do
+    cross-class aggregation here. Spatial aggregation alone is the cycle-0
+    minimum; if borderline, refactor to multi-class in cycle 1.
+
+    Args:
+        patch_dim: backbone feature dim (e.g., 320 for atto, 768 for ViT-B/16).
+        text_dim: CLIP text embedding dim (e.g., 512).
+        grid_in: spatial grid of patch features (14 for atto+224, 24 for ViT-B/16+384).
+        grid_out: output mask grid (14, 28, 56, 96, ...). Bilinear upsample.
+        embed_dim: transformer hidden dim (default 256).
+        n_heads: transformer attention heads (default 8).
+        n_layers: transformer encoder layers (default 4).
+    """
+
+    def __init__(self, patch_dim: int, text_dim: int, grid_in: int = 14,
+                 grid_out: int = 14, embed_dim: int = 256, n_heads: int = 8,
+                 n_layers: int = 4):
+        super().__init__()
+        self.patch_dim = int(patch_dim)
+        self.text_dim = int(text_dim)
+        self.grid_in = int(grid_in)
+        self.grid_out = int(grid_out)
+        self.embed_dim = int(embed_dim)
+
+        # Project patch features to text-emb space if dims mismatch (so cosine
+        # similarity is well-defined). If dims match, this is identity-ish.
+        if patch_dim != text_dim:
+            self.patch_proj = nn.Linear(patch_dim, text_dim)
+        else:
+            self.patch_proj = nn.Identity()
+
+        # Cost-conditional input: each spatial cell gets its own embedding,
+        # initialized from the scalar cost. Use a small MLP that takes (cost,
+        # learned_pos_emb) and produces an embed_dim vector.
+        # Simpler: linear(cost, 1->embed_dim) + learned positional embedding.
+        self.cost_proj = nn.Linear(1, embed_dim)
+        n_cells = grid_in * grid_in
+        self.pos_embed = nn.Parameter(torch.zeros(n_cells, embed_dim))
+        nn.init.trunc_normal_(self.pos_embed, std=0.02)
+
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim, nhead=n_heads,
+            dim_feedforward=embed_dim * 2,
+            dropout=0.0, activation="gelu", batch_first=True, norm_first=True,
+        )
+        self.transformer = nn.TransformerEncoder(encoder_layer, num_layers=n_layers)
+        self.out_proj = nn.Linear(embed_dim, 1)
+
+    def forward(self, patch_feats, text_emb):
+        # patch_feats: (B, GRID*GRID, patch_dim)
+        # text_emb:    (B, text_dim)
+        B, HW, _ = patch_feats.shape
+        Gi = self.grid_in
+        assert HW == Gi * Gi, f"CostVolumeHead expects HW=Gi*Gi, got {HW} vs Gi={Gi}"
+
+        F_v = self.patch_proj(patch_feats)               # (B, HW, text_dim)
+        F_v = F.normalize(F_v, dim=-1)
+        F_t = F.normalize(text_emb, dim=-1)              # (B, text_dim)
+        cost = (F_v * F_t.unsqueeze(1)).sum(dim=-1)      # (B, HW), cosine sim per cell
+
+        # Embed scalar cost + learned positional embedding
+        cost_emb = self.cost_proj(cost.unsqueeze(-1))    # (B, HW, embed_dim)
+        x = cost_emb + self.pos_embed.unsqueeze(0)       # (B, HW, embed_dim)
+
+        x = self.transformer(x)                          # (B, HW, embed_dim)
+        scores = self.out_proj(x).squeeze(-1)            # (B, HW)
+        scores = scores.reshape(B, 1, Gi, Gi)
+        if self.grid_out != Gi:
+            scores = F.interpolate(scores, size=(self.grid_out, self.grid_out),
+                                   mode="bilinear", align_corners=False)
+        return scores.reshape(B, self.grid_out * self.grid_out)
+
+
 # ---- Dataset ----
 
 class TargetDataset(Dataset):
@@ -997,7 +1085,18 @@ def train(args):
     CLIPSEG_STD = (0.26862954, 0.26130258, 0.27577711)
 
     # Head
-    if args.grid_size_out == GRID:
+    if args.head_type == "cost_volume":
+        head = CostVolumeHead(
+            patch_dim=patch_dim, text_dim=512,
+            grid_in=GRID, grid_out=args.grid_size_out,
+            embed_dim=args.cv_embed_dim, n_heads=args.cv_n_heads,
+            n_layers=args.cv_n_layers,
+        ).to(device)
+        n_params = sum(p.numel() for p in head.parameters())
+        print(f"[head] CostVolumeHead grid_in={GRID} grid_out={args.grid_size_out} "
+              f"embed_dim={args.cv_embed_dim} n_heads={args.cv_n_heads} "
+              f"n_layers={args.cv_n_layers} | {n_params/1e6:.2f}M params", flush=True)
+    elif args.grid_size_out == GRID:
         head = TextScorerHead(
             patch_dim=patch_dim, text_dim=512,
             hidden_dim=args.head_hidden_dim, n_attn_heads=args.head_attn_heads,
@@ -1898,11 +1997,25 @@ if __name__ == "__main__":
                    help="fraction of positive samples per epoch (0=disable, use shuffle); default 0.7")
 
     # Head config
+    p.add_argument("--head_type", choices=["dot_product", "cost_volume"], default="dot_product",
+                   help="dot_product (default) = TextScorerHead/Grid28 with patch-text "
+                        "dot product + per-query MLP bias. cost_volume (phase35, "
+                        "CAT-Seg-style) = cosine similarity between patch and text emb "
+                        "→ small transformer over HW spatial tokens (per-query) → output. "
+                        "Targets the recipe-class ceiling at joint cal +27-29 by using "
+                        "spatial reasoning over the cost volume rather than per-cell "
+                        "independence.")
+    p.add_argument("--cv_embed_dim", type=int, default=256,
+                   help="CostVolumeHead transformer hidden dim. Default 256.")
+    p.add_argument("--cv_n_heads", type=int, default=8,
+                   help="CostVolumeHead transformer attention heads. Default 8.")
+    p.add_argument("--cv_n_layers", type=int, default=4,
+                   help="CostVolumeHead transformer encoder layers. Default 4 (CAT-Seg-style).")
     p.add_argument("--head_hidden_dim", type=int, default=384)
     p.add_argument("--head_attn_heads", type=int, default=6)
     p.add_argument("--head_attn_layers", type=int, default=2)
     p.add_argument("--head_use_spatial", action="store_true", default=True)
-    p.add_argument("--grid_size_out", type=int, default=14, choices=[14, 28],
+    p.add_argument("--grid_size_out", type=int, default=14, choices=[14, 28, 56],
                    help="Output spatial grid for the per-query dense head. "
                         "14 (default) preserves v0.5.0 behaviour. 28 activates "
                         "TextScorerHeadGrid28 — same parameters as TextScorerHead, "
