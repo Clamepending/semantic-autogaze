@@ -1158,7 +1158,18 @@ def train(args):
         # TextScorerHead trained at grid=14. The bilinear upsample at the
         # tail has zero learnable parameters, so this load_state_dict is
         # always strict-clean even when args.grid_size_out == 28.
-        head.load_state_dict(rk["head"])
+        # Phase35: cost_volume head has a different state_dict structure
+        # (cost_proj/transformer/out_proj keys vs TextScorerHead's
+        # patch_proj/self_attn_layers/cross_attn/score_mlp). When warm-starting
+        # cost_volume from a TextScorerHead ckpt, skip the head load (head stays
+        # randomly initialized) — the warm-start still benefits the per-query
+        # bias MLP (sb) and any backbone-state below.
+        if args.head_type == "cost_volume" and "patch_proj.0.weight" in rk["head"]:
+            print(f"[resume] skipping head load: --head_type cost_volume but "
+                  f"resume ckpt has TextScorerHead-style head; cost_volume head "
+                  f"starts fresh (sb + backbone state still load).", flush=True)
+        else:
+            head.load_state_dict(rk["head"])
         # If we're using SiglipBiasPerQuery but the resume ckpt was saved from
         # global-bias SiglipBias, the state_dict keys/shapes don't match
         # (old: "log_t", "bias"; new: "log_t", "bias_mlp.0.weight", ...).
