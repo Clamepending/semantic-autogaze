@@ -1,6 +1,10 @@
 exps/
 outputs/
-results/training_clips/
+results/
+data/
+hlvid_videos/
+.gradio/
+uv.lock
 *.pt
 *.safetensors
 .idea/

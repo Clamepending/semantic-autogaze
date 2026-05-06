@@ -7,7 +7,7 @@ name = "autogaze"
 version = "0.1.0"
 description = ""
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 
 dependencies = [
     "torch",
@@ -25,7 +25,9 @@ dependencies = [
     "matplotlib",
     "einops",
     "av",
-    "imageio"   
+    "imageio",
+    "pycocotools",
+    "opencv-python",
 ]
 
 [tool.uv.extra-build-dependencies]
