@@ -37,6 +37,7 @@ class TrainConfig:
     val_samples: int = 8
     log_every: int = 25
     val_every: int = 250
+    hidden_dim: int | None = None
     wandb_project: str = "semantic-autogaze"
     wandb_run_name: str | None = None
 
@@ -115,12 +116,20 @@ def dino_patch_features(dino_processor, dino_model, images: list[Image.Image], d
 
 
 class ClipTextToDinoAdapter(nn.Module):
-    def __init__(self, clip_dim: int, dino_dim: int):
+    def __init__(self, clip_dim: int, dino_dim: int, hidden_dim: int | None = None):
         super().__init__()
-        self.proj = nn.Sequential(
-            nn.LayerNorm(clip_dim),
-            nn.Linear(clip_dim, dino_dim),
-        )
+        if hidden_dim is None:
+            self.proj = nn.Sequential(
+                nn.LayerNorm(clip_dim),
+                nn.Linear(clip_dim, dino_dim),
+            )
+        else:
+            self.proj = nn.Sequential(
+                nn.LayerNorm(clip_dim),
+                nn.Linear(clip_dim, hidden_dim),
+                nn.GELU(),
+                nn.Linear(hidden_dim, dino_dim),
+            )
         self.logit_scale = nn.Parameter(torch.tensor(10.0))
 
     def forward(self, text_features: torch.Tensor, patch_features: torch.Tensor) -> torch.Tensor:
@@ -140,26 +149,29 @@ def render_examples(output_dir: Path, adapter, batch, dino_processor, dino_model
         probs = torch.sigmoid(logits).reshape(-1, grid_h, grid_w).cpu().numpy()
 
     for i, image in enumerate(images[:8]):
-        arr = np.array(image)
-        heat = cv2.resize(probs[i], image.size, interpolation=cv2.INTER_NEAREST)
-        target = cv2.resize(masks[i].numpy(), image.size, interpolation=cv2.INTER_AREA)
+        try:
+            arr = np.array(image)
+            heat = cv2.resize(probs[i], image.size, interpolation=cv2.INTER_NEAREST)
+            target = cv2.resize(masks[i].numpy(), image.size, interpolation=cv2.INTER_AREA)
 
-        fig, axes = plt.subplots(1, 3, figsize=(9, 3))
-        axes[0].imshow(arr)
-        axes[0].set_title(categories[i])
-        axes[1].imshow(arr, alpha=0.55)
-        axes[1].imshow(target, alpha=0.55, vmin=0, vmax=1, cmap="viridis")
-        axes[1].set_title("target")
-        axes[2].imshow(arr, alpha=0.55)
-        axes[2].imshow(heat, alpha=0.55, vmin=0, vmax=1, cmap="turbo")
-        axes[2].set_title("prediction")
-        for ax in axes:
-            ax.set_xticks([])
-            ax.set_yticks([])
-        fig.tight_layout()
-        safe_name = Path(names[i]).stem
-        fig.savefig(output_dir / f"{i:02d}_{safe_name}_{categories[i].replace(' ', '_')}.png", dpi=120)
-        plt.close(fig)
+            fig, axes = plt.subplots(1, 3, figsize=(9, 3))
+            axes[0].imshow(arr)
+            axes[0].set_title(categories[i])
+            axes[1].imshow(arr, alpha=0.55)
+            axes[1].imshow(target, alpha=0.55, vmin=0, vmax=1, cmap="viridis")
+            axes[1].set_title("target")
+            axes[2].imshow(arr, alpha=0.55)
+            axes[2].imshow(heat, alpha=0.55, vmin=0, vmax=1, cmap="turbo")
+            axes[2].set_title("prediction")
+            for ax in axes:
+                ax.set_xticks([])
+                ax.set_yticks([])
+            fig.tight_layout()
+            safe_name = Path(names[i]).stem
+            fig.savefig(output_dir / f"{i:02d}_{safe_name}_{categories[i].replace(' ', '_')}.png", dpi=120)
+            plt.close(fig)
+        except Exception:
+            plt.close("all")
 
 
 def train(config: TrainConfig):
@@ -202,7 +214,7 @@ def train(config: TrainConfig):
     text_features = clip_text_features(clip_processor, clip_model, texts, device)
     grid_h, grid_w = infer_grid(patch_features.shape[1])
 
-    adapter = ClipTextToDinoAdapter(text_features.shape[-1], patch_features.shape[-1]).to(device)
+    adapter = ClipTextToDinoAdapter(text_features.shape[-1], patch_features.shape[-1], hidden_dim=config.hidden_dim).to(device)
     optimizer = torch.optim.AdamW(adapter.parameters(), lr=config.lr, weight_decay=1e-4)
 
     val_loader = DataLoader(dataset, batch_size=config.val_samples, shuffle=True, num_workers=0, collate_fn=collate)
@@ -257,7 +269,10 @@ def train(config: TrainConfig):
                 adapter.train()
                 images_to_log = []
                 for img_path in sorted(examples_dir.glob("*.png"))[:8]:
-                    images_to_log.append(wandb.Image(str(img_path)))
+                    try:
+                        images_to_log.append(wandb.Image(str(img_path)))
+                    except Exception:
+                        pass
                 if images_to_log:
                     wandb.log({"val/examples": images_to_log}, step=step)
 
@@ -298,6 +313,7 @@ def main():
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--log-every", type=int, default=25)
     parser.add_argument("--val-every", type=int, default=250)
+    parser.add_argument("--hidden-dim", type=int, default=None)
     parser.add_argument("--wandb-project", default="semantic-autogaze")
     parser.add_argument("--wandb-run-name", default=None)
     args = parser.parse_args()

@@ -6,6 +6,7 @@ hlvid_videos/
 .gradio/
 uv.lock
 *.pt
+!models/*.pt
 *.safetensors
 .idea/
 __pycache__/
