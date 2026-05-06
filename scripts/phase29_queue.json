@@ -1,0 +1,227 @@
+{
+  "_comment": "Merged phase29+phase30 queue. Phase30 takes priority (added after phase29q won at +23).",
+  "experiments": [
+    {
+      "slug": "phase31a_atto_q_grid28_image280_15k",
+      "priority": 7,
+      "rationale": "Phase29q recipe + grid28 + image_size=280 (divisible by 14). Targets the small-object regression observed in phase29q qual (robotic arm 0.59->0.30, cables 0.68->0.56). Higher input + finer student grid should preserve small-object detail that the 14x14 max-pool of CLIPSeg's 352x352 destroyed.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 15000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --grid_size_out 28 --image_size 280 --output_dir results/phase31a_atto_q_grid28_image280_15k"
+    },
+    {
+      "slug": "phase31b_atto_q_image336_grid28_15k",
+      "priority": 8,
+      "rationale": "Even higher resolution: image_size=336 + grid28 (336/14=24). Phase29q recipe.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 12 --max_steps 15000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --grid_size_out 28 --image_size 336 --output_dir results/phase31b_atto_q_image336_grid28_15k"
+    },
+    {
+      "slug": "phase29n_dinov2l_clipseg_lambda1_15k",
+      "priority": 10,
+      "rationale": "GOAL-CHANGE move: train an UNCONSTRAINED teacher (DINOv2-large student) with CLIPSeg distill. The user wants a great open-vocab heatmap generator first, distill later. DINOv2-l is the largest pretrained backbone we have ergonomically. Warm-start NOT possible (no DINOv2-l ckpt on disk).",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model dinov2-large --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 8 --max_steps 15000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase29n_dinov2l_clipseg_lambda1_15k"
+    },
+    {
+      "slug": "phase29o_atto_lambda1_grid28_15k",
+      "priority": 20,
+      "rationale": "Combine bench-winning lambda (1.0 from cycle 1) with the grid28 idea, longer (15K). phase29b was lambda=1 grid28 10K and got +19. Same recipe at 15K may surpass cycle 1's +20 on bench.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 15000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --distill_teacher_ckpt /tmp/phase13_dinov2s_long_bestval_snapshot.pt --lambda_distill 0.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --grid_size_out 28 --output_dir results/phase29o_atto_lambda1_grid28_15k"
+    },
+    {
+      "slug": "phase29q_atto_lambda1_no_existing_distill_10k",
+      "priority": 30,
+      "rationale": "Test if dual teachers (DINOv2-s feat distill at lambda=0.5 + CLIPSeg heatmap distill at lambda=1.0) confuse the model. Dropping lambda_distill=0 leaves CLIPSeg as sole teacher.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase29q_atto_lambda1_no_existing_distill_10k"
+    },
+    {
+      "slug": "phase29r_convnext_base_lambda1_15k",
+      "priority": 40,
+      "rationale": "Mid-size unconstrained: ConvNeXt-base + CLIPSeg distill. Tests whether 88M params (vs atto's 3.7M) significantly improves open-vocab generalization while staying RTX-trainable.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-base --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 8 --max_steps 15000 --epochs 200 --lr 3e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase29r_convnext_base_lambda1_15k"
+    },
+    {
+      "slug": "phase29p_atto_lambda1_image448_grid28_10k",
+      "priority": 50,
+      "rationale": "Push spatial resolution: image_size=448 (32x14 = divisible by DINOv2 patch size) + grid28. Tests if 32x32 internal grid with finer input rescues the wooden-desk failure.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 8 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --distill_teacher_ckpt /tmp/phase13_dinov2s_long_bestval_snapshot.pt --lambda_distill 0.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --grid_size_out 28 --image_size 448 --output_dir results/phase29p_atto_lambda1_image448_grid28_10k"
+    },
+    {
+      "slug": "phase29s_dinov2s_lambda1_long_15k",
+      "priority": 60,
+      "rationale": "Replicate phase29l recipe (DINOv2-s + CLIPSeg distill lambda=1) but 15K steps to give it more room beyond phase29l's 10K.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model dinov2-s --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 15000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase25_dinov2s_recipe_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase29s_dinov2s_lambda1_long_15k"
+    },
+    {
+      "slug": "phase29t_atto_lambda08_10k",
+      "priority": 200,
+      "rationale": "Finer lambda gradient: lambda=0.8 between cycle1's 1.0 and the failing 2.0. If cycle1 is the winner, 0.8 should be very close. Helps confirm lambda=1 sweet spot stability.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --distill_teacher_ckpt /tmp/phase13_dinov2s_long_bestval_snapshot.pt --lambda_distill 0.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 0.8 --output_dir results/phase29t_atto_lambda08_10k"
+    },
+    {
+      "slug": "phase29u_atto_lambda03_10k",
+      "priority": 200,
+      "rationale": "Lower lambda gradient: lambda=0.3. Combined with phase29i (lambda=0.5) gives us 5 lambda points (0.3, 0.5, 1.0, 2.0, 4.0).",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --distill_teacher_ckpt /tmp/phase13_dinov2s_long_bestval_snapshot.pt --lambda_distill 0.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 0.3 --output_dir results/phase29u_atto_lambda03_10k"
+    },
+    {
+      "slug": "phase29v_atto_lambda1_image336_grid28_10k",
+      "priority": 90,
+      "rationale": "Mid-resolution alternative to phase29p: image_size=336 + grid28. 336/14=24 (divisible). Less expensive than 448 but still significantly higher resolution than 224.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 12 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --distill_teacher_ckpt /tmp/phase13_dinov2s_long_bestval_snapshot.pt --lambda_distill 0.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --grid_size_out 28 --image_size 336 --output_dir results/phase29v_atto_lambda1_image336_grid28_10k"
+    },
+    {
+      "slug": "phase30a_atto_q_seed1_10k",
+      "priority": 5,
+      "rationale": "Replicate phase29q with seed=1 (n=2 of 3) for noise floor \u2014 required for proper leaderboard admission. Same recipe as phase29q.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --seed 1 --output_dir results/phase30a_atto_q_seed1_10k"
+    },
+    {
+      "slug": "phase30b_atto_q_seed2_10k",
+      "priority": 6,
+      "rationale": "Replicate phase29q with seed=2 (n=3 of 3) for noise floor. Three-seed mean+std for the leader.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --seed 2 --output_dir results/phase30b_atto_q_seed2_10k"
+    },
+    {
+      "slug": "phase30c_atto_q_lambda05_10k",
+      "priority": 200,
+      "rationale": "Phase29q recipe + lambda_clipseg=0.5 \u2014 does even less CLIPSeg signal preserve more abstention while keeping TP gains?",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 0.5 --output_dir results/phase30c_atto_q_lambda05_10k"
+    },
+    {
+      "slug": "phase30d_atto_q_lambda15_10k",
+      "priority": 200,
+      "rationale": "Phase29q recipe + lambda_clipseg=1.5 \u2014 finer gradient between 1.0 (winner) and 2.0 (collapse with feat-distill); without the existing teacher distill, the collapse threshold may be different.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.5 --output_dir results/phase30d_atto_q_lambda15_10k"
+    },
+    {
+      "slug": "phase30e_atto_q_grid28_15k",
+      "priority": 15,
+      "rationale": "Phase29q recipe + grid28. Tests whether finer student grid resolution helps once the dual-teacher confound is gone.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 15000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --grid_size_out 28 --output_dir results/phase30e_atto_q_grid28_15k"
+    },
+    {
+      "slug": "phase30f_atto_q_image280_10k",
+      "priority": 18,
+      "rationale": "Phase29q recipe + image_size=280 (divisible by 14). Tests whether higher input resolution rescues fine-grained concepts (blue carpet falsifier) once dual-teacher confound is gone.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --image_size 280 --output_dir results/phase30f_atto_q_image280_10k"
+    },
+    {
+      "slug": "phase30g_atto_q_long_25k",
+      "priority": 22,
+      "rationale": "Phase29q recipe at 25K steps (vs 10K). The cleaner supervision (no feat-distill confound) may benefit more from longer training. Watches for saturation/overfitting on absent classes.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 25000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase30g_atto_q_long_25k"
+    },
+    {
+      "slug": "phase30h_dinov2l_q_lr1e4_25k",
+      "priority": 5,
+      "rationale": "DINOv2-large rerun: same phase29q recipe (no feat-distill) + LR=1e-4 (vs 5e-4) + 25K steps + batch_size=8 to avoid the undertrained-large-model collapse. Tests whether the 'unconstrained champion' path needs proper LR tuning.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model dinov2-large --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 8 --max_steps 25000 --epochs 200 --lr 1e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2500 --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase30h_dinov2l_q_lr1e4_25k"
+    },
+    {
+      "slug": "phase30i_convnext_base_q_lr1e4_25k",
+      "priority": 10,
+      "rationale": "ConvNeXt-base rerun with proper LR + longer training. Same logic as 30h.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-base --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 8 --max_steps 25000 --epochs 200 --lr 1e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2500 --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase30i_convnext_base_q_lr1e4_25k"
+    },
+    {
+      "slug": "phase30j_convnext_large_q_lr1e4_25k",
+      "priority": 15,
+      "rationale": "ConvNeXt-large rerun with proper LR + longer training. The 'shrink later' candidate.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-large --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 4 --max_steps 25000 --epochs 200 --lr 1e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2500 --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase30j_convnext_large_q_lr1e4_25k"
+    },
+    {
+      "slug": "phase31c_atto_q_long_25k",
+      "priority": 11,
+      "rationale": "Phase29q recipe + 25K steps (vs base 10K). Question: does longer training help atto break the +23 ceiling on bench?",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 25000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2500 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase31c_atto_q_long_25k"
+    },
+    {
+      "slug": "phase31d_convnext_tiny_q_lr2e4_15k",
+      "priority": 13,
+      "rationale": "Mid-size sweet-spot: ConvNeXt-tiny (29M params, between atto's 3.7M and convnext-base's 88M). Tests intermediate scale point with proper LR.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-tiny --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 15000 --epochs 200 --lr 2e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase31d_convnext_tiny_q_lr2e4_15k"
+    },
+    {
+      "slug": "phase31e_dinov2s_q_lr1e4_25k",
+      "priority": 14,
+      "rationale": "DINOv2-s + phase29q recipe + LR=1e-4 + 25K. Phase29s used LR=5e-4 at 15K and got +18; this tests proper-LR + longer for the strong-feature backbone.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model dinov2-s --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 25000 --epochs 200 --lr 1e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2500 --resume_from results/phase25_dinov2s_recipe_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase31e_dinov2s_q_lr1e4_25k"
+    },
+    {
+      "slug": "phase31f_atto_q_no_multiprompt_10k",
+      "priority": 16,
+      "rationale": "Phase29q recipe BUT no multi-prompt training. Tests whether multi-prompt helps or hurts in the no-feat-distill regime. We've assumed it helps but never controlled.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase31f_atto_q_no_multiprompt_10k"
+    },
+    {
+      "slug": "phase31g_atto_q_no_aggressive_aug_10k",
+      "priority": 17,
+      "rationale": "Phase29q recipe BUT no aggressive geometric augmentation (only h-flip + color jitter). Tests whether the geometric aug is what's giving us robustness or hurting open-vocab generalization.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase31g_atto_q_no_aggressive_aug_10k"
+    },
+    {
+      "slug": "phase31h_atto_q_batch32_10k",
+      "priority": 19,
+      "rationale": "Phase29q recipe + batch_size=32 (vs 16). Tests whether larger batch reduces noise/improves convergence for the no-feat-distill recipe.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 32 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase31h_atto_q_batch32_10k"
+    },
+    {
+      "slug": "phase31i_atto_q_seed3_10k",
+      "priority": 21,
+      "rationale": "Phase29q recipe + seed=3 \u2014 adds a 4th data point to the noise estimate (have 1, 2, 42 already; seed=3 is independent).",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --seed 3 --output_dir results/phase31i_atto_q_seed3_10k"
+    },
+    {
+      "slug": "phase31j_atto_q_clipseg_only_10k",
+      "priority": 23,
+      "rationale": "ABLATION: phase29q recipe BUT remove the on-diagonal BCE supervision entirely (lambda_dense=0?) \u2014 see if CLIPSeg alone produces a usable model. Tests how much of phase29q comes from CLIPSeg vs from the base supervision. (Note: trainer doesn't have lambda_dense flag; use --lambda_pool 0 instead to remove pooled BCE \u2014 partial ablation.)",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --lambda_pool 0 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase31j_atto_q_clipseg_only_10k"
+    },
+    {
+      "slug": "phase31k_atto_q_lambda_clipseg08_10k",
+      "priority": 24,
+      "rationale": "Finer lambda gradient: 0.8 between 0.5 and 1.0. Combined with our 0.3, 0.5, 1.0, 1.5, 2.0 points gives a complete lambda landscape for the no-feat-distill recipe.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 0.8 --output_dir results/phase31k_atto_q_lambda_clipseg08_10k"
+    },
+    {
+      "slug": "phase31l_atto_q_high_pos_weight_10k",
+      "priority": 25,
+      "rationale": "Phase29q recipe + bce_pos_weight=50 (up from 30). Tests whether the per-cell BCE positive weighting is the correct balance for absent-class abstention. Lower bce_pos_weight = less pressure to fire on positives.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 10000 --epochs 200 --lr 5e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 50 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --resume_from results/phase24d_atto_mpp05_aggrAug_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase31l_atto_q_high_pos_weight_10k"
+    },
+    {
+      "slug": "phase32a_convnext_tiny_q_seed1_15k",
+      "priority": 11,
+      "rationale": "phase31d (convnext-tiny +22) seed=1 replication. Tests whether 23/23 TP + 4/6 FP is real or seed-luck.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-tiny --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 15000 --epochs 200 --lr 2e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --clipseg_distill --lambda_clipseg 1.0 --seed 1 --output_dir results/phase32a_convnext_tiny_q_seed1_15k"
+    },
+    {
+      "slug": "phase32b_convnext_tiny_q_seed2_15k",
+      "priority": 12,
+      "rationale": "phase31d seed=2 \u2014 gives n=3 replication for the convnext-tiny score.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-tiny --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 15000 --epochs 200 --lr 2e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2000 --clipseg_distill --lambda_clipseg 1.0 --seed 2 --output_dir results/phase32b_convnext_tiny_q_seed2_15k"
+    },
+    {
+      "slug": "phase32c_convnext_large_q_lr1e4_50k",
+      "priority": 14,
+      "rationale": "phase30j (convnext-large +18, 1/6 FP) at 50K steps (vs 25K). Hypothesis: it was undertrained \u2014 the rare-fire 1/6 FP shows it's learning calibration well, just needs more steps. If 50K pushes it past +20 with 1-2/6 FP, we have a NEW abstention champion.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-large --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 4 --max_steps 50000 --epochs 200 --lr 1e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 5000 --resume_from results/phase30j_convnext_large_q_lr1e4_25k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase32c_convnext_large_q_lr1e4_50k"
+    },
+    {
+      "slug": "phase32d_dinov2l_q_lr1e4_50k",
+      "priority": 15,
+      "rationale": "phase30h (DINOv2-l +18, 1/6 FP) extended to 50K steps (resume from phase30h's 25K). Same hypothesis as 32c: large backbones still learning at 25K.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model dinov2-large --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 8 --max_steps 50000 --epochs 200 --lr 1e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 5000 --resume_from results/phase30h_dinov2l_q_lr1e4_25k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase32d_dinov2l_q_lr1e4_50k"
+    },
+    {
+      "slug": "phase32e_atto_q_warmstart_phase29q_25k",
+      "priority": 18,
+      "rationale": "Continue training phase29q from its own checkpoint for 25K MORE steps (35K total). Tests whether the +23 leader can self-improve with extended training (vs being warm-started from phase24d).",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-atto --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 25000 --epochs 200 --lr 2e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 2500 --resume_from results/phase29q_atto_lambda1_no_existing_distill_10k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase32e_atto_q_warmstart_phase29q_25k"
+    },
+    {
+      "slug": "phase32f_convnext_tiny_q_long_30k",
+      "priority": 20,
+      "rationale": "phase31d (convnext-tiny +22) at 30K steps to see if longer training breaks past +22 ceiling for this size.",
+      "command": "/home/ogata/miniconda3/envs/hunter/bin/python -m scripts.train_siglip_dense_distill --model convnext-tiny --target_dir results/clean_targets_unified_AB --image_dir data/clean_images --batch_size 16 --max_steps 30000 --epochs 200 --lr 2e-4 --bias_init -2.0 --balanced_pos_frac 0.6 --bce_pos_weight 30 --fn_filter --per_query_bias --augment --augment_aggressive --multi_prompt_training --multi_prompt_p 0.5 --source_weights pp:5,stuff:1.5,lvis:1,coco:1,ade20k:1.5 --val_split_frac 0.05 --val_eval_every 3000 --resume_from results/phase31d_convnext_tiny_q_lr2e4_15k/best_val.pt --clipseg_distill --lambda_clipseg 1.0 --output_dir results/phase32f_convnext_tiny_q_long_30k"
+    }
+  ]
+}
