@@ -1,0 +1,53 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[setup] OWL-ViT detection model: google/owlvit-base-patch32
+[setup] OWL-ViT size=768 mean=[0.48145467042922974, 0.45782750844955444, 0.40821072459220886] std=[0.2686295509338379, 0.2613025903701782, 0.27577710151672363]
+[setup] OWL-ViT patch grid: 24x24=576 -> resample to 14x14=196
+[setup] SemanticAutoGazeWrapper (for AutoGaze ref + scores_to_gazing_info)...
+[setup] NVILA SigLIP-2 (multiscale) for downstream feature pool...
+[data] queries: ['a person', 'a face', 'an animal', 'a vehicle', 'a building', 'the sky', 'water', 'food']
+[data] 50 videos × 8 queries = 400 measurements
+  [1/50] 0Pv1zA8r9DE_000002_000012.mp4
+  [5/50] -05qSkAhM6Y_000205_000215.mp4
+  [10/50] -g1KcIki0ww_000004_000014.mp4
+  [15/50] 06A7IVDdaXo_000091_000101.mp4
+  [20/50] -GtH2Ue_7tw_000071_000081.mp4
+  [25/50] -u5A74I0--M_000012_000022.mp4
+  [30/50] 0Or4d0SDLLo_000009_000019.mp4
+  [35/50] 0vMCq_b2nFo_000019_000029.mp4
+  [40/50] -W04ILeepgw_000000_000010.mp4
+  [45/50] -b6DTetUS9E_000034_000044.mp4
+  [50/50] -2hpTtCgbEU_000009_000019.mp4
+
+==============================================================================
+OWL-ViT FIDELITY  n_videos=50  queries=8  keep_ratio=0.2
+==============================================================================
+
+config           cos_sim mean  cos_sim std      n
+--------------------------------------------------
+auto_at_K              0.8956       0.1114    400
+owlvit_match           0.8350       0.0971    400
+owlvit_shuf            0.8360       0.0968    400
+owlvit_rand            0.8306       0.0907    400
+
+pair                              mean delta       std      n       z
+----------------------------------------------------------------------
+owlvit_match - owlvit_shuf           -0.0010    0.0567    400  z=-0.34
+owlvit_match - owlvit_rand           +0.0044    0.0561    400  z=1.57
+owlvit_shuf  - owlvit_rand           +0.0054    0.0576    400  z=1.86
+auto_at_K    - owlvit_match          +0.0606    0.1896    400  z=6.39
+
+Per-query (owlvit_match - owlvit_shuf):
+  a person        match=0.8268  shuf=0.8371  rand=0.8304  m-s=-0.0103  m-r=-0.0036
+  a face          match=0.8287  shuf=0.8320  rand=0.8294  m-s=-0.0033  m-r=-0.0007
+  an animal       match=0.8265  shuf=0.8356  rand=0.8302  m-s=-0.0091  m-r=-0.0037
+  a vehicle       match=0.8357  shuf=0.8375  rand=0.8383  m-s=-0.0018  m-r=-0.0026
+  a building      match=0.8287  shuf=0.8381  rand=0.8239  m-s=-0.0094  m-r=+0.0048
+  the sky         match=0.8444  shuf=0.8331  rand=0.8275  m-s=+0.0112  m-r=+0.0169
+  water           match=0.8470  shuf=0.8362  rand=0.8342  m-s=+0.0108  m-r=+0.0128
+  food            match=0.8423  shuf=0.8381  rand=0.8310  m-s=+0.0042  m-r=+0.0113
+
+Latency:
+  owlvit_visual_extract         108.82 ± 42.45 ms  (n=50)
+  owlvit_score                    0.84 ±  0.98 ms  (n=400)
+
+[saved] results/owlvit_patch_scoring/summary.json

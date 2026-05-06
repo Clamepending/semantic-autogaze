@@ -1,0 +1,53 @@
+/home/ogata/.local/lib/python3.12/site-packages/open_clip/factory.py:450: UserWarning: QuickGELU mismatch between final model config (quick_gelu=False) and pretrained tag 'openai' (quick_gelu=True).
+  warnings.warn(
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[setup] CLIP ViT-B/16 (visual + text)...
+[setup] SemanticAutoGazeWrapper (only used for AutoGaze + scores_to_gazing_info)...
+[setup] SigLIP-2 base patch16-224...
+[data] queries: ['a person', 'a face', 'an animal', 'a vehicle', 'a building', 'the sky', 'water', 'food']
+[data] 50 videos × 8 queries = 400 measurements
+  [1/50] 0Pv1zA8r9DE_000002_000012.mp4
+  [5/50] -05qSkAhM6Y_000205_000215.mp4
+  [10/50] -g1KcIki0ww_000004_000014.mp4
+  [15/50] 06A7IVDdaXo_000091_000101.mp4
+  [20/50] -GtH2Ue_7tw_000071_000081.mp4
+  [25/50] -u5A74I0--M_000012_000022.mp4
+  [30/50] 0Or4d0SDLLo_000009_000019.mp4
+  [35/50] 0vMCq_b2nFo_000019_000029.mp4
+  [40/50] -W04ILeepgw_000000_000010.mp4
+  [45/50] -b6DTetUS9E_000034_000044.mp4
+  [50/50] -2hpTtCgbEU_000009_000019.mp4
+
+==============================================================================
+RAW-CLIP FIDELITY  n_videos=50  queries=8  keep_ratio=0.2
+==============================================================================
+
+config           cos_sim mean  cos_sim std      n
+--------------------------------------------------
+auto_at_K              0.8956       0.1114    400
+rawclip_match          0.8274       0.1022    400
+rawclip_shuf           0.8302       0.1011    400
+rawclip_rand           0.8323       0.0893    400
+
+pair                              mean delta       std      n       z
+----------------------------------------------------------------------
+rawclip_match - rawclip_shuf         -0.0028    0.0443    400  z=-1.25
+rawclip_match - rawclip_rand         -0.0049    0.0668    400  z=-1.47
+rawclip_shuf  - rawclip_rand         -0.0021    0.0674    400  z=-0.64
+auto_at_K     - rawclip_match        +0.0682    0.1916    400  z=7.12
+
+Per-query (rawclip_match - rawclip_shuf):
+  a person        match=0.8297  shuf=0.8317  rand=0.8266  m-s=-0.0020  m-r=+0.0031
+  a face          match=0.8322  shuf=0.8315  rand=0.8320  m-s=+0.0007  m-r=+0.0002
+  an animal       match=0.8269  shuf=0.8310  rand=0.8382  m-s=-0.0041  m-r=-0.0113
+  a vehicle       match=0.8207  shuf=0.8309  rand=0.8398  m-s=-0.0102  m-r=-0.0191
+  a building      match=0.8232  shuf=0.8349  rand=0.8389  m-s=-0.0117  m-r=-0.0157
+  the sky         match=0.8242  shuf=0.8291  rand=0.8184  m-s=-0.0050  m-r=+0.0057
+  water           match=0.8304  shuf=0.8245  rand=0.8316  m-s=+0.0060  m-r=-0.0012
+  food            match=0.8322  shuf=0.8279  rand=0.8333  m-s=+0.0042  m-r=-0.0011
+
+Latency:
+  clip_visual_extract            77.33 ± 11.65 ms  (n=50)
+  clip_score                      0.89 ±  1.09 ms  (n=400)
+
+[saved] results/raw_clip_scoring_baseline/summary.json

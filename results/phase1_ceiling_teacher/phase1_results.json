@@ -1,0 +1,82 @@
+{
+  "per_image": {
+    "bird": {
+      "query": "bird",
+      "img_id": 337987,
+      "iou_ours_v1": 0.90625,
+      "iou_clipseg": 0.90625,
+      "iou_gsam_full": 0.9719910895629955,
+      "iou_gsam14": 0.967741935483871,
+      "gsam_n_boxes": 1
+    },
+    "person": {
+      "query": "people",
+      "img_id": 32861,
+      "iou_ours_v1": 0.7297297297297297,
+      "iou_clipseg": 0.9104477611940298,
+      "iou_gsam_full": 0.9624737171564772,
+      "iou_gsam14": 0.9692307692307692,
+      "gsam_n_boxes": 1
+    },
+    "bicycle": {
+      "query": "bicycle",
+      "img_id": 370208,
+      "iou_ours_v1": 0.9024390243902439,
+      "iou_clipseg": 0.95,
+      "iou_gsam_full": 0.7815428156193828,
+      "iou_gsam14": 0.9259259259259259,
+      "gsam_n_boxes": 1
+    },
+    "tv": {
+      "query": "screen",
+      "img_id": 346638,
+      "iou_ours_v1": 0.6764705882352942,
+      "iou_clipseg": 0.5405405405405406,
+      "iou_gsam_full": 0.9530814493651285,
+      "iou_gsam14": 0.9655172413793104,
+      "gsam_n_boxes": 1
+    },
+    "cat": {
+      "query": "cat",
+      "img_id": 223747,
+      "iou_ours_v1": 0.7230769230769231,
+      "iou_clipseg": 0.6231884057971014,
+      "iou_gsam_full": 0.2313571729905452,
+      "iou_gsam14": 0.20430107526881722,
+      "gsam_n_boxes": 1
+    },
+    "dog": {
+      "query": "dog",
+      "img_id": 267300,
+      "iou_ours_v1": 0.7183098591549296,
+      "iou_clipseg": 0.7681159420289855,
+      "iou_gsam_full": 0.6306461491348951,
+      "iou_gsam14": 0.5741935483870968,
+      "gsam_n_boxes": 1
+    },
+    "car": {
+      "query": "car",
+      "img_id": 151962,
+      "iou_ours_v1": 0.7543859649122807,
+      "iou_clipseg": 0.6949152542372882,
+      "iou_gsam_full": 0.31949403294210477,
+      "iou_gsam14": 0.36054421768707484,
+      "gsam_n_boxes": 1
+    },
+    "pizza": {
+      "query": "pizza",
+      "img_id": 232489,
+      "iou_ours_v1": 0.875968992248062,
+      "iou_clipseg": 0.936,
+      "iou_gsam_full": 0.0014983156518678666,
+      "iou_gsam14": 0.31521739130434784,
+      "gsam_n_boxes": 1
+    }
+  },
+  "miou": {
+    "ours_v1": 0.785828885218433,
+    "clipseg": 0.7911822379747432,
+    "grounded_sam_full": 0.6065105928029246,
+    "grounded_sam_14x14": 0.6603340130834017
+  }
+}

@@ -12,12 +12,25 @@
 
 set -euo pipefail
 
-MODEL="${MODEL:-phase19-atto}"
+MODEL="${MODEL:-phase24d-atto}"
 QUERY="${QUERY:-hand,coffee cup,laptop,face}"
 PORT="${PORT:-8000}"
 VENV="${VENV:-$HOME/.venv-pi-demo}"
 WORKDIR="${WORKDIR:-$HOME/semantic-autogaze-pi-demo}"
 case "$MODEL" in
+  phase24d-atto)
+    # v0.7.0: ConvNeXt-atto with per-query SigLIP bias (MLP form, same as
+    # v0.6.0) + multi-prompt training (p=0.5, ECO/LMSeg-style training-time
+    # prompt-template ensembling) + aggressive geometric aug. Identical
+    # Pi 5 latency to v0.6.0 (~37 ms/frame, ~27 fps). Openvocab composite
+    # +22 vs v0.6.0's +17 on the user's street validation panels (rank 1
+    # of 29 ckpts evaluated 2026-05-01; OPENVOCAB_REFLECTION.md).
+    # Indoor close-up + Pi-on-chest down-view scenes still have the
+    # horizon-band prior (deployment-relevant indoor failure mode is
+    # backbone-bound, fixed by phase25 DINOv2-s at 4-5x latency cost).
+    RELEASE_TAG="v0.7.0-phase24d-pi-demo"
+    CKPT="phase24d_convnext_atto_mpp05_aggrAug_best_v070.pt"
+    ;;
   phase19-atto)
     # v0.6.0: ConvNeXt-atto with per-query SigLIP bias (DAC-style). +0.13
     # mean failure-cat IoU lift over v0.5.0; net 50-img mIoU 0.694 vs 0.681.
@@ -40,7 +53,7 @@ case "$MODEL" in
     RELEASE_TAG="v0.4.0-phase10-pi-demo"
     CKPT="phase10_convnext_pico_best_val.pt"
     ;;
-  *) echo "Unknown MODEL=$MODEL (expected phase19-atto|phase15-atto|phase10-atto|phase10-femto|phase10-pico)"; exit 1 ;;
+  *) echo "Unknown MODEL=$MODEL (expected phase24d-atto|phase19-atto|phase15-atto|phase10-atto|phase10-femto|phase10-pico)"; exit 1 ;;
 esac
 
 echo "[pi_setup] model=$MODEL ckpt=$CKPT port=$PORT venv=$VENV"
